@@ -1,0 +1,9 @@
+[submodule "modules/stool"]
+	path = modules/stool
+	url = git@github.com:TNishimoto/stool.git
+[submodule "modules/b_tree_plus_alpha"]
+	path = modules/b_tree_plus_alpha
+	url = git@github.com:TNishimoto/b_tree_plus_alpha.git
+[submodule "modules/libdivsufsort"]
+	path = modules/libdivsufsort
+	url = git@github.com:TNishimoto/libdivsufsort.git
