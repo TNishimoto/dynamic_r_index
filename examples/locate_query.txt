@@ -1,0 +1,3 @@
+LOCATE!	ABA
+LOCATE!	aaaa
+LOCATE!	BBB

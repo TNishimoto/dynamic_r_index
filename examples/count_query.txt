@@ -1,0 +1,3 @@
+COUNT	ABA
+COUNT	aaaa
+COUNT	BBB
