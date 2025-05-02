@@ -8,7 +8,7 @@
 // #include "include/debug/debug.hpp"
 #include "stool/include/stool.hpp"
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
-#include "../test/dynamic_r_index_test.hpp"
+#include "include/dynamic_r_index_test.hpp"
 //
 
 #include <filesystem>

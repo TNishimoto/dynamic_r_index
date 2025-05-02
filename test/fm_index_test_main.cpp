@@ -10,8 +10,8 @@
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
 
 //#include "../include/old_implementations/btree_include.hpp"
-#include "../test/dynamic_fm_index_test.hpp"
-#include "../test/dynamic_r_index_test.hpp"
+#include "include/dynamic_fm_index_test.hpp"
+#include "include/dynamic_r_index_test.hpp"
 //
 
 #include <filesystem>

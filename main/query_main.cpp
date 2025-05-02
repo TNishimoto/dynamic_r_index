@@ -6,7 +6,7 @@
 #include <chrono>
 #include <filesystem>
 #include "stool/include/stool.hpp"
-#include "../include/drfmi.hpp"
+#include "../include/dynamic_r_index.hpp"
 #include "libdivsufsort/sa.hpp"
 
 enum class VecType

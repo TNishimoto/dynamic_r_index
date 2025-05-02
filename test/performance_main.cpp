@@ -6,9 +6,9 @@
 #include <chrono>
 #include <filesystem>
 #include "stool/include/stool.hpp"
-#include "../include/drfmi.hpp"
-#include "../test/fm_index_performance_test.hpp"
-#include "../test/r_index_performance_test.hpp"
+#include "../include/dynamic_r_index.hpp"
+#include "include/fm_index_performance_test.hpp"
+#include "include/r_index_performance_test.hpp"
 
 #include "libdivsufsort/sa.hpp"
 

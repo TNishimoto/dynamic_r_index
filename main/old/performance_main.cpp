@@ -8,7 +8,7 @@
 // #include "include/debug/debug.hpp"
 #include "stool/include/stool.hpp"
 #include "../include/old_implementations/btree_include.hpp"
-#include "../include/drfmi.hpp"
+#include "../include/dynamic_r_index.hpp"
 #include "../include/dynamic_fm_index/packed_spsi_wrapper.hpp"
 
 

@@ -5,7 +5,7 @@
 #include <stack>
 #include <unordered_map>
 #include "./naive_dynamic_string.hpp"
-#include "../include/dynamic_fm_index/dynamic_fm_index.hpp"
+#include "../../include/dynamic_r_index.hpp"
 #include "stool/include/stool.hpp"
 namespace stool
 {
