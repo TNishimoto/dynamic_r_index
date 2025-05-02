@@ -25,8 +25,6 @@ else()
   add_compile_definitions(DEBUG_BUILD)
 endif()
 
-
-
 # Set PROJECT_IS_TOP_LEVEL to ON if if this is the top level project (not
 # if this is included as a subproject of something else). Note that this is
 # handled automatically for CMake >= 3.21.
@@ -40,14 +38,19 @@ if (CMAKE_VERSION VERSION_LESS 3.21)
     endif()
 endif ()
 
+#SDSL lib and include directory path
+find_library(SDSL_LIBRARY_DIR sdsl REQUIRED)
+find_path(SDSL_INCLUDE_DIR sdsl REQUIRED)
+LINK_DIRECTORIES(${SDSL_LIBRARY_DIR})
+include_directories(${SDSL_INCLUDE_DIR})
+
 
 INCLUDE_DIRECTORIES(modules)
 #INCLUDE_DIRECTORIES(modules/libdivsufsort/include)
 #INCLUDE_DIRECTORIES(modules/simple_btree/include)
 
-
-LINK_DIRECTORIES(~/lib)
-include_directories(~/include)
+#LINK_DIRECTORIES(~/lib)
+#include_directories(~/include)
 
 #
 

@@ -1,13 +1,13 @@
 # Dynamic r-index
+
 The dynamic r-index is a dynamic version of r-index (https://github.com/nicolaprezza/r-index). 
 The size of the dynamic r-index is $O(r)$ words for the r runs in the BWT of a given string $T$. 
 It supports count and locate queries in $O(m \log n)$ and $O((m+occ) \log n)$ for a given pattern of length $m$, 
 where $n$ is the length of $T$, and $occ$ is the number of occurrences of the given pattern in $T$. 
 In addition, we can insert a substring of length $m$ into $T$ at arbitrary positoin or delete a substring of length $m$ from $T$ in $O((m+L_{avg}) \log n)$ time in the average-case, where $L_{avg}$ is the average of the values in the LCP array of $T$.
 
-
-
 # download
+
 The source codes in 'module' directory are maintained in different repositories. 
 So, to download all the necessary source codes, do the following:
 
@@ -16,12 +16,13 @@ So, to download all the necessary source codes, do the following:
 > git submodule init  
 > git submodule update  
 
-
 # compile
+
+This program uses the [SDSL library](https://github.com/simongog/sdsl-lite). Assuming that the library and header files are installed in the ~/lib and ~/include directories, respectively, the source code of this repository can be compiled using the following commands:
 
 > mkdir build  
 > cd build  
-> cmake -DCMAKE_BUILD_TYPE=Release ..  
+> cmake .. -DCMAKE_BUILD_TYPE=Release -DSDSL_LIBRARY_DIR=~/lib -DSDSL_INCLUDE_DIR=~/include  
 > make  
 
 
