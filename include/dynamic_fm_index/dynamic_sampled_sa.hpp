@@ -13,9 +13,9 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class DynamicSampledSA
         {
-            stool::permutation::DynamicPermutation dp;
-            stool::sequence::DynamicBitSequence sample_marks_on_text;
-            stool::sequence::DynamicBitSequence sample_marks_on_sa;
+            stool::bptree::DynamicPermutation dp;
+            stool::bptree::DynamicBitSequence sample_marks_on_text;
+            stool::bptree::DynamicBitSequence sample_marks_on_sa;
             uint64_t sampling_interval = 32;
             DynamicBWT *bwt = nullptr;
 
@@ -103,16 +103,16 @@ namespace stool
 
             static void save(DynamicSampledSA &item, std::ofstream &os)
             {
-                stool::permutation::DynamicPermutation::save(item.dp, os);
-                stool::sequence::DynamicBitSequence::save(item.sample_marks_on_text, os);
-                stool::sequence::DynamicBitSequence::save(item.sample_marks_on_sa, os);
+                stool::bptree::DynamicPermutation::save(item.dp, os);
+                stool::bptree::DynamicBitSequence::save(item.sample_marks_on_text, os);
+                stool::bptree::DynamicBitSequence::save(item.sample_marks_on_sa, os);
                 os.write(reinterpret_cast<const char *>(&item.sampling_interval), sizeof(item.sampling_interval));
             }
             static DynamicSampledSA build_from_data(std::ifstream &ifs, DynamicBWT *bwt)
             {
-                auto tmp1 = stool::permutation::DynamicPermutation::build_from_data(ifs);
-                auto tmp2 = stool::sequence::DynamicBitSequence::build_from_data(ifs);
-                auto tmp3 = stool::sequence::DynamicBitSequence::build_from_data(ifs);
+                auto tmp1 = stool::bptree::DynamicPermutation::build_from_data(ifs);
+                auto tmp2 = stool::bptree::DynamicBitSequence::build_from_data(ifs);
+                auto tmp3 = stool::bptree::DynamicBitSequence::build_from_data(ifs);
                 uint64_t tmp4 = 0;
                 ifs.read(reinterpret_cast<char *>(&tmp4), sizeof(uint64_t));
                 DynamicSampledSA r;
@@ -568,8 +568,8 @@ namespace stool
 
                     DynamicSampledSA::build_sampled_sa_and_bits(BISA, text_size, sampling_interval, _sample_marks_on_text, _sample_marks_on_sa, output_sampled_sa_rank, output_sampled_sa, stool::Message::add_message_paragraph(message_paragraph));
 
-                    auto tmp1 = stool::sequence::DynamicBitSequence::build(_sample_marks_on_text);
-                    auto tmp2 = stool::sequence::DynamicBitSequence::build(_sample_marks_on_sa);
+                    auto tmp1 = stool::bptree::DynamicBitSequence::build(_sample_marks_on_text);
+                    auto tmp2 = stool::bptree::DynamicBitSequence::build(_sample_marks_on_sa);
 
                     r.dp.clear();
                     r.sample_marks_on_text.swap(tmp1);
@@ -618,8 +618,8 @@ namespace stool
                     std::vector<bool> _sample_marks_on_sa;
                     DynamicSampledSA::build_bits(isa, sampling_interval, _sample_marks_on_text, _sample_marks_on_sa, stool::Message::add_message_paragraph(message_paragraph));
 
-                    auto tmp1 = stool::sequence::DynamicBitSequence::build(_sample_marks_on_text);
-                    auto tmp2 = stool::sequence::DynamicBitSequence::build(_sample_marks_on_sa);
+                    auto tmp1 = stool::bptree::DynamicBitSequence::build(_sample_marks_on_text);
+                    auto tmp2 = stool::bptree::DynamicBitSequence::build(_sample_marks_on_sa);
 
                     r.sample_marks_on_text.swap(tmp1);
                     r.sample_marks_on_sa.swap(tmp2);

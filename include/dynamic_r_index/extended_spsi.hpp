@@ -8,7 +8,7 @@ namespace stool
         class ExtendedSPSI
         {
             //dyn::packed_spsi spsi;
-            stool::prefix_sum::VLCDequeSPSI spsi;
+            stool::bptree::VLCDequeDynamicPrefixSum spsi;
 
             public:
 

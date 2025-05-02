@@ -13,7 +13,7 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class DynamicISA
         {
-            stool::permutation::DynamicPermutation dp;
+            stool::bptree::DynamicPermutation dp;
             //stool::old_implementations::VPomPermutation pom;
 
         public:

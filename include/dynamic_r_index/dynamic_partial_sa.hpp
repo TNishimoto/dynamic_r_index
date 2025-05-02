@@ -14,8 +14,8 @@ namespace stool
         class DynamicPartialSA
         {
         public:
-            stool::permutation::DynamicPermutation pom;
-            stool::prefix_sum::VLCDequeSPSI sampled_isa_gap_vector;
+            stool::bptree::DynamicPermutation pom;
+            stool::bptree::VLCDequeDynamicPrefixSum sampled_isa_gap_vector;
             uint64_t _text_size = 0;
 
             DynamicPartialSA()
@@ -44,15 +44,15 @@ namespace stool
 
             static void save(DynamicPartialSA &item, std::ofstream &os)
             {
-                stool::permutation::DynamicPermutation::save(item.pom, os);
-                stool::prefix_sum::VLCDequeSPSI::save(item.sampled_isa_gap_vector, os);
+                stool::bptree::DynamicPermutation::save(item.pom, os);
+                stool::bptree::VLCDequeDynamicPrefixSum::save(item.sampled_isa_gap_vector, os);
 
                 os.write(reinterpret_cast<const char *>(&item._text_size), sizeof(uint64_t));
             }
             static DynamicPartialSA build_from_data(std::ifstream &ifs)
             {
-                stool::permutation::DynamicPermutation tmp_pom = stool::permutation::DynamicPermutation::build_from_data(ifs);
-                stool::prefix_sum::VLCDequeSPSI tmp_sampled_isa_gap_vector = stool::prefix_sum::VLCDequeSPSI::build_from_data(ifs);
+                stool::bptree::DynamicPermutation tmp_pom = stool::bptree::DynamicPermutation::build_from_data(ifs);
+                stool::bptree::VLCDequeDynamicPrefixSum tmp_sampled_isa_gap_vector = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);
 
                 uint64_t _text_size = 0;
                 ifs.read(reinterpret_cast<char *>(&_text_size), sizeof(uint64_t));
@@ -85,11 +85,11 @@ namespace stool
                 this->_text_size = 1;
             }
 
-            stool::permutation::DynamicPermutation &get_dynamic_permutation()
+            stool::bptree::DynamicPermutation &get_dynamic_permutation()
             {
                 return this->pom;
             }
-            stool::prefix_sum::VLCDequeSPSI &get_spsi()
+            stool::bptree::VLCDequeDynamicPrefixSum &get_spsi()
             {
                 return this->sampled_isa_gap_vector;
             }
@@ -223,7 +223,7 @@ namespace stool
                 }
 
                 /*
-                stool::permutation::DynamicPermutation tmp_dp;
+                stool::bptree::DynamicPermutation tmp_dp;
                 tmp_dp.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::add_message_paragraph(message_paragraph));
                 this->pom.swap(tmp_dp);
                 */
@@ -369,7 +369,7 @@ namespace stool
             void print_detailed_info() const
             {
                 this->pom.print();
-                this->sampled_isa_gap_vector.print();
+                std::cout << this->sampled_isa_gap_vector.to_string() << std::endl;
             }
 
             //@}

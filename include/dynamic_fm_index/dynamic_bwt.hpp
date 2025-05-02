@@ -20,7 +20,7 @@ namespace stool
         class DynamicBWT
         {
             stool::fm_index::CArray cArray;
-            stool::sequence::DynamicWaveletTree bwt;
+            stool::bptree::DynamicWaveletTree bwt;
 
         public:
             ////////////////////////////////////////////////////////////////////////////////
@@ -171,7 +171,7 @@ namespace stool
                 // uint64_t counter = 0;
 
                 {
-                    stool::sequence::DynamicWaveletTree tmp_dwt = stool::sequence::DynamicWaveletTree::build(_bwt, _alphabet);
+                    stool::bptree::DynamicWaveletTree tmp_dwt = stool::bptree::DynamicWaveletTree::build(_bwt, _alphabet);
                     r.bwt.swap(tmp_dwt);
                 }
 
@@ -387,12 +387,12 @@ namespace stool
             static void save(DynamicBWT &item, std::ofstream &os)
             {
                 stool::fm_index::CArray::save(item.cArray, os);
-                stool::sequence::DynamicWaveletTree::save(item.bwt, os);
+                stool::bptree::DynamicWaveletTree::save(item.bwt, os);
             }
             static DynamicBWT build_from_data(std::ifstream &ifs)
             {
                 stool::fm_index::CArray cArray = stool::fm_index::CArray::load(ifs);
-                stool::sequence::DynamicWaveletTree bwt = stool::sequence::DynamicWaveletTree::build_from_data(ifs);
+                stool::bptree::DynamicWaveletTree bwt = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
 
                 DynamicBWT r;
                 r.cArray.swap(cArray);

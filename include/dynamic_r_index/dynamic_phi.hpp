@@ -162,12 +162,12 @@ namespace stool
                 DynamicPartialSA lsa;
                 lsa.set_degree(degree);
 
-                stool::permutation::DynamicPermutation &first_dp = fsa.get_dynamic_permutation();
-                stool::prefix_sum::VLCDequeSPSI &first_spsi = fsa.get_spsi();
-                stool::permutation::DynamicPermutation &last_dp = lsa.get_dynamic_permutation();
-                stool::prefix_sum::VLCDequeSPSI &last_spsi = lsa.get_spsi();
+                stool::bptree::DynamicPermutation &first_dp = fsa.get_dynamic_permutation();
+                stool::bptree::VLCDequeDynamicPrefixSum &first_spsi = fsa.get_spsi();
+                stool::bptree::DynamicPermutation &last_dp = lsa.get_dynamic_permutation();
+                stool::bptree::VLCDequeDynamicPrefixSum &last_spsi = lsa.get_spsi();
 
-                stool::permutation::DynamicPermutationBuilder first_dpb, last_dpb;
+                stool::bptree::DynamicPermutationBuilder first_dpb, last_dpb;
                 first_dpb.initialize(first_dp, rle_size, degree);
                 last_dpb.initialize(last_dp, rle_size, degree);
 
