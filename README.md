@@ -11,20 +11,22 @@ In addition, we can insert a substring of length $m$ into $T$ at arbitrary posit
 The source codes in 'module' directory are maintained in different repositories. 
 So, to download all the necessary source codes, do the following:
 
-> git clone https://github.com/TNishimoto/dynamic_r_index.git  
-> cd dynamic_r_index  
-> git submodule init  
-> git submodule update  
+```
+git clone https://github.com/TNishimoto/dynamic_r_index.git  
+cd dynamic_r_index  
+git submodule init  
+git submodule update  
+```
 
 # compile
 
 This program uses the [SDSL library](https://github.com/simongog/sdsl-lite). Assuming that the library and header files are installed in the ~/lib and ~/include directories, respectively, the source code of this repository can be compiled using the following commands:
 
 ```
-> mkdir build  
-> cd build  
-> cmake .. -DCMAKE_BUILD_TYPE=Release -DSDSL_LIBRARY_DIR=~/lib -DSDSL_INCLUDE_DIR=~/include  
-> make  
+mkdir build  
+cd build  
+cmake .. -DCMAKE_BUILD_TYPE=Release -DSDSL_LIBRARY_DIR=~/lib -DSDSL_INCLUDE_DIR=~/include  
+make  
 ```
 
 # executions
