@@ -13,7 +13,7 @@ endif(CPP_STATIC)
 
 set(CMAKE_CXX_FLAGS_DEBUG  "-g -O0 -DDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-Og -DNDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG -DTIME_DEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE  "-O3 -DNDEBUG -DNTIME_DEBUG")
 
 if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
@@ -81,3 +81,11 @@ target_link_libraries(build_r_index.out fn)
 
 add_executable(query.out main/query_main.cpp)
 target_link_libraries(query.out fn)
+
+add_executable(build_bwt.out main/build_bwt_main.cpp)
+target_link_libraries(build_bwt.out fn)
+
+
+add_executable(print_index.out main/print_index_main.cpp)
+target_link_libraries(print_index.out fn)
+

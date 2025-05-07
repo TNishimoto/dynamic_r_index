@@ -6,7 +6,7 @@ It supports count and locate queries in $O(m \log n)$ and $O((m+occ) \log n)$ fo
 where $n$ is the length of $T$, and $occ$ is the number of occurrences of the given pattern in $T$. 
 In addition, we can insert a substring of length $m$ into $T$ at arbitrary positoin or delete a substring of length $m$ from $T$ in $O((m+L_{avg}) \log n)$ time in the average-case, where $L_{avg}$ is the average of the values in the LCP array of $T$.
 
-# Download
+## Download
 
 The source codes in 'module' directory are maintained in different repositories. 
 So, to download all the necessary source codes, do the following:
@@ -18,7 +18,7 @@ git submodule init
 git submodule update  
 ```
 
-# Compile
+## Compile
 
 This program uses the [SDSL library](https://github.com/simongog/sdsl-lite). Assuming that the library and header files are installed in the ~/lib and ~/include directories, respectively, the source code of this repository can be compiled using the following commands:
 
@@ -29,11 +29,81 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DSDSL_LIBRARY_DIR=~/lib -DSDSL_INCLUDE_DIR=
 make  
 ```
 
-# executions
+## Builders and Viewers
 
-## examples
+### build_r_index.out
 
-### Build the dynamic r-index
+This executable file builds the dynamic r-index for a given file. 
+The following are the command-line options: 
+
+```
+usage: ./build_r_index.out --input_file_path=string [options] ... 
+options:
+  -i, --input_file_path           The path of a file containing either a input text or a BWT (string)
+  -o, --output_file_path          The path to the file where the dynamic r-index will be written (string [=])
+  -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
+  -u, --is_bwt                    This value is 1 if the input file is a BWT, and 0 otherwise (unsigned int [=0])
+  -?, --help                      print this message
+```
+
+> [!NOTE]  
+> The null terminated string is appended to the input text as the last character.
+
+> [!WARNING]  
+> The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
+
+### build_fm_index.out
+
+The executable file builds the dynamic fm-index for a given file. 
+The following are the command-line options: 
+
+```
+usage: ./build_fm_index.out --input_file_path=string [options] ... 
+options:
+  -i, --input_file_path           The path of a file containing either a input text or a BWT (string)
+  -o, --output_file_path          The path to the file where the dynamic FM-index will be written (string [=])
+  -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
+  -u, --is_bwt                    This value is 1 if the input file is a BWT, and 0 otherwise (unsigned int [=0])
+  -s, --sampling_interval         The sampling interval for the suffix array (unsigned int [=32])
+  -?, --help                      print this message
+```
+
+> [!NOTE]  
+> The null terminated string is appended to the input text as the last character.
+
+> [!WARNING]  
+> The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
+
+
+### build_bwt.out
+
+This executable file builds the BWT of a given file.
+The following are the command-line options: 
+
+```
+usage: ./build_bwt.out --input_file_path=string [options] ... 
+options:
+  -i, --input_file_path           The file path of an input text (string)
+  -o, --output_file_path          The path to the file where the BWT will be written (string [=])
+  -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
+  -e, --detailed_message_flag     The value is 1 if detailed messages are printed, and 0 otherwise (unsigned int [=0])
+  -?, --help                      print this message
+```
+
+### print_index.out
+
+This executable file shows the information about a given index.
+The following are the command-line options: 
+
+```
+usage: ./print_index.out --input_file=string [options] ... 
+options:
+  -i, --input_file    input index name (string)
+  -?, --help          print this message
+```
+
+
+### Examples
 
 ```
 % mkdir result
@@ -52,6 +122,10 @@ Total time:                                     0 sec (76923 ms/MB)
 Total allocated space: 714KB  
 ==================================  
 ```
+
+
+
+## Query Commands
 
 ### Print the input text and its BWT
 Command: VIEW  
@@ -85,7 +159,6 @@ Command: LOCATE!(TABKEY)(pattern)
 
 ### Count query
 Command: COUNT(TABKEY)(pattern)
-
 
 % cat ../examples/count_query.txt 
 > COUNT   ABA  
@@ -123,6 +196,7 @@ Command: INSERT(TABKEY)(the insertion position of a substring inserted into the 
 % ./query.out -i ./result/ab_ins.dri -q ../examples/view_query.txt -w ./result/view3.log  
 % cat result/view3.log
 > 0, VIEW, Text length,34, Text, aaaAABBBBAAaABAaaaaABAaaaABAaaaab, BWT, baBaaaAABBBBAAABBAaaAaaaaaAAAaaaa
+
 
 ## API Documentation (in preparation)
 

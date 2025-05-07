@@ -11,35 +11,32 @@
 
 int main(int argc, char *argv[])
 {
-#ifdef DEBUG
-    std::cout << "\033[41m";
-    std::cout << "DEBUG MODE!" << std::endl;
-    std::cout << "\e[m" << std::endl;
-    // std::cout << "\033[30m" << std::endl;
+std::cout << "\033[41m";
+#ifdef RELEASE_BUILD
+    std::cout << "Running in Release mode";
+#elif defined(DEBUG_BUILD)
+
+    std::cout << "Running in Debug mode";
+#else
+    std::cout << "Running in Unknown mode";
 #endif
-#ifdef SLOWDEBUG
-    std::cout << "\033[41m";
-    std::cout << "SLOWDEBUG MODE!" << std::endl;
-    std::cout << "\e[m" << std::endl;
-    // std::cout << "\033[30m" << std::endl;
-#endif
+std::cout << "\e[m" << std::endl;
 
     cmdline::parser p;
 
-    p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<std::string>("output_file", 'o', "output file name", false, "");
-    // p.add<uint>("index_type", 'm', "dynamic r-index or dynamic fm index", true, 1);
-    p.add<uint>("text_type", 'u', "input type", false, 0);
-    p.add<bool>("lightweight", 'w', "lightweight", false, true);
-    p.add<uint>("sampling_interval", 's', "sampling_interval", false, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL);
+    p.add<std::string>("input_file_path", 'i', "The path of a file containing either a input text or a BWT", true);
+    p.add<std::string>("output_file_path", 'o', "The path to the file where the dynamic FM-index will be written", false, "");
+    p.add<std::string>("null_terminated_string", 'c', "The special character indicating the end of text", false, "\\0");
+    p.add<uint>("is_bwt", 'u', "This value is 1 if the input file is a BWT, and 0 otherwise", false, 0);
+    p.add<uint>("sampling_interval", 's', "The sampling interval for the suffix array", false, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL);
 
     p.parse_check(argc, argv);
     std::string input_file_path = p.get<std::string>("input_file");
     std::string output_file_path = p.get<std::string>("output_file");
-    // bool isLightWeight = p.get<bool>("lightweight");
-    //  uint index_type = p.get<uint>("index_type");
-    uint text_type = p.get<uint>("text_type");
+    uint text_type = p.get<uint>("is_bwt");
     uint sampling_interval = p.get<uint>("sampling_interval");
+    std::string tmp_null_terminated_string = p.get<std::string>("null_terminated_string");
+    uint8_t null_terminated_string = stool::DebugPrinter::get_first_character(tmp_null_terminated_string);
 
     uint is_bwt = 1;
 
@@ -72,7 +69,7 @@ int main(int argc, char *argv[])
     else
     {
         std::vector<uint8_t> text;
-        stool::IO::load_text(input_file_path, text, true);
+        stool::IO::load_text(input_file_path, text, true, null_terminated_string);
         std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(text);
 
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::SHOW_MESSAGE);

@@ -37,6 +37,11 @@ namespace stool
             {
                 return this->dbwt.get_alphabet_size();
             }
+            std::string get_alphabet_str() const
+            {
+                return this->dbwt.get_alphabet_str();
+            }
+
             std::vector<uint8_t> get_alphabet() const
             {
                 return this->dbwt.get_alphabet();
@@ -60,15 +65,28 @@ namespace stool
 
                 this->dbwt.print_statistics(message_paragraph + 1);
                 this->disa.print_statistics(message_paragraph + 1);
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
             void print_light_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicRIndex):" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text length: \t\t\t\t\t" << this->size() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t\t" << this->get_alphabet_size() << std::endl;
+                if(this->text_size() < 1000){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_text_str()) << std::endl;
+                }else{
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
+                }
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << this->get_alphabet_str() << std::endl;
+
+            
+
+                if(this->text_size() < 1000){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_bwt_str()) << std::endl;
+                }else{
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << "[Omitted]" << std::endl;
+                }
+
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of runs in BWT: \t\t\t" << this->run_count() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
             const DynamicRLBWT &get_dynamic_rlbwt() const

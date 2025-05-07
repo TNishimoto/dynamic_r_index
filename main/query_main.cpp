@@ -357,18 +357,16 @@ void print_query_result(const QueryResults &result, stool::QueryType type, int m
 
 int main(int argc, char *argv[])
 {
-#ifdef DEBUG
-    std::cout << "\033[41m";
-    std::cout << "DEBUG MODE!" << std::endl;
-    std::cout << "\e[m" << std::endl;
-    // std::cout << "\033[30m" << std::endl;
+std::cout << "\033[41m";
+#ifdef RELEASE_BUILD
+    std::cout << "Running in Release mode";
+#elif defined(DEBUG_BUILD)
+
+    std::cout << "Running in Debug mode";
+#else
+    std::cout << "Running in Unknown mode";
 #endif
-#ifdef SLOWDEBUG
-    std::cout << "\033[41m";
-    std::cout << "SLOWDEBUG MODE!" << std::endl;
-    std::cout << "\e[m" << std::endl;
-    // std::cout << "\033[30m" << std::endl;
-#endif
+std::cout << "\e[m" << std::endl;
 
     cmdline::parser p;
 

@@ -23,37 +23,21 @@ std::cout << "\033[41m";
 #endif
 std::cout << "\e[m" << std::endl;
 
-
-#ifdef DEBUG
-    std::cout << "\033[41m";
-    std::cout << "DEBUG MODE!" << std::endl;
-    std::cout << "\e[m" << std::endl;
-    // std::cout << "\033[30m" << std::endl;
-#endif
-#ifdef SLOWDEBUG
-    std::cout << "\033[41m";
-    std::cout << "SLOWDEBUG MODE!" << std::endl;
-    std::cout << "\e[m" << std::endl;
-    // std::cout << "\033[30m" << std::endl;
-#endif
-
     cmdline::parser p;
 
-    p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<std::string>("output_file", 'o', "output file name", false, "");
-    // p.add<uint>("index_type", 'm', "dynamic r-index or dynamic fm index", true, 1);
-    p.add<uint>("text_type", 'u', "input type", false, 0);
-    p.add<bool>("lightweight", 'w', "lightweight", false, true);
+    p.add<std::string>("input_file_path", 'i', "The path of a file containing either a input text or a BWT", true);
+    p.add<std::string>("output_file_path", 'o', "The path to the file where the dynamic r-index will be written", false, "");
+    p.add<std::string>("null_terminated_string", 'c', "The special character indicating the end of text", false, "\\0");
+    p.add<uint>("is_bwt", 'u', "This value is 1 if the input file is a BWT, and 0 otherwise", false, 0);
 
     p.parse_check(argc, argv);
-    std::string input_file_path = p.get<std::string>("input_file");
-    std::string output_file_path = p.get<std::string>("output_file");
-    //bool isLightWeight = p.get<bool>("lightweight");
-    // uint index_type = p.get<uint>("index_type");
-    uint text_type = p.get<uint>("text_type");
+    std::string input_file_path = p.get<std::string>("input_file_path");
+    std::string output_file_path = p.get<std::string>("output_file_path");
+    std::string tmp_null_terminated_string = p.get<std::string>("null_terminated_string");
+    uint8_t null_terminated_string = stool::DebugPrinter::get_first_character(tmp_null_terminated_string);
+    uint text_type = p.get<uint>("is_bwt");
 
-
-    uint is_bwt = 1;
+    uint IS_BWT = 1;
 
     if (output_file_path.size() == 0)
     {
@@ -72,7 +56,7 @@ std::cout << "\e[m" << std::endl;
     st1 = std::chrono::system_clock::now();
     // uint is_r_index = 1;
     stool::dynamic_r_index::DynamicRIndex drfmi;
-    if (text_type == is_bwt)
+    if (text_type == IS_BWT)
     {
         stool::dynamic_r_index::DynamicRIndex tmp_drfmi = stool::dynamic_r_index::DynamicRIndex::build_from_BWT_file(input_file_path, stool::Message::SHOW_MESSAGE);
         drfmi.swap(tmp_drfmi);
@@ -80,7 +64,8 @@ std::cout << "\e[m" << std::endl;
     else
     {
         std::vector<uint8_t> text;
-        stool::IO::load_text(input_file_path, text, true);
+        stool::IO::load_text(input_file_path, text, true, null_terminated_string);
+
         std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(text);
 
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::SHOW_MESSAGE);
@@ -104,7 +89,7 @@ std::cout << "\e[m" << std::endl;
     std::cout << "=============RESULT===============" << std::endl;
     std::cout << "Input File: \t\t\t\t\t" << input_file_path << std::endl;
     std::cout << "Output File: \t\t\t\t\t" << output_file_path << std::endl;
-    std::cout << "The type of the input file: \t\t\t" << (text_type == is_bwt ? "bwt" : "text") << std::endl;
+    std::cout << "The type of the input file: \t\t\t" << (text_type == IS_BWT ? "bwt" : "text") << std::endl;
     drfmi.print_light_statistics();
     if (text_size > 0)
     {
