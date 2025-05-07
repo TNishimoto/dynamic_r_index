@@ -41,10 +41,10 @@ uint64_t seed = p.get<uint64_t>("seed");
 
     std::string index_name = "";
 
-    if (mark == stool::fm_index::DynamicFMIndex::LOAD_KEY)
+    if (mark == stool::dynamic_r_index::DynamicFMIndex::LOAD_KEY)
     {
         index_name = "Dynamic FM-index";
-        stool::fm_index::DynamicFMIndex dfmi;
+        stool::dynamic_r_index::DynamicFMIndex dfmi;
         {
             std::ifstream ifs;
             ifs.open(input_file_path, std::ios::binary);
@@ -53,17 +53,17 @@ uint64_t seed = p.get<uint64_t>("seed");
                 std::cerr << "Error: Could not open file for reading." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            auto tmp = stool::fm_index::DynamicFMIndex::build_from_data(ifs);
+            auto tmp = stool::dynamic_r_index::DynamicFMIndex::build_from_data(ifs);
             dfmi.swap(tmp);
         }
-        stool::fm_index_test::PerformanceTest::performance_test(dfmi, seed);
+        stool::dynamic_r_index_test::PerformanceTest::performance_test(dfmi, seed);
 
     }
-    else if (mark == stool::r_index::DynamicRIndex::LOAD_KEY)
+    else if (mark == stool::dynamic_r_index::DynamicRIndex::LOAD_KEY)
     {
         index_name = "Dynamic r-index";
 
-        stool::r_index::DynamicRIndex drfmi;
+        stool::dynamic_r_index::DynamicRIndex drfmi;
         {
             std::ifstream ifs;
             ifs.open(input_file_path, std::ios::binary);
@@ -72,7 +72,7 @@ uint64_t seed = p.get<uint64_t>("seed");
                 std::cerr << "Error: Could not open file for reading." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            auto tmp = stool::r_index::DynamicRIndex::build_from_data(ifs);
+            auto tmp = stool::dynamic_r_index::DynamicRIndex::build_from_data(ifs);
             drfmi.swap(tmp);
         }
         stool::r_index_test::PerformanceTest::performance_test(drfmi, seed);

@@ -152,7 +152,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
                 text.pop_back();
-                stool::r_index::DynamicRLBWT rlbwt = stool::r_index::RLBWTBuilder::build(text);
+                stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::build(text);
 
                 stool::equal_check("BWT", bwt, rlbwt.get_bwt());
             }
@@ -201,7 +201,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
             std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
 
             uint64_t end_marker = '$';
-            std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
+            std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
             text.push_back(end_marker);
 
             std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
@@ -210,8 +210,8 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
 
             stool::DebugPrinter::print_characters(text, "Text");
 
-            stool::r_index::DynamicRIndex drfmi1 = stool::r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
-            stool::r_index::DynamicRIndex drfmi2 = stool::r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
+            stool::dynamic_r_index::DynamicRIndex drfmi1 = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
+            stool::dynamic_r_index::DynamicRIndex drfmi2 = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
             std::mt19937_64 mt64(seed);
             stool::r_index_test::DynamicRIndexTest::bwt_check(drfmi1, drfmi2);

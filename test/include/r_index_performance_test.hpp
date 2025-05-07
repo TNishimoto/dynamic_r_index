@@ -23,15 +23,15 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Performance Test" << std::endl;
 
                 
-                stool::fm_index_test::PerformanceTest::performance_access_test(dbwt, seed, message_paragraph + 1);
+                stool::dynamic_r_index_test::PerformanceTest::performance_access_test(dbwt, seed, message_paragraph + 1);
 
-                stool::fm_index_test::PerformanceTest::performance_rank_test(dbwt, seed, message_paragraph + 1);
-                stool::fm_index_test::PerformanceTest::performance_select_test(dbwt, seed, message_paragraph + 1);
-                stool::fm_index_test::PerformanceTest::performance_LF_test(dbwt, seed, message_paragraph + 1);
+                stool::dynamic_r_index_test::PerformanceTest::performance_rank_test(dbwt, seed, message_paragraph + 1);
+                stool::dynamic_r_index_test::PerformanceTest::performance_select_test(dbwt, seed, message_paragraph + 1);
+                stool::dynamic_r_index_test::PerformanceTest::performance_LF_test(dbwt, seed, message_paragraph + 1);
                 
 
 
-                stool::fm_index_test::PerformanceTest::performance_insert_and_delete_test(dbwt, seed, message_paragraph + 1);
+                stool::dynamic_r_index_test::PerformanceTest::performance_insert_and_delete_test(dbwt, seed, message_paragraph + 1);
 
 
 
@@ -51,12 +51,12 @@ namespace stool
                 //performance_phi_test(*__dsa_pointer, seed, message_paragraph+1);
 
                #ifdef TIME_DEBUG
-                stool::r_index::__reset_time();
+                stool::dynamic_r_index::__reset_time();
                #endif 
 
-                stool::fm_index_test::PerformanceTest::performance_insert_and_delete_test_on_index(drfmi, seed, message_paragraph + 1);
+                stool::dynamic_r_index_test::PerformanceTest::performance_insert_and_delete_test_on_index(drfmi, seed, message_paragraph + 1);
                #ifdef TIME_DEBUG
-                stool::r_index::__print_time();
+                stool::dynamic_r_index::__print_time();
                #endif 
 
 
@@ -75,7 +75,7 @@ template<typename DSA>
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Phi Test" << std::endl;
 
                 std::vector<uint64_t> rand_pos_vec;
-                uint64_t trial = stool::fm_index_test::TRIAL1;
+                uint64_t trial = stool::dynamic_r_index_test::TRIAL1;
 
                 for (uint64_t i = 0; i < trial; i++)
                 {

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>STool: include/dynamic_fm_index/dynamic_fm_index.hpp Source File</title>
+<title>Dynamic R-Index: include/dynamic_fm_index/dynamic_fm_index.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">STool
+   <div id="projectname">Dynamic R-Index
    </div>
   </td>
  </tr>
@@ -106,14 +106,14 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>stool</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">namespace </span>fm_index</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">namespace </span>dynamic_r_index</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    {</div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">   15</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">   15</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> dbwt;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> dbwt;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="comment">// DynamicISA disa;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> dsa;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> dsa;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">constexpr</span> uint LOAD_KEY = 99999999;</div>
@@ -121,18 +121,18 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keyword">using </span>Interval = std::pair&lt;int64_t, int64_t&gt;;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a>()</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a>()</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            {</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                this-&gt;dsa.set_BWT(&amp;this-&gt;dbwt);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a>(<a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;&amp;other) <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a>(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;&amp;other) <span class="keyword">noexcept</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                this-&gt;dbwt = std::move(other.dbwt);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                this-&gt;dsa = std::move(other.dsa);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                this-&gt;dsa.set_BWT(&amp;this-&gt;dbwt);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            };</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;operator=(<a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;&amp;other) <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;operator=(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;&amp;other) <span class="keyword">noexcept</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                <span class="keywordflow">if</span> (<span class="keyword">this</span> != &amp;other)</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                {</div>
@@ -143,11 +143,11 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            };</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> *_get_dbwt_pointer()</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> *_get_dbwt_pointer()</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            {</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                <span class="keywordflow">return</span> &amp;this-&gt;dbwt;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> *_get_dsa_pointer()</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> *_get_dsa_pointer()</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            {</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                <span class="keywordflow">return</span> &amp;this-&gt;dsa;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            }</div>
@@ -249,7 +249,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                <span class="keywordflow">return</span> this-&gt;dbwt.select(c, ith);</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            }</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> save(<a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;item, std::ofstream &amp;os, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> save(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;item, std::ofstream &amp;os, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            {</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                <span class="keywordflow">if</span> (message_paragraph &gt;= 0)</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                {</div>
@@ -275,7 +275,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                    std::cout &lt;&lt; stool::Message::get_paragraph_string(message_paragraph) &lt;&lt; <span class="stringliteral">&quot;[END] Elapsed Time: &quot;</span> &lt;&lt; sec_time &lt;&lt; <span class="stringliteral">&quot; sec (&quot;</span> &lt;&lt; per_time &lt;&lt; <span class="stringliteral">&quot; ms/MB)&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                }</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            }</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> build_from_data(std::ifstream &amp;ifs, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> build_from_data(std::ifstream &amp;ifs, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            {</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                <span class="keywordflow">if</span> (message_paragraph &gt;= 0)</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                {</div>
@@ -292,7 +292,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                }</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                <span class="keyword">auto</span> tmp1 = DynamicBWT::build_from_data(ifs);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> r;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> r;</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                r.dbwt.swap(tmp1);</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                <span class="keyword">auto</span> tmp2 = DynamicSampledSA::build_from_data(ifs, &amp;r.dbwt);</div>
@@ -320,7 +320,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">            }</span></div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">            */</span></div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> build(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;bwt, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;alphabet, <span class="keyword">const</span> std::vector&lt;uint64_t&gt; &amp;isa, uint64_t sampling_interval_of_SA = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> build(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;bwt, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;alphabet, <span class="keyword">const</span> std::vector&lt;uint64_t&gt; &amp;isa, uint64_t sampling_interval_of_SA = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            {</div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                <span class="keywordflow">if</span> (message_paragraph &gt;= 0 &amp;&amp; bwt.size() &gt; 0)</div>
@@ -330,11 +330,11 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                std::chrono::system_clock::time_point st1, st2;</div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>                st1 = std::chrono::system_clock::now();</div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> r;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::add_message_paragraph(message_paragraph));</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> r;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::add_message_paragraph(message_paragraph));</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                r.dbwt.swap(_dbwt);</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> _dsa = DynamicSampledSA::build(isa, &amp;r.dbwt, sampling_interval_of_SA, stool::Message::add_message_paragraph(message_paragraph));</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> _dsa = DynamicSampledSA::build(isa, &amp;r.dbwt, sampling_interval_of_SA, stool::Message::add_message_paragraph(message_paragraph));</div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                r.dsa.swap(_dsa);</div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                st2 = std::chrono::system_clock::now();</div>
@@ -351,7 +351,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>                <span class="keywordflow">return</span> r;</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            }</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> build(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;bwt, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;alphabet, uint64_t sampling_interval_of_SA = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> build(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;bwt, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;alphabet, uint64_t sampling_interval_of_SA = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            {</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>                <span class="keywordflow">if</span> (message_paragraph &gt;= 0 &amp;&amp; bwt.size() &gt; 0)</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                {</div>
@@ -364,11 +364,11 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>                stool::bwt::BackwardISA&lt;stool::bwt::LFDataStructure&gt; bisa;</div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                bisa.set(&amp;lfds, lfds.get_end_marker_position(), lfds.get_text_size());</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> r;</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::add_message_paragraph(message_paragraph));</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> r;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_b_w_t.html">DynamicBWT</a> _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::add_message_paragraph(message_paragraph));</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                r.dbwt.swap(_dbwt);</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                <a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> _dsa = DynamicSampledSA::build(bisa, &amp;r.dbwt, sampling_interval_of_SA, stool::Message::add_message_paragraph(message_paragraph));</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_sampled_s_a.html">DynamicSampledSA</a> _dsa = DynamicSampledSA::build(bisa, &amp;r.dbwt, sampling_interval_of_SA, stool::Message::add_message_paragraph(message_paragraph));</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                r.dsa.swap(_dsa);</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>                st2 = std::chrono::system_clock::now();</div>
@@ -391,7 +391,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="comment">            }</span></div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="comment">            */</span></div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            <span class="keywordtype">void</span> swap(<a class="code hl_class" href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;item)</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            <span class="keywordtype">void</span> swap(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">DynamicFMIndex</a> &amp;item)</div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            {</div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                this-&gt;dbwt.swap(item.dbwt);</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                this-&gt;dsa.swap(item.dsa);</div>
@@ -424,7 +424,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            <span class="keywordtype">void</span> initialize(std::vector&lt;uint8_t&gt; &amp;alphabet)</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>            {</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                this-&gt;dbwt.<a class="code hl_function" href="classstool_1_1fm__index_1_1_dynamic_b_w_t.html#a83d2521824b2fa786b5355222724d540">initialize</a>(alphabet);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                this-&gt;dbwt.<a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_b_w_t.html#ab37f87aac71900662ad82c811f2da583">initialize</a>(alphabet);</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>            }</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
@@ -435,7 +435,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>            <a class="code hl_struct" href="structstool_1_1fm__index_1_1_backward_search_result.html">BackwardSearchResult</a> backward_search(<span class="keyword">const</span> Interval &amp;intv, uint8_t c)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>            <a class="code hl_struct" href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">BackwardSearchResult</a> backward_search(<span class="keyword">const</span> Interval &amp;intv, uint8_t c)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="keyword">            </span>{</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>                uint64_t num1 = this-&gt;dbwt.rank(c, intv.first - 1);</div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>                uint64_t c_count = this-&gt;dbwt.get_c_array().get_c_count(c);</div>
@@ -449,7 +449,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>                        uint64_t lst_c_pos = this-&gt;dbwt.select(c, last_ith);</div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>                        <span class="keywordflow">return</span> <a class="code hl_struct" href="structstool_1_1fm__index_1_1_backward_search_result.html">BackwardSearchResult</a>(this-&gt;dbwt.LF(fst_c_pos), this-&gt;dbwt.LF(lst_c_pos));</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>                        <span class="keywordflow">return</span> <a class="code hl_struct" href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">BackwardSearchResult</a>(this-&gt;dbwt.LF(fst_c_pos), this-&gt;dbwt.LF(lst_c_pos));</div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>                    }</div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>                    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                    {</div>
@@ -461,9 +461,9 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>                    <span class="keywordflow">return</span> BackwardSearchResult::create_empty_result();</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>                }</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>            }</div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            <a class="code hl_struct" href="structstool_1_1fm__index_1_1_backward_search_result.html">BackwardSearchResult</a> backward_search(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            <a class="code hl_struct" href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">BackwardSearchResult</a> backward_search(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span><span class="keyword">            </span>{</div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>                <a class="code hl_struct" href="structstool_1_1fm__index_1_1_backward_search_result.html">BackwardSearchResult</a> bsr(0, this-&gt;size() - 1);</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>                <a class="code hl_struct" href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">BackwardSearchResult</a> bsr(0, this-&gt;size() - 1);</div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>                <span class="comment">// Interval intv(0, this-&gt;size() - 1);</span></div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>                <span class="keywordflow">for</span> (int64_t i = pattern.size() - 1; i &gt;= 0; i--)</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>                {</div>
@@ -484,7 +484,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                }</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                <span class="keywordflow">return</span> r;</div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>            }</div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>            std::vector&lt;uint64_t&gt; compute_sa_values(<span class="keyword">const</span> <a class="code hl_struct" href="structstool_1_1fm__index_1_1_backward_search_result.html">BackwardSearchResult</a> &amp;bsr)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>            std::vector&lt;uint64_t&gt; compute_sa_values(<span class="keyword">const</span> <a class="code hl_struct" href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">BackwardSearchResult</a> &amp;bsr)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span><span class="keyword">            </span>{</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>                <span class="keywordflow">if</span>(bsr.is_empty()){</div>
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>                    <span class="keywordflow">return</span> std::vector&lt;uint64_t&gt;();</div>
@@ -495,7 +495,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span> </div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>            uint64_t count_query(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span><span class="keyword">            </span>{</div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>                <a class="code hl_struct" href="structstool_1_1fm__index_1_1_backward_search_result.html">BackwardSearchResult</a> bsr = this-&gt;backward_search(pattern);</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>                <a class="code hl_struct" href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">BackwardSearchResult</a> bsr = this-&gt;backward_search(pattern);</div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>                <span class="keywordflow">if</span> (bsr.is_empty())</div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>                {</div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>                    <span class="keywordflow">return</span> 0;</div>
@@ -507,7 +507,7 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>            }</div>
 <div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>            std::vector&lt;uint64_t&gt; locate_query(<span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span><span class="keyword">            </span>{</div>
-<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>                <a class="code hl_struct" href="structstool_1_1fm__index_1_1_backward_search_result.html">BackwardSearchResult</a> bsr = this-&gt;backward_search(pattern);</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>                <a class="code hl_struct" href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">BackwardSearchResult</a> bsr = this-&gt;backward_search(pattern);</div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>                <span class="keywordflow">return</span> this-&gt;compute_sa_values(bsr);</div>
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>            }</div>
 <div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span> </div>
@@ -542,13 +542,13 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span> </div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span> </div>
 <div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span> </div>
-<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>            uint64_t insert_char(int64_t pos, uint8_t c, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>            uint64_t insert_char(int64_t pos, uint8_t c, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
 <div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>            {</div>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>                output_history.clear();</div>
 <div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>                <span class="keywordflow">return</span> this-&gt;insert_char(pos, c, &amp;output_history);</div>
 <div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>            }</div>
 <div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span> </div>
-<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>            uint64_t insert_char(int64_t pos, uint8_t c, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>            uint64_t insert_char(int64_t pos, uint8_t c, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
 <div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>            {</div>
 <div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>                SAIndex isa_of_insertionPosOnText = this-&gt;dsa.isa(pos);</div>
 <div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>                <span class="comment">// assert(isa_of_insertionPosOnText == this-&gt;dsa.isa(pos));</span></div>
@@ -668,12 +668,12 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span><span class="comment">            }</span></div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span><span class="comment">            */</span></div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span> </div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>            uint64_t insert_string(int64_t pos, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>            uint64_t insert_string(int64_t pos, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
 <div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>            {</div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>                <span class="keywordflow">return</span> insert_string(pos, pattern, &amp;output_history);</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>            }</div>
 <div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>            uint64_t insert_string(int64_t pos, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>            uint64_t insert_string(int64_t pos, <span class="keyword">const</span> std::vector&lt;uint8_t&gt; &amp;pattern, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
 <div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>            {</div>
 <div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span> </div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>                SAIndex isa_of_insertionPosOnText = this-&gt;dsa.isa(pos);</div>
@@ -783,13 +783,13 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>            }</div>
 <div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span> </div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            uint64_t delete_char(int64_t pos, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            uint64_t delete_char(int64_t pos, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
 <div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            {</div>
 <div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                output_history.clear();</div>
 <div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>                <span class="keywordflow">return</span> this-&gt;delete_char(pos, &amp;output_history);</div>
 <div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>            }</div>
 <div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span> </div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>            uint64_t delete_char(int64_t pos, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>            uint64_t delete_char(int64_t pos, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
 <div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>            {</div>
 <div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span> </div>
 <div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                SAIndex isa_pos = this-&gt;dsa.isa(pos);</div>
@@ -837,12 +837,12 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 <div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span> </div>
 <div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                <span class="keywordflow">return</span> sum;</div>
 <div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>            }</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>            uint64_t delete_string(<span class="keyword">const</span> int64_t pos, int64_t len, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>            uint64_t delete_string(<span class="keyword">const</span> int64_t pos, int64_t len, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> &amp;output_history)</div>
 <div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>            {</div>
 <div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>                <span class="keywordflow">return</span> delete_string(pos, len, &amp;output_history);</div>
 <div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>            }</div>
 <div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span> </div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>            uint64_t delete_string(<span class="keyword">const</span> int64_t pos, int64_t len, <a class="code hl_class" href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>            uint64_t delete_string(<span class="keyword">const</span> int64_t pos, int64_t len, <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">FMIndexEditHistory</a> *output_history = <span class="keyword">nullptr</span>)</div>
 <div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>            {</div>
 <div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>                TextIndex pointer = pos + len &lt; (int64_t)this-&gt;size() ? pos + len : 0;</div>
 <div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span> </div>
@@ -1039,12 +1039,12 @@ $(function(){initNavTree('dynamic__fm__index_8hpp_source.html',''); initResizabl
 </div>
 <div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>    }</div>
 <div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>}</div>
-<div class="ttc" id="aclassstool_1_1fm__index_1_1_dynamic_b_w_t_html"><div class="ttname"><a href="classstool_1_1fm__index_1_1_dynamic_b_w_t.html">stool::fm_index::DynamicBWT</a></div><div class="ttdoc">A dynamic data structure storing BWT. This implementation requires $O(n log σ)$ bits of space for the...</div><div class="ttdef"><b>Definition</b> dynamic_bwt.hpp:21</div></div>
-<div class="ttc" id="aclassstool_1_1fm__index_1_1_dynamic_b_w_t_html_a83d2521824b2fa786b5355222724d540"><div class="ttname"><a href="classstool_1_1fm__index_1_1_dynamic_b_w_t.html#a83d2521824b2fa786b5355222724d540">stool::fm_index::DynamicBWT::initialize</a></div><div class="ttdeci">void initialize(const std::vector&lt; uint8_t &gt; &amp;_alphabet)</div><div class="ttdoc">Initializes the DynamicBWT with the given characters and end marker.</div><div class="ttdef"><b>Definition</b> dynamic_bwt.hpp:107</div></div>
-<div class="ttc" id="aclassstool_1_1fm__index_1_1_dynamic_f_m_index_html"><div class="ttname"><a href="classstool_1_1fm__index_1_1_dynamic_f_m_index.html">stool::fm_index::DynamicFMIndex</a></div><div class="ttdoc">A dynamic data structure of FM-index. This implementation requires $O(n log n)$ words for the input s...</div><div class="ttdef"><b>Definition</b> dynamic_fm_index.hpp:16</div></div>
-<div class="ttc" id="aclassstool_1_1fm__index_1_1_dynamic_sampled_s_a_html"><div class="ttname"><a href="classstool_1_1fm__index_1_1_dynamic_sampled_s_a.html">stool::fm_index::DynamicSampledSA</a></div><div class="ttdef"><b>Definition</b> dynamic_sampled_sa.hpp:15</div></div>
-<div class="ttc" id="aclassstool_1_1fm__index_1_1_f_m_index_edit_history_html"><div class="ttname"><a href="classstool_1_1fm__index_1_1_f_m_index_edit_history.html">stool::fm_index::FMIndexEditHistory</a></div><div class="ttdoc">Values for updating dynamic FM-index.</div><div class="ttdef"><b>Definition</b> fm_index_edit_history.hpp:23</div></div>
-<div class="ttc" id="astructstool_1_1fm__index_1_1_backward_search_result_html"><div class="ttname"><a href="structstool_1_1fm__index_1_1_backward_search_result.html">stool::fm_index::BackwardSearchResult</a></div><div class="ttdef"><b>Definition</b> tools.hpp:25</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_b_w_t_html"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_b_w_t.html">stool::dynamic_r_index::DynamicBWT</a></div><div class="ttdoc">A dynamic data structure storing BWT. This implementation requires $O(n log σ)$ bits of space for the...</div><div class="ttdef"><b>Definition</b> dynamic_bwt.hpp:21</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_b_w_t_html_ab37f87aac71900662ad82c811f2da583"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_b_w_t.html#ab37f87aac71900662ad82c811f2da583">stool::dynamic_r_index::DynamicBWT::initialize</a></div><div class="ttdeci">void initialize(const std::vector&lt; uint8_t &gt; &amp;_alphabet)</div><div class="ttdoc">Initializes the DynamicBWT with the given characters and end marker.</div><div class="ttdef"><b>Definition</b> dynamic_bwt.hpp:107</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_f_m_index_html"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_f_m_index.html">stool::dynamic_r_index::DynamicFMIndex</a></div><div class="ttdoc">A dynamic data structure of FM-index. This implementation requires $O(n log n)$ words for the input s...</div><div class="ttdef"><b>Definition</b> dynamic_fm_index.hpp:16</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_sampled_s_a_html"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_sampled_s_a.html">stool::dynamic_r_index::DynamicSampledSA</a></div><div class="ttdef"><b>Definition</b> dynamic_sampled_sa.hpp:15</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_f_m_index_edit_history_html"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_f_m_index_edit_history.html">stool::dynamic_r_index::FMIndexEditHistory</a></div><div class="ttdoc">Values for updating dynamic FM-index.</div><div class="ttdef"><b>Definition</b> fm_index_edit_history.hpp:23</div></div>
+<div class="ttc" id="astructstool_1_1dynamic__r__index_1_1_backward_search_result_html"><div class="ttname"><a href="structstool_1_1dynamic__r__index_1_1_backward_search_result.html">stool::dynamic_r_index::BackwardSearchResult</a></div><div class="ttdef"><b>Definition</b> tools.hpp:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

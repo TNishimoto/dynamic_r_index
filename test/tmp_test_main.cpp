@@ -1,6 +1,6 @@
 #include "./temporary_r_index.hpp"
 
-std::vector<TemporaryRIndex> construct_temp_array(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, uint64_t insertion_pos, const std::vector<uint8_t> &inserted_string, stool::fm_index::FMIndexEditHistory &editHistory)
+std::vector<TemporaryRIndex> construct_temp_array(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, uint64_t insertion_pos, const std::vector<uint8_t> &inserted_string, stool::dynamic_r_index::FMIndexEditHistory &editHistory)
 {
     stool::DebugPrinter::print_characters(text, "text");
     stool::DebugPrinter::print_characters(inserted_string, "inserted_string");
@@ -10,7 +10,7 @@ std::vector<TemporaryRIndex> construct_temp_array(const std::vector<uint8_t> &te
     std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
-    stool::r_index::DynamicRIndex drfmi = stool::r_index::DynamicRIndex::build_from_BWT(bwt, chars, stool::Message::NO_MESSAGE);
+    stool::dynamic_r_index::DynamicRIndex drfmi = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, chars, stool::Message::NO_MESSAGE);
 
     drfmi.insert_string(insertion_pos, inserted_string, editHistory);
 
@@ -36,7 +36,7 @@ std::vector<TemporaryRIndex> construct_temp_array(const std::vector<uint8_t> &te
 
 void func3(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, uint64_t insertion_pos, const std::vector<uint8_t> &inserted_string)
 {
-    stool::fm_index::FMIndexEditHistory editHistory;
+    stool::dynamic_r_index::FMIndexEditHistory editHistory;
     std::vector<TemporaryRIndex> arr = construct_temp_array(text, chars, insertion_pos, inserted_string, editHistory);
 
     for (uint64_t i = 0; i < arr.size(); i++)
@@ -63,7 +63,7 @@ void func3(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, 
 
 void func2(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, uint64_t insertion_pos, const std::vector<uint8_t> &inserted_string)
 {
-    stool::fm_index::FMIndexEditHistory editHistory;
+    stool::dynamic_r_index::FMIndexEditHistory editHistory;
     std::vector<TemporaryRIndex> arr = construct_temp_array(text, chars, insertion_pos, inserted_string, editHistory);
 
     for (uint64_t i = 0; i < arr.size(); i++)
@@ -232,7 +232,7 @@ void func2(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, 
 
 void func(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, uint64_t insertion_pos, const std::vector<uint8_t> &inserted_string)
 {
-    stool::fm_index::FMIndexEditHistory editHistory;
+    stool::dynamic_r_index::FMIndexEditHistory editHistory;
     std::vector<TemporaryRIndex> arr = construct_temp_array(text, chars, insertion_pos, inserted_string, editHistory);
 
     for (uint64_t i = 0; i < arr.size(); i++)
@@ -296,7 +296,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
 
                 uint64_t end_marker = '$';
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
                 text.push_back(end_marker);
 
                 std::mt19937_64 mt64(seed);
@@ -326,7 +326,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
 
                 uint64_t end_marker = '$';
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
                 text.push_back(end_marker);
 
                 std::mt19937_64 mt64(seed);
@@ -358,15 +358,15 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
 
                 uint64_t end_marker = '$';
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
                 text.push_back(end_marker);
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
                 std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
-                stool::r_index::DynamicRIndex drfmi1 = stool::r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
-                stool::r_index::DynamicRIndex drfmi2 = stool::r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicRIndex drfmi1 = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicRIndex drfmi2 = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
                 std::mt19937_64 mt64(seed);
 
@@ -383,14 +383,14 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 stool::DebugPrinter::print_characters(inserted_string, "Pattern");
                 std::cout << "insertion_pos: " << insertion_pos << std::endl;
 
-                stool::fm_index::FMIndexEditHistory editHistory1;
-                stool::fm_index::FMIndexEditHistory editHistory2;
+                stool::dynamic_r_index::FMIndexEditHistory editHistory1;
+                stool::dynamic_r_index::FMIndexEditHistory editHistory2;
 
                 [[maybe_unused]]auto inf1 = drfmi1.insert_string(insertion_pos, inserted_string, editHistory1);
                 [[maybe_unused]]auto inf2 = drfmi2.insert_string(insertion_pos, inserted_string, editHistory2);
 
-                const stool::r_index::DynamicPhi &phi1 = drfmi1.get_dynamic_phi();
-                const stool::r_index::DynamicPhi &phi2 = drfmi2.get_dynamic_phi();
+                const stool::dynamic_r_index::DynamicPhi &phi1 = drfmi1.get_dynamic_phi();
+                const stool::dynamic_r_index::DynamicPhi &phi2 = drfmi2.get_dynamic_phi();
 
                 auto bwt1 = drfmi1.get_bwt();
                 auto bwt2 = drfmi2.get_bwt();
@@ -428,7 +428,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
         std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
 
         uint64_t end_marker = '$';
-        std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
+        std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
         text.push_back(end_marker);
 
         std::mt19937_64 mt64(seed);

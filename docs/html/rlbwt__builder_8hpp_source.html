@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>STool: include/dynamic_r_index/rlbwt_builder.hpp Source File</title>
+<title>Dynamic R-Index: include/dynamic_r_index/rlbwt_builder.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">STool
+   <div id="projectname">Dynamic R-Index
    </div>
   </td>
  </tr>
@@ -106,13 +106,13 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>stool</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">namespace </span>r_index</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">namespace </span>dynamic_r_index</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    {</div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_r_l_b_w_t_builder.html">   15</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1r__index_1_1_r_l_b_w_t_builder.html">RLBWTBuilder</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_r_l_b_w_t_builder.html">   15</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_r_l_b_w_t_builder.html">RLBWTBuilder</a></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="keyword">static</span> uint64_t preprocess(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t first_char)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="keyword">static</span> uint64_t preprocess(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t first_char)</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                uint64_t pos = 1;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
@@ -123,7 +123,7 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                RLBWTBuilder::append_char_for_online_construction(rlbwt, first_char, pos);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                <span class="keywordflow">return</span> pos;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keyword">static</span> uint64_t finish(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t last_char, uint64_t current_position, uint8_t end_marker = <span class="charliteral">&#39;$&#39;</span>)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keyword">static</span> uint64_t finish(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t last_char, uint64_t current_position, uint8_t end_marker = <span class="charliteral">&#39;$&#39;</span>)</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                <span class="keywordflow">if</span>(rlbwt.get_char(0) != end_marker){</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                    <span class="keywordflow">throw</span> std::logic_error(<span class="stringliteral">&quot;Error::finish&quot;</span>);</div>
@@ -131,7 +131,7 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                rlbwt.remove_BWT_run(0);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                current_position--;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <a class="code hl_class" href="structstool_1_1fm__index_1_1_run_position.html">RunPosition</a> pos_on_rlbwt = rlbwt.to_run_position(current_position);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                <a class="code hl_class" href="structstool_1_1dynamic__r__index_1_1_run_position.html">RunPosition</a> pos_on_rlbwt = rlbwt.to_run_position(current_position);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                uint64_t freq = rlbwt.get_c_array().at(last_char);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                uint64_t rank = rlbwt.rank(last_char, pos_on_rlbwt);</div>
@@ -141,17 +141,17 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                RLBWTBuilder::append_char_for_online_construction(rlbwt, end_marker, new_pos);</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <span class="keywordflow">return</span> new_pos;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keyword">static</span> uint64_t compute_next_position_to_insert(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t c, uint64_t current_position)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keyword">static</span> uint64_t compute_next_position_to_insert(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t c, uint64_t current_position)</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <a class="code hl_class" href="structstool_1_1fm__index_1_1_run_position.html">RunPosition</a> pos_on_rlbwt = rlbwt.to_run_position(current_position);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <a class="code hl_class" href="structstool_1_1dynamic__r__index_1_1_run_position.html">RunPosition</a> pos_on_rlbwt = rlbwt.to_run_position(current_position);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                uint64_t freq = rlbwt.get_c_array().at(c);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                uint64_t rank = rlbwt.rank(c, pos_on_rlbwt);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                uint64_t new_pos = freq + rank;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                <span class="keywordflow">return</span> new_pos;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> append_char_for_online_construction(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t c, uint64_t position_on_BWT)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> append_char_for_online_construction(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> &amp;rlbwt, uint8_t c, uint64_t position_on_BWT)</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <a class="code hl_class" href="structstool_1_1fm__index_1_1_run_position.html">RunPosition</a> rp = rlbwt.to_run_position(position_on_BWT, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <a class="code hl_class" href="structstool_1_1dynamic__r__index_1_1_run_position.html">RunPosition</a> rp = rlbwt.to_run_position(position_on_BWT, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="comment">//assert(rp.position_in_run &gt;= 0);</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
@@ -229,7 +229,7 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            }</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> build(std::vector&lt;uint8_t&gt; &amp;text, uint8_t end_marker = <span class="charliteral">&#39;$&#39;</span>)</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> build(std::vector&lt;uint8_t&gt; &amp;text, uint8_t end_marker = <span class="charliteral">&#39;$&#39;</span>)</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            {</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                std::vector&lt;uint8_t&gt; rev_text = stool::StringFunctions::to_reversed_string(text);</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                std::vector&lt;uint8_t&gt; chars = stool::StringFunctions::get_alphabet(rev_text);</div>
@@ -243,7 +243,7 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                }</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                {</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                    <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> rlbwt = DynamicRLBWT::build_RLBWT_of_end_marker(chars);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                    <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> rlbwt = DynamicRLBWT::build_RLBWT_of_end_marker(chars);</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                    uint64_t pos = RLBWTBuilder::preprocess(rlbwt, rev_text[0]);</div>
@@ -264,7 +264,7 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                }</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            }</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> online_build_for_reversed_text(std::string file_path, uint8_t end_marker = <span class="charliteral">&#39;$&#39;</span>, uint64_t buffer_size = 16000)</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> online_build_for_reversed_text(std::string file_path, uint8_t end_marker = <span class="charliteral">&#39;$&#39;</span>, uint64_t buffer_size = 16000)</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            {</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;Get Alphabets&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                std::vector&lt;uint8_t&gt; chars = stool::OnlineFileReader::get_alphabet(file_path, buffer_size);</div>
@@ -289,7 +289,7 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                }</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                {</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                    <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> rlbwt = DynamicRLBWT::build_RLBWT_of_end_marker(chars);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                    <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">DynamicRLBWT</a> rlbwt = DynamicRLBWT::build_RLBWT_of_end_marker(chars);</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                    std::vector&lt;uint8_t&gt; buffer;</div>
@@ -350,9 +350,9 @@ $(function(){initNavTree('rlbwt__builder_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_r_l_b_w_t_html"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_r_l_b_w_t.html">stool::r_index::DynamicRLBWT</a></div><div class="ttdoc">A dynamic data structure storing RLBWT. This implementation requires $O(r)$ words for the number r of...</div><div class="ttdef"><b>Definition</b> dynamic_rlbwt.hpp:37</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_r_l_b_w_t_builder_html"><div class="ttname"><a href="classstool_1_1r__index_1_1_r_l_b_w_t_builder.html">stool::r_index::RLBWTBuilder</a></div><div class="ttdoc">A builder of RLBWT.</div><div class="ttdef"><b>Definition</b> rlbwt_builder.hpp:16</div></div>
-<div class="ttc" id="astructstool_1_1fm__index_1_1_run_position_html"><div class="ttname"><a href="structstool_1_1fm__index_1_1_run_position.html">stool::fm_index::RunPosition</a></div><div class="ttdoc">A representation of a position in RLBWT.</div><div class="ttdef"><b>Definition</b> tools.hpp:68</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t_html"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_r_l_b_w_t.html">stool::dynamic_r_index::DynamicRLBWT</a></div><div class="ttdoc">A dynamic data structure storing RLBWT. This implementation requires $O(r)$ words for the number r of...</div><div class="ttdef"><b>Definition</b> dynamic_rlbwt.hpp:37</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_r_l_b_w_t_builder_html"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_r_l_b_w_t_builder.html">stool::dynamic_r_index::RLBWTBuilder</a></div><div class="ttdoc">A builder of RLBWT.</div><div class="ttdef"><b>Definition</b> rlbwt_builder.hpp:16</div></div>
+<div class="ttc" id="astructstool_1_1dynamic__r__index_1_1_run_position_html"><div class="ttname"><a href="structstool_1_1dynamic__r__index_1_1_run_position.html">stool::dynamic_r_index::RunPosition</a></div><div class="ttdoc">A representation of a position in RLBWT.</div><div class="ttdef"><b>Definition</b> tools.hpp:68</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

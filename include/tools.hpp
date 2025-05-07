@@ -8,7 +8,7 @@
 #include <cassert>
 namespace stool
 {
-    namespace fm_index
+    namespace dynamic_r_index
     {
         using TextIndex = uint64_t;
         using SAIndex = uint64_t;

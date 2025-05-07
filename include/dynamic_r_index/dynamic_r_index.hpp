@@ -1,9 +1,9 @@
-
+#pragma once
 #include "./r_index_helper_for_update.hpp"
 #include "./r_index_old_update_operations.hpp"
 namespace stool
 {
-    namespace r_index
+    namespace dynamic_r_index
     {
 
         ////////////////////////////////////////////////////////////////////////////////

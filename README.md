@@ -6,7 +6,7 @@ It supports count and locate queries in $O(m \log n)$ and $O((m+occ) \log n)$ fo
 where $n$ is the length of $T$, and $occ$ is the number of occurrences of the given pattern in $T$. 
 In addition, we can insert a substring of length $m$ into $T$ at arbitrary positoin or delete a substring of length $m$ from $T$ in $O((m+L_{avg}) \log n)$ time in the average-case, where $L_{avg}$ is the average of the values in the LCP array of $T$.
 
-# download
+# Download
 
 The source codes in 'module' directory are maintained in different repositories. 
 So, to download all the necessary source codes, do the following:
@@ -18,7 +18,7 @@ git submodule init
 git submodule update  
 ```
 
-# compile
+# Compile
 
 This program uses the [SDSL library](https://github.com/simongog/sdsl-lite). Assuming that the library and header files are installed in the ~/lib and ~/include directories, respectively, the source code of this repository can be compiled using the following commands:
 
@@ -121,6 +121,6 @@ Command: INSERT(TABKEY)(the insertion position of a substring inserted into the 
 % cat result/view3.log
 > 0, VIEW, Text length,34, Text, aaaAABBBBAAaABAaaaaABAaaaABAaaaab, BWT, baBaaaAABBBBAAABBAaaAaaaaaAAAaaaa
 
-## license
+## API Documentation (in preparation)
 
-This program is released under the MIT licence.
+[Doxygen](https://TNishimoto.github.io/dynamic_r_index/html/index.html)

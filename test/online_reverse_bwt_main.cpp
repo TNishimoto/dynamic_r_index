@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     std::chrono::system_clock::time_point st1, st2, st3;
     st1 = std::chrono::system_clock::now();
-    stool::r_index::DynamicRLBWT rlbwt = stool::r_index::RLBWTBuilder::online_build_for_reversed_text(input_file_path, '$');
+    stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::online_build_for_reversed_text(input_file_path, '$');
     st2 = std::chrono::system_clock::now();
 
 

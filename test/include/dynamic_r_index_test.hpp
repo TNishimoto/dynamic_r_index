@@ -229,7 +229,7 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 DynamicFMIndex dfmi;
                 dfmi.initialize(alphabet_with_end_marker);
@@ -261,7 +261,7 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
 
@@ -342,7 +342,7 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
 
@@ -412,7 +412,7 @@ namespace stool
                 std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
 
                 uint64_t end_marker = 0;
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
 
                 text.push_back(end_marker);
 
@@ -422,7 +422,7 @@ namespace stool
 
                 std::string filepath = "drfmi.bits";
 
-                stool::r_index::DynamicRIndex drfmi = stool::r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicRIndex drfmi = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
                 {
                     std::ofstream os;
@@ -432,10 +432,10 @@ namespace stool
                         std::cerr << "Error: Could not open file for writing." << std::endl;
                         throw std::runtime_error("File open error");
                     }
-                    stool::r_index::DynamicRIndex::save(drfmi, os, stool::Message::NO_MESSAGE);
+                    stool::dynamic_r_index::DynamicRIndex::save(drfmi, os, stool::Message::NO_MESSAGE);
                 }
 
-                stool::r_index::DynamicRIndex drfmi2;
+                stool::dynamic_r_index::DynamicRIndex drfmi2;
                 {
                     std::ifstream ifs;
                     ifs.open(filepath, std::ios::binary);
@@ -445,7 +445,7 @@ namespace stool
                         throw std::runtime_error("File open error");
                     }
 
-                    auto tmp = stool::r_index::DynamicRIndex::build_from_data(ifs, stool::Message::NO_MESSAGE);
+                    auto tmp = stool::dynamic_r_index::DynamicRIndex::build_from_data(ifs, stool::Message::NO_MESSAGE);
                     drfmi2.swap(tmp);
                 }
 
@@ -457,7 +457,7 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 // dfmi.initialize(alphabet_with_end_marker);
 
@@ -469,7 +469,7 @@ namespace stool
                 // stool::Printer::print("BWT", bwt);
                 // stool::Printer::print("SA", sa);
 
-                stool::fm_index::DynamicFMIndex dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
 
                 DynamicRIndex drfmi = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
@@ -484,8 +484,8 @@ namespace stool
                 dfmi.delete_string(insertion_pos, str_len, &edit_history);
                 // edit_history.print();
 
-                stool::r_index::SubPhiDataStructure sub(insertion_pos, str_len, false);
-                stool::r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, sub);
+                stool::dynamic_r_index::SubPhiDataStructure sub(insertion_pos, str_len, false);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, sub);
 
                 bool b = false;
                 // uint64_t x = 0;
@@ -502,7 +502,7 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
 
@@ -510,7 +510,7 @@ namespace stool
                 std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
-                stool::fm_index::DynamicFMIndex dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
 
                 DynamicRIndex drfmi = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
@@ -534,7 +534,7 @@ namespace stool
                 // assert(drfmi_disa.verify());
 
                 //SubPhiDataStructure sub(insertion_pos, inserted_string.size(), true);
-                stool::r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_insertion_operation(insertion_pos, inserted_string, edit_history2);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_insertion_operation(insertion_pos, inserted_string, edit_history2);
                 //sub.verify(drfmi.get_dynamic_phi());
                 // assert(drfmi_disa.verify());
 
@@ -554,9 +554,9 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
-                // stool::r_index::DynamicRIndex drfmi;
+                // stool::dynamic_r_index::DynamicRIndex drfmi;
                 // drfmi.initialize(alphabet_with_end_marker, false);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
@@ -566,7 +566,7 @@ namespace stool
                 // stool::Printer::print("BWT", bwt);
                 // stool::Printer::print("SA", sa);
 
-                stool::fm_index::DynamicFMIndex dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
                 DynamicRIndex drfmi = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
                 // drfmi.build(bwt,alphabet_with_end_marker ,stool::Message::NO_MESSAGE);
@@ -596,7 +596,7 @@ namespace stool
 
                 dfmi.insert_char(insertion_pos, new_char, &edit_history1);
                 std::vector<BWT_and_SA> bwt_sa = BWT_and_SA::build_for_insertion(bwt, sa, edit_history1);
-                stool::r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_insertion_operation(insertion_pos, new_char, edit_history2);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_insertion_operation(insertion_pos, new_char, edit_history2);
 
                 stool::equal_check("BWT(0)", bwt_sa[0].bwt, drfmi.get_bwt());
                 //stool::equal_check("SA(0)", bwt_sa[0].sa, drfmi.get_sa());
@@ -614,7 +614,7 @@ namespace stool
 
                         x++;
                         stool::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
-                        //const stool::r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
+                        //const stool::dynamic_r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
                         //stool::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
 
                         // check_sampling_sa("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, drfmi.get_sampling_sa());
@@ -629,9 +629,9 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
-                // stool::r_index::DynamicRIndex drfmi;
+                // stool::dynamic_r_index::DynamicRIndex drfmi;
                 // drfmi.initialize(alphabet_with_end_marker, false);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
@@ -654,7 +654,7 @@ namespace stool
                 std::vector<uint64_t> new_sa = libdivsufsort::construct_suffix_array(new_text, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> new_bwt = stool::construct_BWT(new_text, new_sa, stool::Message::NO_MESSAGE);
 
-                stool::fm_index::DynamicFMIndex dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
                 DynamicRIndex drfmi = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
                 
                 DynamicRIndex drfmi2 = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
@@ -670,8 +670,8 @@ namespace stool
                 dfmi.delete_char(removal_pos, &edit_history1);
                 std::vector<BWT_and_SA> bwt_sa = BWT_and_SA::build_for_deletion(bwt, sa, edit_history1);
 
-                stool::r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_deletion_operation(removal_pos, edit_history2, sub);
-                stool::r_index::AdditionalInformationUpdatingRIndex inf2 = drfmi2.__preprocess_of_char_deletion_operation2(removal_pos, edit_history2, sub);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_deletion_operation(removal_pos, edit_history2, sub);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf2 = drfmi2.__preprocess_of_char_deletion_operation2(removal_pos, edit_history2, sub);
 
                 {
                     assert(inf.y == inf2.y);
@@ -700,7 +700,7 @@ namespace stool
                         x++;
                         stool::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
 
-                        const stool::r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
+                        const stool::dynamic_r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
                         stool::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
                     }
                 }
@@ -713,9 +713,9 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
-                // stool::r_index::DynamicRIndex drfmi;
+                // stool::dynamic_r_index::DynamicRIndex drfmi;
                 // drfmi.initialize(alphabet_with_end_marker, false);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
@@ -738,7 +738,7 @@ namespace stool
                 std::vector<uint64_t> new_sa = libdivsufsort::construct_suffix_array(new_text, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> new_bwt = stool::construct_BWT(new_text, new_sa, stool::Message::NO_MESSAGE);
 
-                stool::fm_index::DynamicFMIndex dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
                 DynamicRIndex drfmi = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
                 // drfmi.build(bwt, alphabet_with_end_marker,stool::Message::NO_MESSAGE);
@@ -752,7 +752,7 @@ namespace stool
                 dfmi.delete_char(removal_pos, &edit_history1);
                 std::vector<BWT_and_SA> bwt_sa = BWT_and_SA::build_for_deletion(bwt, sa, edit_history1);
 
-                stool::r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_deletion_operation(removal_pos, edit_history2, sub);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_deletion_operation(removal_pos, edit_history2, sub);
 
 
                 stool::equal_check("BWT(0)", bwt_sa[0].bwt, drfmi.get_bwt());
@@ -769,7 +769,7 @@ namespace stool
                         x++;
                         stool::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
 
-                        const stool::r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
+                        const stool::dynamic_r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
                         stool::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
                     }
                 }
@@ -814,9 +814,9 @@ namespace stool
                 std::mt19937_64 mt64(seed);
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> alphabet_with_end_marker = stool::fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
+                std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
-                // stool::r_index::DynamicRIndex drfmi;
+                // stool::dynamic_r_index::DynamicRIndex drfmi;
                 // drfmi.initialize(alphabet_with_end_marker, false);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
@@ -824,7 +824,7 @@ namespace stool
                 std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
-                stool::fm_index::DynamicFMIndex dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
                 DynamicRIndex drfmi = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
                 // drfmi.build(bwt, alphabet_with_end_marker ,stool::Message::NO_MESSAGE);

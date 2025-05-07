@@ -15,7 +15,7 @@
 
 #include <filesystem>
 
-std::pair<uint64_t, uint64_t> insert_and_delete_string(stool::r_index::DynamicRIndex &drfmi, std::mt19937_64 &mt64, uint64_t pattern_length, std::vector<std::pair<std::string, uint64_t>> &time_profiler)
+std::pair<uint64_t, uint64_t> insert_and_delete_string(stool::dynamic_r_index::DynamicRIndex &drfmi, std::mt19937_64 &mt64, uint64_t pattern_length, std::vector<std::pair<std::string, uint64_t>> &time_profiler)
 {
     uint64_t text_size = drfmi.get_dynamic_rlbwt().text_size();
     assert(pattern_length + 1 < text_size);
@@ -48,7 +48,7 @@ void mode1(std::string file_path, uint64_t numberOfTrials, uint64_t pattern_leng
 
     std::vector<std::pair<std::string, uint64_t>> time_profiler;
     std::chrono::system_clock::time_point st1, st2, st3;
-    stool::r_index::DynamicRIndex drfmi;
+    stool::dynamic_r_index::DynamicRIndex drfmi;
     stool::print_memory_usage();
 
     {
@@ -73,7 +73,7 @@ void mode1(std::string file_path, uint64_t numberOfTrials, uint64_t pattern_leng
     uint64_t total_insertion_time = 0;
     uint64_t total_deletion_time = 0;
 
-    const stool::r_index::DynamicRLBWT& dbwt = drfmi.get_dynamic_rlbwt();
+    const stool::dynamic_r_index::DynamicRLBWT& dbwt = drfmi.get_dynamic_rlbwt();
 
 
     for (uint64_t i = 0; i < numberOfTrials; i++)
@@ -130,7 +130,7 @@ void mode2(std::string file_path, uint64_t degree)
 {
     std::vector<std::pair<std::string, uint64_t>> time_profiler;
     std::chrono::system_clock::time_point st2, st3;
-    stool::r_index::DynamicRIndex drfmi;
+    stool::dynamic_r_index::DynamicRIndex drfmi;
 
     {
 
@@ -141,7 +141,7 @@ void mode2(std::string file_path, uint64_t degree)
 
     uint64_t time = std::chrono::duration_cast<std::chrono::nanoseconds>(st3 - st2).count();
 
-    const stool::r_index::DynamicRLBWT& dbwt = drfmi.get_dynamic_rlbwt();
+    const stool::dynamic_r_index::DynamicRLBWT& dbwt = drfmi.get_dynamic_rlbwt();
 
     std::cout << "\033[36m";
     std::cout << "=============RESULT===============" << std::endl;
@@ -167,7 +167,7 @@ void mode3(std::string file_path, [[maybe_unused]] uint64_t degree)
     stool::IO::load(file_path, bwt);
     std::vector<uint8_t> chars = stool::StringFunctions::get_alphabet(bwt);
 
-        stool::r_index::DynamicRIndex drfmi;
+        stool::dynamic_r_index::DynamicRIndex drfmi;
         drfmi.initialize(chars, false);
         drfmi.build_from_bwt_file2(file_path, 126);
         std::cout << "END" << std::endl;

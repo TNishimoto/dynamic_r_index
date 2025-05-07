@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>STool: include/dynamic_r_index/dynamic_partial_sa.hpp Source File</title>
+<title>Dynamic R-Index: include/dynamic_r_index/dynamic_partial_sa.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">STool
+   <div id="projectname">Dynamic R-Index
    </div>
   </td>
  </tr>
@@ -104,23 +104,23 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span>stool</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">namespace </span>r_index</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">namespace </span>dynamic_r_index</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    {</div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">   14</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">   14</a></span>        <span class="keyword">class </span><a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            stool::permutation::DynamicPermutation pom;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            stool::prefix_sum::VLCDequeSPSI sampled_isa_gap_vector;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            stool::bptree::DynamicPermutation pom;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            stool::bptree::VLCDequeDynamicPrefixSum sampled_isa_gap_vector;</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            uint64_t _text_size = 0;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a>()</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a>()</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                this-&gt;<a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#ab77eaea7c30c9aac5428e580c7d1ab6c">clear</a>();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                this-&gt;<a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a2d1ab7f7e4c234af6bfbad4559f922a0">clear</a>();</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a>(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;operator=(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;operator=(<span class="keyword">const</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a>(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;operator=(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordtype">void</span> print_statistics(<span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">            </span>{</div>
@@ -138,22 +138,22 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                std::cout &lt;&lt; stool::Message::get_paragraph_string(message_paragraph) &lt;&lt; <span class="stringliteral">&quot;[END]&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            }</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> save(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;item, std::ofstream &amp;os)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keyword">static</span> <span class="keywordtype">void</span> save(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;item, std::ofstream &amp;os)</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                stool::permutation::DynamicPermutation::save(item.pom, os);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                stool::prefix_sum::VLCDequeSPSI::save(item.sampled_isa_gap_vector, os);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                stool::bptree::DynamicPermutation::save(item.pom, os);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                stool::bptree::VLCDequeDynamicPrefixSum::save(item.sampled_isa_gap_vector, os);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                os.write(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;item._text_size), <span class="keyword">sizeof</span>(uint64_t));</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> build_from_data(std::ifstream &amp;ifs)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> build_from_data(std::ifstream &amp;ifs)</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                stool::permutation::DynamicPermutation tmp_pom = stool::permutation::DynamicPermutation::build_from_data(ifs);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                stool::prefix_sum::VLCDequeSPSI tmp_sampled_isa_gap_vector = stool::prefix_sum::VLCDequeSPSI::build_from_data(ifs);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                stool::bptree::DynamicPermutation tmp_pom = stool::bptree::DynamicPermutation::build_from_data(ifs);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                stool::bptree::VLCDequeDynamicPrefixSum tmp_sampled_isa_gap_vector = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                uint64_t _text_size = 0;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                ifs.read(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(&amp;_text_size), <span class="keyword">sizeof</span>(uint64_t));</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> r;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> r;</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                r.pom.swap(tmp_pom);</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                r.sampled_isa_gap_vector.swap(tmp_sampled_isa_gap_vector);</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                std::swap(r._text_size, _text_size);</div>
@@ -165,26 +165,26 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keywordtype">void</span> set_degree(uint64_t degree)</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            {</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                this-&gt;pom.set_degree(degree);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                this-&gt;<a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#ab77eaea7c30c9aac5428e580c7d1ab6c">clear</a>();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                this-&gt;<a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a2d1ab7f7e4c234af6bfbad4559f922a0">clear</a>();</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            }</div>
 <div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a73a5eb5bd0dde0010eb723a42c668a4b">   82</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a73a5eb5bd0dde0010eb723a42c668a4b">build_for_single_character</a>()</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a63adb6ea1d8e89d93e2914fab74c816d">   82</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a63adb6ea1d8e89d93e2914fab74c816d">build_for_single_character</a>()</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            {</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                this-&gt;pom.insert(0, 0);</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                this-&gt;_text_size = 1;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            }</div>
 </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            stool::permutation::DynamicPermutation &amp;get_dynamic_permutation()</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            stool::bptree::DynamicPermutation &amp;get_dynamic_permutation()</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            {</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">return</span> this-&gt;pom;</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            stool::prefix_sum::VLCDequeSPSI &amp;get_spsi()</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            stool::bptree::VLCDequeDynamicPrefixSum &amp;get_spsi()</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            {</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                <span class="keywordflow">return</span> this-&gt;sampled_isa_gap_vector;</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
 <div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#ab77eaea7c30c9aac5428e580c7d1ab6c">   99</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#ab77eaea7c30c9aac5428e580c7d1ab6c">clear</a>()</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a2d1ab7f7e4c234af6bfbad4559f922a0">   99</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a2d1ab7f7e4c234af6bfbad4559f922a0">clear</a>()</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            {</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                this-&gt;pom.clear();</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                this-&gt;sampled_isa_gap_vector.clear();</div>
@@ -194,7 +194,7 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                this-&gt;sampled_isa_gap_vector.push_back(0);</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            }</div>
 </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordtype">void</span> swap(<a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;item)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keywordtype">void</span> swap(<a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> &amp;item)</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            {</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                this-&gt;pom.swap(item.pom);</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                this-&gt;sampled_isa_gap_vector.swap(item.sampled_isa_gap_vector);</div>
@@ -202,16 +202,16 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            }</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
 <div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a999fb83e6e5f39875e1815f81a437c12">  119</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a999fb83e6e5f39875e1815f81a437c12">set_text_size</a>(uint64_t new_text_size)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#aa12bb7c79085f2b07cf691eb60d8aeac">  119</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#aa12bb7c79085f2b07cf691eb60d8aeac">set_text_size</a>(uint64_t new_text_size)</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            {</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                this-&gt;_text_size = new_text_size;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            }</div>
 </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
 <div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a1f27a09f924bf061dd18e73efc088965">  129</a></span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a1f27a09f924bf061dd18e73efc088965">build_from_sampled_sa_indexes</a>(<span class="keyword">const</span> std::vector&lt;uint64_t&gt; &amp;sampled_sa_indexes, uint64_t new_text_size, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a9f515a7dd5feb191f44132d7c6b41a67">  129</a></span>            <span class="keyword">static</span> <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a9f515a7dd5feb191f44132d7c6b41a67">build_from_sampled_sa_indexes</a>(<span class="keyword">const</span> std::vector&lt;uint64_t&gt; &amp;sampled_sa_indexes, uint64_t new_text_size, <span class="keywordtype">int</span> message_paragraph = stool::Message::SHOW_MESSAGE)</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <a class="code hl_class" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> r;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <a class="code hl_class" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">DynamicPartialSA</a> r;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                r._text_size = new_text_size;</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                r.sampled_isa_gap_vector.clear();</div>
@@ -307,7 +307,7 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                }</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                <span class="comment">/*</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">                stool::permutation::DynamicPermutation tmp_dp;</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">                stool::bptree::DynamicPermutation tmp_dp;</span></div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">                tmp_dp.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::add_message_paragraph(message_paragraph));</span></div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">                this-&gt;pom.swap(tmp_dp);</span></div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">                */</span></div>
@@ -448,14 +448,14 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>            <span class="keywordtype">void</span> print_detailed_info()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="keyword">            </span>{</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>                this-&gt;pom.print();</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                this-&gt;sampled_isa_gap_vector.print();</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                std::cout &lt;&lt; this-&gt;sampled_isa_gap_vector.to_string() &lt;&lt; std::endl;</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>            }</div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span> </div>
 <div class="foldopen" id="foldopen00387" data-start="{" data-end="}">
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aa5b624d7f6c4cd135bfacd7114fb461b">  387</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aa5b624d7f6c4cd135bfacd7114fb461b">extend_text</a>(int64_t new_position)</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a135060c6d04fd4e61fd47c323b9526de">  387</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a135060c6d04fd4e61fd47c323b9526de">extend_text</a>(int64_t new_position)</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>            {</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>                int64_t idx = this-&gt;sampled_isa_gap_vector.successor_index(new_position);</div>
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
@@ -468,7 +468,7 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 </div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
 <div class="foldopen" id="foldopen00402" data-start="{" data-end="}">
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a7d12b90d03bf48c5b1996e53ff178a84">  402</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a7d12b90d03bf48c5b1996e53ff178a84">shrink_text</a>(int64_t removed_position)</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#ad2203fc85527f5ec968aeca500adffba">  402</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#ad2203fc85527f5ec968aeca500adffba">shrink_text</a>(int64_t removed_position)</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>            {</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>                int64_t idx = this-&gt;sampled_isa_gap_vector.successor_index(removed_position);</div>
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span> </div>
@@ -486,7 +486,7 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 </div>
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span> </div>
 <div class="foldopen" id="foldopen00423" data-start="{" data-end="}">
-<div class="line"><a id="l00423" name="l00423"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a3287243f17f2763eb5d52bc07f4af265">  423</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a3287243f17f2763eb5d52bc07f4af265">insert</a>(int64_t new_sa_index, int64_t new_sa_value)</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#acbcfeb92e6912dd136e4da355d32e8a9">  423</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#acbcfeb92e6912dd136e4da355d32e8a9">insert</a>(int64_t new_sa_index, int64_t new_sa_value)</div>
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>            {</div>
 <div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>                assert(new_sa_index &lt;= (int64_t)this-&gt;pom.size());</div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span> </div>
@@ -521,7 +521,7 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 </div>
 <div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span> </div>
 <div class="foldopen" id="foldopen00460" data-start="{" data-end="}">
-<div class="line"><a id="l00460" name="l00460"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aba1cc46ba0cdd6526b1b388e7501f965">  460</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aba1cc46ba0cdd6526b1b388e7501f965">remove</a>(int64_t sa_index)</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a1d4b14fd3ba53a7e4b44cd644df070ad">  460</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a1d4b14fd3ba53a7e4b44cd644df070ad">remove</a>(int64_t sa_index)</div>
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>            {</div>
 <div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>                int64_t isa_index = this-&gt;get_sampled_isa_index(sa_index);</div>
 <div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>                <span class="keywordflow">if</span> (isa_index + 1 &lt; this-&gt;size())</div>
@@ -544,7 +544,7 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 </div>
 <div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span> </div>
 <div class="foldopen" id="foldopen00486" data-start="{" data-end="}">
-<div class="line"><a id="l00486" name="l00486"></a><span class="lineno"><a class="line" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aab9856e1df62a4ac9acc8935f85a307d">  486</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aab9856e1df62a4ac9acc8935f85a307d">replace</a>(SampledSAIndex sa_index, SAValue new_sa_value)</div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno"><a class="line" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#ab68555f3c8f6a1d39b78eda6fea0f918">  486</a></span>            <span class="keywordtype">void</span> <a class="code hl_function" href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#ab68555f3c8f6a1d39b78eda6fea0f918">replace</a>(SampledSAIndex sa_index, SAValue new_sa_value)</div>
 <div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>            {</div>
 <div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>                this-&gt;remove(sa_index);</div>
 <div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>                this-&gt;insert(sa_index, new_sa_value);</div>
@@ -592,16 +592,16 @@ $(function(){initNavTree('dynamic__partial__sa_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span> </div>
 <div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    }</div>
 <div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>}</div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html">stool::r_index::DynamicPartialSA</a></div><div class="ttdoc">A dynamic data structure for managing sampled suffix array values.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:15</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_a1f27a09f924bf061dd18e73efc088965"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a1f27a09f924bf061dd18e73efc088965">stool::r_index::DynamicPartialSA::build_from_sampled_sa_indexes</a></div><div class="ttdeci">static DynamicPartialSA build_from_sampled_sa_indexes(const std::vector&lt; uint64_t &gt; &amp;sampled_sa_indexes, uint64_t new_text_size, int message_paragraph=stool::Message::SHOW_MESSAGE)</div><div class="ttdoc">Build this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:129</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_a3287243f17f2763eb5d52bc07f4af265"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a3287243f17f2763eb5d52bc07f4af265">stool::r_index::DynamicPartialSA::insert</a></div><div class="ttdeci">void insert(int64_t new_sa_index, int64_t new_sa_value)</div><div class="ttdoc">Add a new sampled suffix array value into this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:423</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_a73a5eb5bd0dde0010eb723a42c668a4b"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a73a5eb5bd0dde0010eb723a42c668a4b">stool::r_index::DynamicPartialSA::build_for_single_character</a></div><div class="ttdeci">void build_for_single_character()</div><div class="ttdoc">Build this data structure for a string of length 1.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:82</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_a7d12b90d03bf48c5b1996e53ff178a84"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a7d12b90d03bf48c5b1996e53ff178a84">stool::r_index::DynamicPartialSA::shrink_text</a></div><div class="ttdeci">void shrink_text(int64_t removed_position)</div><div class="ttdoc">Remove the character at a position from the input text and appropriately shift the sampled suffix arr...</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:402</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_a999fb83e6e5f39875e1815f81a437c12"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#a999fb83e6e5f39875e1815f81a437c12">stool::r_index::DynamicPartialSA::set_text_size</a></div><div class="ttdeci">void set_text_size(uint64_t new_text_size)</div><div class="ttdoc">Set the size of the input text.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:119</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_aa5b624d7f6c4cd135bfacd7114fb461b"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aa5b624d7f6c4cd135bfacd7114fb461b">stool::r_index::DynamicPartialSA::extend_text</a></div><div class="ttdeci">void extend_text(int64_t new_position)</div><div class="ttdoc">Insert a character into the input text at a position and appropriately shift the sampled suffix array...</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:387</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_aab9856e1df62a4ac9acc8935f85a307d"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aab9856e1df62a4ac9acc8935f85a307d">stool::r_index::DynamicPartialSA::replace</a></div><div class="ttdeci">void replace(SampledSAIndex sa_index, SAValue new_sa_value)</div><div class="ttdoc">Remove the sampled suffix array value at the selected index with a new suffix array value.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:486</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_ab77eaea7c30c9aac5428e580c7d1ab6c"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#ab77eaea7c30c9aac5428e580c7d1ab6c">stool::r_index::DynamicPartialSA::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Initialize this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:99</div></div>
-<div class="ttc" id="aclassstool_1_1r__index_1_1_dynamic_partial_s_a_html_aba1cc46ba0cdd6526b1b388e7501f965"><div class="ttname"><a href="classstool_1_1r__index_1_1_dynamic_partial_s_a.html#aba1cc46ba0cdd6526b1b388e7501f965">stool::r_index::DynamicPartialSA::remove</a></div><div class="ttdeci">void remove(int64_t sa_index)</div><div class="ttdoc">Remove the sampled suffix array value at the selected index from this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:460</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html">stool::dynamic_r_index::DynamicPartialSA</a></div><div class="ttdoc">A dynamic data structure for managing sampled suffix array values.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:15</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_a135060c6d04fd4e61fd47c323b9526de"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a135060c6d04fd4e61fd47c323b9526de">stool::dynamic_r_index::DynamicPartialSA::extend_text</a></div><div class="ttdeci">void extend_text(int64_t new_position)</div><div class="ttdoc">Insert a character into the input text at a position and appropriately shift the sampled suffix array...</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:387</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_a1d4b14fd3ba53a7e4b44cd644df070ad"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a1d4b14fd3ba53a7e4b44cd644df070ad">stool::dynamic_r_index::DynamicPartialSA::remove</a></div><div class="ttdeci">void remove(int64_t sa_index)</div><div class="ttdoc">Remove the sampled suffix array value at the selected index from this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:460</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_a2d1ab7f7e4c234af6bfbad4559f922a0"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a2d1ab7f7e4c234af6bfbad4559f922a0">stool::dynamic_r_index::DynamicPartialSA::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Initialize this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:99</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_a63adb6ea1d8e89d93e2914fab74c816d"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a63adb6ea1d8e89d93e2914fab74c816d">stool::dynamic_r_index::DynamicPartialSA::build_for_single_character</a></div><div class="ttdeci">void build_for_single_character()</div><div class="ttdoc">Build this data structure for a string of length 1.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:82</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_a9f515a7dd5feb191f44132d7c6b41a67"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#a9f515a7dd5feb191f44132d7c6b41a67">stool::dynamic_r_index::DynamicPartialSA::build_from_sampled_sa_indexes</a></div><div class="ttdeci">static DynamicPartialSA build_from_sampled_sa_indexes(const std::vector&lt; uint64_t &gt; &amp;sampled_sa_indexes, uint64_t new_text_size, int message_paragraph=stool::Message::SHOW_MESSAGE)</div><div class="ttdoc">Build this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:129</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_aa12bb7c79085f2b07cf691eb60d8aeac"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#aa12bb7c79085f2b07cf691eb60d8aeac">stool::dynamic_r_index::DynamicPartialSA::set_text_size</a></div><div class="ttdeci">void set_text_size(uint64_t new_text_size)</div><div class="ttdoc">Set the size of the input text.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:119</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_ab68555f3c8f6a1d39b78eda6fea0f918"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#ab68555f3c8f6a1d39b78eda6fea0f918">stool::dynamic_r_index::DynamicPartialSA::replace</a></div><div class="ttdeci">void replace(SampledSAIndex sa_index, SAValue new_sa_value)</div><div class="ttdoc">Remove the sampled suffix array value at the selected index with a new suffix array value.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:486</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_acbcfeb92e6912dd136e4da355d32e8a9"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#acbcfeb92e6912dd136e4da355d32e8a9">stool::dynamic_r_index::DynamicPartialSA::insert</a></div><div class="ttdeci">void insert(int64_t new_sa_index, int64_t new_sa_value)</div><div class="ttdoc">Add a new sampled suffix array value into this data structure.</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:423</div></div>
+<div class="ttc" id="aclassstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a_html_ad2203fc85527f5ec968aeca500adffba"><div class="ttname"><a href="classstool_1_1dynamic__r__index_1_1_dynamic_partial_s_a.html#ad2203fc85527f5ec968aeca500adffba">stool::dynamic_r_index::DynamicPartialSA::shrink_text</a></div><div class="ttdeci">void shrink_text(int64_t removed_position)</div><div class="ttdoc">Remove the character at a position from the input text and appropriately shift the sampled suffix arr...</div><div class="ttdef"><b>Definition</b> dynamic_partial_sa.hpp:402</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

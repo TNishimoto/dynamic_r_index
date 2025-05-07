@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     // p.add<uint>("index_type", 'm', "dynamic r-index or dynamic fm index", true, 1);
     p.add<uint>("text_type", 'u', "input type", false, 0);
     p.add<bool>("lightweight", 'w', "lightweight", false, true);
-    p.add<uint>("sampling_interval", 's', "sampling_interval", false, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL);
+    p.add<uint>("sampling_interval", 's', "sampling_interval", false, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL);
 
     p.parse_check(argc, argv);
     std::string input_file_path = p.get<std::string>("input_file");
@@ -60,13 +60,13 @@ int main(int argc, char *argv[])
     std::chrono::system_clock::time_point st1, st2;
     st1 = std::chrono::system_clock::now();
 
-    stool::fm_index::DynamicFMIndex dfmi;
+    stool::dynamic_r_index::DynamicFMIndex dfmi;
     if (text_type == is_bwt)
     {
         std::vector<uint8_t> bwt;
         stool::IO::load_text(input_file_path, bwt);
         std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(bwt);
-        stool::fm_index::DynamicFMIndex tmp_dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet, sampling_interval, stool::Message::SHOW_MESSAGE);
+        stool::dynamic_r_index::DynamicFMIndex tmp_dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet, sampling_interval, stool::Message::SHOW_MESSAGE);
         dfmi.swap(tmp_dfmi);
     }
     else
@@ -78,14 +78,14 @@ int main(int argc, char *argv[])
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::SHOW_MESSAGE);
         std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::SHOW_MESSAGE);
         std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::SHOW_MESSAGE);
-        stool::fm_index::DynamicFMIndex tmp_dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet, isa, sampling_interval, stool::Message::SHOW_MESSAGE);
+        stool::dynamic_r_index::DynamicFMIndex tmp_dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet, isa, sampling_interval, stool::Message::SHOW_MESSAGE);
         dfmi.swap(tmp_dfmi);
     }
 
     //dfmi.print_memory_usage();
     //dfmi.print_statistics();
 
-    stool::fm_index::DynamicFMIndex::save(dfmi, os);
+    stool::dynamic_r_index::DynamicFMIndex::save(dfmi, os);
     os.close();
 
     st2 = std::chrono::system_clock::now();

@@ -14,7 +14,7 @@ namespace stool
         class DynamicFMIndexTest
         {
         public:
-            static void BWT_equal_check(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi)
+            static void BWT_equal_check(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi)
             {
                 std::vector<uint8_t> correctBWT = nds.create_bwt();
                 std::vector<uint8_t> testBWT = dfmi.get_bwt();
@@ -31,19 +31,19 @@ namespace stool
                 }
             }
 
-            static void SA_equal_check(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi)
+            static void SA_equal_check(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi)
             {
                 std::vector<uint64_t> correctSA = nds.create_suffix_array();
                 std::vector<uint64_t> testSA = dfmi.get_sa();
                 stool::equal_check("SA", correctSA, testSA);
             }
-            static void ISA_equal_check(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi)
+            static void ISA_equal_check(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi)
             {
                 std::vector<uint64_t> correctISA = nds.create_inverse_suffix_array();
                 std::vector<uint64_t> testISA = dfmi.get_isa();
                 stool::equal_check("ISA", correctISA, testISA);
             }
-            static void equal_check(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi)
+            static void equal_check(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi)
             {
                 BWT_equal_check(nds, dfmi);
                 SA_equal_check(nds, dfmi);
@@ -71,7 +71,7 @@ namespace stool
                 return alphabet_with_end_marker;
             }
 
-            static void bwt_test_random_insertion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi, std::vector<uint8_t> &chars, std::mt19937_64 &mt64)
+            static void bwt_test_random_insertion(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, std::vector<uint8_t> &chars, std::mt19937_64 &mt64)
             {
                 uint64_t size = nds.size();
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 1);
@@ -83,7 +83,7 @@ namespace stool
                 dfmi.insert_char(insertion_pos, new_char);
             }
 
-            static void bwt_test_random_string_insertion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi, uint64_t pattern_length, std::vector<uint8_t> &chars, std::mt19937_64 &mt64)
+            static void bwt_test_random_string_insertion(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, uint64_t pattern_length, std::vector<uint8_t> &chars, std::mt19937_64 &mt64)
             {
                 uint64_t size = nds.size();
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 1);
@@ -103,7 +103,7 @@ namespace stool
                 ISA_equal_check(nds, dfmi);
             }
 
-            static void bwt_test_random_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi, std::mt19937_64 &mt64)
+            static void bwt_test_random_deletion(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, std::mt19937_64 &mt64)
             {
                 uint64_t size = nds.size();
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 2);
@@ -112,7 +112,7 @@ namespace stool
                 nds.delete_char(deletion_pos);
                 dfmi.delete_char(deletion_pos);
             }
-            static void bwt_test_random_string_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::fm_index::DynamicFMIndex &dfmi, uint64_t delete_len, std::mt19937_64 &mt64)
+            static void bwt_test_random_string_deletion(stool::dynamic_r_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, uint64_t delete_len, std::mt19937_64 &mt64)
             {
                 uint64_t size = nds.size();
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - delete_len - 2);
@@ -141,7 +141,7 @@ namespace stool
                 std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
-                stool::fm_index::DynamicBWT dbwt = stool::fm_index::DynamicBWT::build(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicBWT dbwt = stool::dynamic_r_index::DynamicBWT::build(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
                 stool::bwt::LFDataStructure lfds = stool::bwt::LFDataStructure::build(bwt);
                 stool::bwt::BackwardISA<stool::bwt::LFDataStructure> bisa;
@@ -150,8 +150,8 @@ namespace stool
                 // auto tmp = bisa.to_isa();
                 // stool::equal_check("ISA", isa, tmp);
 
-                stool::fm_index::DynamicSampledSA dsisa = stool::fm_index::DynamicSampledSA::build(bisa, &dbwt, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
-                // stool::fm_index::DynamicSampledSA dsisa2 = stool::fm_index::DynamicSampledSA::build(isa, &dbwt);
+                stool::dynamic_r_index::DynamicSampledSA dsisa = stool::dynamic_r_index::DynamicSampledSA::build(bisa, &dbwt, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                // stool::dynamic_r_index::DynamicSampledSA dsisa2 = stool::dynamic_r_index::DynamicSampledSA::build(isa, &dbwt);
 
                 // dsisa.print_info();
                 // dsisa2.print_info();
@@ -180,10 +180,10 @@ namespace stool
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 uint8_t end_marker = alphabet_with_end_marker[0];
 
-                stool::fm_index_test::NaiveDynamicStringForBWT nds;
+                stool::dynamic_r_index_test::NaiveDynamicStringForBWT nds;
                 nds.initialzie(end_marker);
 
-                stool::fm_index::DynamicFMIndex dfmi;
+                stool::dynamic_r_index::DynamicFMIndex dfmi;
                 dfmi.initialize(alphabet_with_end_marker);
 
                 for (uint64_t i = 0; i < item_num; i++)
@@ -217,10 +217,10 @@ namespace stool
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 uint8_t end_marker = alphabet_with_end_marker[0];
 
-                stool::fm_index_test::NaiveDynamicStringForBWT nds;
+                stool::dynamic_r_index_test::NaiveDynamicStringForBWT nds;
                 nds.initialzie(end_marker);
 
-                stool::fm_index::DynamicFMIndex dfmi;
+                stool::dynamic_r_index::DynamicFMIndex dfmi;
                 dfmi.initialize(alphabet_with_end_marker);
 
                 for (uint8_t c : chars)
@@ -260,7 +260,7 @@ namespace stool
 
 
 
-                stool::fm_index::DynamicFMIndex dfmi = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, stool::fm_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
+                stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
                 auto bwt1 = dfmi.get_bwt();
                 auto sa1 = dfmi.get_sa();
                 auto isa1 = dfmi.get_isa();
@@ -273,10 +273,10 @@ namespace stool
                         std::cerr << "Error: Could not open file for writing." << std::endl;
                         throw std::runtime_error("File open error");
                     }
-                    stool::fm_index::DynamicFMIndex::save(dfmi, os, stool::Message::NO_MESSAGE);
+                    stool::dynamic_r_index::DynamicFMIndex::save(dfmi, os, stool::Message::NO_MESSAGE);
                 }
 
-                stool::fm_index::DynamicFMIndex dfmi2;
+                stool::dynamic_r_index::DynamicFMIndex dfmi2;
                 {
                     std::ifstream ifs;
                     ifs.open(filepath, std::ios::binary);
@@ -286,7 +286,7 @@ namespace stool
                         throw std::runtime_error("File open error");
                     }
 
-                    auto tmp = stool::fm_index::DynamicFMIndex::build_from_data(ifs, stool::Message::NO_MESSAGE);
+                    auto tmp = stool::dynamic_r_index::DynamicFMIndex::build_from_data(ifs, stool::Message::NO_MESSAGE);
                     dfmi2.swap(tmp);
                 }
 
@@ -313,7 +313,7 @@ namespace stool
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 // uint8_t end_marker = alphabet_with_end_marker[0];
 
-                stool::fm_index::DynamicFMIndex dfmi;
+                stool::dynamic_r_index::DynamicFMIndex dfmi;
                 dfmi.initialize(alphabet_with_end_marker);
                 dfmi.insert_string(0, text);
 

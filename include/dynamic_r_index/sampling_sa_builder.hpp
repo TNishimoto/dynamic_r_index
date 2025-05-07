@@ -4,7 +4,7 @@
 
 namespace stool
 {
-    namespace r_index
+    namespace dynamic_r_index
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      SamplingSATBuilder

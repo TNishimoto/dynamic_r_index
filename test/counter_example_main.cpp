@@ -129,13 +129,13 @@ void find_example()
         if (rle_size == 5)
         {
 
-            stool::fm_index::DynamicFMIndex dyn_index1 = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
-            stool::fm_index::DynamicFMIndex dyn_index2 = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
+            stool::dynamic_r_index::DynamicFMIndex dyn_index1 = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
+            stool::dynamic_r_index::DynamicFMIndex dyn_index2 = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
 
             std::string _bwt = dyn_index1.get_bwt_str();
 
-            stool::fm_index::FMIndexEditHistory output_history1;
-            stool::fm_index::FMIndexEditHistory output_history2;
+            stool::dynamic_r_index::FMIndexEditHistory output_history1;
+            stool::dynamic_r_index::FMIndexEditHistory output_history2;
 
             std::vector<uint8_t> pattern1 = {'a', 'b'};
             std::vector<uint8_t> pattern2 = {'b', 'a'};
@@ -242,8 +242,8 @@ void print_counter_example(const CounterExampleInfo &info)
     uint64_t dist = info.dist;
     uint64_t d = info.d;
 
-    stool::fm_index::DynamicFMIndex dyn_index = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
-    stool::fm_index::FMIndexEditHistory output_history;
+    stool::dynamic_r_index::DynamicFMIndex dyn_index = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
+    stool::dynamic_r_index::FMIndexEditHistory output_history;
     dyn_index.insert_char(i, c, output_history);
 
     std::cout << "text: " << info.str << "$, pattern:" << c << ", i = " << i << ", dist = " << dist << ", d = " << d << std::endl;
@@ -286,8 +286,8 @@ CounterExampleInfo find_counter_example(const std::string &str, std::string patt
         bool b = check_lex(text, pattern, i);
         if (!b)
         {
-            stool::fm_index::DynamicFMIndex dyn_index = stool::fm_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
-            stool::fm_index::FMIndexEditHistory output_history;
+            stool::dynamic_r_index::DynamicFMIndex dyn_index = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, 4, stool::Message::NO_MESSAGE);
+            stool::dynamic_r_index::FMIndexEditHistory output_history;
             dyn_index.insert_string(i, pattern2, output_history);
 
             uint64_t d = output_history.move_history.size();

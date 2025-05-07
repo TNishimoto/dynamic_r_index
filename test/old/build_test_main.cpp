@@ -44,6 +44,6 @@ int main(int argc, char *argv[])
     bool detailed_check = p.get<uint>("detailed_check") == 0 ? false : true;
 
     std::vector<std::pair<std::string, uint64_t>> time_profiler;
-    stool::r_index::DynamicRIndex drfmi;
+    stool::dynamic_r_index::DynamicRIndex drfmi;
     drfmi.build_from_bwt_file(input_path, 252, &time_profiler);
 }

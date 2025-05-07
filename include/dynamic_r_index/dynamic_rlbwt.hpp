@@ -6,7 +6,7 @@
 #include <functional> 
 namespace stool
 {
-    namespace r_index
+    namespace dynamic_r_index
     {
 #ifdef TIME_DEBUG
         uint64_t __insert_new_run_count = 0;
@@ -27,7 +27,7 @@ namespace stool
 
 #endif
 
-        using namespace fm_index;
+        using namespace dynamic_r_index;
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      DynamicRLBWT
         /// @brief      A dynamic data structure storing RLBWT. This implementation requires $O(r)$ words for the number r of runs in the BWT of the input string.
@@ -40,7 +40,7 @@ namespace stool
             stool::bptree::VLCDequeDynamicPrefixSum c_run_counters;
             stool::bptree::VLCDequeDynamicPrefixSum run_length_vector_sorted_by_F;
             stool::bptree::DynamicWaveletTree head_chars_of_RLBWT;
-            stool::fm_index::CArray cArray;
+            stool::dynamic_r_index::CArray cArray;
             int64_t _text_size = 0;
 
             // std::vector<uint8_t> effective_alphabet;
@@ -144,7 +144,7 @@ namespace stool
                 stool::bptree::VLCDequeDynamicPrefixSum::save(item.c_run_counters, os);
                 stool::bptree::VLCDequeDynamicPrefixSum::save(item.run_length_vector_sorted_by_F, os);
                 stool::bptree::DynamicWaveletTree::save(item.head_chars_of_RLBWT, os);
-                stool::fm_index::CArray::save(item.cArray, os);
+                stool::dynamic_r_index::CArray::save(item.cArray, os);
             }
             static DynamicRLBWT build_from_data(std::ifstream &ifs)
             {
@@ -152,7 +152,7 @@ namespace stool
                 stool::bptree::VLCDequeDynamicPrefixSum tmp_c_run_counters = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);
                 stool::bptree::VLCDequeDynamicPrefixSum tmp_run_length_vector_sorted_by_F = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);
                 stool::bptree::DynamicWaveletTree tmp_head_chars_of_RLBWT = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
-                stool::fm_index::CArray tmp_cArray = stool::fm_index::CArray::load(ifs);
+                stool::dynamic_r_index::CArray tmp_cArray = stool::dynamic_r_index::CArray::load(ifs);
 
                 DynamicRLBWT r;
                 r.head_chars_of_RLBWT.swap(tmp_head_chars_of_RLBWT);
@@ -236,7 +236,7 @@ namespace stool
                     }
                 }
 
-                stool::fm_index::CArray tmp_cArray = stool::fm_index::CArray::build(c_counters);
+                stool::dynamic_r_index::CArray tmp_cArray = stool::dynamic_r_index::CArray::build(c_counters);
                 stool::bptree::VLCDequeDynamicPrefixSum tmp_c_run_counters = stool::bptree::VLCDequeDynamicPrefixSum::build(c_run_counters2);
 
                 std::vector<uint64_t> indexes;
@@ -305,7 +305,7 @@ namespace stool
             ///   The properties of this class.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            const stool::fm_index::CArray &get_c_array() const
+            const stool::dynamic_r_index::CArray &get_c_array() const
             {
                 return this->cArray;
             }

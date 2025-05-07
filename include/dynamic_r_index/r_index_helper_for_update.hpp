@@ -11,7 +11,7 @@
 #include "./additional_information_updating_r_index.hpp"
 namespace stool
 {
-    namespace r_index
+    namespace dynamic_r_index
     {
 #ifdef TIME_DEBUG
         uint64_t __single_reorder_BWT_count = 0;

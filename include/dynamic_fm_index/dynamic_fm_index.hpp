@@ -5,7 +5,7 @@
 
 namespace stool
 {
-    namespace fm_index
+    namespace dynamic_r_index
     {
         ////////////////////////////////////////////////////////////////////////////////
         /// @class      DynamicFMIndex

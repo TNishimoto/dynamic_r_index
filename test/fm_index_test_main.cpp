@@ -28,7 +28,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
             {
                 std::cout << alphabet_type << std::flush;
 
-                stool::fm_index_test::DynamicFMIndexTest::character_insertion_and_deletion_test(text_size, alphabet_type, detailed_check, seed++);
+                stool::dynamic_r_index_test::DynamicFMIndexTest::character_insertion_and_deletion_test(text_size, alphabet_type, detailed_check, seed++);
             }
         }
         std::cout << std::endl;
@@ -46,7 +46,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
                 {
                     std::cout << alphabet_type << std::flush;
 
-                    stool::fm_index_test::DynamicFMIndexTest::string_insertion_and_deletion_test(text_size, length_of_insertion_string, alphabet_type, seed++);
+                    stool::dynamic_r_index_test::DynamicFMIndexTest::string_insertion_and_deletion_test(text_size, length_of_insertion_string, alphabet_type, seed++);
                 }
             }
             std::cout << std::endl;
@@ -66,7 +66,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
             {
                 std::cout << alphabet_type << std::flush;
 
-                stool::fm_index_test::DynamicFMIndexTest::backward_search_test(text_size, pattern_size, alphabet_type, seed++);
+                stool::dynamic_r_index_test::DynamicFMIndexTest::backward_search_test(text_size, pattern_size, alphabet_type, seed++);
             }
         }
         std::cout << std::endl;
@@ -80,7 +80,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
             {
                 std::cout << alphabet_type << std::flush;
 
-                stool::fm_index_test::DynamicFMIndexTest::sampled_isa_test(text_size, alphabet_type, detailed_check, seed++);
+                stool::dynamic_r_index_test::DynamicFMIndexTest::sampled_isa_test(text_size, alphabet_type, detailed_check, seed++);
             }
         }
         std::cout << std::endl;
@@ -94,7 +94,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
             {
                 std::cout << alphabet_type << std::flush;
 
-                stool::fm_index_test::DynamicFMIndexTest::save_and_load_test(text_size, alphabet_type, seed++);
+                stool::dynamic_r_index_test::DynamicFMIndexTest::save_and_load_test(text_size, alphabet_type, seed++);
             }
         }
         std::cout << std::endl;

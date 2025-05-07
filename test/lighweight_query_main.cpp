@@ -64,10 +64,10 @@ int main(int argc, char *argv[])
         std::cout << "query_type: " << query_type << std::endl;
         std::cout << "text: " << text << std::endl;
 
-        stool::fm_index::DynamicFMIndex dyn_index = stool::fm_index::DynamicFMIndex::build(bwt, alphabet, 8, stool::Message::NO_MESSAGE);
+        stool::dynamic_r_index::DynamicFMIndex dyn_index = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet, 8, stool::Message::NO_MESSAGE);
         if (query_type == 'I')
         {
-                stool::fm_index::FMIndexEditHistory output_history;
+                stool::dynamic_r_index::FMIndexEditHistory output_history;
 
             if (pattern.size() == 1)
             {

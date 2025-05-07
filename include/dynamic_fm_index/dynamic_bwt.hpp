@@ -8,7 +8,7 @@
 
 namespace stool
 {
-    namespace fm_index
+    namespace dynamic_r_index
     {
         bool __view_flag = false;
 
@@ -19,7 +19,7 @@ namespace stool
         ////////////////////////////////////////////////////////////////////////////////
         class DynamicBWT
         {
-            stool::fm_index::CArray cArray;
+            stool::dynamic_r_index::CArray cArray;
             stool::bptree::DynamicWaveletTree bwt;
 
         public:
@@ -127,7 +127,7 @@ namespace stool
             {
                 return this->bwt.get_smallest_character_in_alphabet();
             }
-            const stool::fm_index::CArray &get_c_array() const
+            const stool::dynamic_r_index::CArray &get_c_array() const
             {
                 return this->cArray;
             }
@@ -386,12 +386,12 @@ namespace stool
 
             static void save(DynamicBWT &item, std::ofstream &os)
             {
-                stool::fm_index::CArray::save(item.cArray, os);
+                stool::dynamic_r_index::CArray::save(item.cArray, os);
                 stool::bptree::DynamicWaveletTree::save(item.bwt, os);
             }
             static DynamicBWT build_from_data(std::ifstream &ifs)
             {
-                stool::fm_index::CArray cArray = stool::fm_index::CArray::load(ifs);
+                stool::dynamic_r_index::CArray cArray = stool::dynamic_r_index::CArray::load(ifs);
                 stool::bptree::DynamicWaveletTree bwt = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
 
                 DynamicBWT r;

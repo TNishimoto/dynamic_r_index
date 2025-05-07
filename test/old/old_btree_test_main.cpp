@@ -226,7 +226,7 @@ int main(int argc, char *argv[])
             {
                 std::cout << "+" << std::flush;
 
-                stool::fm_index_test::DynamicBWTTest::bwt_test(160, degree, i);
+                stool::dynamic_r_index_test::DynamicBWTTest::bwt_test(160, degree, i);
             }
             degree *= 2;
         }
@@ -306,7 +306,7 @@ int main(int argc, char *argv[])
             for (uint64_t i = 0; i < 100; i++)
             {
                 std::cout << "+" << std::flush;
-                //stool::r_index::DynamicRIndexTest::detailed_insertion_test(320, degree, i);
+                //stool::dynamic_r_index::DynamicRIndexTest::detailed_insertion_test(320, degree, i);
             }
             std::cout << std::endl;
 
@@ -321,7 +321,7 @@ int main(int argc, char *argv[])
             for (uint64_t i = 0; i < 100; i++)
             {
                 std::cout << "+" << std::flush;
-                //stool::r_index::DynamicRIndexTest::detailed_deletion_test(320, degree, i);
+                //stool::dynamic_r_index::DynamicRIndexTest::detailed_deletion_test(320, degree, i);
             }
             std::cout << std::endl;
 
@@ -383,7 +383,7 @@ int main(int argc, char *argv[])
             for (uint64_t i = 0; i < 100; i++)
             {
                 std::cout << "+" << std::flush;
-                //stool::r_index::DynamicRIndexTest::detailed_string_insertion_test(320, 4, length_of_insertion_string, i);
+                //stool::dynamic_r_index::DynamicRIndexTest::detailed_string_insertion_test(320, 4, length_of_insertion_string, i);
             }
             std::cout << std::endl;
 
@@ -398,7 +398,7 @@ int main(int argc, char *argv[])
             for (uint64_t i = 0; i < 100; i++)
             {
                 std::cout << "+" << std::flush;
-                stool::fm_index_test::DynamicBWTTest::bwt_test2(320, 4, length_of_insertion_string, i);
+                stool::dynamic_r_index_test::DynamicBWTTest::bwt_test2(320, 4, length_of_insertion_string, i);
             }
             std::cout << std::endl;
 
@@ -413,7 +413,7 @@ int main(int argc, char *argv[])
             for (uint64_t i = 0; i < 100; i++)
             {
                 std::cout << "+" << std::flush;
-                //stool::r_index::DynamicRIndexTest::detailed_string_deletion_test(320, 4, length_of_insertion_string, i);
+                //stool::dynamic_r_index::DynamicRIndexTest::detailed_string_deletion_test(320, 4, length_of_insertion_string, i);
             }
             std::cout << std::endl;
 
@@ -440,7 +440,7 @@ int main(int argc, char *argv[])
                 std::vector<uint64_t> sa = stool::construct_suffix_array(text);
                 std::vector<uint8_t> bwt = stool::construct_BWT(text, sa);
                 text.pop_back();
-                stool::r_index::DynamicRLBWT rlbwt = stool::r_index::RLBWTBuilder::build(text);
+                stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::build(text);
 
                 stool::equal_check("BWT", bwt, rlbwt.get_bwt());
             }
@@ -465,10 +465,10 @@ int main(int argc, char *argv[])
             pattern.push_back('b');
         }
 
-        stool::r_index::DynamicRLBWT rlb = stool::r_index::RLBWTBuilder::build(text);
+        stool::dynamic_r_index::DynamicRLBWT rlb = stool::dynamic_r_index::RLBWTBuilder::build(text);
         std::vector<uint8_t> bwt = rlb.get_bwt();
 
-        stool::r_index::DynamicRIndex drfmi;
+        stool::dynamic_r_index::DynamicRIndex drfmi;
         drfmi.initialize(chars, 4);
         drfmi.build(bwt);
 

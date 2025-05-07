@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     std::vector<uint8_t> bwt = stool::construct_BWT(text, sa);
     std::vector<uint8_t> chars = get_chars(text);
 
-    stool::r_index::DynamicFMIndex dfmi;
+    stool::dynamic_r_index::DynamicFMIndex dfmi;
     dfmi.initialize(bwt, 8);
     std::cout << "Building" << std::endl;
     dfmi.build(bwt, sa);

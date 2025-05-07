@@ -145,7 +145,7 @@ QueryResults process_query_file(DYNINDEX &dyn_index, std::ifstream &query_ifs, s
             }
             st1 = std::chrono::system_clock::now();
 
-            stool::fm_index::FMIndexEditHistory edit_history;
+            stool::dynamic_r_index::FMIndexEditHistory edit_history;
             if (q.pattern.size() == 1)
             {
                 r.check_sum += dyn_index.insert_char(q.position, q.pattern[0], edit_history);
@@ -170,7 +170,7 @@ QueryResults process_query_file(DYNINDEX &dyn_index, std::ifstream &query_ifs, s
 
             st1 = std::chrono::system_clock::now();
 
-            stool::fm_index::FMIndexEditHistory edit_history;
+            stool::dynamic_r_index::FMIndexEditHistory edit_history;
             if (q.length == 1)
             {
                 r.check_sum += dyn_index.delete_char(q.position, edit_history);
@@ -211,7 +211,7 @@ QueryResults process_query_file(DYNINDEX &dyn_index, std::ifstream &query_ifs, s
             }
 
             st1 = std::chrono::system_clock::now();
-            stool::fm_index::BackwardSearchResult bsr = dyn_index.backward_search(q.pattern);
+            stool::dynamic_r_index::BackwardSearchResult bsr = dyn_index.backward_search(q.pattern);
             st2 = std::chrono::system_clock::now();
             std::vector<uint64_t> sa_values = dyn_index.compute_sa_values(bsr);
             st3 = std::chrono::system_clock::now();
@@ -240,7 +240,7 @@ QueryResults process_query_file(DYNINDEX &dyn_index, std::ifstream &query_ifs, s
             }
 
             st1 = std::chrono::system_clock::now();
-            stool::fm_index::BackwardSearchResult bsr = dyn_index.backward_search(q.pattern);
+            stool::dynamic_r_index::BackwardSearchResult bsr = dyn_index.backward_search(q.pattern);
             st2 = std::chrono::system_clock::now();
             std::vector<uint64_t> sa_values = dyn_index.compute_sa_values(bsr);
             st3 = std::chrono::system_clock::now();
@@ -434,10 +434,10 @@ int main(int argc, char *argv[])
     QueryResults result;
     std::string index_name = "";
 
-    if (mark == stool::fm_index::DynamicFMIndex::LOAD_KEY)
+    if (mark == stool::dynamic_r_index::DynamicFMIndex::LOAD_KEY)
     {
         index_name = "Dynamic FM-index";
-        stool::fm_index::DynamicFMIndex dfmi;
+        stool::dynamic_r_index::DynamicFMIndex dfmi;
         {
             std::ifstream ifs;
             ifs.open(input_file_path, std::ios::binary);
@@ -446,7 +446,7 @@ int main(int argc, char *argv[])
                 std::cerr << "Error: Could not open file for reading." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            auto tmp = stool::fm_index::DynamicFMIndex::build_from_data(ifs);
+            auto tmp = stool::dynamic_r_index::DynamicFMIndex::build_from_data(ifs);
             dfmi.swap(tmp);
         }
         dfmi.print_light_statistics();
@@ -455,14 +455,14 @@ int main(int argc, char *argv[])
 
         if (os_exist)
         {
-            stool::fm_index::DynamicFMIndex::save(dfmi, os);
+            stool::dynamic_r_index::DynamicFMIndex::save(dfmi, os);
         }
     }
-    else if (mark == stool::r_index::DynamicRIndex::LOAD_KEY)
+    else if (mark == stool::dynamic_r_index::DynamicRIndex::LOAD_KEY)
     {
         index_name = "Dynamic r-index";
 
-        stool::r_index::DynamicRIndex drfmi;
+        stool::dynamic_r_index::DynamicRIndex drfmi;
         {
             std::ifstream ifs;
             ifs.open(input_file_path, std::ios::binary);
@@ -471,7 +471,7 @@ int main(int argc, char *argv[])
                 std::cerr << "Error: Could not open file for reading." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            auto tmp = stool::r_index::DynamicRIndex::build_from_data(ifs);
+            auto tmp = stool::dynamic_r_index::DynamicRIndex::build_from_data(ifs);
             drfmi.swap(tmp);
         }
         drfmi.print_light_statistics();
@@ -483,7 +483,7 @@ int main(int argc, char *argv[])
 
         if (os_exist)
         {
-            stool::r_index::DynamicRIndex::save(drfmi, os);
+            stool::dynamic_r_index::DynamicRIndex::save(drfmi, os);
         }
     }
     else

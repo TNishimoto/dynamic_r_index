@@ -71,10 +71,10 @@ std::cout << "\e[m" << std::endl;
     std::chrono::system_clock::time_point st1, st2;
     st1 = std::chrono::system_clock::now();
     // uint is_r_index = 1;
-    stool::r_index::DynamicRIndex drfmi;
+    stool::dynamic_r_index::DynamicRIndex drfmi;
     if (text_type == is_bwt)
     {
-        stool::r_index::DynamicRIndex tmp_drfmi = stool::r_index::DynamicRIndex::build_from_BWT_file(input_file_path, stool::Message::SHOW_MESSAGE);
+        stool::dynamic_r_index::DynamicRIndex tmp_drfmi = stool::dynamic_r_index::DynamicRIndex::build_from_BWT_file(input_file_path, stool::Message::SHOW_MESSAGE);
         drfmi.swap(tmp_drfmi);
     }
     else
@@ -86,7 +86,7 @@ std::cout << "\e[m" << std::endl;
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::SHOW_MESSAGE);
         std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::SHOW_MESSAGE);
         std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::SHOW_MESSAGE);
-        stool::r_index::DynamicRIndex tmp_drfmi = stool::r_index::DynamicRIndex::build_from_BWT(bwt, alphabet, stool::Message::SHOW_MESSAGE);
+        stool::dynamic_r_index::DynamicRIndex tmp_drfmi = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet, stool::Message::SHOW_MESSAGE);
 
         drfmi.swap(tmp_drfmi);
     }
@@ -94,7 +94,7 @@ std::cout << "\e[m" << std::endl;
     //drfmi.print_memory_usage();
     //drfmi.print_statistics();
 
-    stool::r_index::DynamicRIndex::save(drfmi, os);
+    stool::dynamic_r_index::DynamicRIndex::save(drfmi, os);
     os.close();
 
     st2 = std::chrono::system_clock::now();
