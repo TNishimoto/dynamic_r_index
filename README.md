@@ -34,21 +34,24 @@ make
 ## examples
 
 ### Build the dynamic r-index
+
+```
 % mkdir result
 % ./build_r_index.out -i ../examples/ab.txt -o result/ab.dri  
 
-> =============RESULT===============  
-> Input File:                                     ../examples/ab.txt  
-> Output File:                                    result/ab.dri  
-> The type of the input file:                     text  
-> Statistics(DynamicRIndex):  
->   Text length:                                  26  
->   Alphabet size:                                        5  
->   The number of runs in BWT:                    9  
-> [END]  
-> Total time:                                     0 sec (76923 ms/MB)  
-> Total allocated space: 714KB  
-> ==================================  
+=============RESULT===============  
+Input File:                                     ../examples/ab.txt  
+Output File:                                    result/ab.dri  
+The type of the input file:                     text  
+Statistics(DynamicRIndex):  
+  Text length:                                  26  
+  Alphabet size:                                        5  
+  The number of runs in BWT:                    9  
+[END]  
+Total time:                                     0 sec (76923 ms/MB)  
+Total allocated space: 714KB  
+==================================  
+```
 
 ### Print the input text and its BWT
 Command: VIEW  
