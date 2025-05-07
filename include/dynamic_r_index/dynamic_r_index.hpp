@@ -37,10 +37,6 @@ namespace stool
             {
                 return this->dbwt.get_alphabet_size();
             }
-            std::string get_alphabet_str() const
-            {
-                return this->dbwt.get_alphabet_str();
-            }
 
             std::vector<uint8_t> get_alphabet() const
             {
@@ -76,7 +72,8 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << this->get_alphabet_str() << std::endl;
+                auto alphabet = this->get_alphabet();
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::DebugPrinter::to_integer_string_with_characters(alphabet) << std::endl;
 
             
 
@@ -198,6 +195,10 @@ namespace stool
             std::vector<uint8_t> get_bwt() const
             {
                 return this->dbwt.get_bwt();
+            }
+            std::vector<uint8_t> get_text() const
+            {
+                return this->dbwt.get_text();
             }
             std::string get_bwt_str() const
             {

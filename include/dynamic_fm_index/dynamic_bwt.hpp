@@ -95,6 +95,7 @@ namespace stool
                 return this->cArray.get_alphabet();
             }
 
+
             /**
              * @brief Initializes the DynamicBWT with the given characters and end marker.
              *

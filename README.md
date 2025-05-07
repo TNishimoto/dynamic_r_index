@@ -29,7 +29,58 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DSDSL_LIBRARY_DIR=~/lib -DSDSL_INCLUDE_DIR=
 make  
 ```
 
+When the compilation is successful, the following executable files are generated: 
+
+- build_bwt.out  
+- build_r_index.out  
+- build_fm_index.out
+- build print_index.out  
+- build query.out  
+
 ## Builders and Viewers
+
+### build_bwt.out
+
+This executable file builds the BWT of a given file.
+The following are the command-line options: 
+
+```
+usage: ./build_bwt.out --input_file_path=string [options] ... 
+options:
+  -i, --input_file_path           The file path to a text (string)
+  -o, --output_file_path          The path to the file where the BWT will be written (string [=])
+  -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
+  -e, --detailed_message_flag     The value is 1 if detailed messages are printed, and 0 otherwise (unsigned int [=0])
+  -?, --help                      print this message
+```
+
+> [!NOTE]  
+> The null terminated string is appended to the input text as the last character.
+
+> [!WARNING]  
+> The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
+
+#### Examples
+```
+% ./build_bwt.out -i ../examples/ab.txt -o ab.bwt -c "$"     
+
+=============RESULT===============
+Input File:             ../examples/ab.txt
+Text Length:            26
+Text:                   aaaaABAaaaaABAaaaABAaaaab$
+Null terminated string: $
+Output File:            ab.bwt
+BWT:                    baaaBBBAAAaaaaaaaaAA$Aaaaa
+Number of BWT Runs:     9
+Construction Time:      0[ms] (Avg: 3307[ns/char])
+Writing Time:           0[ms]
+Total allocated space: 62KB
+==================================
+
+% cat ab.bwt
+> baaaBBBAAAaaaaaaaaAA$Aaaaa        
+```
+
 
 ### build_r_index.out
 
@@ -39,7 +90,7 @@ The following are the command-line options:
 ```
 usage: ./build_r_index.out --input_file_path=string [options] ... 
 options:
-  -i, --input_file_path           The path of a file containing either a input text or a BWT (string)
+  -i, --input_file_path           The file path to either a text or a BWT (string)
   -o, --output_file_path          The path to the file where the dynamic r-index will be written (string [=])
   -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
   -u, --is_bwt                    This value is 1 if the input file is a BWT, and 0 otherwise (unsigned int [=0])
@@ -52,6 +103,46 @@ options:
 > [!WARNING]  
 > The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
 
+#### Examples
+
+```
+% ./build_r_index.out -i ../examples/ab.txt -o ab.dri  
+
+=============RESULT===============
+Input File:                                     ../examples/ab.txt
+Output File:                                    ab.dri
+The type of the input file:                     text
+Statistics(DynamicRIndex):
+  Text length:                                  26
+  Text:                                         aaaaABAaaaaABAaaaABAaaaab/0
+  Alphabet size:                                5
+  Alphabet:                                     [/0, A, B, a, b]
+  BWT:                                          baaaBBBAAAaaaaaaaaAA/0Aaaaa
+  The number of runs in BWT:                    9
+Total time:                                     0 sec (76923 ms/MB)
+Total allocated space: 190KB
+==================================
+
+% ./build_r_index.out -i ab.bwt -o ab2.dri -u 1 
+
+=============RESULT===============
+Input File:                                     ab.bwt
+Output File:                                    ab2.dri
+The type of the input file:                     bwt
+Statistics(DynamicRIndex):
+  Text length:                                  26
+  Text:                                         aaaaABAaaaaABAaaaABAaaaab$
+  Alphabet size:                                5
+  Alphabet:                                     [$, A, B, a, b]
+  BWT:                                          baaaBBBAAAaaaaaaaaAA$Aaaaa
+  The number of runs in BWT:                    9
+Total time:                                     0 sec (76923 ms/MB)
+Total allocated space: 186KB
+==================================
+
+```
+
+
 ### build_fm_index.out
 
 The executable file builds the dynamic fm-index for a given file. 
@@ -60,7 +151,7 @@ The following are the command-line options:
 ```
 usage: ./build_fm_index.out --input_file_path=string [options] ... 
 options:
-  -i, --input_file_path           The path of a file containing either a input text or a BWT (string)
+  -i, --input_file_path           The file path to either a text or a BWT (string)
   -o, --output_file_path          The path to the file where the dynamic FM-index will be written (string [=])
   -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
   -u, --is_bwt                    This value is 1 if the input file is a BWT, and 0 otherwise (unsigned int [=0])
@@ -74,20 +165,49 @@ options:
 > [!WARNING]  
 > The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
 
-
-### build_bwt.out
-
-This executable file builds the BWT of a given file.
-The following are the command-line options: 
+#### Examples
 
 ```
-usage: ./build_bwt.out --input_file_path=string [options] ... 
-options:
-  -i, --input_file_path           The file path of an input text (string)
-  -o, --output_file_path          The path to the file where the BWT will be written (string [=])
-  -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
-  -e, --detailed_message_flag     The value is 1 if detailed messages are printed, and 0 otherwise (unsigned int [=0])
-  -?, --help                      print this message
+% ./build_fm_index.out -i ../examples/ab.txt -o ab.dfmi  
+
+=============RESULT===============
+Input File:                                     ../examples/ab.txt
+Output File:                                    ab.dfmi
+The type of the input file:                     text
+Statistics(DynamicFMIndex):
+  Text length:                                  26
+  Text:                                         aaaaABAaaaaABAaaaABAaaaab/0
+  Alphabet size:                                5
+  Alphabet:                                     [/0, A, B, a, b]
+  BWT:                                          baaaBBBAAAaaaaaaaaAA/0Aaaaa
+  Sampling interval for Sampled suffix array:   32
+  The number of sampled sa-values:              2
+  Average sampling interval:                    13
+[END]
+Total time:                                     0 sec (0 ms/MB)
+Total allocated space: 591KB
+==================================
+
+% ./build_fm_index.out -i ab.bwt -o ab2.dfmi -s 3 -u 1
+
+=============RESULT===============
+Input File:                                     ab.bwt
+Output File:                                    ab2.dfmi
+The type of the input file:                     bwt
+Statistics(DynamicFMIndex):
+  Text length:                                  26
+  Text:                                         aaaaABAaaaaABAaaaABAaaaab$
+  Alphabet size:                                5
+  Alphabet:                                     [$, A, B, a, b]
+  BWT:                                          baaaBBBAAAaaaaaaaaAA$Aaaaa
+  Sampling interval for Sampled suffix array:   3
+  The number of sampled sa-values:              10
+  Average sampling interval:                    2
+[END]
+Total time:                                     0 sec (153846 ms/MB)
+Total allocated space: 1148KB
+==================================
+
 ```
 
 ### print_index.out
@@ -96,31 +216,32 @@ This executable file shows the information about a given index.
 The following are the command-line options: 
 
 ```
-usage: ./print_index.out --input_file=string [options] ... 
+usage: ./print_index.out --input_file_path=string [options] ... 
 options:
-  -i, --input_file    input index name (string)
-  -?, --help          print this message
+  -i, --input_file_path     The file path to the dynamic r-index or the dynamic FM-index (string)
+  -o, --output_text_path    The path to the file where the text will be written (string [=])
+  -b, --output_bwt_path     The path to the file where the BWT will be written (string [=])
+  -?, --help                print this message
 ```
 
-
-### Examples
+#### Examples
 
 ```
-% mkdir result
-% ./build_r_index.out -i ../examples/ab.txt -o result/ab.dri  
+% ./print_index.out -i ab2.dri -o ab3.txt -b ab3.bwt
 
-=============RESULT===============  
-Input File:                                     ../examples/ab.txt  
-Output File:                                    result/ab.dri  
-The type of the input file:                     text  
-Statistics(DynamicRIndex):  
-  Text length:                                  26  
-  Alphabet size:                                        5  
-  The number of runs in BWT:                    9  
-[END]  
-Total time:                                     0 sec (76923 ms/MB)  
-Total allocated space: 714KB  
-==================================  
+Statistics(DynamicRIndex):
+  Text length:                                  26
+  Text:                                         aaaaABAaaaaABAaaaABAaaaab$
+  Alphabet size:                                5
+  Alphabet:                                     [$, A, B, a, b]
+  BWT:                                          baaaBBBAAAaaaaaaaaAA$Aaaaa
+  The number of runs in BWT:                    9
+
+% cat ab3.txt
+> aaaaABAaaaaABAaaaABAaaaab
+
+% cat ab3.bwt
+> baaaBBBAAAaaaaaaaaAA$Aaaaa
 ```
 
 

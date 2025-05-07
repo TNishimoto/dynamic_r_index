@@ -66,6 +66,7 @@ namespace stool
             {
                 return this->dbwt.get_alphabet();
             }
+
             uint64_t get_end_marker() const
             {
                 return this->dbwt.get_end_marker();
@@ -128,11 +129,28 @@ namespace stool
             void print_light_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicFMIndex):" << std::endl;
+            
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text length: \t\t\t\t\t" << this->size() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t\t" << this->get_alphabet_size() << std::endl;
+                if(this->text_size() < 1000){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_text_str()) << std::endl;
+                }else{
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
+                }
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
+                auto alphabet = this->get_alphabet();
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::DebugPrinter::to_integer_string_with_characters(alphabet) << std::endl;
+
+                if(this->text_size() < 1000){
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_bwt_str()) << std::endl;
+                }else{
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << "[Omitted]" << std::endl;
+                }
+
+
+
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Sampling interval for Sampled suffix array: \t" << this->get_samling_interval() << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of sampled sa-values: \t\t" << this->get_sampled_suffix_array_values_count() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Average sampling itnerval: \t\t\t" << (this->size() / this->get_sampled_suffix_array_values_count()) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Average sampling interval: \t\t\t" << (this->size() / this->get_sampled_suffix_array_values_count()) << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
@@ -181,6 +199,11 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END] Elapsed Time: " << sec_time << " sec (" << per_time << " ms/MB)" << std::endl;
                 }
             }
+            uint64_t text_size() const
+            {
+                return this->dbwt.size();
+            }
+
             static DynamicFMIndex build_from_data(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
@@ -429,6 +452,10 @@ namespace stool
             std::vector<uint8_t> get_bwt() const
             {
                 return this->dbwt.get_bwt();
+            }
+            std::vector<uint8_t> get_text() const
+            {
+                return this->dbwt.get_text();
             }
             std::string get_bwt_str() const
             {

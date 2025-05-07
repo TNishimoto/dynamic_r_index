@@ -23,11 +23,15 @@ std::cout << "\033[41m";
 std::cout << "\e[m" << std::endl;
     cmdline::parser p;
 
-    p.add<std::string>("input_file", 'i', "input index name", true);
+    p.add<std::string>("input_file_path", 'i', "The file path to the dynamic r-index or the dynamic FM-index", true);
+    p.add<std::string>("output_text_path", 'o', "The path to the file where the text will be written", false, "");
+    p.add<std::string>("output_bwt_path", 'b', "The path to the file where the BWT will be written", false, "");
 
 
     p.parse_check(argc, argv);
-    std::string input_file_path = p.get<std::string>("input_file");
+    std::string input_file_path = p.get<std::string>("input_file_path");
+    std::string output_text_path = p.get<std::string>("output_text_path");
+    std::string output_bwt_path = p.get<std::string>("output_bwt_path");
 
     uint64_t mark = stool::IO::load_first_64bits(input_file_path);
 
@@ -53,6 +57,32 @@ std::cout << "\e[m" << std::endl;
             dfmi.swap(tmp);
         }
         dfmi.print_light_statistics();
+
+        if(output_bwt_path.size() > 0){
+            std::ofstream ofs;
+            ofs.open(output_bwt_path, std::ios::binary);
+            if (!ofs)
+            {
+                std::cerr << "Error: Could not open file for writing." << std::endl;
+                throw std::runtime_error("File open error");
+            }
+            std::vector<uint8_t> _bwt = dfmi.get_bwt();
+            ofs.write(reinterpret_cast<const char*>(_bwt.data()), _bwt.size());
+            ofs.close();
+        }
+
+        if(output_text_path.size() > 0){
+            std::ofstream ofs;
+            ofs.open(output_text_path, std::ios::binary);
+            if (!ofs)
+            {
+                std::cerr << "Error: Could not open file for writing." << std::endl;
+                throw std::runtime_error("File open error");
+            }
+            std::vector<uint8_t> _text = dfmi.get_text();
+            ofs.write(reinterpret_cast<const char*>(_text.data()), _text.size());
+            ofs.close();
+        }
     }
     else if (mark == stool::dynamic_r_index::DynamicRIndex::LOAD_KEY)
     {
@@ -71,6 +101,34 @@ std::cout << "\e[m" << std::endl;
             drfmi.swap(tmp);
         }
         drfmi.print_light_statistics();
+
+        if(output_bwt_path.size() > 0){
+            std::ofstream ofs;
+            ofs.open(output_bwt_path, std::ios::binary);
+            if (!ofs)
+            {
+                std::cerr << "Error: Could not open file for writing." << std::endl;
+                throw std::runtime_error("File open error");
+            }
+            std::vector<uint8_t> _bwt = drfmi.get_bwt();
+            ofs.write(reinterpret_cast<const char*>(_bwt.data()), _bwt.size());
+            ofs.close();
+        }
+
+        if(output_text_path.size() > 0){
+            std::ofstream ofs;
+            ofs.open(output_text_path, std::ios::binary);
+            if (!ofs)
+            {
+                std::cerr << "Error: Could not open file for writing." << std::endl;
+                throw std::runtime_error("File open error");
+            }
+            std::vector<uint8_t> _text = drfmi.get_text();
+            ofs.write(reinterpret_cast<const char*>(_text.data()), _text.size());
+            ofs.close();
+        }
+
+
     }
     else
     {

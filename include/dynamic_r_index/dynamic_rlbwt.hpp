@@ -180,10 +180,6 @@ namespace stool
             {
                 return this->head_chars_of_RLBWT.get_alphabet_size();
             }
-            std::string get_alphabet_str() const
-            {
-                return this->head_chars_of_RLBWT.get_alphabet_str();
-            }
 
             std::vector<uint8_t> get_alphabet() const
             {
