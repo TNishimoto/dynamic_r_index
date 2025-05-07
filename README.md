@@ -20,11 +20,12 @@ So, to download all the necessary source codes, do the following:
 
 This program uses the [SDSL library](https://github.com/simongog/sdsl-lite). Assuming that the library and header files are installed in the ~/lib and ~/include directories, respectively, the source code of this repository can be compiled using the following commands:
 
+```
 > mkdir build  
 > cd build  
 > cmake .. -DCMAKE_BUILD_TYPE=Release -DSDSL_LIBRARY_DIR=~/lib -DSDSL_INCLUDE_DIR=~/include  
 > make  
-
+```
 
 # executions
 
