@@ -23,13 +23,13 @@ std::cout << "\033[41m";
 std::cout << "\e[m" << std::endl;
     cmdline::parser p;
 
-    p.add<std::string>("input_file_path", 'i', "The file path to the dynamic r-index or the dynamic FM-index", true);
+    p.add<std::string>("input_index_path", 'i', "The file path to the dynamic r-index or the dynamic FM-index", true);
     p.add<std::string>("output_text_path", 'o', "The path to the file where the text will be written", false, "");
     p.add<std::string>("output_bwt_path", 'b', "The path to the file where the BWT will be written", false, "");
 
 
     p.parse_check(argc, argv);
-    std::string input_file_path = p.get<std::string>("input_file_path");
+    std::string input_file_path = p.get<std::string>("input_index_path");
     std::string output_text_path = p.get<std::string>("output_text_path");
     std::string output_bwt_path = p.get<std::string>("output_bwt_path");
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "stool/include/stool.hpp"
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
 #include "./dynamic_bwt.hpp"
 

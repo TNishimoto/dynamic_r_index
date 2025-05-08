@@ -1,6 +1,6 @@
 #pragma once
 #include "stool/include/light_stool.hpp"
-#include "../tools.hpp"
+#include "./tools.hpp"
 
 namespace stool
 {

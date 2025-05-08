@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
-
+#include "./tsv_parser.hpp"
 namespace stool
 {
     enum class QueryType
@@ -14,10 +14,9 @@ namespace stool
         DELETE = 2,
         COUNT = 3,
         LOCATE = 4,
-        LOCATE_VIEW = 5, 
-        INSERT_VIEW = 6, 
-        DELETE_VIEW = 7,
-        VIEW = 8 
+        LOCATE_DETAIL = 5,        
+        LOCATE_SUM = 6, 
+        PRINT = 7 
     };
 
     struct LineQuery
@@ -34,10 +33,10 @@ namespace stool
             r.type = QueryType::NONE;
             return r;
         }
-        static LineQuery create_VIEW_query()
+        static LineQuery create_PRINT_query()
         {
             LineQuery r;
-            r.type = QueryType::VIEW;
+            r.type = QueryType::PRINT;
             return r;
         }
 
@@ -47,20 +46,10 @@ namespace stool
             r.type = QueryType::INSERT;
             r.position = insertion_position;
             r.pattern.clear();
+            
             for (char c : text)
             {
-                if (c == 0)
-                {
-                    r.pattern.push_back('\n');
-                }
-                else if (c == 1)
-                {
-                    r.pattern.push_back('\t');
-                }
-                else
-                {
-                    r.pattern.push_back(c);
-                }
+                r.pattern.push_back(c);
             }
             return r;
         }
@@ -80,18 +69,7 @@ namespace stool
             r.pattern.clear();
             for (char c : text)
             {
-                if (c == 0)
-                {
-                    r.pattern.push_back('\n');
-                }
-                else if (c == 1)
-                {
-                    r.pattern.push_back('\t');
-                }
-                else
-                {
-                    r.pattern.push_back(c);
-                }
+                r.pattern.push_back(c);
             }
             return r;
         }
@@ -102,44 +80,23 @@ namespace stool
             r.pattern.clear();
             for (char c : text)
             {
-                if (c == 0)
-                {
-                    r.pattern.push_back('\n');
-                }
-                else if (c == 1)
-                {
-                    r.pattern.push_back('\t');
-                }
-                else
-                {
                     r.pattern.push_back(c);
-                }
             }
             return r;
         }
-        static LineQuery create_LOCATE_VIEW_query(const std::string &text)
+        static LineQuery create_LOCATE_SUM_query(const std::string &text)
         {
             LineQuery r;
-            r.type = QueryType::LOCATE_VIEW;
+            r.type = QueryType::LOCATE_SUM;
             r.pattern.clear();
             for (char c : text)
             {
-                if (c == 0)
-                {
-                    r.pattern.push_back('\n');
-                }
-                else if (c == 1)
-                {
-                    r.pattern.push_back('\t');
-                }
-                else
-                {
                     r.pattern.push_back(c);
-                }
+
             }
             return r;
         }
-
+        /*
         static std::vector<std::string> split_by_tab(const std::string &input)
         {
             std::vector<std::string> result;
@@ -153,6 +110,7 @@ namespace stool
 
             return result;
         }
+        */
         static uint64_t string_to_uint64(const std::string &str)
         {
             try
@@ -172,13 +130,11 @@ namespace stool
                 throw std::invalid_argument("Conversion to uint64_t failed: " + std::string(e.what()));
             }
         }
-        static LineQuery load_line(const std::string &line)
+        static LineQuery load_line(const std::string &line, std::string alternative_tab_key, std::string alternative_line_break_key)
         {
-            std::vector<std::string> result = split_by_tab(line);
+            std::vector<std::string> result = stool::dynamic_r_index::TSVParser::line_parse(line, alternative_tab_key, alternative_line_break_key);
             if (result.size() > 0)
             {
-            std::cout << result[0] << std::endl;
-
                 if (result[0] == "INSERT" && result.size() == 3)
                 {
                     uint64_t insertion_pos = string_to_uint64(result[1]);
@@ -198,13 +154,13 @@ namespace stool
                 {
                     return LineQuery::create_LOCATE_query(result[1]);
                 }
-                else if (result[0] == "LOCATE!" && result.size() == 2)
+                else if (result[0] == "LOCATE_SUM" && result.size() == 2)
                 {
-                    return LineQuery::create_LOCATE_VIEW_query(result[1]);
+                    return LineQuery::create_LOCATE_SUM_query(result[1]);
                 }
-                else if (result[0] == "VIEW" && result.size() == 1)
+                else if (result[0] == "PRINT" && result.size() == 1)
                 {
-                    return LineQuery::create_VIEW_query();
+                    return LineQuery::create_PRINT_query();
                 }
                 else
                 {

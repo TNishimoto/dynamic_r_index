@@ -25,14 +25,14 @@ std::cout << "\e[m" << std::endl;
 
     cmdline::parser p;
 
-    p.add<std::string>("input_file_path", 'i', "The file path to a text", true);
-    p.add<std::string>("output_file_path", 'o', "The path to the file where the BWT will be written", false, "");
+    p.add<std::string>("input_text_path", 'i', "The file path to a text", true);
+    p.add<std::string>("output_bwt_path", 'o', "The path to the file where the BWT will be written", false, "");
     p.add<std::string>("null_terminated_string", 'c', "The special character indicating the end of text", false, "\\0");
     p.add<uint>("detailed_message_flag", 'e', "The value is 1 if detailed messages are printed, and 0 otherwise", false, 0);
 
     p.parse_check(argc, argv);
-    std::string input_file_path = p.get<std::string>("input_file_path");
-    std::string output_file_path = p.get<std::string>("output_file_path");
+    std::string input_file_path = p.get<std::string>("input_text_path");
+    std::string output_file_path = p.get<std::string>("output_bwt_path");
     std::string tmp_null_terminated_string = p.get<std::string>("null_terminated_string");
     uint8_t null_terminated_string = stool::DebugPrinter::get_first_character(tmp_null_terminated_string);
 

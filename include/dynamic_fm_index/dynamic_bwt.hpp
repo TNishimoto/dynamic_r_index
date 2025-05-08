@@ -1,5 +1,5 @@
 #pragma once
-#include "../time_debug.hpp"
+#include "./time_debug.hpp"
 #include "./fm_index_edit_history.hpp"
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
 #include "./c_array.hpp"

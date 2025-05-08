@@ -1,7 +1,7 @@
 #pragma once
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
-#include "../time_debug.hpp"
-#include "../tools.hpp"
+#include "../dynamic_fm_index/time_debug.hpp"
+#include "../dynamic_fm_index/tools.hpp"
 #include "../dynamic_fm_index/c_array.hpp"
 #include <functional> 
 namespace stool
