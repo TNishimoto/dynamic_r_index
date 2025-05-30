@@ -20,15 +20,15 @@ $s \geq 1$ is the user-defined parameter for the dynamic FM-index. The dynamic F
 
 The following table shows the time complexity of the common update operations and queries supported by the two dynamic indexes. 
 
-| Operation             | Time                                |                                     | Description                                    |
-|-----------------------|-------------------------------------|-------------------------------------|------------------------------------------------|
-|                       | Dynamic r-index                     | Dynamic FM-index                    |                                                |
-| ::build_from_BWT(L)   | O(n log σ log n)                    | O(n log σ log n)                    | Build the index for T by processing L          |
-| T.insert_string(i, P) | average O((m + L_{avg})log σ log n) | average O((m + L_{avg})log σ log n) | Insert P  into T at position i                 |
-| T.delete_string(i, m) | average O((m + L_{avg})log σ log n) | average O((m + L_{avg})log σ log n) | Delete substring T[i..i+m-1] from T            |
-| T.count_query(P)      | O(m log σ log n)                    | O(m log σ log n)                    | Return the number of the occurrences of P in T |
-| T.locate_query(P)     | O((m+occ) log σ log n)              | O((m+s・occ) log σ log n)            | Return the occurrences of P in T               |
-| T.backward_search(P)  | O(m log σ log n)                    | O(m log σ log n)                    | Return the sa-interval of P in T               |
+| Operation             | Time                                  |                                     | Description                                    |
+|-----------------------|---------------------------------------|-------------------------------------|------------------------------------------------|
+|                       | Dynamic r-index                       | Dynamic FM-index                    |                                                |
+| ::build_from_BWT(L)   | $O(n log σ log n)$                    | O(n log σ log n)                    | Build the index for T by processing L          |
+| T.insert_string(i, P) | average $O((m + L_{avg})log σ log n)$ | average O((m + L_{avg})log σ log n) | Insert P  into T at position i                 |
+| T.delete_string(i, m) | average $O((m + L_{avg})log σ log n)$ | average O((m + L_{avg})log σ log n) | Delete substring T[i..i+m-1] from T            |
+| T.count_query(P)      | $O(m log σ log n)$                    | O(m log σ log n)                    | Return the number of the occurrences of P in T |
+| T.locate_query(P)     | $O((m+occ) log σ log n)$              | O((m+s・occ) log σ log n)            | Return the occurrences of P in T               |
+| T.backward_search(P)  | $O(m log σ log n)$                    | O(m log σ log n)                    | Return the sa-interval of P in T               |
 
 Here, $m$ is the length of the given string $P$; $occ$ is the number of the occurrences of $P$ in $T$; $L_{avg}$ is the average of the values in the LCP array of $T$.
 
