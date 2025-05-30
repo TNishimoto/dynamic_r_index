@@ -112,6 +112,116 @@ namespace stool
                 nds.delete_char(deletion_pos);
                 dfmi.delete_char(deletion_pos);
             }
+
+            static void LF_test_random_string_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicBWT &dbwt, uint64_t delete_pos, uint64_t delete_len)
+            {
+                if (delete_pos == 0)
+                {
+                    return;
+                }
+
+                /*
+                std::cout << "X/" << delete_pos << "/" << delete_len << "/" << nds.size() << std::endl;
+                        std::cout << "BWT: " << dbwt.get_bwt_str('$') << std::endl;
+                        */
+
+                std::vector<uint64_t> sa = nds.create_suffix_array();
+                std::vector<std::vector<uint64_t>> sa_arrays;
+                std::vector<std::vector<uint64_t>> lf_arrays;
+
+                sa_arrays.push_back(sa);
+                std::vector<uint64_t> idx_array;
+
+                idx_array.push_back(nds.create_inverse_suffix_array()[delete_pos + delete_len - 1]);
+
+                // stool::DebugPrinter::print_integers(sa, "sa");
+
+                for (uint64_t i = 0; i < delete_len; i++)
+                {
+                    std::vector<uint64_t> tmp_sa;
+                    for (uint64_t j = 0; j < sa.size(); j++)
+                    {
+                        uint64_t lower = delete_pos + delete_len - i - 1;
+                        uint64_t upper = delete_pos + delete_len - 1;
+                        int64_t b_pointer = lower > 0 ? lower - 1 : nds.size() - 1;
+                        if (sa[j] < lower || sa[j] > upper)
+                        {
+                            tmp_sa.push_back(sa[j]);
+                        }
+                        if (sa[j] == b_pointer)
+                        {
+                            idx_array.push_back(tmp_sa.size() - 1);
+                        }
+                    }
+                    auto tmp_lf = NaiveDynamicStringForBWT::construct_dynamic_LF_array(sa_arrays[sa_arrays.size() - 1], tmp_sa);
+                    sa_arrays.push_back(tmp_sa);
+                    lf_arrays.push_back(tmp_lf);
+                }
+
+                uint64_t new_char_pointer = delete_pos > 0 ? delete_pos - 1 : nds.size() - 1;
+                uint64_t new_char = nds.text[new_char_pointer];
+
+                uint64_t pointer = delete_pos + delete_len < (int64_t)dbwt.size() ? delete_pos + delete_len : 0;
+                uint64_t p_on_sa = nds.create_inverse_suffix_array()[pointer];
+                uint64_t p_on_next = dbwt.LF(p_on_sa);
+                uint8_t old_char = dbwt.access(p_on_sa);
+
+                uint64_t replace_pos = p_on_sa;
+                // std::cout << "REPLACE: " << replace_pos << "/" << (char)old_char<< " ->" << (char)new_char << std::endl;
+
+                dbwt.replace_BWT_character(p_on_sa, new_char);
+                p_on_sa = p_on_next;
+                if (p_on_sa != idx_array[0])
+                {
+                    throw std::runtime_error("Error: LF_test_random_string_deletion");
+                }
+
+                for (uint64_t i = 0; i < delete_len; i++)
+                {
+                    /*
+                    std::cout << std::endl;
+                    stool::DebugPrinter::print_integers(sa_arrays[i], "sa" + std::to_string(i));
+                    stool::DebugPrinter::print_integers(sa_arrays[i+1], "sa" + std::to_string(i+1));
+
+                    std::cout << "REMOVE: " << (delete_pos + delete_len - i - 1) << std::endl;
+                    std::cout << "BWT: " << dbwt.get_bwt_str('$') << std::endl;
+                    std::cout << "p_on_sa: " << p_on_sa << "/" << "old_char = " << (char)old_char << "/ c = " << (char)dbwt.access(p_on_sa) << ", rep_pos = " << replace_pos << std::endl;
+                    
+
+                   stool::DebugPrinter::print_integers(lf_arrays[i], "lf" + std::to_string(i));
+                   */
+
+                    for (uint64_t j = 0; j < lf_arrays[i].size(); j++)
+                    {
+                        uint64_t test_p = dbwt.LF_for_deletion(j, new_char, replace_pos, p_on_sa);
+
+                        //std::cout << "test_p: " << test_p << "/" << lf_arrays[i][j] << std::endl;
+                        if (test_p != lf_arrays[i][j])
+                        {
+                            throw std::runtime_error("Error: LF_test_random_string_deletion");
+                        }
+                    }
+
+                    uint8_t current_char = dbwt.access(p_on_sa);
+                    uint64_t p_on_next = dbwt.LF_for_deletion(p_on_sa, new_char, replace_pos, p_on_sa);
+
+                    dbwt.remove_BWT_character(p_on_sa);
+                    if (replace_pos > p_on_sa)
+                    {
+                        replace_pos--;
+                    }
+
+                    // std::cout << "CHECK: " << p_on_sa << " ->" << p_on_next << "/" << idx_array[1 + i] << std::endl;
+
+                    if (p_on_next != idx_array[1 + i])
+                    {
+                        throw std::runtime_error("Error: LF_test_random_string_deletion" + std::to_string(i));
+                    }
+                    p_on_sa = p_on_next;
+                }
+                // std::cout << std::endl;
+            }
+
             static void bwt_test_random_string_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, uint64_t delete_len, std::mt19937_64 &mt64)
             {
                 uint64_t size = nds.size();
@@ -210,6 +320,35 @@ namespace stool
                 DynamicFMIndexTest::equal_check(nds, dfmi);
             }
 
+            static void string_deletion_for_LF_test(uint64_t item_num, uint64_t pattern_length, uint8_t alphabet_type, uint64_t seed)
+            {
+                std::mt19937_64 mt64(seed);
+                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
+                uint8_t end_marker = alphabet_with_end_marker[0];
+
+                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(item_num, chars, seed);
+
+                NaiveDynamicStringForBWT nds;
+                nds.initialzie(end_marker);
+                nds.insert_string(0, text);
+
+                text.push_back(end_marker);
+
+                std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
+
+                stool::dynamic_r_index::DynamicBWT dbwt = stool::dynamic_r_index::DynamicBWT::build(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
+
+                uint64_t size = nds.size();
+                assert(size >= 10);
+                std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - pattern_length - 2);
+
+                int64_t deletion_pos = get_rand_uni_int(mt64);
+                LF_test_random_string_deletion(nds, dbwt, deletion_pos, pattern_length);
+            }
+
             static void string_insertion_and_deletion_test(uint64_t item_num, uint64_t pattern_length, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
@@ -258,8 +397,6 @@ namespace stool
 
                 std::string filepath = "dfmi.bits";
 
-
-
                 stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
                 auto bwt1 = dfmi.get_bwt();
                 auto sa1 = dfmi.get_sa();
@@ -296,11 +433,9 @@ namespace stool
 
                 auto isa2 = dfmi2.get_isa();
 
-
                 stool::equal_check("BWT", bwt1, bwt2);
                 stool::equal_check("SA", sa1, sa2);
                 stool::equal_check("ISA", isa1, isa2);
-
             }
 
             static void backward_search_test(uint64_t text_size, uint64_t pattern_count, uint8_t alphabet_type, uint64_t seed)

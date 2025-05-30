@@ -34,7 +34,6 @@ namespace stool
             DynamicBWT(DynamicBWT &&) noexcept = default;
             DynamicBWT &operator=(DynamicBWT &&) noexcept = default;
 
-
             uint64_t size_in_bytes() const
             {
                 return this->cArray.size_in_bytes() + this->bwt.size_in_bytes();
@@ -74,8 +73,8 @@ namespace stool
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicBWT):" << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "Text length: " << this->size() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph+1) << "Alphabet size: " << this->get_alphabet_size() << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text length: " << this->size() << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: " << this->get_alphabet_size() << std::endl;
 
                 this->cArray.print_statistics(message_paragraph + 1);
                 this->bwt.print_statistics(message_paragraph + 1);
@@ -84,17 +83,18 @@ namespace stool
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Content(DynamicBWT): text length = " << this->size() << std::endl;
-                this->bwt.print_content(message_paragraph+1);
+                this->bwt.print_content(message_paragraph + 1);
 
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
-            }   
-            uint64_t get_alphabet_size() const {
+            }
+            uint64_t get_alphabet_size() const
+            {
                 return this->bwt.get_alphabet_size();
             }
-            std::vector<uint8_t> get_alphabet() const {
+            std::vector<uint8_t> get_alphabet() const
+            {
                 return this->cArray.get_alphabet();
             }
-
 
             /**
              * @brief Initializes the DynamicBWT with the given characters and end marker.
@@ -247,13 +247,20 @@ namespace stool
                 return r;
             }
 
-            std::string get_bwt_str() const
+            std::string get_bwt_str(int64_t endmarker = -1) const
             {
                 std::vector<uint8_t> r = this->get_bwt();
                 std::string s;
                 for (auto c : r)
                 {
-                    s.push_back(c);
+                    if (endmarker != -1 && c == this->get_end_marker())
+                    {
+                        s.push_back(endmarker);
+                    }
+                    else
+                    {
+                        s.push_back(c);
+                    }
                 }
                 return s;
             }
@@ -275,7 +282,8 @@ namespace stool
             {
                 return this->bwt.at(i);
             }
-            uint64_t count_c(uint8_t c) const {
+            uint64_t count_c(uint8_t c) const
+            {
                 return this->bwt.count_c(c);
             }
             int64_t rank(uint8_t c, int64_t i) const
@@ -292,6 +300,30 @@ namespace stool
             int64_t select(uint8_t c, int64_t ith) const
             {
                 return this->bwt.select(ith - 1, c);
+            }
+            int64_t LF_for_deletion(int64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
+            {
+                if(i == replace_pos){
+                    return LF_for_deletion(current_processing_position, new_char, replace_pos, current_processing_position);
+                }else{
+                uint8_t c = this->access(i);
+                uint64_t p = this->LF(i);
+
+                if (c > new_char || (i > replace_pos && c == new_char))
+                {
+                    if (p > 0)
+                    {
+                        p--;
+                    }
+                    else
+                    {
+                        p = this->size() - 2;
+                    }
+                }
+                return p;
+
+                }
+
             }
 
             int64_t LF(int64_t i) const
@@ -362,10 +394,6 @@ namespace stool
                 stool::wavelet_tree_update_count += 1;
 #endif
             }
-
-            
-
-            
 
             void remove_BWT_character(int64_t pos)
             {

@@ -92,6 +92,40 @@ namespace stool
                 }
                 return bwt;
             }
+            static std::vector<uint64_t> construct_dynamic_LF_array(const std::vector<uint64_t> &sa1, const std::vector<uint64_t> &sa2){
+                uint64_t max = 0;
+                for(uint64_t i = 0; i < sa1.size(); i++){
+                    if(sa1[i] > max){
+                        max = sa1[i];
+                    }
+                }
+                std::vector<uint64_t> isa;
+                isa.resize(max+1, UINT64_MAX);
+                for(uint64_t i = 0; i < sa2.size(); i++){
+                    isa[sa2[i]] = i;
+                }
+                
+
+                std::vector<uint64_t> lf_array;
+                lf_array.resize(sa1.size(), UINT64_MAX);
+
+                for(uint64_t i = 0; i < sa1.size(); i++){
+                    for(int64_t j = sa1[i]; j >= 0; j--){
+                        if(j > 0){
+                            if(isa[j-1] != UINT64_MAX){
+                                lf_array[i] = isa[j-1];
+                                break;
+                            }
+                        }else{
+                            lf_array[i] = isa[max];
+                            break;
+                        }
+                    }
+                }
+
+                return lf_array;
+            }
+
             std::string create_bwt_str()
             {
                 std::string s;

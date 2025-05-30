@@ -9,7 +9,7 @@
 #include "stool/include/stool.hpp"
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
 
-//#include "../include/old_implementations/btree_include.hpp"
+// #include "../include/old_implementations/btree_include.hpp"
 #include "include/dynamic_fm_index_test.hpp"
 #include "include/dynamic_r_index_test.hpp"
 //
@@ -44,11 +44,18 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
         {
             for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
             {
-                for (uint64_t i = 0; i < trial_num; i++)
-                {
-                    std::cout << alphabet_type << std::flush;
+                uint64_t length_of_text = 10;
 
-                    DynamicFMIndexTest::string_insertion_and_deletion_test(text_size, length_of_insertion_string, alphabet_type, seed++);
+                while (length_of_text < text_size)
+                {
+                    for (uint64_t i = 0; i < trial_num; i++)
+                    {
+                        std::cout << alphabet_type << std::flush;
+
+                        DynamicFMIndexTest::string_insertion_and_deletion_test(length_of_text, length_of_insertion_string, alphabet_type, seed++);
+                    }
+
+                    length_of_text *= 2;
                 }
             }
             std::cout << std::endl;
@@ -56,7 +63,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
             length_of_insertion_string *= 2;
         }
     }
-    else if(mode == 3)
+    else if (mode == 3)
     {
         std::cout << "backward_search_test" << std::endl;
 
@@ -73,7 +80,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
         }
         std::cout << std::endl;
     }
-    else if(mode == 4)
+    else if (mode == 4)
     {
         std::cout << "sampled_isa_test" << std::endl;
         for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
@@ -87,7 +94,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
         }
         std::cout << std::endl;
     }
-    else if(mode == 5)
+    else if (mode == 5)
     {
         std::cout << "save_and_load_test" << std::endl;
         for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
@@ -101,13 +108,41 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
         }
         std::cout << std::endl;
     }
-    
-    else{
-        for(uint64_t i = 1;i <= 5; i++){
-            fm_index_test(text_size, i, detailed_check, seed);
+    else if (mode == 6)
+    {
+        std::cout << "LF test" << std::endl;
+        uint64_t length_of_insertion_string = 2;
+        for (uint64_t x = 0; x < 3; x++)
+        {
+            for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
+            {
+                uint64_t length_of_text = 10;
+
+                while (length_of_text < text_size)
+                {
+                    for (uint64_t i = 0; i < trial_num; i++)
+                    {
+                        std::cout << alphabet_type << std::flush;
+
+                        DynamicFMIndexTest::string_deletion_for_LF_test(length_of_text, length_of_insertion_string, alphabet_type, seed++);
+                    }
+
+                    length_of_text *= 2;
+                }
+            }
+            std::cout << std::endl;
+
+            length_of_insertion_string *= 2;
         }
     }
 
+    else
+    {
+        for (uint64_t i = 1; i <= 5; i++)
+        {
+            fm_index_test(text_size, i, detailed_check, seed);
+        }
+    }
 }
 
 int main(int argc, char *argv[])

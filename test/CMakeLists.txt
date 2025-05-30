@@ -85,8 +85,8 @@ target_link_libraries(r_index_test.out fn)
 #add_executable(generate_query.out generate_query_main.cpp)
 #target_link_libraries(generate_query.out fn)
 
-#add_executable(fm_index_test.out fm_index_test_main.cpp)
-#target_link_libraries(fm_index_test.out fn)
+add_executable(fm_index_test.out fm_index_test_main.cpp)
+target_link_libraries(fm_index_test.out fn)
 
 
 #add_executable(lcp.out main/lcp_main.cpp)

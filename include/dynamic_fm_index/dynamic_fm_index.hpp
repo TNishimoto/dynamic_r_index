@@ -791,6 +791,8 @@ namespace stool
 
             uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
             {
+
+
                 TextIndex pointer = pos + len < (int64_t)this->size() ? pos + len : 0;
 
                 uint64_t positionToReplace = this->dsa.isa(pointer);
@@ -811,6 +813,8 @@ namespace stool
                     output_history->type = EditType::DeletionOfString;
                     output_history->replaced_sa_index = positionToReplace;
                 }
+
+
 
                 uint64_t tmp_rank;
                 for (int64_t k = len - 1; k > 0; k--)
@@ -857,7 +861,6 @@ namespace stool
                 current_letter = this->dbwt.access(positionToDelete);
 
                 this->dbwt.remove_BWT_character(positionToDelete);
-                // this->disa.update_for_deletion(positionToDelete);
                 this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
 
                 if (positionToDelete < j)
