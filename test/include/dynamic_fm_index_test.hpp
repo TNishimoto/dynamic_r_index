@@ -24,8 +24,8 @@ namespace stool
                 }
                 catch (std::logic_error &e)
                 {
-                    stool::DebugPrinter::print_integers(correctBWT, "Correct");
-                    stool::DebugPrinter::print_integers(testBWT, "Test");
+                    stool::DebugPrinter::print_characters(correctBWT, "Correct");
+                    stool::DebugPrinter::print_characters(testBWT, "Test");
 
                     throw e;
                 }
@@ -222,7 +222,7 @@ namespace stool
                 // std::cout << std::endl;
             }
 
-            static void bwt_test_random_string_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, uint64_t delete_len, std::mt19937_64 &mt64)
+            static void bwt_test_random_string_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, uint64_t delete_len, std::mt19937_64 &mt64, uint64_t counter)
             {
                 uint64_t size = nds.size();
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - delete_len - 2);
@@ -230,11 +230,16 @@ namespace stool
                 int64_t deletion_pos = get_rand_uni_int(mt64);
 
                 nds.delete_string(deletion_pos, delete_len);
+
                 dfmi.delete_string(deletion_pos, delete_len);
 
                 BWT_equal_check(nds, dfmi);
+
                 SA_equal_check(nds, dfmi);
+
                 ISA_equal_check(nds, dfmi);
+
+
             }
 
             static void sampled_isa_test(uint64_t text_size, uint8_t alphabet_type, [[maybe_unused]] bool detailed_check, uint64_t seed)
@@ -373,9 +378,11 @@ namespace stool
                     DynamicFMIndexTest::bwt_test_random_string_insertion(nds, dfmi, pattern_length, chars, mt64);
                 }
 
+                uint64_t counter = 0;
+
                 while (nds.size() > (int64_t)pattern_length + 1)
                 {
-                    DynamicFMIndexTest::bwt_test_random_string_deletion(nds, dfmi, pattern_length, mt64);
+                    DynamicFMIndexTest::bwt_test_random_string_deletion(nds, dfmi, pattern_length, mt64, counter++);
                 }
             }
 

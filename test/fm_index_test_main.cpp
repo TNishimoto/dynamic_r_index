@@ -138,7 +138,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
 
     else
     {
-        for (uint64_t i = 1; i <= 5; i++)
+        for (uint64_t i = 1; i <= 6; i++)
         {
             fm_index_test(text_size, i, detailed_check, seed);
         }
