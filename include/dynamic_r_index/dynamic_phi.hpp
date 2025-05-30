@@ -430,6 +430,12 @@ namespace stool
                 }
             }
 
+            SAValue LF_inverse_phi_for_deletion(RunPosition i_rp, SAValue sa_value_at_i_plus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
+            {
+
+            }
+
+
             SAValue LF_inverse_phi_for_insertion(RunPosition i_rp, SAValue sa_value_at_i_plus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);
@@ -638,7 +644,6 @@ namespace stool
                 }
                 else
                 {
-
                     assert(i.position_in_run == 0);
                     RunPosition rp = DynamicRLBWTHelper::proper_predecessor_on_F(dbwt, i, old_c);
 #if DEBUG
@@ -649,6 +654,8 @@ namespace stool
                     return v > 0 ? v - 1 : this->text_size() - 1;
                 }
             }
+
+
 
             SAValue LF_phi(RunPosition i, SAValue prev_sa_value, const DynamicRLBWT &dbwt) const
             {

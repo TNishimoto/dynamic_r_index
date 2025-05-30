@@ -61,10 +61,15 @@ namespace stool
             SAIndex j = UINT64_MAX;
             uint8_t old_char = UINT8_MAX;
 
+            uint64_t LF_v = UINT64_MAX;
+            uint64_t v_on_sa = UINT64_MAX;
+
 
             //SAIndex i_minus = UINT64_MAX;
             //bool isSpecialLF = false;
         };
+
+
 
         class RIndexPrimitiveUpdateOperations
         {
@@ -258,12 +263,122 @@ namespace stool
 
                 return inf;
             }
+            /*
+            static PhaseABResultForDeletion phase_AB_for_deletion(TextIndex i, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
+            {
+                
+
+                uint8_t prev_c = inserted_string[inserted_string.size() - 1];
+
+                PhaseABResult result;
+                uint64_t original_text_size = dbwt.text_size();
+                result.ISA_i_PI.p = disa.isa(i, dbwt);
+                RunPosition i_on_rlbwt = dbwt.to_run_position(result.ISA_i_PI.p);
+                result.value_at_y_minus = disa.phi(i > 0 ? i - 1 : original_text_size - 1);
+                result.value_at_y_plus = disa.inverse_phi(i > 0 ? i - 1 : original_text_size - 1);
+                result.old_char = dbwt.get_char(i_on_rlbwt.run_index);
+                result.isSpecialLF = dbwt.check_special_LF(result.ISA_i_PI.p, result.ISA_i_PI.p, prev_c, result.old_char);
+                result.i_minus = dbwt.LF(i_on_rlbwt.run_index, i_on_rlbwt.position_in_run);
+                result.ISA_i_PI.value_at_p_minus = disa.phi(i);
+                result.ISA_i_PI.value_at_p_plus = disa.inverse_phi(i);
+                
+
+
+                TextIndex v = i + len;
+                assert(v < (uint64_t)dbwt.text_size());
+                SAIndex v_on_sa = disa.isa(v, dbwt);
+                RunPosition v_on_rlbwt = dbwt.to_run_position(v_on_sa);
+                uint8_t old_char = dbwt.get_char(v_on_rlbwt.run_index);
+
+                SAIndex x = dbwt.LF(v_on_rlbwt.run_index, v_on_rlbwt.position_in_run);
+                SAIndex i_on_sa = disa.isa(i, dbwt);
+                RunPosition u_on_rlbwt = dbwt.to_run_position(i_on_sa);
+                uint64_t j = dbwt.LF(u_on_rlbwt.run_index, u_on_rlbwt.position_in_run);
+
+                editHistory.replaced_sa_index = v_on_sa;
+                editHistory.type = EditType::DeletionOfString;
+
+                uint8_t x_character = UINT8_MAX;
+
+                {
+                    uint64_t v_phi = sub.phi(v, disa);
+                    uint64_t inv_v_phi = sub.inverse_phi(v, disa);
+                    sub.insert_sa_value(v_phi, v, inv_v_phi);
+                }
+
+
+                return inf;
+            }
+            static AdditionalInformationUpdatingRIndex phase_C_for_deletion(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
+            {
+
+                for (int64_t w = len - 1; w >= 0; w--)
+                {
+
+                    RunPosition i_on_rlbwt = dbwt.to_run_position(i);
+                    i_character = dbwt.get_char(i_on_rlbwt.run_index);
+                    uint64_t next_i = dbwt.LF(i_on_rlbwt.run_index, i_on_rlbwt.position_in_run);
+                    bool b = dbwt.check_special_LF(v_on_sa, i, i_character, old_char);
+                    if (b)
+                    {
+                        next_i--;
+                    }
+                    // int gap = i <= next_i ? 1 : 0;
+
+                    RIndexOldUpdateOperations::delete_char_phase(i_on_rlbwt, i_character, u + w, dbwt, disa, sub);
+
+                    editHistory.deleted_sa_indexes.push_back(i);
+
+                    if (i < j)
+                    {
+                        j--;
+                    }
+                    if (i < v_on_sa)
+                    {
+                        v_on_sa--;
+                    }
+
+                    i = next_i;
+                }
+                v_on_rlbwt = dbwt.to_run_position(v_on_sa);
+
+                SAValue phi_v = sub.phi(u, disa);
+                SAValue inv_phi_v = sub.inverse_phi(u, disa);
+
+                RIndexOldUpdateOperations::replace_char_phase(u, v_on_rlbwt, i_character, phi_v, inv_phi_v, dbwt, disa, sub);
+
+                AdditionalInformationUpdatingRIndex inf;
+                inf.compute_and_set_y_and_y_star(j, dbwt.LF(v_on_sa));
+                inf.value_at_y = u - 1;
+                inf.value_at_y_star = UINT64_MAX;
+
+                if (inf.y != inf.get_z())
+                {
+                    uint64_t i = v_on_sa;
+                    RunPosition i_on_rlbwt = dbwt.to_run_position(i);
+                    SAValue phi_i = sub.phi(u, disa);
+                    inf.value_at_y_star = RIndexOldUpdateOperations::compute_sa_value_of_z_minus_or_z(i_on_rlbwt, i, inf.y, inf.get_z(), phi_i, dbwt, disa);
+                }
+                editHistory.first_j = inf.y;
+                editHistory.first_j_prime = inf.get_z();
+
+                return inf;
+            }
+            */
 
             static AdditionalInformationUpdatingRIndex preprocess_of_string_insertion_operation(TextIndex i, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
                 PhaseABResult phaseABReuslt = phase_AB_for_insertion(i, inserted_string, editHistory, dbwt, disa);
                 return phase_C_for_insertion(i, inserted_string, editHistory, dbwt, disa, phaseABReuslt);
             }
+            /*
+            static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operation(TextIndex i, uint64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
+            {
+                PhaseABResult phaseABReuslt = phase_AB_for_deletion(i, len, editHistory, dbwt, disa);
+                return phase_C_for_deletion(i, inserted_string, editHistory, dbwt, disa, phaseABReuslt);
+            }
+            */
+
 
             static bool phase_D(FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, PositionInformation &y_PI, PositionInformation &z_PI)
             {

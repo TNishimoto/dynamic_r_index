@@ -676,7 +676,6 @@ namespace stool
             uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
-                SubPhiDataStructure sub(u, inserted_string.size(), true);
                 AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa);
 
                 
@@ -723,6 +722,27 @@ namespace stool
 
                 return output_history.move_history.size();
             }
+            /*
+            uint64_t delete_string2(TextIndex u, uint64_t len, FMIndexEditHistory &output_history)
+            {
+                output_history.clear();
+                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa);
+
+
+                SubPhiDataStructure sub(u, len, false);
+                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_string_deletion_operation(u, len, output_history, dbwt, disa, sub);
+                bool b = false;
+                while (!b)
+                {
+                    b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
+                    //b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
+                }
+                // RIndexHelperForUpdate::merge_non_maximal_runs_in_dbwt(output_history, true, dbwt, disa);
+
+                return output_history.move_history.size();
+            }
+            */
+
 
             uint64_t insert_char(TextIndex u, uint8_t c)
             {
