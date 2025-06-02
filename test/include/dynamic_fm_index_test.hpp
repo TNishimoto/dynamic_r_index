@@ -125,9 +125,14 @@ namespace stool
                         std::cout << "BWT: " << dbwt.get_bwt_str('$') << std::endl;
                         */
 
-                std::vector<uint64_t> sa = nds.create_suffix_array();
+                // std::vector<uint64_t> sa = nds.create_suffix_array();
                 std::vector<std::vector<uint64_t>> sa_arrays;
                 std::vector<std::vector<uint64_t>> lf_arrays;
+                std::vector<uint64_t> idx_array;
+
+                nds.construct_SA_and_LF_array_for_deletion(delete_pos, delete_len, sa_arrays, lf_arrays, idx_array);
+
+                /*
 
                 sa_arrays.push_back(sa);
                 std::vector<uint64_t> idx_array;
@@ -157,6 +162,7 @@ namespace stool
                     sa_arrays.push_back(tmp_sa);
                     lf_arrays.push_back(tmp_lf);
                 }
+                */
 
                 uint64_t new_char_pointer = delete_pos > 0 ? delete_pos - 1 : nds.size() - 1;
                 uint64_t new_char = nds.text[new_char_pointer];
@@ -186,7 +192,7 @@ namespace stool
                     std::cout << "REMOVE: " << (delete_pos + delete_len - i - 1) << std::endl;
                     std::cout << "BWT: " << dbwt.get_bwt_str('$') << std::endl;
                     std::cout << "p_on_sa: " << p_on_sa << "/" << "old_char = " << (char)old_char << "/ c = " << (char)dbwt.access(p_on_sa) << ", rep_pos = " << replace_pos << std::endl;
-                    
+
 
                    stool::DebugPrinter::print_integers(lf_arrays[i], "lf" + std::to_string(i));
                    */
@@ -195,7 +201,7 @@ namespace stool
                     {
                         uint64_t test_p = dbwt.LF_for_deletion(j, new_char, replace_pos, p_on_sa);
 
-                        //std::cout << "test_p: " << test_p << "/" << lf_arrays[i][j] << std::endl;
+                        // std::cout << "test_p: " << test_p << "/" << lf_arrays[i][j] << std::endl;
                         if (test_p != lf_arrays[i][j])
                         {
                             throw std::runtime_error("Error: LF_test_random_string_deletion");
@@ -238,8 +244,6 @@ namespace stool
                 SA_equal_check(nds, dfmi);
 
                 ISA_equal_check(nds, dfmi);
-
-
             }
 
             static void sampled_isa_test(uint64_t text_size, uint8_t alphabet_type, [[maybe_unused]] bool detailed_check, uint64_t seed)

@@ -67,8 +67,13 @@ namespace stool
         struct RunPosition
         {
         public:
-            uint64_t run_index;
-            uint64_t position_in_run;
+            uint64_t run_index = UINT64_MAX;
+            uint64_t position_in_run = UINT64_MAX;
+
+            RunPosition()
+            {
+            }
+
 
             RunPosition(uint64_t _run_index, uint64_t _position_in_run) : run_index(_run_index), position_in_run(_position_in_run)
             {

@@ -456,6 +456,7 @@ namespace stool
 
             static void detailed_string_deletion_test(uint64_t text_size, uint64_t str_len, uint8_t alphabet_type, uint64_t seed)
             {
+                assert(str_len < text_size);
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
@@ -463,6 +464,11 @@ namespace stool
                 // dfmi.initialize(alphabet_with_end_marker);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
+
+                NaiveDynamicStringForBWT nds;
+                nds.initialzie(text);
+ 
+
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
                 std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
@@ -481,21 +487,37 @@ namespace stool
                 FMIndexEditHistory edit_history, edit_history2;
                 // std::vector<uint8_t> inserted_string;
                 uint64_t insertion_pos = get_rand_uni_int(mt64);
+                assert(insertion_pos < text_size-1);
+
+                // REMOVE!!
+                if(insertion_pos == 0){
+                    return;
+                }
+
+                if(insertion_pos + str_len >= text_size){
+                    str_len = text_size - insertion_pos - 1;
+                }
+
+
 
                 dfmi.delete_string(insertion_pos, str_len, &edit_history);
                 // edit_history.print();
 
-                stool::dynamic_r_index::SubPhiDataStructure sub(insertion_pos, str_len, false);
-                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, sub);
+
+                //stool::dynamic_r_index::SubPhiDataStructure sub(insertion_pos, str_len, false);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, nds);
+
 
                 bool b = false;
                 // uint64_t x = 0;
                 while (!b)
                 {
-                    b = drfmi.__reorder_RLBWT_for_deletion(edit_history2, sub, inf);
+                    //b = drfmi.__reorder_RLBWT(edit_history2, inf);
+                    b = drfmi.__reorder_RLBWT_for_insertion(edit_history2, inf);
                 }
 
                 DynamicRIndexTest::verify_r_index(drfmi);
+
                 BWT_and_SA::bwt_sa_and_isa_check(dfmi, drfmi);
             }
 

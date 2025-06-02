@@ -131,6 +131,45 @@ namespace stool
                 uint8_t xc = dbwt.get_char(x.run_index);
                 return proper_successor_on_F(dbwt, x, xc);
             }
+
+            /*
+            static RunPosition proper_predecessor_on_F_for_deletion(const DynamicRLBWT &dbwt, RunPosition x, uint8_t c, uint8_t old_char, uint64_t positioin_to_replace)
+            {
+                uint8_t xc = dbwt.get_char(x.run_index);
+                if (x.position_in_run > 0 && xc == c)
+                {
+                    return RunPosition(x.run_index, x.position_in_run - 1);
+                }
+                else
+                {
+                    int64_t c_rank1 = x.run_index > 0 ? dbwt.rank_on_first_characters_of_RLBWT(c, x.run_index - 1) : 0;
+                    if (c_rank1 > 0)
+                    {
+                        int64_t idx = dbwt.select_on_first_characters_of_RLBWT(c_rank1 - 1, c);
+                        int64_t run_length = dbwt.get_run_length(idx);
+                        return RunPosition(idx, run_length - 1);
+                    }
+                    else
+                    {
+                        int64_t z = dbwt.get_c_array().predecessor_on_effective_alphabet((uint8_t)(c - 1));
+                        if (z == -1)
+                        {
+                            z = dbwt.get_c_array().effective_alphabet_size() - 1;
+                        }
+
+                        uint8_t c2 = dbwt.get_c_array().get_character_in_effective_alphabet(z);
+                        int64_t occ = dbwt.rank_on_first_characters_of_RLBWT(c2, dbwt.run_count() - 1);
+                        assert(occ > 0);
+
+                        int64_t idx = dbwt.select_on_first_characters_of_RLBWT(occ - 1, c2);
+                        int64_t run_length = dbwt.get_run_length(idx);
+
+                        return RunPosition(idx, run_length - 1);
+                    }
+                }
+            }
+            */
+
             static RunPosition proper_predecessor_on_F(const DynamicRLBWT &dbwt, RunPosition x, uint8_t c)
             {
                 uint8_t xc = dbwt.get_char(x.run_index);

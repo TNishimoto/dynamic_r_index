@@ -32,10 +32,15 @@ namespace stool
             }
             void print() const
             {
-                std::cout << "AdditionalInformationUpdatingRIndex[ y = " << y << ", j* = " << y_star << ", SA[y] = " << value_at_y << ", SA[y*] = " << value_at_y_star << ", z = " << this->get_z() << " ]" << std::endl;
+                std::cout << "AdditionalInformationUpdatingRIndex[ y = " << y << ", j* = " << y_star << ", SA[y] = " << value_at_y << ", SA[y*] = " << value_at_y_star << ", z = " << z << std::endl;
+                std::cout << "SA[y-1] = " << value_at_y_minus << ", SA[y+1] = " << value_at_y_plus << std::endl;
+                std::cout << "SA[z-1] = " << value_at_z_minus << ", SA[z+1] = " << value_at_z_plus << " ]" << std::endl;
+
             }
+            
             SAIndex get_z() const
             {
+                throw std::logic_error("Error: get_z");
                 //return _z;
                 
                 if (y_star < (int64_t)y)
@@ -47,6 +52,7 @@ namespace stool
                     return y_star;
                 }                
             }
+            
             /*
             SAIndex get_z2() const
             {

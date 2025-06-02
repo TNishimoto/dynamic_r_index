@@ -810,6 +810,11 @@ namespace stool
             {
                 return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation(u, len, editHistory, dbwt, disa, sub);
             }
+            AdditionalInformationUpdatingRIndex __preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, stool::fm_index_test::NaiveDynamicStringForBWT &nds)
+            {
+                return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, len, editHistory, dbwt, disa, nds);
+            }
+
             ////////////////////////////////////////////////////////////////////////////////
             ///   @brief This method is used for debug
             ////////////////////////////////////////////////////////////////////////////////

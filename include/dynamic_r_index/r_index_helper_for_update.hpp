@@ -60,9 +60,11 @@ namespace stool
             //uint8_t i_char = UINT8_MAX;
             SAIndex j = UINT64_MAX;
             uint8_t old_char = UINT8_MAX;
+            uint8_t new_char = UINT8_MAX;
 
             uint64_t LF_v = UINT64_MAX;
             uint64_t v_on_sa = UINT64_MAX;
+            RunPosition v_on_rlbwt;
 
 
             //SAIndex i_minus = UINT64_MAX;
@@ -103,6 +105,15 @@ namespace stool
                 disa.remove_element_for_insertion(u_on_rlbwt.run_index, phi_u, inv_phi_u, type);
                 return std::make_pair(phi_u, inv_phi_u);
             }
+            static std::pair<SAValue, SAValue> r_delete_for_deletion(RunPosition u_on_rlbwt, uint8_t u_c, SAValue phi_u, SAValue inv_phi_u, uint64_t remove_value,DynamicRLBWT &dbwt, DynamicPhi &disa)
+            {
+
+                RunRemovalType type = DynamicRLBWTHelper::remove_char(dbwt, u_on_rlbwt, u_c);
+                disa.remove_element_for_insertion(u_on_rlbwt.run_index, phi_u, inv_phi_u, type);
+                disa.shrink_text(remove_value);
+                return std::make_pair(phi_u, inv_phi_u);
+            }
+
         };
 
         class RIndexHelperForUpdate

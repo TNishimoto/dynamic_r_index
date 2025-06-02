@@ -903,6 +903,7 @@ namespace stool
             }
             */
 
+            /*
             uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
             {
 
@@ -936,42 +937,18 @@ namespace stool
                     next_position_to_delete = this->dbwt.LF_for_deletion(positionToDelete, new_char, positionToReplace, positionToDelete);
 
 
-                    /*
-                    current_letter = this->dbwt.access(positionToDelete);
-                    // Computes the rank before we delete at this position!
-                    tmp_rank = this->dbwt.rank(current_letter, positionToDelete);
-                    if (positionToReplace <= positionToDelete && current_letter == old_char)
-                    {
-                        tmp_rank--;
-                    }
-                    */
-
-                    // std::cout << "bwt: " << this->dbwt.get_bwt_str() <<  ", del_pos = " << positionToDelete << std::endl;
-
                     if (output_history != nullptr)
                     {
                         output_history->deleted_sa_indexes.push_back(positionToDelete);
                     }
-                    //std::cout << "positionToDelete = " << positionToDelete << std::endl;
 
                     this->dbwt.remove_BWT_character(positionToDelete);
-                    // this->disa.update_for_deletion(positionToDelete);
                     this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
 
                     if (positionToDelete < positionToReplace)
                     {
                         positionToReplace--;
                     }
-                    /*
-                    int64_t c_value = this->dbwt.get_c_array().at(current_letter);
-                    if (old_char < current_letter)
-                    {
-                        c_value--;
-                    }
-
-                    positionToDelete = c_value + tmp_rank - 1;
-                    */
-                    // std::cout << "P = " << positionToDelete << " -> " << next_position_to_delete << "/" << len << std::endl;
                     positionToDelete = next_position_to_delete;
 
                     positionToDeleteOnText--;
@@ -979,27 +956,6 @@ namespace stool
                 uint64_t j = positionToDelete;
                 uint64_t j_prime = this->dbwt.LF(positionToReplace);
 
-                /*
-
-                current_letter = this->dbwt.access(positionToDelete);
-
-                this->dbwt.remove_BWT_character(positionToDelete);
-                this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
-
-                if (positionToDelete < j)
-                {
-                    j--;
-                }
-                if (positionToDelete < positionToReplace)
-                {
-                    positionToReplace--;
-                }
-
-                //this->dbwt.replace_BWT_character(positionToReplace, new_char);
-
-                tmp_rank = this->dbwt.rank(new_char, positionToReplace);
-                uint64_t j_prime = this->dbwt.get_c_array().at(new_char) + tmp_rank - 1;
-                */
 
                 if (output_history != nullptr)
                 {
@@ -1010,6 +966,89 @@ namespace stool
                 }
 
                 //std::cout << "j = " << j << ", j' = " << j_prime << std::endl;
+                std::vector<SAMove> swap_history = reorder_BWT(j, j_prime);
+                if (output_history != nullptr)
+                {
+                    output_history->move_history.swap(swap_history);
+                }
+                this->dsa.update_sample_marks(pos);
+                return 0;
+            }
+            */
+
+            uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
+            {
+                if(pos + len >= (int64_t)this->size()){
+                    throw std::logic_error("Error: delete_string");
+                }
+
+                TextIndex pointer = pos + len < (int64_t)this->size() ? pos + len : 0;
+
+                uint64_t positionToReplace = this->dsa.isa(pointer);
+                // assert(positionToReplace == this->dsa.isa(pointer));
+
+                SAIndex isa_pos2 = this->dsa.isa(pos);
+                // assert(isa_pos2 == this->dsa.isa(pos));
+
+                uint64_t positionToDelete = this->dbwt.LF(positionToReplace);
+                uint64_t positionToDeleteOnText = pointer - 1;
+                // uint64_t j = this->dbwt.LF(isa_pos2);
+                uint8_t new_char = this->dbwt.access(isa_pos2);
+                uint8_t old_char = this->dbwt.access(positionToReplace);
+
+                if (output_history != nullptr)
+                {
+                    output_history->type = EditType::DeletionOfString;
+                    output_history->replaced_sa_index = positionToReplace;
+                }
+
+                //this->dbwt.replace_BWT_character(positionToReplace, new_char);
+
+                uint64_t tmp_rank;
+                for (int64_t k = len - 1; k >= 0; k--)
+                {
+
+                    uint8_t current_letter = this->dbwt.access(positionToDelete);
+                    uint64_t next_position_to_delete = UINT64_MAX;
+                    next_position_to_delete = this->dbwt.LF(positionToDelete);
+                    if (positionToReplace <= positionToDelete && current_letter == old_char)
+                    {
+                        next_position_to_delete--;
+                    }else if(old_char < current_letter){
+                        next_position_to_delete--;
+                    }
+                    
+
+                    if (output_history != nullptr)
+                    {
+                        output_history->deleted_sa_indexes.push_back(positionToDelete);
+                    }
+
+                    this->dbwt.remove_BWT_character(positionToDelete);
+                    this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
+
+                    if (positionToDelete < positionToReplace)
+                    {
+                        positionToReplace--;
+                    }
+                    positionToDelete = next_position_to_delete;
+
+                    positionToDeleteOnText--;
+                }
+                this->dbwt.replace_BWT_character(positionToReplace, new_char);
+                
+                uint64_t j = positionToDelete;
+                uint64_t j_prime = this->dbwt.LF(positionToReplace);
+
+                if (output_history != nullptr)
+                {
+                    output_history->deleted_sa_indexes.push_back(positionToDelete);
+
+                    output_history->first_j = j;
+                    output_history->first_j_prime = j_prime;
+                }
+
+                // std::cout << "j = " << j << ", j' = " << j_prime << std::endl;
                 std::vector<SAMove> swap_history = reorder_BWT(j, j_prime);
                 if (output_history != nullptr)
                 {

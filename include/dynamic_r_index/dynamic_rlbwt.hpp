@@ -3,7 +3,7 @@
 #include "../dynamic_fm_index/time_debug.hpp"
 #include "../dynamic_fm_index/tools.hpp"
 #include "../dynamic_fm_index/c_array.hpp"
-#include <functional> 
+#include <functional>
 namespace stool
 {
     namespace dynamic_r_index
@@ -339,13 +339,17 @@ namespace stool
                 }
                 return r;
             }
-            std::string get_bwt_str() const
+            std::string get_bwt_str(int64_t new_end_marker = -1) const
             {
                 std::vector<uint8_t> r = this->get_bwt();
                 std::string s;
                 for (auto c : r)
                 {
-                    s.push_back(c);
+                    if(new_end_marker != -1 && c == this->get_end_marker()){
+                        s.push_back(new_end_marker);
+                    }else{
+                        s.push_back(c);
+                    }
                 }
                 return s;
             }
@@ -438,7 +442,6 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
-
             FRunPosition to_frun_position(int64_t position) const
             {
                 uint64_t idx = this->run_length_vector_sorted_by_F.search(position + 1);
@@ -706,10 +709,35 @@ namespace stool
                 RunPosition rp = this->to_run_position(i);
                 return this->LF(rp.run_index, rp.position_in_run);
             }
+            int64_t LF_for_deletion(int64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
+            {
+                if (i == replace_pos)
+                {
+                    return LF_for_deletion(current_processing_position, new_char, replace_pos, current_processing_position);
+                }
+                else
+                {
+                    uint8_t c = this->access(i);
+                    uint64_t p = this->LF(i);
+
+                    if (c > new_char || (i > replace_pos && c == new_char))
+                    {
+                        if (p > 0)
+                        {
+                            p--;
+                        }
+                        else
+                        {
+                            p = this->text_size() - 2;
+                        }
+                    }
+                    return p;
+                }
+            }
 
             bool check_special_LF(SAIndex positionToReplace, SAIndex currentPosition, uint8_t new_char, uint8_t old_char)
             {
-                //std::cout << "check_special_LF: " << positionToReplace << "/" << currentPosition << "/" << (char)new_char << "/" << (char)old_char << std::endl;
+                // std::cout << "check_special_LF: " << positionToReplace << "/" << currentPosition << "/" << (char)new_char << "/" << (char)old_char << std::endl;
                 if (old_char < new_char)
                 {
                     return true;
@@ -773,14 +801,16 @@ namespace stool
                 }
                 return r;
             }
-            uint64_t compute_RLBWT_hash() const {
+            uint64_t compute_RLBWT_hash() const
+            {
                 std::string str = this->head_chars_of_RLBWT.to_string();
                 std::hash<std::string> hasher;
                 uint64_t hash1 = hasher(str);
 
                 uint64_t i = 0;
                 uint64_t hash2 = 0;
-                for(uint64_t s : this->run_length_vector){
+                for (uint64_t s : this->run_length_vector)
+                {
                     hash2 ^= (i ^ s);
                     i++;
                 }
@@ -850,7 +880,6 @@ namespace stool
                 }
                 return r;
             }
-
 
             /*
                 The verification of this data structure
