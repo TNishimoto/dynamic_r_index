@@ -113,34 +113,32 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
     {
         std::cout << "Execute DynamicRIndexTest::detailed_string_deletion_test." << std::endl;
         uint64_t length_of_insertion_string = 4;
-        uint64_t base_text_size = 10;
 
         for (uint64_t alphabet_type = 0; alphabet_type <= max_alphabet_type; alphabet_type++)
         {
-            uint64_t text_size = base_text_size;
+            uint64_t text_size = 10;
 
-            while (base_text_size < 320)
+            while (text_size < 320)
             {
                 length_of_insertion_string = 1;
 
                 while (length_of_insertion_string < 32)
                 {
-                    if(length_of_insertion_string >= text_size){
+                    if (length_of_insertion_string >= text_size)
+                    {
                         break;
                     }
                     for (uint64_t i = 0; i < 10; i++)
                     {
                         std::cout << alphabet_type << std::flush;
                         stool::r_index_test::DynamicRIndexTest::detailed_string_deletion_test(text_size, length_of_insertion_string, alphabet_type, seed++);
-
                     }
                     length_of_insertion_string *= 2;
                 }
                 text_size *= 2;
-
-                std::cout << std::endl;
             }
         }
+        std::cout << std::endl;
     }
     else if (mode == 8)
     {

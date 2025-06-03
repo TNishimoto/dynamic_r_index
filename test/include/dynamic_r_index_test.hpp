@@ -185,11 +185,13 @@ namespace stool
             {
                 drfmi.verify();
             }
+            /*
             static void verify_r_index(const dynamic_r_index::DynamicRIndex &drfmi, const SubPhiDataStructure &sub)
             {
                 sub.verify(drfmi.get_dynamic_phi());
                 drfmi.verify(1);
             }
+            */
 
             static void bwt_test_random_insertion(DynamicFMIndex &dfmi, dynamic_r_index::DynamicRIndex &drfmi, std::vector<uint8_t> &chars, std::mt19937_64 &mt64, bool bwt_check_flag)
             {
@@ -489,10 +491,6 @@ namespace stool
                 uint64_t insertion_pos = get_rand_uni_int(mt64);
                 assert(insertion_pos < text_size-1);
 
-                // REMOVE!!
-                if(insertion_pos == 0){
-                    return;
-                }
 
                 if(insertion_pos + str_len >= text_size){
                     str_len = text_size - insertion_pos - 1;
@@ -503,9 +501,14 @@ namespace stool
                 dfmi.delete_string(insertion_pos, str_len, &edit_history);
                 // edit_history.print();
 
+                /*
+                std::vector<std::vector<uint64_t>> sa_arrays;
+                nds.construct_SA_arrays_for_deletion(insertion_pos, str_len, sa_arrays);
+                */
+
 
                 //stool::dynamic_r_index::SubPhiDataStructure sub(insertion_pos, str_len, false);
-                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, &nds);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, nullptr);
 
 
                 bool b = false;

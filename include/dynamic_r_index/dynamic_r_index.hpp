@@ -1,6 +1,5 @@
 #pragma once
 #include "./r_index_helper_for_update.hpp"
-#include "./r_index_old_update_operations.hpp"
 namespace stool
 {
     namespace dynamic_r_index
@@ -614,65 +613,6 @@ namespace stool
                 FMIndexEditHistory editHistory;
                 return this->insert_string(u, inserted_string, editHistory);
             }
-            /*
-            uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-                SubPhiDataStructure sub(u, inserted_string.size(), true);
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa, sub);
-
-                bool b = false;
-
-                while (!b)
-                {
-
-                    b = RIndexHelperForUpdate::reorder_RLBWT(output_history, this->dbwt, this->disa, sub, inf);
-                }
-
-                return output_history.move_history.size();
-            }
-            */
-            /*
-            AdditionalInformationUpdatingRIndex __insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-                SubPhiDataStructure sub(u, inserted_string.size(), true);
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa, sub);
-                return inf;
-            }
-            AdditionalInformationUpdatingRIndex __insert_string2(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-                SubPhiDataStructure sub(u, inserted_string.size(), true);
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation2(u, inserted_string, output_history, dbwt, disa, sub);
-                return inf;
-            }
-            AdditionalInformationUpdatingRIndex __insert_string3(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-                SubPhiDataStructure sub(u, inserted_string.size(), true);
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation3(u, inserted_string, output_history, dbwt, disa, sub);
-                return inf;
-            }
-            */
-
-            /*
-            uint64_t insert_string2(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-                SubPhiDataStructure sub(u, inserted_string.size(), true);
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation2(u, inserted_string, output_history, dbwt, disa, sub);
-
-                bool b = false;
-                while (!b)
-                {
-
-                    b = RIndexHelperForUpdate::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
-                }
-
-                return output_history.move_history.size();
-            }
-            */
             uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
@@ -710,8 +650,7 @@ namespace stool
             uint64_t delete_string(TextIndex u, uint64_t len, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
-                //SubPhiDataStructure sub(u, len, false);
-                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, len, output_history, dbwt, disa, nullptr);
+                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, len, output_history, dbwt, disa, nullptr);
 
                 PositionInformation y_PI;
                 y_PI.p = inf.y;
@@ -736,26 +675,6 @@ namespace stool
 
                 return output_history.move_history.size();
             }
-            /*
-            uint64_t delete_string2(TextIndex u, uint64_t len, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa);
-
-
-                SubPhiDataStructure sub(u, len, false);
-                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_string_deletion_operation(u, len, output_history, dbwt, disa, sub);
-                bool b = false;
-                while (!b)
-                {
-                    b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
-                    //b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
-                }
-                // RIndexHelperForUpdate::merge_non_maximal_runs_in_dbwt(output_history, true, dbwt, disa);
-
-                return output_history.move_history.size();
-            }
-            */
 
 
             uint64_t insert_char(TextIndex u, uint8_t c)
@@ -768,21 +687,6 @@ namespace stool
                 const std::vector<uint8_t> inserted_string = {c};
                 return this->insert_string(u, inserted_string, output_history);
 
-                /*
-                output_history.clear();
-
-                SubPhiDataStructure sub(u, 1, true);
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_char_insertion_operation(u, c, output_history, dbwt, disa, sub);
-
-                bool b = false;
-
-                while (!b)
-                {
-
-                    b = RIndexHelperForUpdate::reorder_RLBWT(output_history, this->dbwt, this->disa, sub, inf);
-                }
-                return output_history.move_history.size();
-                */
             }
 
             uint64_t delete_char(TextIndex u)
@@ -793,9 +697,8 @@ namespace stool
             uint64_t delete_char(TextIndex u, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
-                //SubPhiDataStructure sub(u, 1, false);
 
-                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, 1,output_history, dbwt, disa, nullptr);
+                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, 1,output_history, dbwt, disa, nullptr);
 
 
                 PositionInformation y_PI;
@@ -834,15 +737,10 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             ///   @brief This method is used for debug
             ////////////////////////////////////////////////////////////////////////////////
-            /*
-            AdditionalInformationUpdatingRIndex __preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, SubPhiDataStructure &sub)
+
+            AdditionalInformationUpdatingRIndex __preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, std::vector<std::vector<uint64_t>> *sa_arrays_for_debug)
             {
-                return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation(u, len, editHistory, dbwt, disa, sub);
-            }
-            */
-            AdditionalInformationUpdatingRIndex __preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, stool::fm_index_test::NaiveDynamicStringForBWT *nds)
-            {
-                return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, len, editHistory, dbwt, disa, nds);
+                return RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, len, editHistory, dbwt, disa, sa_arrays_for_debug);
             }
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -866,19 +764,13 @@ namespace stool
             AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation(TextIndex u, FMIndexEditHistory &editHistory)
             {
                 //return RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, editHistory, dbwt, disa);
-                return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, 1, editHistory, dbwt, disa, nullptr);
+                return RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, 1, editHistory, dbwt, disa, nullptr);
 
             }
 
-            /*
-            AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation2(TextIndex u, FMIndexEditHistory &editHistory, SubPhiDataStructure &sub)
-            {
-                return RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, 1,editHistory, dbwt, disa, sub);
-            }
-            */
             AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation2(TextIndex u, FMIndexEditHistory &editHistory)
             {
-                return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, 1, editHistory, dbwt, disa, nullptr);
+                return RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, 1, editHistory, dbwt, disa, nullptr);
             }
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -913,88 +805,9 @@ namespace stool
                 return b;
             }
             
-            /*
-            bool __reorder_RLBWT_for_deletion(FMIndexEditHistory &editHistory, SubPhiDataStructure &sub, AdditionalInformationUpdatingRIndex &inf)
-            {
-                return RIndexOldUpdateOperations::reorder_RLBWT2(editHistory, this->dbwt, this->disa, sub,inf);
-            }
-            */
             
 
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @brief This method is used for debug
-            ////////////////////////////////////////////////////////////////////////////////
 
-            /*
-            std::vector<std::vector<uint64_t>> __insert_char(TextIndex u, uint8_t c, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-
-                std::vector<std::vector<uint64_t>> r;
-
-                auto tmp1 = this->disa.get_sa();
-                r.push_back(tmp1);
-
-                RIndexUpdateInformation inf = RIndexHelperForUpdate::preprocess_of_char_insertion_operation(u, c, output_history, dbwt, disa);
-                bool b = false;
-
-                auto tmp2 = this->disa.get_sa();
-                r.push_back(tmp2);
-
-                while (!b)
-                {
-                    b = RIndexHelperForUpdate::reorder_RLBWT(output_history, dbwt, disa, inf);
-
-                    auto tmp3 = this->disa.get_sa();
-                    r.push_back(tmp3);
-                }
-                RIndexHelperForUpdate::merge_non_maximal_runs_in_dbwt(output_history, true, dbwt, disa);
-
-                return r;
-            }
-            std::vector<std::vector<uint64_t>> __insert_char2(TextIndex u, uint8_t c, FMIndexEditHistory &output_history)
-            {
-                output_history.clear();
-
-                std::vector<std::vector<uint64_t>> r;
-
-                //std::cout << "BWT: " << this->dbwt.__get_debug_bwt() << std::endl;
-                auto tmp1 = this->disa.get_sa();
-                //stool::DebugPrinter::print_integers(tmp1, "SA");
-                //disa.print_content();
-
-                r.push_back(tmp1);
-
-                RIndexUpdateInformation inf = RIndexHelperForUpdate::preprocess_of_char_insertion_operation(u, c, output_history, dbwt, disa);
-                bool b = false;
-
-                //std::cout << "BWT: " << this->dbwt.__get_debug_bwt() << std::endl;
-                auto tmp2 = this->disa.get_sa();
-                //disa.print_content();
-                //stool::DebugPrinter::print_integers(tmp2, "SA");
-
-                r.push_back(tmp2);
-
-                SubPhiDataStructure sub;
-
-                while (!b)
-                {
-
-
-                    b = RIndexHelperForUpdate::__reorder_RLBWT(output_history, dbwt, disa, sub, inf);
-
-
-                    //std::cout << "BWT: " << this->dbwt.__get_debug_bwt() << std::endl;
-                    auto tmp3 = sub.get_sa(disa);
-                    //disa.print_content();
-
-                    r.push_back(tmp3);
-                }
-                //RIndexHelperForUpdate::merge_non_maximal_runs_in_dbwt(output_history, true, dbwt, disa);
-
-                return r;
-            }
-            */
 
             //@}
         };
