@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['naivepom_0',['NaivePOM',['../classstool_1_1old__implementations_1_1_naive_p_o_m.html',1,'stool::old_implementations']]]
+  ['queryresults_0',['QueryResults',['../structstool_1_1dynamic__r__index_1_1_query_results.html',1,'stool::dynamic_r_index']]]
 ];

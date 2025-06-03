@@ -153,9 +153,9 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>text_size</b> () 
 <tr class="memitem:a8c42b35deb07de0cdfbe68e4dfbc6581" id="r_a8c42b35deb07de0cdfbe68e4dfbc6581"><td class="memItemLeft" align="right" valign="top"><a id="a8c42b35deb07de0cdfbe68e4dfbc6581" name="a8c42b35deb07de0cdfbe68e4dfbc6581"></a>
 std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_bwt</b> () const</td></tr>
 <tr class="separator:a8c42b35deb07de0cdfbe68e4dfbc6581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aef5824157428d0d276a335a64597bb" id="r_a1aef5824157428d0d276a335a64597bb"><td class="memItemLeft" align="right" valign="top"><a id="a1aef5824157428d0d276a335a64597bb" name="a1aef5824157428d0d276a335a64597bb"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_bwt_str</b> () const</td></tr>
-<tr class="separator:a1aef5824157428d0d276a335a64597bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b77339b99a0c71ccb5613ddc341e5a2" id="r_a2b77339b99a0c71ccb5613ddc341e5a2"><td class="memItemLeft" align="right" valign="top"><a id="a2b77339b99a0c71ccb5613ddc341e5a2" name="a2b77339b99a0c71ccb5613ddc341e5a2"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>get_bwt_str</b> (int64_t new_end_marker=-1) const</td></tr>
+<tr class="separator:a2b77339b99a0c71ccb5613ddc341e5a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a574d4751035f9a52baa24e4b8939c530" id="r_a574d4751035f9a52baa24e4b8939c530"><td class="memItemLeft" align="right" valign="top"><a id="a574d4751035f9a52baa24e4b8939c530" name="a574d4751035f9a52baa24e4b8939c530"></a>
 std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_text</b> () const</td></tr>
 <tr class="separator:a574d4751035f9a52baa24e4b8939c530"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -314,6 +314,9 @@ int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>LF</b> (<a class="
 <tr class="memitem:ab0da39231c433ed56683720ba37af353" id="r_ab0da39231c433ed56683720ba37af353"><td class="memItemLeft" align="right" valign="top"><a id="ab0da39231c433ed56683720ba37af353" name="ab0da39231c433ed56683720ba37af353"></a>
 int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>LF</b> (int64_t i) const</td></tr>
 <tr class="separator:ab0da39231c433ed56683720ba37af353"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2e28d9f40ed12a90a0803bfd1a012de" id="r_ac2e28d9f40ed12a90a0803bfd1a012de"><td class="memItemLeft" align="right" valign="top"><a id="ac2e28d9f40ed12a90a0803bfd1a012de" name="ac2e28d9f40ed12a90a0803bfd1a012de"></a>
+int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>LF_for_deletion</b> (uint64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const</td></tr>
+<tr class="separator:ac2e28d9f40ed12a90a0803bfd1a012de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad970da3ee5fa2eeafbfcfadd6981e00f" id="r_ad970da3ee5fa2eeafbfcfadd6981e00f"><td class="memItemLeft" align="right" valign="top"><a id="ad970da3ee5fa2eeafbfcfadd6981e00f" name="ad970da3ee5fa2eeafbfcfadd6981e00f"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>check_special_LF</b> (SAIndex positionToReplace, SAIndex currentPosition, uint8_t new_char, uint8_t old_char)</td></tr>
 <tr class="separator:ad970da3ee5fa2eeafbfcfadd6981e00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
