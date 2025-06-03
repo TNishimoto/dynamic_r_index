@@ -1,5 +1,5 @@
 #pragma once
-#include "./dynamic_rlbwt_helper.hpp"
+#include "../../dynamic_fm_index/tools.hpp"
 
 namespace stool
 {
