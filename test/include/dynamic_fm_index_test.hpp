@@ -167,10 +167,10 @@ namespace stool
                 uint64_t new_char_pointer = delete_pos > 0 ? delete_pos - 1 : nds.size() - 1;
                 uint64_t new_char = nds.text[new_char_pointer];
 
-                uint64_t pointer = delete_pos + delete_len < (int64_t)dbwt.size() ? delete_pos + delete_len : 0;
+                uint64_t pointer = delete_pos + delete_len < (uint64_t)dbwt.size() ? delete_pos + delete_len : 0;
                 uint64_t p_on_sa = nds.create_inverse_suffix_array()[pointer];
                 uint64_t p_on_next = dbwt.LF(p_on_sa);
-                uint8_t old_char = dbwt.access(p_on_sa);
+                //uint8_t old_char = dbwt.access(p_on_sa);
 
                 uint64_t replace_pos = p_on_sa;
                 // std::cout << "REPLACE: " << replace_pos << "/" << (char)old_char<< " ->" << (char)new_char << std::endl;
@@ -208,7 +208,7 @@ namespace stool
                         }
                     }
 
-                    uint8_t current_char = dbwt.access(p_on_sa);
+                    //uint8_t current_char = dbwt.access(p_on_sa);
                     uint64_t p_on_next = dbwt.LF_for_deletion(p_on_sa, new_char, replace_pos, p_on_sa);
 
                     dbwt.remove_BWT_character(p_on_sa);
@@ -228,7 +228,7 @@ namespace stool
                 // std::cout << std::endl;
             }
 
-            static void bwt_test_random_string_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, uint64_t delete_len, std::mt19937_64 &mt64, uint64_t counter)
+            static void bwt_test_random_string_deletion(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi, uint64_t delete_len, std::mt19937_64 &mt64, [[maybe_unused]] uint64_t counter)
             {
                 uint64_t size = nds.size();
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - delete_len - 2);

@@ -118,7 +118,7 @@ namespace stool
                 stool::DebugPrinter::print_integers(sa, "SA");
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "==============================" << std::endl;
             }
-
+            /*
             static void verify_inf(const DynamicRLBWT &dbwt, const DynamicPhi &disa, const SubPhiDataStructure &sub, const AdditionalInformationUpdatingRIndex &inf, std::string name)
             {
                 auto sa = sub.get_sa(disa);
@@ -141,6 +141,7 @@ namespace stool
                     assert(inf.value_at_y_star == sa[p]);
                 }
             }
+            */
 
             static void verify(DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub, std::string name)
             {
@@ -157,7 +158,7 @@ namespace stool
                     throw e;
                 }
             }
-
+            /*
             static PhaseABResultForDeletion phase_AB_for_deletion(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub)
             {
                 PhaseABResultForDeletion inf;
@@ -186,84 +187,77 @@ namespace stool
                 }
                 return inf;
             }
+            */
             static PhaseABResultForDeletion phase_AB_for_deletion(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
                 PhaseABResultForDeletion inf;
 
-                TextIndex v = u + len;
-                assert(v < (uint64_t)dbwt.text_size());
-                inf.v_on_sa = disa.isa(v, dbwt);
-                inf.v_on_rlbwt = dbwt.to_run_position(inf.v_on_sa);
-                inf.old_char = dbwt.get_char(inf.v_on_rlbwt.run_index);
+                inf.ISA_v_PI.value_at_p = u + len;
+                inf.ISA_v_PI.p = disa.isa(inf.ISA_v_PI.value_at_p, dbwt);
+                inf.ISA_v_PI.value_at_p_minus = disa.phi(inf.ISA_v_PI.value_at_p);
+                inf.ISA_v_PI.value_at_p_plus = disa.inverse_phi(inf.ISA_v_PI.value_at_p);
 
-                inf.LF_v = dbwt.LF(inf.v_on_rlbwt.run_index, inf.v_on_rlbwt.position_in_run);
+                RunPosition v_on_rlbwt = dbwt.to_run_position(inf.ISA_v_PI.p);
+                inf.old_char = dbwt.get_char(v_on_rlbwt.run_index);
+
+                inf.LF_v = dbwt.LF(v_on_rlbwt.run_index, v_on_rlbwt.position_in_run);
                 SAIndex u_on_sa = disa.isa(u, dbwt);
                 RunPosition u_on_rlbwt = dbwt.to_run_position(u_on_sa);
-                inf.j = dbwt.LF(u_on_rlbwt.run_index, u_on_rlbwt.position_in_run);
                 inf.new_char = dbwt.get_char(u_on_rlbwt.run_index);
 
-                editHistory.replaced_sa_index = inf.v_on_sa;
+                inf.ISA_u_minus_PI.value_at_p = u > 0 ? u - 1 : dbwt.text_size() - 1;
+                inf.ISA_u_minus_PI.p = dbwt.LF(u_on_rlbwt.run_index, u_on_rlbwt.position_in_run);
+                inf.ISA_u_minus_PI.value_at_p_minus = disa.phi(inf.ISA_u_minus_PI.value_at_p);
+                inf.ISA_u_minus_PI.value_at_p_plus = disa.inverse_phi(inf.ISA_u_minus_PI.value_at_p);
+
+                editHistory.replaced_sa_index = inf.ISA_v_PI.p;
                 editHistory.type = EditType::DeletionOfString;
 
                 return inf;
             }
 
-            static AdditionalInformationUpdatingRIndex phase_C_for_deletion_with_debug(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, const PhaseABResultForDeletion &phaseABResult, stool::fm_index_test::NaiveDynamicStringForBWT &nds)
+            static AdditionalInformationUpdatingRIndex phase_C_for_deletion_with_debug(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, const PhaseABResultForDeletion &phaseABResult, stool::fm_index_test::NaiveDynamicStringForBWT *nds)
             {
+
+                PositionInformation ISA_u_minus_PI = phaseABResult.ISA_u_minus_PI;
+                PositionInformation ISA_v_PI = phaseABResult.ISA_v_PI;
+
                 uint64_t current_x = phaseABResult.LF_v;
-                uint8_t old_char = phaseABResult.old_char;
-                uint64_t v_on_sa = phaseABResult.v_on_sa;
-                uint64_t j = phaseABResult.j;
-                uint64_t j_value = u > 0 ? u - 1 : dbwt.text_size() - 1;
-                uint64_t phi_j = disa.phi(j_value);
-                uint64_t inv_phi_j = disa.inverse_phi(j_value);
+                RunPosition x_on_rlbwt = dbwt.to_run_position(current_x);
+                uint8_t x_character = dbwt.get_char(x_on_rlbwt.run_index);
+                SAValue phi_x = disa.phi(u + len - 1);
+                SAValue inv_phi_x = disa.inverse_phi(u + len - 1);
 
-                uint64_t replace_phi_u = disa.phi(u + len);
-                uint64_t replace_inv_phi_u = disa.inverse_phi(u + len);
 
-                // uint64_t phi_u = disa.phi(u + len - 1);
-                // uint64_t inv_phi_u = disa.inverse_phi(u + len - 1);
-                uint8_t current_old_char = old_char;
-                // uint64_t positionToReplace = u + len;
-
-                /*
-                std::cout << "START: " << dbwt.get_text_str() << "[" << u << "," << (u + len - 1) << "], v_on_sa: " << v_on_sa << std::endl;
-                std::cout << "BWT: " << dbwt.get_bwt_str('$') << std::endl;
-                std::cout << "phi_j = " << phi_j << " / inv_phi_j = " << inv_phi_j << std::endl;
-                */
 
                 std::vector<std::vector<uint64_t>> sa_arrays;
 
-                nds.construct_SA_arrays_for_deletion(u, len, sa_arrays);
+                uint64_t debug_phi_x;
+                uint64_t debug_inv_phi_x;
+                if (nds != nullptr)
+                {
+                    nds->construct_SA_arrays_for_deletion(u, len, sa_arrays);
+                    debug_phi_x = current_x > 0 ? sa_arrays[0][current_x - 1] : sa_arrays[0][sa_arrays[0].size() - 1];
+                    debug_inv_phi_x = current_x + 1 < dbwt.size() ? sa_arrays[0][current_x + 1] : sa_arrays[0][0];
 
-                SAValue phi_x = disa.phi(u + len - 1);
-
-                SAValue inv_phi_x = disa.inverse_phi(u + len - 1);
+                    if (phi_x != debug_phi_x)
+                    {
+                        throw std::logic_error("phi_x != sa_arrays[0][current_x-1]");
+                    }
+                    if (inv_phi_x != debug_inv_phi_x)
+                    {
+                        throw std::logic_error("inv_phi_x != sa_arrays[0][current_x+1]");
+                    }
+                }
 
                 /*
                 std::cout << "Replace: " << (char)old_char << " -> " << (char)phaseABResult.new_char << std::endl;
                 */
 
-                uint64_t debug_phi_x = current_x > 0 ? sa_arrays[0][current_x - 1] : sa_arrays[0][sa_arrays[0].size() - 1];
-                uint64_t debug_inv_phi_x = current_x + 1 < dbwt.size() ? sa_arrays[0][current_x + 1] : sa_arrays[0][0];
                 /*
                 stool::DebugPrinter::print_integers(sa_arrays[0], "SA");
                 std::cout << "current_x: " << current_x << "/ phi_x: " << phi_x << "/ inv_phi_x: " << inv_phi_x << std::endl;
                 */
-
-                if (phi_x != debug_phi_x)
-                {
-                    throw std::logic_error("phi_x != sa_arrays[0][current_x-1]");
-                }
-                if (inv_phi_x != debug_inv_phi_x)
-                {
-                    throw std::logic_error("inv_phi_x != sa_arrays[0][current_x+1]");
-                }
-
-                RunPosition x_on_rlbwt = dbwt.to_run_position(current_x);
-                uint8_t x_character = dbwt.get_char(x_on_rlbwt.run_index);
-
-                // RIndexOldUpdateOperations::replace_char_phase(u+len, phaseABResult.v_on_rlbwt, phaseABResult.new_char, replace_phi_u, replace_inv_phi_u, dbwt, disa, sub);
 
                 uint64_t counter = 0;
                 for (int64_t w = len - 1; w >= 0; w--)
@@ -271,18 +265,18 @@ namespace stool
                     // uint64_t lf_u = (u + w) > 0 ? u + w - 1 : dbwt.size() - 1;
                     uint64_t next_x = dbwt.LF(current_x);
 
-                    if (v_on_sa <= current_x && x_character == old_char)
+                    if (ISA_v_PI.p <= current_x && x_character == phaseABResult.old_char)
                     {
                         next_x--;
                     }
-                    else if (old_char < x_character)
+                    else if (phaseABResult.old_char < x_character)
                     {
 
                         next_x--;
                     }
 
-                    SAValue next_phi_x = disa.LF_phi_for_deletion(x_on_rlbwt, phi_x, dbwt, current_x, next_x, u + w + 1, replace_phi_u);
-                    SAValue next_inv_phi_x = disa.LF_inverse_phi_for_deletion(x_on_rlbwt, inv_phi_x, dbwt, current_x, next_x, u + w + 1, replace_inv_phi_u);
+                    SAValue next_phi_x = disa.LF_phi_for_deletion(x_on_rlbwt, phi_x, dbwt, current_x, next_x, u + w + 1, ISA_v_PI.value_at_p_minus);
+                    SAValue next_inv_phi_x = disa.LF_inverse_phi_for_deletion(x_on_rlbwt, inv_phi_x, dbwt, current_x, next_x, u + w + 1, ISA_v_PI.value_at_p_plus);
 
                     /*
                     std::cout << "Delete: " << current_x << " -> " << next_x << "/ v_on_sa: " << v_on_sa << std::endl;
@@ -300,13 +294,15 @@ namespace stool
                     {
                         next_inv_phi_x--;
                     }
+
+                    ISA_u_minus_PI.update_for_deletion(u + w, current_x, phi_x, inv_phi_x);
+                    ISA_v_PI.update_for_deletion(u + w, current_x, phi_x, inv_phi_x);
+
+                    /*
+
                     if (current_x < v_on_sa)
                     {
                         v_on_sa--;
-                    }
-                    if (current_x < j)
-                    {
-                        j--;
                     }
 
                     if (replace_phi_u == u + w)
@@ -326,28 +322,23 @@ namespace stool
                     {
                         replace_inv_phi_u--;
                     }
-
-                    if (phi_j == u + w)
-                    {
-                        phi_j = phi_x;
-                    }
-                    if (phi_j > u + w)
-                    {
-                        phi_j--;
-                    }
-
-                    if (inv_phi_j == u + w)
-                    {
-                        inv_phi_j = inv_phi_x;
-                    }
-                    if (inv_phi_j > u + w)
-                    {
-                        inv_phi_j--;
-                    }
+                    */
 
                     counter++;
-                    uint64_t debug_phi_x = next_x > 0 ? sa_arrays[counter][next_x - 1] : sa_arrays[counter][sa_arrays[counter].size() - 1];
-                    uint64_t debug_inv_phi_x = next_x + 1 < dbwt.size() ? sa_arrays[counter][next_x + 1] : sa_arrays[counter][0];
+
+                    if (nds != nullptr)
+                    {
+                        uint64_t debug_phi_x = next_x > 0 ? sa_arrays[counter][next_x - 1] : sa_arrays[counter][sa_arrays[counter].size() - 1];
+                        uint64_t debug_inv_phi_x = next_x + 1 < dbwt.size() ? sa_arrays[counter][next_x + 1] : sa_arrays[counter][0];
+                        if (next_phi_x != debug_phi_x)
+                        {
+                            throw std::logic_error("phi_x != sa_arrays[current][current_x-1]");
+                        }
+                        if (next_inv_phi_x != debug_inv_phi_x)
+                        {
+                            throw std::logic_error("inv_phi_x != sa_arrays[current][current_x+1]");
+                        }
+                    }
                     /*
                     std::cout << "Delete: " << current_x << " -> " << next_x << "/ v_on_sa: " << v_on_sa << std::endl;
                     stool::DebugPrinter::print_integers(sa_arrays[counter], "SA after delete");
@@ -357,15 +348,6 @@ namespace stool
                     std::cout << "next_phi_x: " << phi_x << " -> " << next_phi_x << " / " << debug_phi_x << std::endl;
                     std::cout << "next_inv_phi_x: " << inv_phi_x << " -> " << next_inv_phi_x << " / " << debug_inv_phi_x << std::endl;
                     */
-
-                    if (next_phi_x != debug_phi_x)
-                    {
-                        throw std::logic_error("phi_x != sa_arrays[current][current_x-1]");
-                    }
-                    if (next_inv_phi_x != debug_inv_phi_x)
-                    {
-                        throw std::logic_error("inv_phi_x != sa_arrays[current][current_x+1]");
-                    }
 
                     if (w > 0)
                     {
@@ -377,275 +359,37 @@ namespace stool
                     }
                 }
 
-                RunPosition v_on_rlbwt = dbwt.to_run_position(v_on_sa);
-                RIndexPrimitiveUpdateOperations::r_replace(u, v_on_rlbwt, phaseABResult.new_char, replace_phi_u, replace_inv_phi_u, dbwt, disa);
-
+                RunPosition v_on_rlbwt = dbwt.to_run_position(ISA_v_PI.p);
+                RIndexPrimitiveUpdateOperations::r_replace(u, v_on_rlbwt, phaseABResult.new_char, ISA_v_PI.value_at_p_minus, ISA_v_PI.value_at_p_plus, dbwt, disa);
 
                 AdditionalInformationUpdatingRIndex inf;
-                inf.y = j;
-                //inf.z = current_x;
-                inf.z = dbwt.LF(v_on_sa);
-
+                inf.y = ISA_u_minus_PI.p;
+                // inf.z = current_x;
+                inf.z = dbwt.LF(ISA_v_PI.p);
 
                 // inf.z = dbwt.LF(v_on_sa);
-                inf.value_at_y = u > 0 ? u - 1 : dbwt.text_size() - 1;
-                inf.value_at_y_minus = phi_j;
-                inf.value_at_y_plus = inv_phi_j;
-                RunPosition final_x_on_rlbwt = dbwt.to_run_position(v_on_sa);
-                inf.value_at_z_minus = disa.LF_phi_for_move(final_x_on_rlbwt, replace_phi_u, dbwt);
-                inf.value_at_z_plus = disa.LF_inverse_phi_for_move(final_x_on_rlbwt, replace_inv_phi_u, dbwt);
+                inf.value_at_y = ISA_u_minus_PI.value_at_p;
+                inf.value_at_y_minus = ISA_u_minus_PI.value_at_p_minus;
+                inf.value_at_y_plus = ISA_u_minus_PI.value_at_p_plus;
+                RunPosition final_x_on_rlbwt = dbwt.to_run_position(ISA_v_PI.p);
+                inf.value_at_z_minus = disa.LF_phi_for_move(final_x_on_rlbwt, ISA_v_PI.value_at_p_minus, dbwt);
+                inf.value_at_z_plus = disa.LF_inverse_phi_for_move(final_x_on_rlbwt, ISA_v_PI.value_at_p_plus, dbwt);
 
-                //inf.print();
-
-                /*
-                AdditionalInformationUpdatingRIndex inf;
-                //inf.compute_and_set_y_and_y_star(j, dbwt.LF(v_on_sa));
-                std::cout << "M/" << dbwt.LF(v_on_sa) << std::endl;
-                inf.compute_and_set_y_and_y_star(j, dbwt.LF(v_on_sa));
-                inf.print();
-
-                inf.value_at_y = u - 1;
-                inf.value_at_y_star = UINT64_MAX;
-
-                if (inf.y != inf.get_z())
-                {
-                    uint64_t current_x = v_on_sa;
-                    RunPosition x_on_rlbwt = dbwt.to_run_position(current_x);
-                    // assert(false);
-                    // throw -1;
-                    //  SAValue phi_x = sub.phi(u, disa);
-                    // SAValue phi_x = UINT64_MAX;
-
-                    inf.value_at_y_star = RIndexOldUpdateOperations::compute_sa_value_of_z_minus_or_z(x_on_rlbwt, current_x, inf.y, inf.get_z(), phi_x, dbwt, disa);
-                }
                 editHistory.first_j = inf.y;
-                editHistory.first_j_prime = inf.get_z();
-                std::cout << "END3" << std::endl;
-                inf.print();
-                */
+                editHistory.first_j_prime = inf.z;
+
 
                 return inf;
             }
 
-            static AdditionalInformationUpdatingRIndex phase_C_for_deletion(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub, const PhaseABResultForDeletion &phaseABResult)
-            {
-                /*
-                uint64_t current_x = phaseABResult.LF_v;
-                uint8_t old_char = phaseABResult.old_char;
-                uint64_t v_on_sa = phaseABResult.v_on_sa;
-                uint64_t j = phaseABResult.j;
-                uint8_t x_character = UINT8_MAX;
 
-                uint64_t replace_phi_u = disa.phi(u + len);
-                uint64_t replace_inv_phi_u = disa.inverse_phi(u + len);
 
-                uint64_t debug_phi_u = disa.phi(u + len - 1);
-                uint64_t debug_inv_phi_u = disa.inverse_phi(u + len - 1);
-                uint8_t current_old_char = old_char;
-
-                std::cout << "START: " << dbwt.get_text_str() << "[" << u << "," << (u + len - 1) << "]" << std::endl;
-
-                RIndexOldUpdateOperations::replace_char_phase(u + len, phaseABResult.v_on_rlbwt, phaseABResult.new_char, replace_phi_u, replace_inv_phi_u, dbwt, disa, sub);
-
-                for (int64_t w = len - 1; w >= 0; w--)
-                {
-
-                    RunPosition x_on_rlbwt = dbwt.to_run_position(current_x);
-                    x_character = dbwt.get_char(x_on_rlbwt.run_index);
-                    uint64_t next_x = dbwt.LF(x_on_rlbwt.run_index, x_on_rlbwt.position_in_run);
-                    bool b = dbwt.check_special_LF(v_on_sa, current_x, x_character, old_char);
-                    if (b)
-                    {
-                        next_x--;
-                    }
-                    // int gap = i <= next_x ? 1 : 0;
-
-                    SAValue phi_u = sub.phi(u + w, disa);
-                    SAValue inv_phi_u = sub.inverse_phi(u + w, disa);
-
-                    std::cout << "w: " << w << "/" << "u: " << u << "/" << "len: " << len << "/ v_on_sa: " << v_on_sa << "/ old_char: " << (char)old_char << "/" << (char)current_old_char << std::endl;
-                    std::cout << "[phi_u, inv_phi_u] = [" << phi_u << ", " << inv_phi_u << "]" << "[" << debug_phi_u << "," << debug_inv_phi_u << "]" << std::endl;
-
-                    auto bwt = dbwt.get_bwt_str();
-                    for (uint64_t i = 0; i < bwt.size(); i++)
-                    {
-                        if (bwt[i] == 0)
-                        {
-                            bwt[i] = '$';
-                        }
-                    }
-                    std::cout << "BWT: " << bwt << std::endl;
-                    disa.print();
-
-                    auto sa = sub.get_sa(disa);
-                    stool::DebugPrinter::print_integers(sa, "SA");
-
-                    if (phi_u != debug_phi_u)
-                    {
-                        std::cout << "phi_u: " << phi_u << " debug_phi_u: " << debug_phi_u << std::endl;
-
-                        throw std::logic_error("phi_u != debug_phi_u");
-                    }
-
-                    SAValue _debug_inv_phi_u = disa.LF_inverse_phi_for_deletion(x_on_rlbwt, inv_phi_u, dbwt);
-                    if (_debug_inv_phi_u >= u + w)
-                    {
-                        _debug_inv_phi_u--;
-                    }
-                    SAValue _debug_phi_u = disa.LF_phi_for_deletion(x_on_rlbwt, phi_u, dbwt);
-                    std::cout << "debug_phi_u: " << phi_u << "->" << _debug_phi_u << std::endl;
-
-                    if (_debug_phi_u == u + w)
-                    {
-                        _debug_phi_u = debug_phi_u;
-                    }
-
-                    if (_debug_phi_u >= u + w)
-                    {
-                        debug_phi_u = _debug_phi_u - 1;
-                    }
-                    else
-                    {
-                        debug_phi_u = _debug_phi_u;
-                    }
-                    std::cout << "@debug_phi_u: " << debug_phi_u << std::endl;
-                    std::cout << std::endl;
-
-                    RIndexOldUpdateOperations::delete_char_phase(x_on_rlbwt, x_character, u + w, phi_u, inv_phi_u, dbwt, disa, sub);
-                    current_old_char = x_character;
-
-                    editHistory.deleted_sa_indexes.push_back(current_x);
-
-                    if (current_x < j)
-                    {
-                        j--;
-                    }
-                    if (current_x < v_on_sa)
-                    {
-                        v_on_sa--;
-                    }
-
-                    current_x = next_x;
-                }
-                std::cout << "END" << std::endl;
-
-                RunPosition v_on_rlbwt = dbwt.to_run_position(v_on_sa);
-
-                SAValue phi_v = sub.phi(u, disa);
-                SAValue inv_phi_v = sub.inverse_phi(u, disa);
-
-                // RIndexOldUpdateOperations::replace_char_phase(u, v_on_rlbwt, x_character, phi_v, inv_phi_v, dbwt, disa, sub);
-                */
-
-                AdditionalInformationUpdatingRIndex inf;
-                /*
-                inf.compute_and_set_y_and_y_star(j, dbwt.LF(v_on_sa));
-                inf.value_at_y = u - 1;
-                inf.value_at_y_star = UINT64_MAX;
-
-                if (inf.y != inf.get_z())
-                {
-                    uint64_t current_x = v_on_sa;
-                    RunPosition x_on_rlbwt = dbwt.to_run_position(current_x);
-                    SAValue phi_x = sub.phi(u, disa);
-                    inf.value_at_y_star = RIndexOldUpdateOperations::compute_sa_value_of_z_minus_or_z(x_on_rlbwt, current_x, inf.y, inf.get_z(), phi_x, dbwt, disa);
-                }
-                editHistory.first_j = inf.y;
-                editHistory.first_j_prime = inf.get_z();
-                */
-
-                return inf;
-            }
-            /*
-static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub)
-            {
-
-                TextIndex v = u + len;
-                assert(v < (uint64_t)dbwt.text_size());
-                SAIndex v_on_sa = disa.isa(v, dbwt);
-                RunPosition v_on_rlbwt = dbwt.to_run_position(v_on_sa);
-                uint8_t old_char = dbwt.get_char(v_on_rlbwt.run_index);
-
-                SAIndex i = dbwt.LF(v_on_rlbwt.run_index, v_on_rlbwt.position_in_run);
-                SAIndex u_on_sa = disa.isa(u, dbwt);
-                RunPosition u_on_rlbwt = dbwt.to_run_position(u_on_sa);
-                uint64_t j = dbwt.LF(u_on_rlbwt.run_index, u_on_rlbwt.position_in_run);
-
-                editHistory.replaced_sa_index = v_on_sa;
-                editHistory.type = EditType::DeletionOfString;
-
-                uint8_t i_character = UINT8_MAX;
-
-                {
-                    uint64_t v_phi = sub.phi(v, disa);
-                    uint64_t inv_v_phi = sub.inverse_phi(v, disa);
-                    sub.insert_sa_value(v_phi, v, inv_v_phi);
-                }
-
-                for (int64_t w = len - 1; w >= 0; w--)
-                {
-
-                    RunPosition i_on_rlbwt = dbwt.to_run_position(i);
-                    i_character = dbwt.get_char(i_on_rlbwt.run_index);
-                    uint64_t next_i = dbwt.LF(i_on_rlbwt.run_index, i_on_rlbwt.position_in_run);
-                    bool b = dbwt.check_special_LF(v_on_sa, i, i_character, old_char);
-                    if (b)
-                    {
-                        next_i--;
-                    }
-                    // int gap = i <= next_i ? 1 : 0;
-
-                    RIndexOldUpdateOperations::delete_char_phase(i_on_rlbwt, i_character, u + w, dbwt, disa, sub);
-
-                    editHistory.deleted_sa_indexes.push_back(i);
-
-                    if (i < j)
-                    {
-                        j--;
-                    }
-                    if (i < v_on_sa)
-                    {
-                        v_on_sa--;
-                    }
-
-                    i = next_i;
-                }
-                v_on_rlbwt = dbwt.to_run_position(v_on_sa);
-
-                SAValue phi_v = sub.phi(u, disa);
-                SAValue inv_phi_v = sub.inverse_phi(u, disa);
-
-                RIndexOldUpdateOperations::replace_char_phase(u, v_on_rlbwt, i_character, phi_v, inv_phi_v, dbwt, disa, sub);
-
-                AdditionalInformationUpdatingRIndex inf;
-                inf.compute_and_set_y_and_y_star(j, dbwt.LF(v_on_sa));
-                inf.value_at_y = u - 1;
-                inf.value_at_y_star = UINT64_MAX;
-
-                if (inf.y != inf.get_z())
-                {
-                    uint64_t i = v_on_sa;
-                    RunPosition i_on_rlbwt = dbwt.to_run_position(i);
-                    SAValue phi_i = sub.phi(u, disa);
-                    inf.value_at_y_star = RIndexOldUpdateOperations::compute_sa_value_of_z_minus_or_z(i_on_rlbwt, i, inf.y, inf.get_z(), phi_i, dbwt, disa);
-                }
-                editHistory.first_j = inf.y;
-                editHistory.first_j_prime = inf.get_z();
-
-                return inf;
-            }
-            */
-
-            static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub)
-            {
-                PhaseABResultForDeletion phaseABResult = phase_AB_for_deletion(u, len, editHistory, dbwt, disa, sub);
-                return phase_C_for_deletion(u, len, editHistory, dbwt, disa, sub, phaseABResult);
-            }
-            static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operation_with_debug(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, stool::fm_index_test::NaiveDynamicStringForBWT &nds)
+            static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operation_with_debug(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, stool::fm_index_test::NaiveDynamicStringForBWT *nds)
             {
                 PhaseABResultForDeletion phaseABResult = phase_AB_for_deletion(u, len, editHistory, dbwt, disa);
                 return phase_C_for_deletion_with_debug(u, len, editHistory, dbwt, disa, phaseABResult, nds);
             }
+            /*
 
             static AdditionalInformationUpdatingRIndex preprocess_of_char_deletion_operation(TextIndex u, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub)
             {
@@ -765,6 +509,7 @@ static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operati
                     return true;
                 }
             }
+            */
             /*
             static PhaseABResultForDeletion phase_AB_for_deletion(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
@@ -858,11 +603,13 @@ static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operati
                 return inf;
             }
             */
-            static AdditionalInformationUpdatingRIndex preprocess_of_char_deletion_operation(TextIndex u, uint64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub)
-            {
-                PhaseABResultForDeletion phaseABReuslt = RIndexOldUpdateOperations::phase_AB_for_deletion(u, len, editHistory, dbwt, disa, sub);
-                return RIndexOldUpdateOperations::phase_C_for_deletion(u, len, editHistory, dbwt, disa, sub, phaseABReuslt);
-            }
+            /*
+             static AdditionalInformationUpdatingRIndex preprocess_of_char_deletion_operation(TextIndex u, uint64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, SubPhiDataStructure &sub)
+             {
+                 PhaseABResultForDeletion phaseABReuslt = RIndexOldUpdateOperations::phase_AB_for_deletion(u, len, editHistory, dbwt, disa, sub);
+                 return RIndexOldUpdateOperations::phase_C_for_deletion(u, len, editHistory, dbwt, disa, sub, phaseABReuslt);
+             }
+             */
         };
     }
 }

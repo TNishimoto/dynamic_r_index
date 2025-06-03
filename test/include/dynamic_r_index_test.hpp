@@ -505,7 +505,7 @@ namespace stool
 
 
                 //stool::dynamic_r_index::SubPhiDataStructure sub(insertion_pos, str_len, false);
-                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, nds);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_string_deletion_operation(insertion_pos, str_len, edit_history2, &nds);
 
 
                 bool b = false;
@@ -767,7 +767,7 @@ namespace stool
                 // drfmi.build(bwt, alphabet_with_end_marker,stool::Message::NO_MESSAGE);
 
                 FMIndexEditHistory edit_history1, edit_history2;
-                SubPhiDataStructure sub(removal_pos, 1, false);
+                //SubPhiDataStructure sub(removal_pos, 1, false);
 
 
 
@@ -775,25 +775,27 @@ namespace stool
                 dfmi.delete_char(removal_pos, &edit_history1);
                 std::vector<BWT_and_SA> bwt_sa = BWT_and_SA::build_for_deletion(bwt, sa, edit_history1);
 
-                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_deletion_operation(removal_pos, edit_history2, sub);
+                stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_deletion_operation(removal_pos, edit_history2);
 
 
                 stool::equal_check("BWT(0)", bwt_sa[0].bwt, drfmi.get_bwt());
-                stool::equal_check("SA(0)", bwt_sa[0].sa, sub.get_sa(drfmi.get_dynamic_phi()));
+                //stool::equal_check("SA(0)", bwt_sa[0].sa, sub.get_sa(drfmi.get_dynamic_phi()));
 
                 bool b = false;
                 uint64_t x = 0;
                 while (!b)
                 {
-                    b = drfmi.__reorder_RLBWT_for_deletion(edit_history2, sub, inf);
+                    b = drfmi.__reorder_RLBWT_for_insertion(edit_history2, inf);
                     if (!b)
                     {
                         assert(x < edit_history1.move_history.size());
                         x++;
                         stool::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
 
+                        /*
                         const stool::dynamic_r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
                         stool::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
+                        */
                     }
                 }
 

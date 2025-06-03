@@ -709,7 +709,7 @@ namespace stool
                 RunPosition rp = this->to_run_position(i);
                 return this->LF(rp.run_index, rp.position_in_run);
             }
-            int64_t LF_for_deletion(int64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
+            int64_t LF_for_deletion(uint64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
             {
                 if (i == replace_pos)
                 {

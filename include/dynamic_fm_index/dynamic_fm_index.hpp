@@ -1004,7 +1004,7 @@ namespace stool
 
                 //this->dbwt.replace_BWT_character(positionToReplace, new_char);
 
-                uint64_t tmp_rank;
+                //uint64_t tmp_rank;
                 for (int64_t k = len - 1; k >= 0; k--)
                 {
 

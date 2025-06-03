@@ -39,6 +39,35 @@ namespace stool
             SAValue value_at_p = UINT64_MAX;
             SAValue value_at_p_minus = UINT64_MAX;
             SAValue value_at_p_plus = UINT64_MAX;
+
+            void update_for_deletion(uint64_t removed_position_on_text, SAIndex removed_position_on_sa, uint64_t upper_sa_value, uint64_t lower_sa_value)
+            {
+                if (this->value_at_p > removed_position_on_text)
+                {
+                    this->value_at_p--;
+                }
+                if (removed_position_on_sa < this->p)
+                {
+                    this->p--;
+                }
+                if (this->value_at_p_minus == removed_position_on_text)
+                {
+                    this->value_at_p_minus = upper_sa_value;
+                }
+                if (this->value_at_p_minus > removed_position_on_text)
+                {
+                    this->value_at_p_minus--;
+                }
+
+                if (this->value_at_p_plus == removed_position_on_text)
+                {
+                    this->value_at_p_plus = lower_sa_value;
+                }
+                if (this->value_at_p_plus > removed_position_on_text)
+                {
+                    this->value_at_p_plus--;
+                }
+            }
         };
 
         struct PhaseABResult
@@ -56,22 +85,21 @@ namespace stool
         {
         public:
             PositionInformation ISA_v_PI;
-            SAIndex i = UINT64_MAX;
-            //uint8_t i_char = UINT8_MAX;
-            SAIndex j = UINT64_MAX;
+            PositionInformation ISA_u_minus_PI;
+
+            //SAIndex i = UINT64_MAX;
+            // uint8_t i_char = UINT8_MAX;
+            //SAIndex j = UINT64_MAX;
             uint8_t old_char = UINT8_MAX;
             uint8_t new_char = UINT8_MAX;
 
             uint64_t LF_v = UINT64_MAX;
-            uint64_t v_on_sa = UINT64_MAX;
-            RunPosition v_on_rlbwt;
+            //uint64_t v_on_sa = UINT64_MAX;
+            //RunPosition v_on_rlbwt;
 
-
-            //SAIndex i_minus = UINT64_MAX;
-            //bool isSpecialLF = false;
+            // SAIndex i_minus = UINT64_MAX;
+            // bool isSpecialLF = false;
         };
-
-
 
         class RIndexPrimitiveUpdateOperations
         {
@@ -105,7 +133,7 @@ namespace stool
                 disa.remove_element_for_insertion(u_on_rlbwt.run_index, phi_u, inv_phi_u, type);
                 return std::make_pair(phi_u, inv_phi_u);
             }
-            static std::pair<SAValue, SAValue> r_delete_for_deletion(RunPosition u_on_rlbwt, uint8_t u_c, SAValue phi_u, SAValue inv_phi_u, uint64_t remove_value,DynamicRLBWT &dbwt, DynamicPhi &disa)
+            static std::pair<SAValue, SAValue> r_delete_for_deletion(RunPosition u_on_rlbwt, uint8_t u_c, SAValue phi_u, SAValue inv_phi_u, uint64_t remove_value, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
 
                 RunRemovalType type = DynamicRLBWTHelper::remove_char(dbwt, u_on_rlbwt, u_c);
@@ -113,14 +141,12 @@ namespace stool
                 disa.shrink_text(remove_value);
                 return std::make_pair(phi_u, inv_phi_u);
             }
-
         };
 
         class RIndexHelperForUpdate
         {
 
         public:
-            
             static PhaseABResult phase_AB_for_insertion(TextIndex i, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
                 uint8_t prev_c = inserted_string[inserted_string.size() - 1];
@@ -225,21 +251,23 @@ namespace stool
                         current_isSpecialLF = dbwt.check_special_LF(current_ISA_i_PI.p, next_x_PI.p, ins_character, phaseABReuslt.old_char);
                         SAIndex _lf_x = dbwt.LF(next_x_PI.p);
                         uint64_t new_x_position = _lf_x + (current_isSpecialLF ? 1 : 0);
-                        uint64_t new_i_minus = current_i_minus >= new_x_position ? current_i_minus+1 : current_i_minus;
+                        uint64_t new_i_minus = current_i_minus >= new_x_position ? current_i_minus + 1 : current_i_minus;
 
-                        //next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
-                        //next_x_PI.value_at_p_minus = disa.LF_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
+                        // next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
+                        // next_x_PI.value_at_p_minus = disa.LF_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
                         uint64_t debug1 = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
                         next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertionX(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, new_i_minus, new_x_position, i, dbwt);
 
-                        if(next_x_PI.value_at_p_plus != debug1){
+                        if (next_x_PI.value_at_p_plus != debug1)
+                        {
                             std::cout << "Error!" << std::endl;
                             throw -1;
                         }
 
                         uint64_t debug2 = disa.LF_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
                         next_x_PI.value_at_p_minus = disa.LF_phi_for_insertionX(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, new_i_minus, new_x_position, i, dbwt);
-                        if(next_x_PI.value_at_p_minus != debug2){
+                        if (next_x_PI.value_at_p_minus != debug2)
+                        {
                             std::cout << "Error2!" << std::endl;
                             throw -1;
                         }
@@ -277,7 +305,7 @@ namespace stool
             /*
             static PhaseABResultForDeletion phase_AB_for_deletion(TextIndex i, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
-                
+
 
                 uint8_t prev_c = inserted_string[inserted_string.size() - 1];
 
@@ -292,7 +320,7 @@ namespace stool
                 result.i_minus = dbwt.LF(i_on_rlbwt.run_index, i_on_rlbwt.position_in_run);
                 result.ISA_i_PI.value_at_p_minus = disa.phi(i);
                 result.ISA_i_PI.value_at_p_plus = disa.inverse_phi(i);
-                
+
 
 
                 TextIndex v = i + len;
@@ -389,7 +417,6 @@ namespace stool
                 return phase_C_for_deletion(i, inserted_string, editHistory, dbwt, disa, phaseABReuslt);
             }
             */
-
 
             static bool phase_D(FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, PositionInformation &y_PI, PositionInformation &z_PI)
             {

@@ -301,7 +301,7 @@ namespace stool
             {
                 return this->bwt.select(ith - 1, c);
             }
-            int64_t LF_for_deletion(int64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
+            int64_t LF_for_deletion(uint64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
             {
                 if(i == replace_pos){
                     return LF_for_deletion(current_processing_position, new_char, replace_pos, current_processing_position);

@@ -423,7 +423,7 @@ namespace stool
 
                         assert(rp.position_in_run == 0);
                         int64_t v = this->sampled_first_sa.get_sampled_sa_value(rp.run_index);
-                        if (v == u_value)
+                        if (v == (int64_t)u_value)
                         {
                             return LF_inverse_phi_for_deletion_sub(rp, dbwt, u_value_inv_phi);
                         }
@@ -474,9 +474,6 @@ namespace stool
                 }
             }
 
-            SAValue LF_inverse_phi_for_deletion(RunPosition i_rp, SAValue sa_value_at_i_plus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
-            {
-            }
 
             SAValue LF_inverse_phi_for_insertion(RunPosition i_rp, SAValue sa_value_at_i_plus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
@@ -722,7 +719,7 @@ namespace stool
                         RunPosition rp = DynamicRLBWTHelper::proper_predecessor_on_F(dbwt, i, old_c);
                         int64_t v = this->sampled_last_sa.get_sampled_sa_value(rp.run_index);
 
-                        if (v == u_value)
+                        if (v == (int64_t)u_value)
                         {
                             return LF_phi_for_deletion_sub(rp, dbwt, u_value_phi);
                         }

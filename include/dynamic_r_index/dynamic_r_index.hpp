@@ -710,12 +710,26 @@ namespace stool
             uint64_t delete_string(TextIndex u, uint64_t len, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
-                SubPhiDataStructure sub(u, len, false);
-                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_string_deletion_operation(u, len, output_history, dbwt, disa, sub);
+                //SubPhiDataStructure sub(u, len, false);
+                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, len, output_history, dbwt, disa, nullptr);
+
+                PositionInformation y_PI;
+                y_PI.p = inf.y;
+                y_PI.value_at_p = inf.value_at_y;
+                y_PI.value_at_p_minus = inf.value_at_y_minus;
+                y_PI.value_at_p_plus = inf.value_at_y_plus;
+                
+                PositionInformation z_PI;
+                z_PI.p = inf.z;
+                z_PI.value_at_p_minus = inf.value_at_z_minus;
+                z_PI.value_at_p_plus = inf.value_at_z_plus;
+
+
                 bool b = false;
                 while (!b)
                 {
-                    b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
+                    b = RIndexHelperForUpdate::phase_D(output_history, this->dbwt, this->disa, y_PI, z_PI);
+                    //b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
                     //b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
                 }
                 // RIndexHelperForUpdate::merge_non_maximal_runs_in_dbwt(output_history, true, dbwt, disa);
@@ -779,13 +793,27 @@ namespace stool
             uint64_t delete_char(TextIndex u, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
-                SubPhiDataStructure sub(u, 1, false);
+                //SubPhiDataStructure sub(u, 1, false);
 
-                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, output_history, dbwt, disa, sub);
+                AdditionalInformationUpdatingRIndex inf = RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, 1,output_history, dbwt, disa, nullptr);
+
+
+                PositionInformation y_PI;
+                y_PI.p = inf.y;
+                y_PI.value_at_p = inf.value_at_y;
+                y_PI.value_at_p_minus = inf.value_at_y_minus;
+                y_PI.value_at_p_plus = inf.value_at_y_plus;
+                
+                PositionInformation z_PI;
+                z_PI.p = inf.z;
+                z_PI.value_at_p_minus = inf.value_at_z_minus;
+                z_PI.value_at_p_plus = inf.value_at_z_plus;
+
                 bool b = false;
                 while (!b)
                 {
-                     b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
+                    b = RIndexHelperForUpdate::phase_D(output_history, this->dbwt, this->disa, y_PI, z_PI);
+                    //b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
                     //b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
                 }
 
@@ -806,11 +834,13 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             ///   @brief This method is used for debug
             ////////////////////////////////////////////////////////////////////////////////
+            /*
             AdditionalInformationUpdatingRIndex __preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, SubPhiDataStructure &sub)
             {
                 return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation(u, len, editHistory, dbwt, disa, sub);
             }
-            AdditionalInformationUpdatingRIndex __preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, stool::fm_index_test::NaiveDynamicStringForBWT &nds)
+            */
+            AdditionalInformationUpdatingRIndex __preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, stool::fm_index_test::NaiveDynamicStringForBWT *nds)
             {
                 return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, len, editHistory, dbwt, disa, nds);
             }
@@ -833,14 +863,22 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             ///   @brief This method is used for debug
             ////////////////////////////////////////////////////////////////////////////////
-            AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation(TextIndex u, FMIndexEditHistory &editHistory, SubPhiDataStructure &sub)
+            AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation(TextIndex u, FMIndexEditHistory &editHistory)
             {
-                return RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, editHistory, dbwt, disa, sub);
+                //return RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, editHistory, dbwt, disa);
+                return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, 1, editHistory, dbwt, disa, nullptr);
+
             }
 
+            /*
             AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation2(TextIndex u, FMIndexEditHistory &editHistory, SubPhiDataStructure &sub)
             {
                 return RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, 1,editHistory, dbwt, disa, sub);
+            }
+            */
+            AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation2(TextIndex u, FMIndexEditHistory &editHistory)
+            {
+                return RIndexOldUpdateOperations::preprocess_of_string_deletion_operation_with_debug(u, 1, editHistory, dbwt, disa, nullptr);
             }
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -875,10 +913,12 @@ namespace stool
                 return b;
             }
             
+            /*
             bool __reorder_RLBWT_for_deletion(FMIndexEditHistory &editHistory, SubPhiDataStructure &sub, AdditionalInformationUpdatingRIndex &inf)
             {
                 return RIndexOldUpdateOperations::reorder_RLBWT2(editHistory, this->dbwt, this->disa, sub,inf);
             }
+            */
             
 
             ////////////////////////////////////////////////////////////////////////////////

@@ -37,8 +37,8 @@ namespace stool
                 std::cout << "SA[z-1] = " << value_at_z_minus << ", SA[z+1] = " << value_at_z_plus << " ]" << std::endl;
 
             }
-            
-            SAIndex get_z() const
+            /*
+                        SAIndex get_z() const
             {
                 throw std::logic_error("Error: get_z");
                 //return _z;
@@ -52,6 +52,7 @@ namespace stool
                     return y_star;
                 }                
             }
+            */
             
             /*
             SAIndex get_z2() const

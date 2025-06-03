@@ -122,7 +122,7 @@ namespace stool
                     {
                         uint64_t lower = delete_pos + delete_len - i - 1;
                         uint64_t upper = delete_pos + delete_len - 1;
-                        int64_t b_pointer = lower > 0 ? lower - 1 : this->size() - 1;
+                        uint64_t b_pointer = lower > 0 ? lower - 1 : this->size() - 1;
                         if (sa[j] < lower || sa[j] > upper)
                         {
                             tmp_sa.push_back(sa[j]);
@@ -153,7 +153,7 @@ namespace stool
                     {
                         uint64_t lower = delete_pos + delete_len - i - 1;
                         uint64_t upper = delete_pos + delete_len - 1;
-                        int64_t b_pointer = lower > 0 ? lower - 1 : this->size() - 1;
+                        //uint64_t b_pointer = lower > 0 ? lower - 1 : this->size() - 1;
                         if (sa[j] < lower || sa[j] > upper)
                         {
                             if (sa[j] > upper)
