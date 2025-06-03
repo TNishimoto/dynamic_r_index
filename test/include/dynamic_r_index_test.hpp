@@ -458,7 +458,13 @@ namespace stool
 
             static void detailed_string_deletion_test(uint64_t text_size, uint64_t str_len, uint8_t alphabet_type, uint64_t seed)
             {
-                assert(str_len < text_size);
+                if(str_len < 1){
+                    throw std::logic_error("The length of the deleted substring is at least 1.");
+                }
+                if(str_len >= text_size){
+                    throw std::logic_error("The length of the deleted substring is less than the text size.");
+                }
+                
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
@@ -483,7 +489,7 @@ namespace stool
                 DynamicRIndex drfmi = DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
 
                 uint64_t size = dfmi.size();
-                std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 1 - str_len);
+                std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, size - 2 - str_len);
                 // std::uniform_int_distribution<uint64_t> get_rand_uni_char(0, chars.size() - 1);
 
                 FMIndexEditHistory edit_history, edit_history2;
@@ -491,10 +497,12 @@ namespace stool
                 uint64_t insertion_pos = get_rand_uni_int(mt64);
                 assert(insertion_pos < text_size-1);
 
-
+                /*
                 if(insertion_pos + str_len >= text_size){
                     str_len = text_size - insertion_pos - 1;
                 }
+                */
+
 
 
 

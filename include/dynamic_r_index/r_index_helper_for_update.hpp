@@ -8,7 +8,6 @@
 
 #include "./additional_information_updating_r_index.hpp"
 
-
 namespace stool
 {
     namespace dynamic_r_index
@@ -327,12 +326,16 @@ namespace stool
             }
             static AdditionalInformationUpdatingRIndex preprocess_of_string_deletion_operation(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, std::vector<std::vector<uint64_t>> *sa_arrays_for_debug)
             {
+                if (len < 1)
+                {
+                    throw std::logic_error("The length of the deleted substring is at least 1.");
+                }
                 PhaseABResultForDeletion phaseABResult = phase_AB_for_deletion(u, len, editHistory, dbwt, disa);
                 return phase_C_for_deletion(u, len, editHistory, dbwt, disa, phaseABResult, sa_arrays_for_debug);
             }
 
         private:
-            static PhaseABResultForDeletion phase_AB_for_deletion(TextIndex u, int64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
+            static PhaseABResultForDeletion phase_AB_for_deletion(TextIndex u, uint64_t len, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
                 PhaseABResultForDeletion inf;
 
@@ -345,7 +348,17 @@ namespace stool
                 inf.old_char = dbwt.get_char(v_on_rlbwt.run_index);
 
                 inf.LF_v = dbwt.LF(v_on_rlbwt.run_index, v_on_rlbwt.position_in_run);
-                SAIndex u_on_sa = disa.isa(u, dbwt);
+
+                SAIndex u_on_sa = inf.LF_v;
+                for (uint64_t i = 0; i + 1 < len; i++)
+                {
+                    u_on_sa = dbwt.LF(u_on_sa);
+                }
+                if(u_on_sa != disa.isa(u, dbwt)){
+                    std::cout << "u: " << u << ", " << "len = " << len << ", " << dbwt.size() << std::endl; 
+                    throw -1;
+                }
+
                 RunPosition u_on_rlbwt = dbwt.to_run_position(u_on_sa);
                 inf.new_char = dbwt.get_char(u_on_rlbwt.run_index);
 
@@ -371,13 +384,13 @@ namespace stool
                 SAValue phi_x = disa.phi(u + len - 1);
                 SAValue inv_phi_x = disa.inverse_phi(u + len - 1);
 
-                //std::vector<std::vector<uint64_t>> sa_arrays;
+                // std::vector<std::vector<uint64_t>> sa_arrays;
 
                 uint64_t debug_phi_x;
                 uint64_t debug_inv_phi_x;
                 if (sa_arrays_for_debug != nullptr)
                 {
-                    //nds->construct_SA_arrays_for_deletion(u, len, sa_arrays);
+                    // nds->construct_SA_arrays_for_deletion(u, len, sa_arrays);
                     debug_phi_x = current_x > 0 ? (*sa_arrays_for_debug)[0][current_x - 1] : (*sa_arrays_for_debug)[0][(*sa_arrays_for_debug)[0].size() - 1];
                     debug_inv_phi_x = current_x + 1 < dbwt.size() ? (*sa_arrays_for_debug)[0][current_x + 1] : (*sa_arrays_for_debug)[0][0];
 

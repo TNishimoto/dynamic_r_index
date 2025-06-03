@@ -644,11 +644,25 @@ namespace stool
 
             uint64_t delete_string(TextIndex u, uint64_t len)
             {
+                if(len < 1){
+                    throw std::logic_error("The length of the deleted substring is at least 1.");
+                }
+                if(u + len >= this->text_size()){
+                    throw std::logic_error("The ending position of the deleted substring must be less than the ending position of the text.");
+                }
+
                 FMIndexEditHistory editHistory;
                 return this->delete_string(u, len, editHistory);
             }
             uint64_t delete_string(TextIndex u, uint64_t len, FMIndexEditHistory &output_history)
             {
+                if(len < 1){
+                    throw std::logic_error("The length of the deleted substring is at least 1.");
+                }
+                if(u + len >= this->text_size()){
+                    throw std::logic_error("The ending position of the deleted substring must be less than the ending position of the text.");
+                }
+                
                 output_history.clear();
                 AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, len, output_history, dbwt, disa, nullptr);
 
