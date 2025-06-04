@@ -26,21 +26,6 @@ else()
 endif()
 
 
-
-# Set PROJECT_IS_TOP_LEVEL to ON if if this is the top level project (not
-# if this is included as a subproject of something else). Note that this is
-# handled automatically for CMake >= 3.21.
-if (CMAKE_VERSION VERSION_LESS 3.21)
-    if ("${CMAKE_PROJECT_NAME}" STREQUAL "${PROJECT_NAME}")
-        message("SET PROJECT_IS_TOP_LEVEL ON IN ${PROJECT_NAME}")
-        set (PROJECT_IS_TOP_LEVEL ON)
-    else()
-        message("SET PROJECT_IS_TOP_LEVEL OFF IN ${PROJECT_NAME}")
-    set (PROJECT_IS_TOP_LEVEL OFF)    
-    endif()
-endif ()
-
-
 INCLUDE_DIRECTORIES(../modules)
 #INCLUDE_DIRECTORIES(modules/libdivsufsort/include)
 #INCLUDE_DIRECTORIES(modules/simple_btree/include)
@@ -87,6 +72,9 @@ target_link_libraries(generate_query.out fn)
 
 add_executable(fm_index_test.out fm_index_test_main.cpp)
 target_link_libraries(fm_index_test.out fn)
+
+add_executable(pseudocode.out pseudocode_main.cpp)
+target_link_libraries(pseudocode.out fn)
 
 
 #add_executable(lcp.out main/lcp_main.cpp)
