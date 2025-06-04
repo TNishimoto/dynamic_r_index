@@ -18,6 +18,8 @@ namespace stool
 
     std::vector<std::string> messages;
 
+
+
     class TimeDebug
     {
     public:
@@ -34,7 +36,6 @@ namespace stool
             pom_access_count = 0;
             increment_run_time = 0;
             increment_run_count = 0;
-
         }
     };
 

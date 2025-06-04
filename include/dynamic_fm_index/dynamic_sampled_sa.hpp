@@ -1,3 +1,8 @@
+/**
+ * @file dynamic_sampled_sa.hpp
+ * @brief A dynamic data structure for accessing SA and ISA.
+ */
+
 #pragma once
 #include "stool/include/stool.hpp"
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
@@ -8,7 +13,7 @@ namespace stool
     namespace dynamic_r_index
     {
         ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicSA
+        /// @class      DynamicSampledSA
         /// @brief      A dynamic data structure for accessing SA and ISA. This implementation requires $O(n log n)$ words for the input string of length $n$.
         ///
         ////////////////////////////////////////////////////////////////////////////////
@@ -23,6 +28,9 @@ namespace stool
             // stool::old_implementations::VPomPermutation pom;
 
         public:
+            /**
+             * @brief Constructor for DynamicSampledSA.
+             */
             DynamicSampledSA()
             {
                 this->clear();
@@ -31,14 +39,27 @@ namespace stool
             DynamicSampledSA(DynamicSampledSA &&) noexcept = default;
             DynamicSampledSA &operator=(DynamicSampledSA &&) noexcept = default;
 
+            /**
+             * @brief Returns the size in bytes of the DynamicSampledSA.
+             * @return The size in bytes.
+             */
             uint64_t size_in_bytes() const
             {
                 return this->dp.size_in_bytes() + this->sample_marks_on_text.size_in_bytes() + this->sample_marks_on_sa.size_in_bytes() + sizeof(this->sampling_interval) + sizeof(this->bwt);
             }
+            /**
+             * @brief Returns the number of sampled suffix array values.
+             * @return The count of sampled suffix array values.
+             */
             uint64_t get_sampled_suffix_array_values_count() const
             {
                 return this->sample_marks_on_text.count_c(true);
             }
+            /**
+             * @brief Returns memory usage information.
+             * @param message_paragraph The message paragraph.
+             * @return A vector of strings containing memory usage information.
+             */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log1 = this->dp.get_memory_usage_info(message_paragraph + 1);
@@ -63,6 +84,10 @@ namespace stool
                 r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
                 return r;
             }
+            /**
+             * @brief Prints memory usage information.
+             * @param message_paragraph The message paragraph.
+             */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log = this->get_memory_usage_info(message_paragraph);
@@ -71,6 +96,10 @@ namespace stool
                     std::cout << s << std::endl;
                 }
             }
+            /**
+             * @brief Prints statistics of the DynamicSampledSA.
+             * @param message_paragraph The message paragraph.
+             */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicSampledSA):" << std::endl;
@@ -83,6 +112,10 @@ namespace stool
                 this->sample_marks_on_sa.print_statistics(message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+            /**
+             * @brief Prints the content of the DynamicSampledSA.
+             * @param message_paragraph The message paragraph.
+             */
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Content(DynamicSampledSA):" << std::endl;
@@ -92,6 +125,10 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
+            /**
+             * @brief Swaps the contents of two DynamicSampledSA objects.
+             * @param item The DynamicSampledSA object to swap with.
+             */
             void swap(DynamicSampledSA &item)
             {
                 this->dp.swap(item.dp);
@@ -100,8 +137,16 @@ namespace stool
                 std::swap(this->sampling_interval, item.sampling_interval);
                 std::swap(this->bwt, item.bwt);
             }
+            /**
+             * @brief Default sampling interval.
+             */
             static inline constexpr uint64_t DEFAULT_SAMPLING_INTERVAL = 32;
 
+            /**
+             * @brief Saves the DynamicSampledSA to a file.
+             * @param item The DynamicSampledSA object to save.
+             * @param os The output stream to save to.
+             */
             static void save(DynamicSampledSA &item, std::ofstream &os)
             {
                 stool::bptree::DynamicPermutation::save(item.dp, os);
@@ -109,6 +154,12 @@ namespace stool
                 stool::bptree::DynamicBitSequence::save(item.sample_marks_on_sa, os);
                 os.write(reinterpret_cast<const char *>(&item.sampling_interval), sizeof(item.sampling_interval));
             }
+            /**
+             * @brief Builds a DynamicSampledSA from data in a file.
+             * @param ifs The input stream to read from.
+             * @param bwt The DynamicBWT object.
+             * @return The built DynamicSampledSA object.
+             */
             static DynamicSampledSA build_from_data(std::ifstream &ifs, DynamicBWT *bwt)
             {
                 auto tmp1 = stool::bptree::DynamicPermutation::build_from_data(ifs);
@@ -131,19 +182,35 @@ namespace stool
             ///   @name Initializers and Builders
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            /**
+             * @brief Sets the degree of the DynamicSampledSA.
+             * @param degree The degree to set.
+             */
             void set_degree(int64_t degree)
             {
                 this->dp.set_degree(degree);
                 this->clear();
             }
+            /**
+             * @brief Sets the BWT for the DynamicSampledSA.
+             * @param _bwt The DynamicBWT object to set.
+             */
             void set_BWT(DynamicBWT *_bwt)
             {
                 this->bwt = _bwt;
             }
+            /**
+             * @brief Returns the sampling interval.
+             * @return The sampling interval.
+             */
             uint64_t get_sampling_interval() const
             {
                 return this->sampling_interval;
             }
+            /**
+             * @brief Sets the sampling interval.
+             * @param value The sampling interval to set.
+             */
             void set_sampling_interval(uint64_t value)
             {
                 if (this->sampling_interval != value)
@@ -152,6 +219,9 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Clears the DynamicSampledSA.
+             */
             void clear()
             {
                 this->dp.clear();
@@ -161,11 +231,26 @@ namespace stool
                 this->sample_marks_on_text.push_back(1);
                 this->sample_marks_on_sa.push_back(1);
             }
+            /**
+             * @brief Returns the size of the DynamicSampledSA.
+             * @return The size.
+             */
             uint64_t size() const
             {
                 return this->sample_marks_on_text.size();
             }
 
+            /**
+             * @brief Builds sampled SA and bits from BWT.
+             * @param BISA The BackwardISA object.
+             * @param text_size The size of the text.
+             * @param sampling_interval The sampling interval.
+             * @param sample_marks_on_text The sample marks on text.
+             * @param sample_marks_on_sa The sample marks on SA.
+             * @param output_sampled_sa_rank The output sampled SA rank.
+             * @param output_sampled_sa The output sampled SA.
+             * @param message_paragraph The message paragraph.
+             */
             static void build_sampled_sa_and_bits(const stool::bwt::BackwardISA<stool::bwt::LFDataStructure> &BISA, uint64_t text_size, uint64_t sampling_interval, std::vector<bool> &sample_marks_on_text, std::vector<bool> &sample_marks_on_sa,
                                                   std::vector<uint64_t> &output_sampled_sa_rank, std::vector<uint64_t> &output_sampled_sa,
                                                   int message_paragraph = stool::Message::SHOW_MESSAGE)
@@ -301,6 +386,15 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Builds bits from BWT.
+             * @param BISA The BackwardISA object.
+             * @param text_size The size of the text.
+             * @param sampling_interval The sampling interval.
+             * @param sample_marks_on_text The sample marks on text.
+             * @param sample_marks_on_sa The sample marks on SA.
+             * @param message_paragraph The message paragraph.
+             */
             static void build_bits(const stool::bwt::BackwardISA<stool::bwt::LFDataStructure> &BISA, uint64_t text_size, uint64_t sampling_interval, std::vector<bool> &sample_marks_on_text, std::vector<bool> &sample_marks_on_sa, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
 
@@ -343,6 +437,14 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Builds bits from ISA.
+             * @param isa The ISA vector.
+             * @param sampling_interval The sampling interval.
+             * @param sample_marks_on_text The sample marks on text.
+             * @param sample_marks_on_sa The sample marks on SA.
+             * @param message_paragraph The message paragraph.
+             */
             static void build_bits(const std::vector<uint64_t> &isa, uint64_t sampling_interval, std::vector<bool> &sample_marks_on_text, std::vector<bool> &sample_marks_on_sa, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 uint64_t text_size = isa.size();
@@ -387,6 +489,15 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Builds sample SA from BWT.
+             * @param BISA The BackwardISA object.
+             * @param text_size The size of the text.
+             * @param sampling_interval The sampling interval.
+             * @param output_sampled_sa_rank The output sampled SA rank.
+             * @param output_sampled_sa The output sampled SA.
+             * @param message_paragraph The message paragraph.
+             */
             static void build_sample_sa(const stool::bwt::BackwardISA<stool::bwt::LFDataStructure> &BISA, uint64_t text_size, uint64_t sampling_interval, std::vector<uint64_t> &output_sampled_sa_rank, std::vector<uint64_t> &output_sampled_sa, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0 && text_size > 0)
@@ -475,6 +586,14 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Builds sample SA from ISA.
+             * @param isa The ISA vector.
+             * @param sampling_interval The sampling interval.
+             * @param output_sampled_sa_rank The output sampled SA rank.
+             * @param output_sampled_sa The output sampled SA.
+             * @param message_paragraph The message paragraph.
+             */
             static void build_sample_sa(const std::vector<uint64_t> &isa, uint64_t sampling_interval, std::vector<uint64_t> &output_sampled_sa_rank, std::vector<uint64_t> &output_sampled_sa, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 uint64_t text_size = isa.size();
@@ -542,6 +661,14 @@ namespace stool
                     std::cout << "[END] Elapsed Time: " << sec_time << " sec (" << per_time << " ms/MB)" << std::endl;
                 }
             }
+            /**
+             * @brief Builds a DynamicSampledSA from BWT.
+             * @param BISA The BackwardISA object.
+             * @param _bwt The DynamicBWT object.
+             * @param sampling_interval The sampling interval.
+             * @param message_paragraph The message paragraph.
+             * @return The built DynamicSampledSA object.
+             */
             static DynamicSampledSA build(const stool::bwt::BackwardISA<stool::bwt::LFDataStructure> &BISA, DynamicBWT *_bwt, uint64_t sampling_interval = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 uint64_t text_size = _bwt->size();
@@ -595,6 +722,14 @@ namespace stool
 
                 return r;
             }
+            /**
+             * @brief Builds a DynamicSampledSA from ISA.
+             * @param isa The ISA vector.
+             * @param bwt The DynamicBWT object.
+             * @param sampling_interval The sampling interval.
+             * @param message_paragraph The message paragraph.
+             * @return The built DynamicSampledSA object.
+             */
             static DynamicSampledSA build(const std::vector<uint64_t> &isa, DynamicBWT *bwt, uint64_t sampling_interval = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 uint64_t text_size = isa.size();
@@ -653,6 +788,11 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+            /**
+             * @brief Returns the sampled ISA value at index i.
+             * @param i The index.
+             * @return The sampled ISA value.
+             */
             int64_t sampled_isa(uint64_t i) const
             {
                 assert(this->bwt != nullptr);
@@ -660,6 +800,11 @@ namespace stool
                 uint64_t pos = this->dp.inverse(i);
                 return this->sample_marks_on_sa.select1(pos);
             }
+            /**
+             * @brief Returns the sampled SA value at index i.
+             * @param i The index.
+             * @return The sampled SA value.
+             */
             int64_t sampled_sa(uint64_t i) const
             {
                 assert(this->bwt != nullptr);
@@ -668,6 +813,11 @@ namespace stool
                 return this->sample_marks_on_text.select1(pos);
             }
 
+            /**
+             * @brief Returns the ISA value at index i.
+             * @param i The index.
+             * @return The ISA value.
+             */
             int64_t isa(uint64_t i) const
             {
                 assert(this->bwt != nullptr);
@@ -691,6 +841,11 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Returns the sample predecessor on SA at index i.
+             * @param i The index.
+             * @return A pair containing the predecessor rank and distance.
+             */
             std::pair<uint64_t, uint64_t> sample_predecessor_on_sa(uint64_t i) const
             {
                 assert(this->bwt != nullptr);
@@ -717,6 +872,12 @@ namespace stool
 
                 return std::pair<uint64_t, uint64_t>(predecessor_rank, dist);
             }
+            /**
+             * @brief Returns the SA value at rank and distance.
+             * @param rank The rank.
+             * @param dist The distance.
+             * @return The SA value.
+             */
             int64_t sa(uint64_t rank, uint64_t dist) const
             {
                 assert(this->bwt != nullptr);
@@ -731,6 +892,11 @@ namespace stool
                 return p;
             }
 
+            /**
+             * @brief Returns the SA value at index i.
+             * @param i The index.
+             * @return The SA value.
+             */
             int64_t sa(uint64_t i) const
             {
                 assert(this->bwt != nullptr);
@@ -738,6 +904,10 @@ namespace stool
                 return sa(pair.first, pair.second);
             }
 
+            /**
+             * @brief Returns the SA vector.
+             * @return The SA vector.
+             */
             std::vector<uint64_t> get_sa() const
             {
                 assert(this->bwt != nullptr);
@@ -749,6 +919,10 @@ namespace stool
                 }
                 return r;
             }
+            /**
+             * @brief Returns the ISA vector.
+             * @return The ISA vector.
+             */
             std::vector<uint64_t> get_isa() const
             {
                 assert(this->bwt != nullptr);
@@ -767,6 +941,11 @@ namespace stool
             ///   The public non-const methods of this class.
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            /**
+             * @brief Updates the DynamicSampledSA for a move operation.
+             * @param j The source index.
+             * @param j_prime The destination index.
+             */
             void move_update(int64_t j, int64_t j_prime)
             {
                 bool b = this->sample_marks_on_sa.at(j);
@@ -789,6 +968,10 @@ namespace stool
                 this->move_sa_bit(j, j_prime);
             }
 
+            /**
+             * @brief Updates sample marks for a given text position rank.
+             * @param t_pos_rank The text position rank.
+             */
             void update_sample_marks_sub(uint64_t t_pos_rank)
             {
                 int64_t current_t_pos_rank = t_pos_rank;
@@ -847,6 +1030,10 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Updates sample marks for a given text position.
+             * @param t_pos The text position.
+             */
             void update_sample_marks(uint64_t t_pos)
             {
                 if (t_pos > 0)
@@ -868,6 +1055,11 @@ namespace stool
                 }
                 this->verify();
             }
+            /**
+             * @brief Updates the DynamicSampledSA for a deletion operation.
+             * @param removed_sa_index The removed SA index.
+             * @param removed_text_index The removed text index.
+             */
             void update_for_deletion(int64_t removed_sa_index, uint64_t removed_text_index)
             {
 
@@ -881,12 +1073,20 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Updates the DynamicSampledSA for an insertion operation.
+             * @param inserted_sa_index The inserted SA index.
+             * @param inserted_text_position The inserted text position.
+             */
             void update_for_insertion(int64_t inserted_sa_index, int64_t inserted_text_position)
             {
                 this->sample_marks_on_text.insert(inserted_text_position, false);
                 this->sample_marks_on_sa.insert(inserted_sa_index, false);
             }
 
+            /**
+             * @brief Verifies the DynamicSampledSA.
+             */
             void verify() const
             {
                 uint64_t p1 = this->sample_marks_on_text.count_c(true);
@@ -902,6 +1102,9 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Prints information about the DynamicSampledSA.
+             */
             void print_info() const
             {
                 std::string s1 = this->sample_marks_on_text.to_string();
@@ -930,6 +1133,11 @@ namespace stool
             //@}
 
         private:
+            /**
+             * @brief Moves the pi index from one rank to another.
+             * @param from_rank The source rank.
+             * @param to_rank The destination rank.
+             */
             void move_pi_index2(int64_t from_rank, int64_t to_rank)
             {
                 int64_t inverse_pi_index = this->dp.access(from_rank);
@@ -944,6 +1152,11 @@ namespace stool
                     this->dp.insert(to_rank, inverse_pi_index);
                 }
             }
+            /**
+             * @brief Moves the SA bit from one position to another.
+             * @param from The source position.
+             * @param to The destination position.
+             */
             void move_sa_bit(uint64_t from, uint64_t to)
             {
                 bool b = this->sample_marks_on_sa[from];

@@ -1,5 +1,0 @@
-<map id="stool::r_index::DynamicPhi" name="stool::r_index::DynamicPhi">
-<area shape="rect" id="Node000001" title="A dynamic data structure supporting phi and inverse phi queries." alt="" coords="23,109,202,135"/>
-<area shape="rect" id="Node000002" href="$classstool_1_1r__index_1_1_dynamic_partial_s_a.html" title="A dynamic data structure for managing sampled suffix array values." alt="" coords="5,5,220,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,47,115,109,110,109,110,47"/>
-</map>

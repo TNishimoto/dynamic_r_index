@@ -21,6 +21,18 @@ namespace stool
         using ISAValue = uint64_t;
         using SAInterval = std::pair<int64_t, int64_t>;
 
+        /**
+         * @enum EditType
+         * @brief Enumeration representing the types of edits that can be performed on the FM-index.
+         */
+        enum class EditType
+        {
+            InsertionOfChar,   ///< Represents the insertion of a single character.
+            InsertionOfString, ///< Represents the insertion of a string.
+            DeletionOfChar,    ///< Represents the deletion of a single character.
+            DeletionOfString   ///< Represents the deletion of a string.
+        };
+        
         struct BackwardSearchResult
         {
         public:
@@ -28,7 +40,7 @@ namespace stool
             int64_t e;
             int64_t sa_b_;
 
-            BackwardSearchResult() 
+            BackwardSearchResult()
             {
             }
             BackwardSearchResult(int64_t _b, int64_t _e, int64_t _sa_b_) : b(_b), e(_e), sa_b_(_sa_b_)
@@ -38,18 +50,22 @@ namespace stool
             {
             }
 
-
             static BackwardSearchResult create_empty_result()
             {
                 return BackwardSearchResult(-1, -1, -1);
             }
-            SAInterval get_sa_interval() const {
+            SAInterval get_sa_interval() const
+            {
                 return SAInterval(this->b, this->e);
             }
-            uint64_t get_sa_interval_size() const {
-                if(this->is_empty()){
+            uint64_t get_sa_interval_size() const
+            {
+                if (this->is_empty())
+                {
                     return 0;
-                }else{
+                }
+                else
+                {
                     return this->e - this->b + 1;
                 }
             }
@@ -73,7 +89,6 @@ namespace stool
             RunPosition()
             {
             }
-
 
             RunPosition(uint64_t _run_index, uint64_t _position_in_run) : run_index(_run_index), position_in_run(_position_in_run)
             {

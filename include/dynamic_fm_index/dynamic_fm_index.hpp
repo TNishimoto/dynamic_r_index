@@ -7,37 +7,56 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicFMIndex
-        /// @brief      A dynamic data structure of FM-index. This implementation requires $O(n log n)$ words for the input string of length $n$.
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @class DynamicFMIndex
+         * @brief A dynamic data structure of FM-index. This implementation requires $O(n log n)$ words for the input string of length $n$.
+         *
+         * @details The DynamicFMIndex class provides a dynamic implementation of the FM-index, which is a compressed full-text substring index.
+         * It allows for efficient string operations such as insertion, deletion, and searching within a text.
+         * The class uses a combination of dynamic BWT (Burrows-Wheeler Transform) and dynamic sampled suffix array to achieve these operations.
+         *
+         * @tparam T The type of the elements stored in the index.
+         */
         class DynamicFMIndex
         {
-            DynamicBWT dbwt;
+            DynamicBWT dbwt; // Dynamic Burrows-Wheeler Transform
             // DynamicISA disa;
-            DynamicSampledSA dsa;
+            DynamicSampledSA dsa; // Dynamic Sampled Suffix Array
 
         public:
-            static inline constexpr uint LOAD_KEY = 99999999;
+            static inline constexpr uint LOAD_KEY = 99999999; // Key used for loading the index
 
-            using Interval = std::pair<int64_t, int64_t>;
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Initializers and Builders
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
+            using Interval = std::pair<int64_t, int64_t>; // Type for representing intervals
 
+            /**
+             * @brief Default constructor for DynamicFMIndex.
+             */
             DynamicFMIndex()
             {
                 this->dsa.set_BWT(&this->dbwt);
             }
+
+            /**
+             * @brief Deleted copy assignment operator.
+             */
             DynamicFMIndex &operator=(const DynamicFMIndex &) = delete;
+
+            /**
+             * @brief Move constructor for DynamicFMIndex.
+             * @param other The DynamicFMIndex to move from.
+             */
             DynamicFMIndex(DynamicFMIndex &&other) noexcept
             {
                 this->dbwt = std::move(other.dbwt);
                 this->dsa = std::move(other.dsa);
                 this->dsa.set_BWT(&this->dbwt);
             };
+
+            /**
+             * @brief Move assignment operator for DynamicFMIndex.
+             * @param other The DynamicFMIndex to move from.
+             * @return Reference to the current DynamicFMIndex.
+             */
             DynamicFMIndex &operator=(DynamicFMIndex &&other) noexcept
             {
                 if (this != &other)
@@ -49,43 +68,83 @@ namespace stool
                 return *this;
             };
 
+            /**
+             * @brief Get a pointer to the dynamic BWT.
+             * @return Pointer to the dynamic BWT.
+             */
             DynamicBWT *_get_dbwt_pointer()
             {
                 return &this->dbwt;
             }
+
+            /**
+             * @brief Get a pointer to the dynamic sampled suffix array.
+             * @return Pointer to the dynamic sampled suffix array.
+             */
             DynamicSampledSA *_get_dsa_pointer()
             {
                 return &this->dsa;
             }
 
+            /**
+             * @brief Get the size of the alphabet used in the index.
+             * @return The size of the alphabet.
+             */
             uint64_t get_alphabet_size() const
             {
                 return this->dbwt.get_alphabet_size();
             }
+
+            /**
+             * @brief Get the alphabet used in the index.
+             * @return A vector containing the alphabet.
+             */
             std::vector<uint8_t> get_alphabet() const
             {
                 return this->dbwt.get_alphabet();
             }
 
+            /**
+             * @brief Get the end marker used in the index.
+             * @return The end marker.
+             */
             uint64_t get_end_marker() const
             {
                 return this->dbwt.get_end_marker();
             }
 
+            /**
+             * @brief Get the sampling interval for the suffix array.
+             * @return The sampling interval.
+             */
             uint64_t get_samling_interval() const
             {
                 return this->dsa.get_sampling_interval();
             }
 
+            /**
+             * @brief Get the number of sampled suffix array values.
+             * @return The number of sampled suffix array values.
+             */
             uint64_t get_sampled_suffix_array_values_count() const
             {
                 return this->dsa.get_sampled_suffix_array_values_count();
             }
 
+            /**
+             * @brief Get the size of the index in bytes.
+             * @return The size of the index in bytes.
+             */
             uint64_t size_in_bytes() const
             {
                 return this->dbwt.size_in_bytes() + this->dsa.size_in_bytes();
             }
+
+            /**
+             * @brief Get memory usage information for the index.
+             * @param message_paragraph The paragraph to start the message from.
+             * @return A vector of strings containing memory usage information.
+             */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log1 = this->dbwt.get_memory_usage_info(message_paragraph + 1);
@@ -105,6 +164,11 @@ namespace stool
                 r.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
                 return r;
             }
+
+            /**
+             * @brief Print memory usage information for the index.
+             * @param message_paragraph The paragraph to start the message from.
+             */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log = this->get_memory_usage_info(message_paragraph);
@@ -113,6 +177,11 @@ namespace stool
                     std::cout << s << std::endl;
                 }
             }
+
+            /**
+             * @brief Print statistics for the index.
+             * @param message_paragraph The paragraph to start the message from.
+             */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicFMIndex):" << std::endl;
@@ -126,6 +195,11 @@ namespace stool
                 this->dsa.print_statistics(message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+
+            /**
+             * @brief Print light statistics for the index.
+             * @param message_paragraph The paragraph to start the message from.
+             */
             void print_light_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicFMIndex):" << std::endl;
@@ -157,6 +231,11 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Average sampling interval: \t\t\t" << (this->size() / this->get_sampled_suffix_array_values_count()) << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+
+            /**
+             * @brief Print the content of the index.
+             * @param message_paragraph The paragraph to start the message from.
+             */
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Content(DynamicFMIndex):" << std::endl;
@@ -164,19 +243,45 @@ namespace stool
                 this->dsa.print_content(message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+
+            /**
+             * @brief Access a character at a specific position in the index.
+             * @param i The position to access.
+             * @return The character at the specified position.
+             */
             uint8_t access(int64_t i) const
             {
                 return this->dbwt.access(i);
             }
+
+            /**
+             * @brief Get the rank of a character up to a specific position in the index.
+             * @param c The character to find the rank for.
+             * @param i The position up to which to find the rank.
+             * @return The rank of the character.
+             */
             int64_t rank(uint8_t c, int64_t i) const
             {
                 return this->dbwt.rank(c, i);
             }
+
+            /**
+             * @brief Get the position of the ith occurrence of a character in the index.
+             * @param c The character to find.
+             * @param ith The occurrence number.
+             * @return The position of the ith occurrence of the character.
+             */
             int64_t select(uint8_t c, int64_t ith) const
             {
                 return this->dbwt.select(c, ith);
             }
 
+            /**
+             * @brief Save the index to a file.
+             * @param item The DynamicFMIndex to save.
+             * @param os The output stream to save to.
+             * @param message_paragraph The paragraph to start the message from.
+             */
             static void save(DynamicFMIndex &item, std::ofstream &os, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
@@ -203,11 +308,22 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END] Elapsed Time: " << sec_time << " sec (" << per_time << " ms/MB)" << std::endl;
                 }
             }
+
+            /**
+             * @brief Get the size of the text in the index.
+             * @return The size of the text.
+             */
             uint64_t text_size() const
             {
                 return this->dbwt.size();
             }
 
+            /**
+             * @brief Build a DynamicFMIndex from data in a file.
+             * @param ifs The input stream to read from.
+             * @param message_paragraph The paragraph to start the message from.
+             * @return The constructed DynamicFMIndex.
+             */
             static DynamicFMIndex build_from_data(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
@@ -246,13 +362,15 @@ namespace stool
                 return r;
             }
 
-            /*
-            static DynamicFMIndex build(const std::vector<uint8_t> &bwt, const std::vector<uint8_t> &alphabet, const std::vector<uint64_t> &isa)
-            {
-                return DynamicFMIndex::build(bwt, alphabet, isa, DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL);
-            }
-            */
-
+            /**
+             * @brief Build a DynamicFMIndex from BWT, alphabet, and ISA.
+             * @param bwt The Burrows-Wheeler Transform.
+             * @param alphabet The alphabet used in the BWT.
+             * @param isa The inverse suffix array.
+             * @param sampling_interval_of_SA The sampling interval for the suffix array.
+             * @param message_paragraph The paragraph to start the message from.
+             * @return The constructed DynamicFMIndex.
+             */
             static DynamicFMIndex build(const std::vector<uint8_t> &bwt, const std::vector<uint8_t> &alphabet, const std::vector<uint64_t> &isa, uint64_t sampling_interval_of_SA = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
 
@@ -284,6 +402,14 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Build a DynamicFMIndex from BWT and alphabet.
+             * @param bwt The Burrows-Wheeler Transform.
+             * @param alphabet The alphabet used in the BWT.
+             * @param sampling_interval_of_SA The sampling interval for the suffix array.
+             * @param message_paragraph The paragraph to start the message from.
+             * @return The constructed DynamicFMIndex.
+             */
             static DynamicFMIndex build(const std::vector<uint8_t> &bwt, const std::vector<uint8_t> &alphabet, uint64_t sampling_interval_of_SA = DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0 && bwt.size() > 0)
@@ -317,13 +443,11 @@ namespace stool
 
                 return r;
             }
-            /*
-            static DynamicFMIndex build(const std::vector<uint8_t> &bwt, const std::vector<uint8_t> &alphabet)
-            {
-                return DynamicFMIndex::build(bwt, alphabet, DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL);
-            }
-            */
 
+            /**
+             * @brief Swap the contents of this DynamicFMIndex with another.
+             * @param item The DynamicFMIndex to swap with.
+             */
             void swap(DynamicFMIndex &item)
             {
                 this->dbwt.swap(item.dbwt);
@@ -331,6 +455,11 @@ namespace stool
                 item.dsa.set_BWT(&item.dbwt);
                 this->dsa.set_BWT(&this->dbwt);
             }
+
+            /**
+             * @brief Clear the contents of the DynamicFMIndex.
+             * @param message_paragraph The paragraph to start the message from.
+             */
             void clear(int message_paragraph = stool::Message::NO_MESSAGE)
             {
                 if (message_paragraph >= 0)
@@ -346,6 +475,10 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Set the degree for the DynamicFMIndex.
+             * @param degree The degree to set.
+             */
             void set_degree(uint64_t degree)
             {
                 this->dbwt.clear();
@@ -355,28 +488,30 @@ namespace stool
                 this->dsa.set_degree(degree);
             }
 
+            /**
+             * @brief Initialize the DynamicFMIndex with an alphabet.
+             * @param alphabet The alphabet to initialize with.
+             */
             void initialize(std::vector<uint8_t> &alphabet)
             {
                 this->dbwt.initialize(alphabet);
             }
-            //@}
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Properties
-            ///   The properties of this class.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
+
+            /**
+             * @brief Get the size of the DynamicFMIndex.
+             * @return The size of the DynamicFMIndex.
+             */
             uint64_t size() const
             {
                 return this->dbwt.size();
             }
 
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Public Const Methods
-            ///   The const methods of this class.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
+            /**
+             * @brief Perform a backward search on the DynamicFMIndex.
+             * @param intv The interval to search in.
+             * @param c The character to search for.
+             * @return The result of the backward search.
+             */
             BackwardSearchResult backward_search(const Interval &intv, uint8_t c) const
             {
                 uint64_t num1 = this->dbwt.rank(c, intv.first - 1);
@@ -403,6 +538,12 @@ namespace stool
                     return BackwardSearchResult::create_empty_result();
                 }
             }
+
+            /**
+             * @brief Perform a backward search on the DynamicFMIndex with a pattern.
+             * @param pattern The pattern to search for.
+             * @return The result of the backward search.
+             */
             BackwardSearchResult backward_search(const std::vector<uint8_t> &pattern) const
             {
                 BackwardSearchResult bsr(0, this->size() - 1);
@@ -417,6 +558,12 @@ namespace stool
                 }
                 return bsr;
             }
+
+            /**
+             * @brief Compute the suffix array values for a given interval.
+             * @param intv The interval to compute suffix array values for.
+             * @return A vector of suffix array values.
+             */
             std::vector<uint64_t> compute_sa_values(const Interval &intv) const
             {
                 std::vector<uint64_t> r;
@@ -426,6 +573,12 @@ namespace stool
                 }
                 return r;
             }
+
+            /**
+             * @brief Compute the suffix array values for a given backward search result.
+             * @param bsr The backward search result to compute suffix array values for.
+             * @return A vector of suffix array values.
+             */
             std::vector<uint64_t> compute_sa_values(const BackwardSearchResult &bsr) const
             {
                 if (bsr.is_empty())
@@ -438,6 +591,11 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Count the number of occurrences of a pattern in the index.
+             * @param pattern The pattern to count.
+             * @return The number of occurrences of the pattern.
+             */
             uint64_t count_query(const std::vector<uint8_t> &pattern) const
             {
                 BackwardSearchResult bsr = this->backward_search(pattern);
@@ -450,37 +608,75 @@ namespace stool
                     return bsr.get_sa_interval_size();
                 }
             }
+
+            /**
+             * @brief Locate the positions of a pattern in the index.
+             * @param pattern The pattern to locate.
+             * @return A vector of positions where the pattern occurs.
+             */
             std::vector<uint64_t> locate_query(const std::vector<uint8_t> &pattern) const
             {
                 BackwardSearchResult bsr = this->backward_search(pattern);
                 return this->compute_sa_values(bsr);
             }
 
+            /**
+             * @brief Get the BWT of the index.
+             * @return A vector containing the BWT.
+             */
             std::vector<uint8_t> get_bwt() const
             {
                 return this->dbwt.get_bwt();
             }
+
+            /**
+             * @brief Get the text of the index.
+             * @return A vector containing the text.
+             */
             std::vector<uint8_t> get_text() const
             {
                 return this->dbwt.get_text();
             }
+
+            /**
+             * @brief Get the BWT of the index as a string.
+             * @return A string containing the BWT.
+             */
             std::string get_bwt_str() const
             {
                 return this->dbwt.get_bwt_str();
             }
+
+            /**
+             * @brief Get the text of the index as a string.
+             * @return A string containing the text.
+             */
             std::string get_text_str() const
             {
                 return this->dbwt.get_text_str();
             }
 
+            /**
+             * @brief Get the suffix array of the index.
+             * @return A vector containing the suffix array.
+             */
             std::vector<uint64_t> get_sa() const
             {
                 return this->dsa.get_sa();
             }
+
+            /**
+             * @brief Get the inverse suffix array of the index.
+             * @return A vector containing the inverse suffix array.
+             */
             std::vector<uint64_t> get_isa() const
             {
                 return this->dsa.get_isa();
             }
+
+            /**
+             * @brief Print the BWT table of the index.
+             */
             void print_bwt_table() const
             {
                 std::vector<uint64_t> sa = this->get_sa();
@@ -488,20 +684,26 @@ namespace stool
                 stool::Printer::print_bwt_table(bwt, sa);
             }
 
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Public Non-const Methods
-            ///   The public non-const methods of this class.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-
+            /**
+             * @brief Insert a character into the index.
+             * @param pos The position to insert the character at.
+             * @param c The character to insert.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t insert_char(int64_t pos, uint8_t c, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
                 return this->insert_char(pos, c, &output_history);
             }
 
+            /**
+             * @brief Insert a character into the index.
+             * @param pos The position to insert the character at.
+             * @param c The character to insert.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t insert_char(int64_t pos, uint8_t c, FMIndexEditHistory *output_history = nullptr)
             {
                 SAIndex isa_of_insertionPosOnText = this->dsa.isa(pos);
@@ -578,55 +780,26 @@ namespace stool
 
                 return sum;
             }
-            /*
-            void check_LF() const
-            {
-                std::vector<uint64_t> sa1 = this->disa.get_sa();
-                for (uint64_t i = 0; i < sa1.size(); i++)
-                {
-                    if(sa1[i] > 0){
-                        assert(sa1[this->dbwt.LF(i)] == sa1[i]-1);
-                    }else{
-                        assert(sa1[this->dbwt.LF(i)] == sa1.size()-1);
-                    }
-                }
-            }
-            */
-            /*
-            void check_SA() const
-            {
-                //this->check_LF();
-                //std::vector<uint64_t> sa1 = this->disa.get_sa();
-                std::vector<uint64_t> sa2 = this->dsa.get_sa();
-                try
-                {
-                    stool::equal_check("SA", sa1, sa2);
-                }
-                catch (std::logic_error e)
-                {
-                    stool::DebugPrinter::print_integers(sa1, "correct SA");
-                    stool::DebugPrinter::print_integers(sa2, "test SA");
 
-                    std::vector<uint64_t> LF_vec;
-                    LF_vec.resize(this->dbwt.size());
-                    for (uint64_t i = 0; i < LF_vec.size(); i++)
-                    {
-                        LF_vec[i] = this->dbwt.LF(i);
-                    }
-                    stool::DebugPrinter::print_integers(LF_vec, "LF");
-
-                    this->dsa.print_info();
-
-                    throw e;
-                }
-            }
-            */
-
+            /**
+             * @brief Insert a string into the index.
+             * @param pos The position to insert the string at.
+             * @param pattern The string to insert.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t insert_string(int64_t pos, const std::vector<uint8_t> &pattern, FMIndexEditHistory &output_history)
             {
                 return insert_string(pos, pattern, &output_history);
             }
 
+            /**
+             * @brief Insert a string into the index.
+             * @param pos The position to insert the string at.
+             * @param pattern The string to insert.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t insert_string(int64_t pos, const std::vector<uint8_t> &pattern, FMIndexEditHistory *output_history = nullptr)
             {
 
@@ -737,12 +910,24 @@ namespace stool
                 return 0;
             }
 
+            /**
+             * @brief Delete a character from the index.
+             * @param pos The position to delete the character from.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t delete_char(int64_t pos, FMIndexEditHistory &output_history)
             {
                 output_history.clear();
                 return this->delete_char(pos, &output_history);
             }
 
+            /**
+             * @brief Delete a character from the index.
+             * @param pos The position to delete the character from.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t delete_char(int64_t pos, FMIndexEditHistory *output_history = nullptr)
             {
 
@@ -791,191 +976,26 @@ namespace stool
 
                 return sum;
             }
+
+            /**
+             * @brief Delete a string from the index.
+             * @param pos The position to delete the string from.
+             * @param len The length of the string to delete.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory &output_history)
             {
                 return delete_string(pos, len, &output_history);
             }
-            /*
-            uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
-            {
 
-                TextIndex pointer = pos + len < (int64_t)this->size() ? pos + len : 0;
-
-                uint64_t positionToReplace = this->dsa.isa(pointer);
-                // assert(positionToReplace == this->dsa.isa(pointer));
-
-                SAIndex isa_pos2 = this->dsa.isa(pos);
-                // assert(isa_pos2 == this->dsa.isa(pos));
-
-                uint8_t current_letter;
-                uint64_t positionToDelete = this->dbwt.LF(positionToReplace);
-                uint64_t positionToDeleteOnText = pointer - 1;
-                uint64_t j = this->dbwt.LF(isa_pos2);
-                uint8_t new_char = this->dbwt.access(isa_pos2);
-                uint8_t old_char = this->dbwt.access(positionToReplace);
-
-                if (output_history != nullptr)
-                {
-                    output_history->type = EditType::DeletionOfString;
-                    output_history->replaced_sa_index = positionToReplace;
-                }
-
-                uint64_t tmp_rank;
-                for (int64_t k = len - 1; k > 0; k--)
-                {
-
-                    current_letter = this->dbwt.access(positionToDelete);
-                    // Computes the rank before we delete at this position!
-                    tmp_rank = this->dbwt.rank(current_letter, positionToDelete);
-                    if (positionToReplace <= positionToDelete && current_letter == old_char)
-                    {
-                        tmp_rank--;
-                    }
-
-                    // std::cout << "bwt: " << this->dbwt.get_bwt_str() <<  ", del_pos = " << positionToDelete << std::endl;
-
-                    if (output_history != nullptr)
-                    {
-                        output_history->deleted_sa_indexes.push_back(positionToDelete);
-                    }
-                    std::cout << "positionToDelete = " << positionToDelete << std::endl;
-
-                    this->dbwt.remove_BWT_character(positionToDelete);
-                    // this->disa.update_for_deletion(positionToDelete);
-                    this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
-
-                    if (positionToDelete < j)
-                    {
-                        j--;
-                    }
-                    if (positionToDelete < positionToReplace)
-                    {
-                        positionToReplace--;
-                    }
-
-                    int64_t c_value = this->dbwt.get_c_array().at(current_letter);
-                    if (old_char < current_letter)
-                    {
-                        c_value--;
-                    }
-
-                    positionToDelete = c_value + tmp_rank - 1;
-                    positionToDeleteOnText--;
-                }
-
-                current_letter = this->dbwt.access(positionToDelete);
-
-                std::cout << "positionToDelete = " << positionToDelete << std::endl;
-
-                this->dbwt.remove_BWT_character(positionToDelete);
-                this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
-
-                if (positionToDelete < j)
-                {
-                    j--;
-                }
-                if (positionToDelete < positionToReplace)
-                {
-                    positionToReplace--;
-                }
-
-                this->dbwt.replace_BWT_character(positionToReplace, new_char);
-
-                tmp_rank = this->dbwt.rank(new_char, positionToReplace);
-                uint64_t j_prime = this->dbwt.get_c_array().at(new_char) + tmp_rank - 1;
-
-                if (output_history != nullptr)
-                {
-                    output_history->deleted_sa_indexes.push_back(positionToDelete);
-
-                    output_history->first_j = j;
-                    output_history->first_j_prime = j_prime;
-                }
-
-                std::cout << "j = " << j << ", j' = " << j_prime << std::endl;
-                std::vector<SAMove> swap_history = reorder_BWT(j, j_prime);
-                if (output_history != nullptr)
-                {
-                    output_history->move_history.swap(swap_history);
-                }
-                this->dsa.update_sample_marks(pos);
-                return 0;
-            }
-            */
-
-            /*
-            uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
-            {
-
-                TextIndex pointer = pos + len < (int64_t)this->size() ? pos + len : 0;
-
-                uint64_t positionToReplace = this->dsa.isa(pointer);
-                // assert(positionToReplace == this->dsa.isa(pointer));
-
-                SAIndex isa_pos2 = this->dsa.isa(pos);
-                // assert(isa_pos2 == this->dsa.isa(pos));
-
-                uint8_t current_letter;
-                uint64_t positionToDelete = this->dbwt.LF(positionToReplace);
-                uint64_t positionToDeleteOnText = pointer - 1;
-                //uint64_t j = this->dbwt.LF(isa_pos2);
-                uint8_t new_char = this->dbwt.access(isa_pos2);
-                uint8_t old_char = this->dbwt.access(positionToReplace);
-
-                if (output_history != nullptr)
-                {
-                    output_history->type = EditType::DeletionOfString;
-                    output_history->replaced_sa_index = positionToReplace;
-                }
-
-                this->dbwt.replace_BWT_character(positionToReplace, new_char);
-
-                uint64_t tmp_rank;
-                for (int64_t k = len - 1; k >= 0; k--)
-                {
-                    uint64_t next_position_to_delete = UINT64_MAX;
-                    next_position_to_delete = this->dbwt.LF_for_deletion(positionToDelete, new_char, positionToReplace, positionToDelete);
-
-
-                    if (output_history != nullptr)
-                    {
-                        output_history->deleted_sa_indexes.push_back(positionToDelete);
-                    }
-
-                    this->dbwt.remove_BWT_character(positionToDelete);
-                    this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
-
-                    if (positionToDelete < positionToReplace)
-                    {
-                        positionToReplace--;
-                    }
-                    positionToDelete = next_position_to_delete;
-
-                    positionToDeleteOnText--;
-                }
-                uint64_t j = positionToDelete;
-                uint64_t j_prime = this->dbwt.LF(positionToReplace);
-
-
-                if (output_history != nullptr)
-                {
-                    output_history->deleted_sa_indexes.push_back(positionToDelete);
-
-                    output_history->first_j = j;
-                    output_history->first_j_prime = j_prime;
-                }
-
-                //std::cout << "j = " << j << ", j' = " << j_prime << std::endl;
-                std::vector<SAMove> swap_history = reorder_BWT(j, j_prime);
-                if (output_history != nullptr)
-                {
-                    output_history->move_history.swap(swap_history);
-                }
-                this->dsa.update_sample_marks(pos);
-                return 0;
-            }
-            */
-
+            /**
+             * @brief Delete a string from the index.
+             * @param pos The position to delete the string from.
+             * @param len The length of the string to delete.
+             * @param output_history The history of edits to output.
+             * @return The number of operations performed.
+             */
             uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
             {
                 if(pos + len >= (int64_t)this->size()){
@@ -1058,13 +1078,12 @@ namespace stool
                 return 0;
             }
 
-            //@}
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Private Non-const Methods
-            ///   The private non-const methods of this class.
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
         private:
+            /**
+             * @brief Move a row in the BWT.
+             * @param j The position to move from.
+             * @param j_prime The position to move to.
+             */
             void move_row(int64_t j, int64_t j_prime)
             {
                 uint8_t j_char = this->dbwt.access(j);
@@ -1072,6 +1091,12 @@ namespace stool
                 this->dbwt.remove_BWT_character(j);
                 this->dbwt.insert_BWT_character(j_prime, j_char);
             }
+
+            /**
+             * @brief Perform a single reorder operation on the BWT.
+             * @param j The position to reorder from.
+             * @param j_prime The position to reorder to.
+             */
             void single_reorder_BWT(int64_t &j, int64_t &j_prime)
             {
                 int64_t new_j = this->dbwt.LF(j);
@@ -1084,6 +1109,12 @@ namespace stool
                 j_prime = this->dbwt.LF(j_prime);
             }
 
+            /**
+             * @brief Reorder the BWT.
+             * @param j The position to reorder from.
+             * @param j_prime The position to reorder to.
+             * @return A vector of moves performed during the reorder.
+             */
             std::vector<SAMove> reorder_BWT(int64_t j, int64_t j_prime)
             {
 
@@ -1108,51 +1139,6 @@ namespace stool
 
                 return swap_history;
             }
-
-            //@}
-            /*
-            uint64_t insert_char(int64_t pos, uint8_t c, FMIndexEditHistory *output_history = nullptr)
-            {
-
-                SAIndex isa_of_insertionPosOnText = this->disa.isa(pos);
-                assert(c != this->dbwt.end_marker);
-                // FMIndexEditHistory sa_edit_history;
-
-                int64_t replacePositionOnBWT = isa_of_insertionPosOnText;
-                int64_t prev_isa = this->dbwt.LF(isa_of_insertionPosOnText);
-
-                uint8_t oldChar = this->dbwt.access(replacePositionOnBWT);
-                int64_t insertionPosOnBWT = this->dbwt.C[c] + this->dbwt.rank(c, replacePositionOnBWT - 1);
-
-                this->dbwt.replace_BWT_character(replacePositionOnBWT, c);
-                this->dbwt.update_C_for_deletion(oldChar);
-                this->dbwt.update_C_for_insertion(c);
-
-                this->dbwt.insert_BWT_character(insertionPosOnBWT, oldChar);
-                this->dbwt.update_C_for_insertion(oldChar);
-
-                if (output_history != nullptr)
-                {
-                    output_history->inserted_string.push_back(c);
-                    output_history->replaced_sa_index = replacePositionOnBWT;
-                    output_history->inserted_sa_index = insertionPosOnBWT;
-                }
-
-                this->disa.update_for_insertion(insertionPosOnBWT, pos);
-
-                // int64_t previousPos = insertionPosOnText - 1;
-                int64_t j = prev_isa < insertionPosOnBWT ? prev_isa : prev_isa + 1;
-                int64_t j_prime = this->dbwt.LF(insertionPosOnBWT);
-
-                std::vector<SAMove> swap_history = reorder_BWT(j, j_prime);
-
-                if (output_history != nullptr)
-                {
-                    output_history->move_history.swap(swap_history);
-                }
-                return 0;
-            }
-            */
         };
     }
 }
