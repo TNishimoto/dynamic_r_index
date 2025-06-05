@@ -4,10 +4,9 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-// #include "qgram_tree.h"
-// #include "include/debug/debug.hpp"
 #include "stool/include/stool.hpp"
 #include "include/dynamic_r_index_snapshot_for_insertion.hpp"
+#include "include/dynamic_r_index_snapshot_for_deletion.hpp"
 //
 
 #include <filesystem>
@@ -18,7 +17,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
 
     if (mode == 1)
     {
-        std::cout << "Execute DynamicRIndexTest::detailed_string_deletion_test." << std::endl;
+        std::cout << "Dynamic LF test for Insertion" << std::endl;
         uint64_t length_of_insertion_string = 4;
 
         for (uint64_t alphabet_type = 0; alphabet_type <= max_alphabet_type; alphabet_type++)
@@ -38,6 +37,35 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                     }
 
                     length_of_insertion_string *= 2;
+                }
+
+                text_size *= 2;
+            }
+        }
+        std::cout << std::endl;
+    }
+    else if (mode == 2)
+    {
+        std::cout << "Dynamic LF test for Deletion" << std::endl;
+        uint64_t length_of_deletion_string = 4;
+
+        for (uint64_t alphabet_type = 0; alphabet_type <= max_alphabet_type; alphabet_type++)
+        {
+            uint64_t text_size = 10;
+
+            while (text_size < 320)
+            {
+                length_of_deletion_string = 4;
+
+                while (length_of_deletion_string < 32 && length_of_deletion_string < text_size)
+                {
+                    for (uint64_t i = 0; i < 10; i++)
+                    {
+                        std::cout << alphabet_type << std::flush;
+                        stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion::deletion_test(text_size, length_of_deletion_string, alphabet_type, seed++);
+                    }
+
+                    length_of_deletion_string *= 2;
                 }
 
                 text_size *= 2;

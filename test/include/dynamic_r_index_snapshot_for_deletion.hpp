@@ -13,13 +13,13 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        class DynamicRIndexSnapShotForInsertion
+        class DynamicRIndexSnapShotForDeletion
         {
         public:
             std::string text;
             std::string updated_text;
-            std::string inserted_string;
-            uint64_t insertion_pos;
+            uint64_t deletion_pos;
+            uint64_t deletion_length;
 
             std::vector<std::string> conceptual_matrix;
             uint8_t end_marker = '$';
@@ -30,15 +30,29 @@ namespace stool
 
             uint64_t t = 0;
 
+            /*
+            std::string get_nbwt() const
+            {
+                std::string bwt2 = this->bwt;
+
+                bwt2[this->isa[this->deletion_pos]] = this->text[this->deletion_pos + this->deletion_length - 1];
+                return bwt2;
+            }
+            */
+
             uint8_t get_old_character() const
             {
-                if (this->insertion_pos == 0)
+                return this->text[this->deletion_pos + this->deletion_length - 1];
+            }
+            uint8_t get_new_character() const
+            {
+                if (this->deletion_pos == 0)
                 {
                     return this->text[this->text.size() - 1];
                 }
                 else
                 {
-                    return this->text[this->insertion_pos - 1];
+                    return this->text[this->deletion_pos - 1];
                 }
             }
 
@@ -53,21 +67,50 @@ namespace stool
                         break;
                     }
                 }
-                return conceptual_matrix[i].size() - (endmarker_pos + 1);
+                if (conceptual_matrix[i].size() == this->text.size())
+                {
+                    return 10000 + (conceptual_matrix[i].size() - (endmarker_pos + 1));
+                }
+                else
+                {
+                    return conceptual_matrix[i].size() - (endmarker_pos + 1);
+                }
             }
 
             std::vector<uint64_t> construct_dynamic_LF_array(const std::vector<uint64_t> &next_isa) const
             {
-                //std::vector<uint64_t> suffix_array = this->create_suffix_array();
+                // std::vector<uint64_t> suffix_array = this->create_suffix_array();
 
                 std::vector<uint64_t> lf_array;
                 lf_array.resize(this->sa.size(), UINT64_MAX);
                 for (uint64_t i = 0; i < this->sa.size(); i++)
                 {
                     uint64_t p = this->sa[i];
-                    uint64_t q = p > 0 ? p - 1 : this->updated_text.size() - 1;
+                    uint64_t q = UINT64_MAX;
 
-                    if (next_isa[q] != UINT64_MAX)
+                    if (p == 10000)
+                    {
+                            q = this->updated_text.size() - 1;
+                        /*
+                        if (this->deletion_pos == 0 && this->t > this->deletion_pos && this->t <= this->deletion_pos + this->deletion_length)
+                        {
+                            q = UINT64_MAX;
+                        }
+                        else
+                        {
+                        }
+                        */
+                    }
+                    else
+                    {
+                        q = p - 1;
+                    }
+
+                    if (q == UINT64_MAX)
+                    {
+                        lf_array[i] = UINT64_MAX;
+                    }
+                    else if (next_isa[q] != UINT64_MAX)
                     {
                         lf_array[i] = next_isa[q];
                     }
@@ -79,40 +122,31 @@ namespace stool
                 return lf_array;
             }
 
-            /*
-            static uint64_t LF_for_insertion_phase(const std::vector<uint8_t> &bwt, uint64_t i, uint8_t c, uint64_t replaced_sa_index, uint64_t inserted_sa_index)
-            {
-                int64_t b1 = c < bwt[i] || ((c == bwt[i]) && (replaced_sa_index <= i)) ? 1 : 0;
-                assert(inserted_sa_index < bwt.size());
-                int64_t b2 = bwt[inserted_sa_index] < bwt[i] || ((bwt[inserted_sa_index] == bwt[i]) && (inserted_sa_index <= i)) ? -1 : 0;
-                int64_t r = ((int64_t)LF(bwt, i)) + b1 + b2;
-                assert(r >= 0);
-
-                return r;
-            }
-            */
             uint64_t dynamic_LF(uint64_t i) const
             {
-                //std::string bwt = construct_bwt();
-               // std::vector<uint64_t> isa = create_inverse_suffix_array();
-                uint64_t lf = rank(this->bwt, i, this->bwt[i]) + lex_count(this->bwt, this->bwt[i]) - 1;
-                if (this->t > this->insertion_pos && this->t <= this->insertion_pos + this->inserted_string.size())
-                {
-                    uint8_t old_char = this->get_old_character();
-                    uint64_t positionToReplace = this->isa[this->insertion_pos + this->inserted_string.size()];
-                    // uint64_t positionToReplace = isa[this->t];
+                int64_t lf = rank(this->bwt, i, this->bwt[i]) + lex_count(this->bwt, this->bwt[i]) - 1;
 
-                    if (old_char < this->bwt[i])
+                if (this->t > this->deletion_pos && this->t <= this->deletion_pos + this->deletion_length)
+                {
+                    uint64_t replace_pos = this->isa[this->deletion_pos];
+
+                    uint8_t new_char = this->get_new_character();
+
+                    if (i == replace_pos)
                     {
-                        return lf + 1;
-                    }
-                    else if (positionToReplace <= i && this->bwt[i] == old_char)
-                    {
-                        return lf + 1;
+                        return UINT64_MAX;
                     }
                     else
                     {
-                        return lf;
+
+                        uint8_t c = this->bwt[i];
+
+                        if (c > new_char || (i > replace_pos && c == new_char))
+                        {
+                            return lf > 0 ? lf -1 : this->conceptual_matrix.size() - 2;
+                        }else{
+                            return lf;
+                        }        
                     }
                 }
                 else
@@ -121,16 +155,18 @@ namespace stool
                 }
             }
 
-            void verify_dynamic_LF(const DynamicRIndexSnapShotForInsertion &next) const
+            void verify_dynamic_LF(const DynamicRIndexSnapShotForDeletion &next) const
             {
                 std::vector<uint64_t> next_isa = next.isa;
                 std::vector<uint64_t> correct_array = construct_dynamic_LF_array(next_isa);
-                //std::string bwt = construct_bwt();
+                // std::string bwt = construct_bwt();
                 std::vector<uint64_t> test_array;
+
                 for (uint64_t i = 0; i < this->bwt.size(); i++)
                 {
                     test_array.push_back(this->dynamic_LF(i));
                 }
+
                 try
                 {
                     stool::equal_check("dynamic LF check", correct_array, test_array);
@@ -140,11 +176,10 @@ namespace stool
                     std::cout << "Error: " << e.what() << std::endl;
 
                     std::cout << "t = " << t << std::endl;
-                    std::cout << "insertion_pos = " << insertion_pos << std::endl;
-                    std::cout << "inserted_string = " << inserted_string << std::endl;
+                    std::cout << "deletion_pos = " << deletion_pos << std::endl;
+                    std::cout << "deletion_length = " << deletion_length << std::endl;
                     std::cout << "text = " << text << std::endl;
                     std::cout << "updated_text = " << updated_text << std::endl;
-
 
                     this->print_conceptual_matrix();
                     next.print_conceptual_matrix();
@@ -189,6 +224,7 @@ namespace stool
                 }
                 return bwt;
             }
+            /*
             uint64_t access_inverse_suffix_array(uint64_t i) const
             {
                 uint64_t endmarker_pos = conceptual_matrix[i].size() - 1;
@@ -202,22 +238,23 @@ namespace stool
                 }
                 return conceptual_matrix[i].size() - (endmarker_pos + 1);
             }
+            */
 
         public:
-            void build(const std::string &_text, uint64_t _insertion_pos, const std::string &_inserted_string)
+            void build(const std::string &_text, uint64_t _deletion_pos, uint64_t &_deletion_length)
             {
                 text = std::string(_text.begin(), _text.end());
-                inserted_string = std::string(_inserted_string.begin(), _inserted_string.end());
-                insertion_pos = _insertion_pos;
+                deletion_pos = _deletion_pos;
+                deletion_length = _deletion_length;
 
-                this->updated_text = text.substr(0, insertion_pos) + inserted_string + text.substr(insertion_pos);
+                this->updated_text = text.substr(0, deletion_pos) + text.substr(deletion_pos + deletion_length);
 
                 for (uint64_t i = 0; i < text.size(); i++)
                 {
                     conceptual_matrix.push_back(get_circular_string(text, i));
                 }
                 this->sort_conceptual_matrix();
-                t = this->updated_text.size();
+                t = this->text.size();
 
                 sa = create_suffix_array();
                 isa = create_inverse_suffix_array();
@@ -253,31 +290,32 @@ namespace stool
                 return count;
             }
 
-            int64_t get_starting_position_of_old_circular_string(uint64_t t) const
+            int64_t get_starting_position_of_new_circular_string(uint64_t t) const
             {
-                if (t < this->insertion_pos)
+                if (t < this->deletion_pos)
                 {
                     return t;
                 }
-                else if (this->insertion_pos <= t && t < this->insertion_pos + this->inserted_string.size())
+                else if (this->deletion_pos <= t && t < this->deletion_pos + this->deletion_length)
                 {
                     return -1;
                 }
                 else
                 {
-                    return t - this->inserted_string.size();
+                    return t - this->deletion_length;
                 }
             }
 
             void update()
             {
                 this->t--;
-                int64_t p = this->get_starting_position_of_old_circular_string(this->t);
-                std::string new_circular_string = get_circular_string(this->updated_text, this->t);
+                std::string old_circular_string = get_circular_string(this->text, t);
+                int64_t p = this->get_starting_position_of_new_circular_string(this->t);
 
                 if (p != -1)
                 {
-                    std::string old_circular_string = get_circular_string(this->text, p);
+                    std::string new_circular_string = get_circular_string(this->updated_text, p);
+
                     for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
                     {
                         if (conceptual_matrix[i] == old_circular_string)
@@ -289,10 +327,18 @@ namespace stool
                 }
                 else
                 {
-                    conceptual_matrix.push_back(new_circular_string);
+                    uint64_t x = UINT64_MAX;
+                    for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
+                    {
+                        if (conceptual_matrix[i] == old_circular_string)
+                        {
+                            x = i;
+                            break;
+                        }
+                    }
+                    conceptual_matrix.erase(conceptual_matrix.begin() + x);
                 }
                 this->sort_conceptual_matrix();
-
 
                 sa = create_suffix_array();
                 isa = create_inverse_suffix_array();
@@ -309,23 +355,23 @@ namespace stool
                 return t == 0;
             }
 
-            const DynamicRIndexSnapShotForInsertion copy()
+            const DynamicRIndexSnapShotForDeletion copy()
             {
-                DynamicRIndexSnapShotForInsertion snap_shot;
+                DynamicRIndexSnapShotForDeletion snap_shot;
                 snap_shot.text = text;
                 snap_shot.updated_text = updated_text;
-                snap_shot.inserted_string = inserted_string;
-                snap_shot.insertion_pos = insertion_pos;
+                snap_shot.deletion_length = deletion_length;
+                snap_shot.deletion_pos = deletion_pos;
                 snap_shot.conceptual_matrix = conceptual_matrix;
                 snap_shot.t = t;
                 return snap_shot;
             }
 
-            static std::vector<DynamicRIndexSnapShotForInsertion> get_all_snap_shots(std::string text, uint64_t insertion_pos, std::string inserted_string)
+            static std::vector<DynamicRIndexSnapShotForDeletion> get_all_snap_shots(std::string text, uint64_t deletion_pos, uint64_t deletion_length)
             {
-                std::vector<DynamicRIndexSnapShotForInsertion> snap_shots;
-                DynamicRIndexSnapShotForInsertion snap_shot;
-                snap_shot.build(text, insertion_pos, inserted_string);
+                std::vector<DynamicRIndexSnapShotForDeletion> snap_shots;
+                DynamicRIndexSnapShotForDeletion snap_shot;
+                snap_shot.build(text, deletion_pos, deletion_length);
                 snap_shots.push_back(snap_shot);
 
                 while (!snap_shots[snap_shots.size() - 1].is_stop())
@@ -347,11 +393,20 @@ namespace stool
                 std::cout << "--------------------------------" << std::endl;
             }
 
-            static void insertion_test(std::string text, uint64_t insertion_pos, std::string inserted_string)
+            static void deletion_test(std::string text, uint64_t deletion_pos, uint64_t deletion_length)
             {
-                std::vector<DynamicRIndexSnapShotForInsertion> snap_shots = DynamicRIndexSnapShotForInsertion::get_all_snap_shots(text, insertion_pos, inserted_string);
+                std::vector<DynamicRIndexSnapShotForDeletion> snap_shots = DynamicRIndexSnapShotForDeletion::get_all_snap_shots(text, deletion_pos, deletion_length);
 
                 // std::cout << "insertion range = [" << insertion_pos << ", " << (insertion_pos + inserted_string.size() - 1) << "]" << std::endl;
+
+                /*
+                for (uint64_t i = 0; i < snap_shots.size(); i++)
+                {
+                     snap_shots[i].print_conceptual_matrix();
+                     stool::DebugPrinter::print_integers(snap_shots[i].sa, "suffix_array");
+                     std::cout << "bwt: " << snap_shots[i].bwt << std::endl;
+                }
+                */
 
                 for (uint64_t i = 0; i < snap_shots.size() - 1; i++)
                 {
@@ -359,10 +414,11 @@ namespace stool
 
                     snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
                 }
+
                 // std::cout << std::endl;
             }
 
-            static void insertion_test(uint64_t text_size, uint64_t insertion_length, uint8_t alphabet_type, uint64_t seed)
+            static void deletion_test(uint64_t text_size, uint64_t deletion_length, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
@@ -371,16 +427,13 @@ namespace stool
                 // dfmi.initialize(alphabet_with_end_marker);
 
                 std::vector<uint8_t> _text = r_index_test::DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
-                std::vector<uint8_t> _pattern = r_index_test::DynamicRIndexTest::create_text(insertion_length + 1, chars, alphabet_with_end_marker[0], mt64);
-                _pattern.pop_back();
 
-                std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, text_size - 1);
-                uint64_t insertion_pos = get_rand_uni_int(mt64);
+                std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, text_size - deletion_length - 1);
+                uint64_t deletion_pos = get_rand_uni_int(mt64);
 
                 std::string text = std::string(_text.begin(), _text.end());
-                std::string pattern = std::string(_pattern.begin(), _pattern.end());
 
-                DynamicRIndexSnapShotForInsertion::insertion_test(text, insertion_pos, pattern);
+                DynamicRIndexSnapShotForDeletion::deletion_test(text, deletion_pos, deletion_length);
             }
         };
 
