@@ -709,6 +709,16 @@ namespace stool
                 RunPosition rp = this->to_run_position(i);
                 return this->LF(rp.run_index, rp.position_in_run);
             }
+            int64_t LF_for_insertion(int64_t i, uint64_t insertion_position_on_sa, uint8_t last_processed_character, uint8_t old_character) const
+            {
+                uint64_t lf = this->LF(i);
+                bool b = this->check_special_LF(insertion_position_on_sa, i, last_processed_character, old_character);
+                if(b){
+                    lf++;
+                }
+                return lf;
+            }
+
             int64_t LF_for_deletion(uint64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
             {
                 if (i == replace_pos)
@@ -735,7 +745,7 @@ namespace stool
                 }
             }
 
-            bool check_special_LF(SAIndex positionToReplace, SAIndex currentPosition, uint8_t new_char, uint8_t old_char)
+            bool check_special_LF(SAIndex positionToReplace, SAIndex currentPosition, uint8_t new_char, uint8_t old_char) const
             {
                 // std::cout << "check_special_LF: " << positionToReplace << "/" << currentPosition << "/" << (char)new_char << "/" << (char)old_char << std::endl;
                 if (old_char < new_char)

@@ -44,7 +44,7 @@ namespace stool
                 result.value_at_y_minus = disa.phi(i > 0 ? i - 1 : original_text_size - 1);
                 result.value_at_y_plus = disa.inverse_phi(i > 0 ? i - 1 : original_text_size - 1);
                 result.old_char = dbwt.get_char(i_on_rlbwt.run_index);
-                result.isSpecialLF = dbwt.check_special_LF(result.ISA_i_PI.p, result.ISA_i_PI.p, prev_c, result.old_char);
+                //result.isSpecialLF = dbwt.check_special_LF(result.ISA_i_PI.p, result.ISA_i_PI.p, prev_c, result.old_char);
                 result.i_minus = dbwt.LF(i_on_rlbwt.run_index, i_on_rlbwt.position_in_run);
                 result.ISA_i_PI.value_at_p_minus = disa.phi(i);
                 result.ISA_i_PI.value_at_p_plus = disa.inverse_phi(i);
@@ -63,7 +63,7 @@ namespace stool
                 SAValue current_value_at_y_plus = phaseABReuslt.value_at_y_plus;
                 SAValue current_value_at_y_minus = phaseABReuslt.value_at_y_minus;
                 SAIndex current_i_minus = phaseABReuslt.i_minus;
-                bool current_isSpecialLF = phaseABReuslt.isSpecialLF;
+                //bool current_isSpecialLF = phaseABReuslt.isSpecialLF;
 
                 PositionInformation final_x_PI;
                 SAValue final_value_at_y_plus = UINT64_MAX;
@@ -94,7 +94,9 @@ namespace stool
                 PositionInformation next_x_PI;
                 // Initialize x_PI.
                 {
-                    next_x_PI.p = dbwt.LF(current_ISA_i_PI.p) + (current_isSpecialLF ? 1 : 0);
+                    //next_x_PI.p = dbwt.LF(current_ISA_i_PI.p) + (current_isSpecialLF ? 1 : 0);
+                    next_x_PI.p = dbwt.LF_for_insertion(current_ISA_i_PI.p, current_ISA_i_PI.p, inserted_string[inserted_string.size() - 1], phaseABReuslt.old_char);
+
                     // next_x_PI.p_on_rlbwt = dbwt.to_run_position(next_x_PI.p, true);
                     RunPosition current_i_on_rlbwt = dbwt.to_run_position(current_ISA_i_PI.p);
                     next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(current_i_on_rlbwt, current_ISA_i_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
@@ -134,9 +136,11 @@ namespace stool
                     if (w + 1 < inserted_string.size())
                     {
                         RunPosition prev_x_on_rlbwt = dbwt.to_run_position(next_x_PI.p);
-                        current_isSpecialLF = dbwt.check_special_LF(current_ISA_i_PI.p, next_x_PI.p, ins_character, phaseABReuslt.old_char);
-                        SAIndex _lf_x = dbwt.LF(next_x_PI.p);
-                        uint64_t new_x_position = _lf_x + (current_isSpecialLF ? 1 : 0);
+                        //current_isSpecialLF = dbwt.check_special_LF(current_ISA_i_PI.p, next_x_PI.p, ins_character, phaseABReuslt.old_char);
+                        //SAIndex _lf_x = dbwt.LF(next_x_PI.p);
+                        SAIndex new_x_position = dbwt.LF_for_insertion(next_x_PI.p, current_ISA_i_PI.p, ins_character, phaseABReuslt.old_char);
+
+                        //uint64_t new_x_position = _lf_x + (current_isSpecialLF ? 1 : 0);
                         uint64_t new_i_minus = current_i_minus >= new_x_position ? current_i_minus + 1 : current_i_minus;
 
                         // next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);

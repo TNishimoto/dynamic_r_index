@@ -7,14 +7,14 @@
 // #include "qgram_tree.h"
 // #include "include/debug/debug.hpp"
 #include "stool/include/stool.hpp"
-#include "include/naive_dynamic_r_index.hpp"
+#include "include/dynamic_r_index_snapshot_for_insertion.hpp"
 //
 
 #include <filesystem>
 
 void main_sub(int mode, bool detailed_check, uint64_t seed)
 {
-    uint64_t max_alphabet_type = 0;
+    uint64_t max_alphabet_type = 2;
 
     if (mode == 1)
     {
@@ -25,12 +25,22 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
         {
             uint64_t text_size = 10;
 
-            length_of_insertion_string = 4;
-
-            for (uint64_t i = 0; i < 10; i++)
+            while (text_size < 320)
             {
-                std::cout << alphabet_type << std::flush;
-                stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion::insertion_test(text_size, length_of_insertion_string, alphabet_type, seed++);
+                length_of_insertion_string = 4;
+
+                while (length_of_insertion_string < 32)
+                {
+                    for (uint64_t i = 0; i < 10; i++)
+                    {
+                        std::cout << alphabet_type << std::flush;
+                        stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion::insertion_test(text_size, length_of_insertion_string, alphabet_type, seed++);
+                    }
+
+                    length_of_insertion_string *= 2;
+                }
+
+                text_size *= 2;
             }
         }
         std::cout << std::endl;

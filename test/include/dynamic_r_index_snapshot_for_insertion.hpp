@@ -24,7 +24,23 @@ namespace stool
             std::vector<std::string> conceptual_matrix;
             uint8_t end_marker = '$';
 
+            std::vector<uint64_t> sa;
+            std::vector<uint64_t> isa;
+            std::string bwt;
+
             int64_t t = 0;
+
+            uint8_t get_old_character() const
+            {
+                if (this->insertion_pos == 0)
+                {
+                    return this->text[this->text.size() - 1];
+                }
+                else
+                {
+                    return this->text[this->insertion_pos - 1];
+                }
+            }
 
             uint64_t access_suffix_array(uint64_t i) const
             {
@@ -39,6 +55,110 @@ namespace stool
                 }
                 return conceptual_matrix[i].size() - (endmarker_pos + 1);
             }
+
+            std::vector<uint64_t> construct_dynamic_LF_array(const std::vector<uint64_t> &next_isa) const
+            {
+                //std::vector<uint64_t> suffix_array = this->create_suffix_array();
+
+                std::vector<uint64_t> lf_array;
+                lf_array.resize(this->sa.size(), UINT64_MAX);
+                for (uint64_t i = 0; i < this->sa.size(); i++)
+                {
+                    uint64_t p = this->sa[i];
+                    uint64_t q = p > 0 ? p - 1 : this->updated_text.size() - 1;
+
+                    if (next_isa[q] != UINT64_MAX)
+                    {
+                        lf_array[i] = next_isa[q];
+                    }
+                    else
+                    {
+                        lf_array[i] = UINT64_MAX;
+                    }
+                }
+                return lf_array;
+            }
+
+            /*
+            static uint64_t LF_for_insertion_phase(const std::vector<uint8_t> &bwt, uint64_t i, uint8_t c, uint64_t replaced_sa_index, uint64_t inserted_sa_index)
+            {
+                int64_t b1 = c < bwt[i] || ((c == bwt[i]) && (replaced_sa_index <= i)) ? 1 : 0;
+                assert(inserted_sa_index < bwt.size());
+                int64_t b2 = bwt[inserted_sa_index] < bwt[i] || ((bwt[inserted_sa_index] == bwt[i]) && (inserted_sa_index <= i)) ? -1 : 0;
+                int64_t r = ((int64_t)LF(bwt, i)) + b1 + b2;
+                assert(r >= 0);
+
+                return r;
+            }
+            */
+            uint64_t dynamic_LF(uint64_t i) const
+            {
+                //std::string bwt = construct_bwt();
+               // std::vector<uint64_t> isa = create_inverse_suffix_array();
+                uint64_t lf = rank(this->bwt, i, this->bwt[i]) + lex_count(this->bwt, this->bwt[i]) - 1;
+                if (this->t > this->insertion_pos && this->t <= this->insertion_pos + this->inserted_string.size())
+                {
+                    uint8_t old_char = this->get_old_character();
+                    uint64_t positionToReplace = this->isa[this->insertion_pos + this->inserted_string.size()];
+                    // uint64_t positionToReplace = isa[this->t];
+
+                    if (old_char < this->bwt[i])
+                    {
+                        return lf + 1;
+                    }
+                    else if (positionToReplace <= i && this->bwt[i] == old_char)
+                    {
+                        return lf + 1;
+                    }
+                    else
+                    {
+                        return lf;
+                    }
+                }
+                else
+                {
+                    return lf;
+                }
+            }
+
+            void verify_dynamic_LF(const DynamicRIndexSnapShotForInsertion &next) const
+            {
+                std::vector<uint64_t> next_isa = next.create_inverse_suffix_array();
+                std::vector<uint64_t> correct_array = construct_dynamic_LF_array(next_isa);
+                //std::string bwt = construct_bwt();
+                std::vector<uint64_t> test_array;
+                for (uint64_t i = 0; i < this->bwt.size(); i++)
+                {
+                    test_array.push_back(this->dynamic_LF(i));
+                }
+                try
+                {
+                    stool::equal_check("dynamic LF check", correct_array, test_array);
+                }
+                catch (const std::exception &e)
+                {
+                    std::cout << "Error: " << e.what() << std::endl;
+
+                    std::cout << "t = " << t << std::endl;
+                    std::cout << "insertion_pos = " << insertion_pos << std::endl;
+                    std::cout << "inserted_string = " << inserted_string << std::endl;
+                    std::cout << "text = " << text << std::endl;
+                    std::cout << "updated_text = " << updated_text << std::endl;
+
+
+                    this->print_conceptual_matrix();
+                    next.print_conceptual_matrix();
+
+                    stool::DebugPrinter::print_integers(this->sa, "current suffix_array");
+                    stool::DebugPrinter::print_integers(next.sa, "next suffix_array");
+
+                    stool::DebugPrinter::print_integers(correct_array, "correct_array");
+                    stool::DebugPrinter::print_integers(test_array, "test_array");
+                    throw -1;
+                }
+            }
+
+        private:
             std::vector<uint64_t> create_suffix_array() const
             {
                 std::vector<uint64_t> suffix_array;
@@ -60,28 +180,6 @@ namespace stool
                 }
                 return isa;
             }
-            std::vector<uint64_t> construct_dynamic_LF_array(const std::vector<uint64_t> &next_isa) const
-            {
-                std::vector<uint64_t> suffix_array = this->create_suffix_array();
-
-                std::vector<uint64_t> lf_array;
-                lf_array.resize(suffix_array.size(), UINT64_MAX);
-                for (uint64_t i = 0; i < suffix_array.size(); i++)
-                {
-                    uint64_t p = suffix_array[i];
-                    uint64_t q = p > 0 ? p - 1 : this->updated_text.size() - 1;
-
-                    if (next_isa[q] != UINT64_MAX)
-                    {
-                        lf_array[i] = next_isa[q];
-                    }
-                    else
-                    {
-                        lf_array[i] = UINT64_MAX;
-                    }
-                }
-                return lf_array;
-            }
             std::string construct_bwt() const
             {
                 std::string bwt;
@@ -91,41 +189,6 @@ namespace stool
                 }
                 return bwt;
             }
-            static uint64_t dynamic_LF(const std::string &bwt, uint64_t i)
-            {
-                return rank(bwt, i, bwt[i]) + lex_count(bwt, bwt[i]) - 1;
-            }
-
-            void verify_dynamic_LF(const DynamicRIndexSnapShotForInsertion &next) const
-            {
-                std::vector<uint64_t> next_isa = next.create_inverse_suffix_array();
-                std::vector<uint64_t> correct_array = construct_dynamic_LF_array(next_isa);
-                std::string bwt = construct_bwt();
-                std::vector<uint64_t> test_array;
-                for (uint64_t i = 0; i < bwt.size(); i++)
-                {
-                    test_array.push_back(dynamic_LF(bwt, i));
-                }
-                try{
-                    stool::equal_check("dynamic LF check", correct_array, test_array);
-                }
-                catch(const std::exception& e){
-                    std::cout << "Error: " << e.what() << std::endl;
-
-                    std::cout << "t = " << t << std::endl;
-
-                    std::vector<uint64_t> suffix_array = create_suffix_array();
-                    std::vector<uint64_t> next_suffix_array = next.create_suffix_array();
-
-                    stool::DebugPrinter::print_integers(suffix_array, "current suffix_array");
-                    stool::DebugPrinter::print_integers(next_suffix_array, "next suffix_array");
-
-                    stool::DebugPrinter::print_integers(correct_array, "correct_array");
-                    stool::DebugPrinter::print_integers(test_array, "test_array");
-                    throw -1;
-                }
-            }
-
             uint64_t access_inverse_suffix_array(uint64_t i) const
             {
                 uint64_t endmarker_pos = conceptual_matrix[i].size() - 1;
@@ -140,6 +203,7 @@ namespace stool
                 return conceptual_matrix[i].size() - (endmarker_pos + 1);
             }
 
+        public:
             void build(const std::string &_text, uint64_t _insertion_pos, const std::string &_inserted_string)
             {
                 text = std::string(_text.begin(), _text.end());
@@ -154,6 +218,10 @@ namespace stool
                 }
                 this->sort_conceptual_matrix();
                 t = this->updated_text.size();
+
+                sa = create_suffix_array();
+                isa = create_inverse_suffix_array();
+                bwt = construct_bwt();
             }
 
             static std::string get_circular_string(const std::string &text, uint64_t starting_pos)
@@ -224,6 +292,11 @@ namespace stool
                     conceptual_matrix.push_back(new_circular_string);
                 }
                 this->sort_conceptual_matrix();
+
+
+                sa = create_suffix_array();
+                isa = create_inverse_suffix_array();
+                bwt = construct_bwt();
             }
 
             void sort_conceptual_matrix()
@@ -250,20 +323,16 @@ namespace stool
 
             static std::vector<DynamicRIndexSnapShotForInsertion> get_all_snap_shots(std::string text, uint64_t insertion_pos, std::string inserted_string)
             {
-                std::cout << "B1" << std::endl;
                 std::vector<DynamicRIndexSnapShotForInsertion> snap_shots;
                 DynamicRIndexSnapShotForInsertion snap_shot;
                 snap_shot.build(text, insertion_pos, inserted_string);
                 snap_shots.push_back(snap_shot);
-
-                std::cout << "B2" << std::endl;
 
                 while (!snap_shots[snap_shots.size() - 1].is_stop())
                 {
                     snap_shots.push_back(snap_shots[snap_shots.size() - 1].copy());
                     snap_shots[snap_shots.size() - 1].update();
                 }
-                std::cout << "B3" << std::endl;
 
                 return snap_shots;
             }
@@ -282,27 +351,24 @@ namespace stool
             {
                 std::vector<DynamicRIndexSnapShotForInsertion> snap_shots = DynamicRIndexSnapShotForInsertion::get_all_snap_shots(text, insertion_pos, inserted_string);
 
-                std::cout << "insertion range = [" << insertion_pos << ", " << (insertion_pos + inserted_string.size()-1) << "]" << std::endl;
+                // std::cout << "insertion range = [" << insertion_pos << ", " << (insertion_pos + inserted_string.size() - 1) << "]" << std::endl;
 
                 for (uint64_t i = 0; i < snap_shots.size() - 1; i++)
                 {
-                    //snap_shots[i].print_conceptual_matrix();
-
+                    // snap_shots[i].print_conceptual_matrix();
 
                     snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
                 }
-                std::cout << std::endl;
+                // std::cout << std::endl;
             }
 
             static void insertion_test(uint64_t text_size, uint64_t insertion_length, uint8_t alphabet_type, uint64_t seed)
             {
-                std::cout << "A1" << std::endl;
                 std::mt19937_64 mt64(seed);
                 std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, '$');
 
                 // dfmi.initialize(alphabet_with_end_marker);
-                std::cout << "A2" << std::endl;
 
                 std::vector<uint8_t> _text = r_index_test::DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
                 std::vector<uint8_t> _pattern = r_index_test::DynamicRIndexTest::create_text(insertion_length + 1, chars, alphabet_with_end_marker[0], mt64);
@@ -311,15 +377,10 @@ namespace stool
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, text_size - 1);
                 uint64_t insertion_pos = get_rand_uni_int(mt64);
 
-                std::cout << "A3" << std::endl;
-
                 std::string text = std::string(_text.begin(), _text.end());
                 std::string pattern = std::string(_pattern.begin(), _pattern.end());
 
-                std::cout << "A4" << std::endl;
-
                 DynamicRIndexSnapShotForInsertion::insertion_test(text, insertion_pos, pattern);
-                std::cout << "A5" << std::endl;
             }
         };
 
