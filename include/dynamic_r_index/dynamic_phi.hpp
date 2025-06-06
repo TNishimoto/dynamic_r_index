@@ -474,7 +474,6 @@ namespace stool
                 }
             }
 
-
             SAValue LF_inverse_phi_for_insertion(RunPosition i_rp, SAValue sa_value_at_i_plus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);
@@ -704,6 +703,53 @@ namespace stool
                     {
                         if (prev_sa_value == u_value)
                         {
+
+                            RunPosition rp = dbwt.to_run_position(i_pos - 1);
+                            return LF_phi_for_deletion_sub(rp, dbwt, u_value_phi);
+                        }
+                        else
+                        {
+
+                            return prev_sa_value > 0 ? prev_sa_value - 1 : this->text_size() - 1;
+                        }
+                    }
+                    else
+                    {
+
+                        assert(i.position_in_run == 0);
+                        RunPosition rp = DynamicRLBWTHelper::proper_predecessor_on_F(dbwt, i, old_c);
+                        int64_t v = this->sampled_last_sa.get_sampled_sa_value(rp.run_index);
+
+                        if (v == (int64_t)u_value)
+                        {
+
+                            return LF_phi_for_deletion_sub(rp, dbwt, u_value_phi);
+                        }
+                        else
+                        {
+
+                            return v > 0 ? v - 1 : this->text_size() - 1;
+                        }
+                    }
+                }
+            }
+
+            /*
+            SAValue LF_phi_for_deletion(RunPosition i, SAValue prev_sa_value, const DynamicRLBWT &dbwt, uint64_t i_pos, uint64_t next_i_pos, uint64_t u_value, uint64_t u_value_phi) const
+            {
+                if (i_pos == next_i_pos)
+                {
+                    return prev_sa_value;
+                }
+                else
+                {
+
+                    uint8_t old_c = dbwt.get_char(i.run_index);
+
+                    if (i.position_in_run > 0)
+                    {
+                        if (prev_sa_value == u_value)
+                        {
                             RunPosition rp = dbwt.to_run_position(i_pos - 1);
                             return LF_phi_for_deletion_sub(rp, dbwt, u_value_phi);
                         }
@@ -730,6 +776,7 @@ namespace stool
                     }
                 }
             }
+            */
 
             SAValue LF_phi(RunPosition i, SAValue prev_sa_value, const DynamicRLBWT &dbwt) const
             {

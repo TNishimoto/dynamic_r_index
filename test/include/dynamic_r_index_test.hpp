@@ -509,10 +509,10 @@ namespace stool
                 dfmi.delete_string(insertion_pos, str_len, &edit_history);
                 // edit_history.print();
 
-                /*
-                std::vector<std::vector<uint64_t>> sa_arrays;
-                nds.construct_SA_arrays_for_deletion(insertion_pos, str_len, sa_arrays);
-                */
+                
+                //std::vector<std::vector<uint64_t>> sa_arrays;
+                //nds.construct_SA_arrays_for_deletion(insertion_pos, str_len, sa_arrays);
+                
 
 
                 //stool::dynamic_r_index::SubPhiDataStructure sub(insertion_pos, str_len, false);

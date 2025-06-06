@@ -998,23 +998,23 @@ namespace stool
              */
             uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
             {
-                if(pos + len >= (int64_t)this->size()){
+
+                if (pos + len >= (int64_t)this->size())
+                {
                     throw std::logic_error("Error: delete_string");
                 }
 
                 TextIndex pointer = pos + len < (int64_t)this->size() ? pos + len : 0;
 
                 uint64_t positionToReplace = this->dsa.isa(pointer);
-                // assert(positionToReplace == this->dsa.isa(pointer));
 
                 SAIndex isa_pos2 = this->dsa.isa(pos);
-                // assert(isa_pos2 == this->dsa.isa(pos));
-
-                uint64_t positionToDelete = this->dbwt.LF(positionToReplace);
-                uint64_t positionToDeleteOnText = pointer - 1;
-                // uint64_t j = this->dbwt.LF(isa_pos2);
                 uint8_t new_char = this->dbwt.access(isa_pos2);
-                uint8_t old_char = this->dbwt.access(positionToReplace);
+                //uint8_t old_char = this->dbwt.access(positionToReplace);
+                uint64_t positionToDelete = this->dbwt.LF(positionToReplace);
+                this->dbwt.replace_BWT_character(positionToReplace, new_char);
+
+                uint64_t positionToDeleteOnText = pointer - 1;
 
                 if (output_history != nullptr)
                 {
@@ -1022,22 +1022,19 @@ namespace stool
                     output_history->replaced_sa_index = positionToReplace;
                 }
 
-                //this->dbwt.replace_BWT_character(positionToReplace, new_char);
+                // this->dbwt.replace_BWT_character(positionToReplace, new_char);
 
-                //uint64_t tmp_rank;
+                // uint64_t tmp_rank;
                 for (int64_t k = len - 1; k >= 0; k--)
                 {
 
                     uint8_t current_letter = this->dbwt.access(positionToDelete);
                     uint64_t next_position_to_delete = UINT64_MAX;
                     next_position_to_delete = this->dbwt.LF(positionToDelete);
-                    if (positionToReplace <= positionToDelete && current_letter == old_char)
+                    if ((new_char < current_letter) || (positionToReplace <= positionToDelete && current_letter == new_char))
                     {
                         next_position_to_delete--;
-                    }else if(old_char < current_letter){
-                        next_position_to_delete--;
                     }
-                    
 
                     if (output_history != nullptr)
                     {
@@ -1055,8 +1052,7 @@ namespace stool
 
                     positionToDeleteOnText--;
                 }
-                this->dbwt.replace_BWT_character(positionToReplace, new_char);
-                
+
                 uint64_t j = positionToDelete;
                 uint64_t j_prime = this->dbwt.LF(positionToReplace);
 

@@ -90,7 +90,7 @@ namespace stool
 
                     if (p == 10000)
                     {
-                            q = this->updated_text.size() - 1;
+                        q = this->updated_text.size() - 1;
                         /*
                         if (this->deletion_pos == 0 && this->t > this->deletion_pos && this->t <= this->deletion_pos + this->deletion_length)
                         {
@@ -143,10 +143,12 @@ namespace stool
 
                         if (c > new_char || (i > replace_pos && c == new_char))
                         {
-                            return lf > 0 ? lf -1 : this->conceptual_matrix.size() - 2;
-                        }else{
+                            return lf > 0 ? lf - 1 : this->conceptual_matrix.size() - 2;
+                        }
+                        else
+                        {
                             return lf;
-                        }        
+                        }
                     }
                 }
                 else
@@ -385,15 +387,16 @@ namespace stool
 
             void print_conceptual_matrix() const
             {
+                std::vector<uint64_t> sa = this->create_suffix_array();
                 std::cout << this->t << "--------------------------------" << std::endl;
                 for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
                 {
-                    std::cout << conceptual_matrix[i] << std::endl;
+                    std::cout << sa[i] << "\t" << conceptual_matrix[i] << std::endl;
                 }
                 std::cout << "--------------------------------" << std::endl;
             }
 
-            static void deletion_test(std::string text, uint64_t deletion_pos, uint64_t deletion_length)
+            static void deletion_test(std::string text, uint64_t deletion_pos, uint64_t deletion_length, bool view = false)
             {
                 std::vector<DynamicRIndexSnapShotForDeletion> snap_shots = DynamicRIndexSnapShotForDeletion::get_all_snap_shots(text, deletion_pos, deletion_length);
 
@@ -410,7 +413,21 @@ namespace stool
 
                 for (uint64_t i = 0; i < snap_shots.size() - 1; i++)
                 {
-                    // snap_shots[i].print_conceptual_matrix();
+                    if (view)
+                    {                        
+                        std::cout << "t = " << snap_shots[i].t << std::endl;
+                        std::cout << "new_char = " << (char)snap_shots[i].get_new_character() << std::endl;
+                        std::cout << "replace_pos = " << snap_shots[i].isa[snap_shots[i].deletion_pos] << std::endl;
+                        std::vector<uint64_t> next_isa = snap_shots[i + 1].isa;
+                        std::vector<uint64_t> lf_array = snap_shots[i].construct_dynamic_LF_array(next_isa);
+                        std::cout << "bwt: " << snap_shots[i].bwt << std::endl;
+                        stool::DebugPrinter::print_integers(snap_shots[i].sa, "sa");
+                        stool::DebugPrinter::print_integers(lf_array, "lf_array");
+
+                        snap_shots[i].print_conceptual_matrix();
+
+                        std::cout << std::endl;
+                    }
 
                     snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
                 }

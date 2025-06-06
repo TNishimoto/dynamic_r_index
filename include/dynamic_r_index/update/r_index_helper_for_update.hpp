@@ -270,11 +270,18 @@ namespace stool
                 PositionInformation ISA_u_minus_PI = phaseABResult.ISA_u_minus_PI;
                 PositionInformation ISA_v_PI = phaseABResult.ISA_v_PI;
 
+                SAValue phi_x = disa.phi(u + len - 1);
+                SAValue inv_phi_x = disa.inverse_phi(u + len - 1);
+
+                RunPosition v_on_rlbwt = dbwt.to_run_position(ISA_v_PI.p);
+                PrimitiveUpdateOperations::r_replace(u+len, v_on_rlbwt, phaseABResult.new_char, ISA_v_PI.value_at_p_minus, ISA_v_PI.value_at_p_plus, dbwt, disa);
+
                 uint64_t current_x = phaseABResult.LF_v;
                 RunPosition x_on_rlbwt = dbwt.to_run_position(current_x);
                 uint8_t x_character = dbwt.get_char(x_on_rlbwt.run_index);
-                SAValue phi_x = disa.phi(u + len - 1);
-                SAValue inv_phi_x = disa.inverse_phi(u + len - 1);
+
+                
+
 
                 // std::vector<std::vector<uint64_t>> sa_arrays;
 
@@ -285,6 +292,7 @@ namespace stool
                     // nds->construct_SA_arrays_for_deletion(u, len, sa_arrays);
                     debug_phi_x = current_x > 0 ? (*sa_arrays_for_debug)[0][current_x - 1] : (*sa_arrays_for_debug)[0][(*sa_arrays_for_debug)[0].size() - 1];
                     debug_inv_phi_x = current_x + 1 < dbwt.size() ? (*sa_arrays_for_debug)[0][current_x + 1] : (*sa_arrays_for_debug)[0][0];
+
 
                     if (phi_x != debug_phi_x)
                     {
@@ -302,20 +310,18 @@ namespace stool
                     // uint64_t lf_u = (u + w) > 0 ? u + w - 1 : dbwt.size() - 1;
                     uint64_t next_x = dbwt.LF(current_x);
 
-                    if (ISA_v_PI.p <= current_x && x_character == phaseABResult.old_char)
-                    {
-                        next_x--;
-                    }
-                    else if (phaseABResult.old_char < x_character)
-                    {
 
+                    if ((x_character > phaseABResult.new_char) || (x_character == phaseABResult.new_char && current_x > ISA_v_PI.p ))
+                    {
                         next_x--;
                     }
 
                     SAValue next_phi_x = disa.LF_phi_for_deletion(x_on_rlbwt, phi_x, dbwt, current_x, next_x, u + w + 1, ISA_v_PI.value_at_p_minus);
+
                     SAValue next_inv_phi_x = disa.LF_inverse_phi_for_deletion(x_on_rlbwt, inv_phi_x, dbwt, current_x, next_x, u + w + 1, ISA_v_PI.value_at_p_plus);
 
                     PrimitiveUpdateOperations::r_delete_for_deletion(x_on_rlbwt, x_character, phi_x, inv_phi_x, u + w, dbwt, disa);
+
                     if (next_phi_x > u + w)
                     {
                         next_phi_x--;
@@ -325,10 +331,13 @@ namespace stool
                         next_inv_phi_x--;
                     }
 
+
                     ISA_u_minus_PI.update_for_deletion(u + w, current_x, phi_x, inv_phi_x);
                     ISA_v_PI.update_for_deletion(u + w, current_x, phi_x, inv_phi_x);
 
                     counter++;
+
+
 
                     if (sa_arrays_for_debug != nullptr)
                     {
@@ -336,11 +345,14 @@ namespace stool
                         uint64_t debug_inv_phi_x = next_x + 1 < dbwt.size() ? (*sa_arrays_for_debug)[counter][next_x + 1] : (*sa_arrays_for_debug)[counter][0];
                         if (next_phi_x != debug_phi_x)
                         {
-                            throw std::logic_error("phi_x != sa_arrays[current][current_x-1]");
+                            stool::DebugPrinter::print_integers((*sa_arrays_for_debug)[counter]);
+                            std::cout << "next phi_x: " << phi_x << " -> " << next_phi_x << " / " << debug_phi_x << std::endl;
+                            std::cout << "next inv_phi_x: " << inv_phi_x << " -> " << next_inv_phi_x << " / " << debug_inv_phi_x << std::endl;
+                            throw std::logic_error("next_phi_x != sa_arrays[current][current_x-1]");
                         }
                         if (next_inv_phi_x != debug_inv_phi_x)
                         {
-                            throw std::logic_error("inv_phi_x != sa_arrays[current][current_x+1]");
+                            throw std::logic_error("next_inv_phi_x != sa_arrays[current][current_x+1]");
                         }
                     }
 
@@ -354,8 +366,8 @@ namespace stool
                     }
                 }
 
-                RunPosition v_on_rlbwt = dbwt.to_run_position(ISA_v_PI.p);
-                PrimitiveUpdateOperations::r_replace(u, v_on_rlbwt, phaseABResult.new_char, ISA_v_PI.value_at_p_minus, ISA_v_PI.value_at_p_plus, dbwt, disa);
+                //RunPosition v_on_rlbwt = dbwt.to_run_position(ISA_v_PI.p);
+                //PrimitiveUpdateOperations::r_replace(u, v_on_rlbwt, phaseABResult.new_char, ISA_v_PI.value_at_p_minus, ISA_v_PI.value_at_p_plus, dbwt, disa);
 
                 AdditionalInformationUpdatingRIndex inf;
                 inf.y = ISA_u_minus_PI.p;
@@ -372,6 +384,7 @@ namespace stool
 
                 editHistory.first_j = inf.y;
                 editHistory.first_j_prime = inf.z;
+
 
                 return inf;
             }

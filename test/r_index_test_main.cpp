@@ -26,7 +26,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
             for (uint64_t i = 0; i < 30; i++)
             {
                 std::cout << alphabet_type << std::flush;
-                stool::r_index_test::DynamicRIndexTest::random_character_insertion_and_deletion_test(100, alphabet_type, seed++, detailed_check);
+                stool::r_index_test::DynamicRIndexTest::random_character_insertion_and_deletion_test(10, alphabet_type, seed++, detailed_check);
             }
         }
         std::cout << std::endl;

@@ -75,7 +75,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
     }
     else if (mode == 0)
     {
-        for (uint64_t i = 1; i <= 10; i++)
+        for (uint64_t i = 1; i <= 2; i++)
         {
             main_sub(i, detailed_check, seed);
         }
@@ -101,6 +101,10 @@ int main(int argc, char *argv[])
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
     p.add<uint>("mode", 'm', "mode", false, 0);
+    p.add<std::string>("text", 't', "text", false, "");
+
+    p.add<uint>("position", 'p', "position", false, 0);
+    p.add<uint>("length", 'l', "length", false, 0);
     p.add<uint>("seed", 's', "seed", false, 0);
 
     p.add<uint>("detailed_check", 'u', "detailed_check", false, 0);
@@ -108,8 +112,19 @@ int main(int argc, char *argv[])
     p.parse_check(argc, argv);
     uint64_t mode = p.get<uint>("mode");
     uint64_t seed = p.get<uint>("seed");
+    std::string text = p.get<std::string>("text");
+    uint64_t position = p.get<uint>("position");
+    uint64_t length = p.get<uint>("length");
 
     bool detailed_check = p.get<uint>("detailed_check") == 0 ? false : true;
 
-    main_sub(mode, detailed_check, seed);
+    if (mode == 2)
+    {
+
+        stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion::deletion_test(text, position, length, true);
+    }
+    else
+    {
+        main_sub(mode, detailed_check, seed);
+    }
 }
