@@ -76,6 +76,10 @@ target_link_libraries(fm_index_test.out fn)
 add_executable(pseudocode.out pseudocode_main.cpp)
 target_link_libraries(pseudocode.out fn)
 
+add_executable(insertion_demo.out insertion_demo_main.cpp)
+target_link_libraries(insertion_demo.out fn)
+
+
 
 #add_executable(lcp.out main/lcp_main.cpp)
 #target_link_libraries(lcp.out fn)
