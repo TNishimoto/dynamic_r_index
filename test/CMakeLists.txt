@@ -46,38 +46,26 @@ endif()
 #add_subdirectory(modules/DYNAMIC)
 
 
-
-
-
-
-
-#FILE(GLOB SOURCES lib/*.cpp)
-FILE(GLOB SOURCES ../modules/libdivsufsort/sa.cpp)
-
-add_library(fn STATIC ${SOURCES})
-target_link_libraries(fn divsufsort divsufsort64 sdsl)
-
-
 add_executable(r_index_test.out r_index_test_main.cpp)
-target_link_libraries(r_index_test.out fn)
+target_link_libraries(r_index_test.out divsufsort divsufsort64 sdsl)
 
 add_executable(lighweight_query.out lighweight_query_main.cpp)
-target_link_libraries(lighweight_query.out fn)
+target_link_libraries(lighweight_query.out divsufsort divsufsort64 sdsl)
 
 add_executable(counter_example.out counter_example_main.cpp)
-target_link_libraries(counter_example.out fn)
+target_link_libraries(counter_example.out divsufsort divsufsort64 sdsl)
 
 add_executable(generate_query.out generate_query_main.cpp)
-target_link_libraries(generate_query.out fn)
+target_link_libraries(generate_query.out divsufsort divsufsort64 sdsl)
 
 add_executable(fm_index_test.out fm_index_test_main.cpp)
-target_link_libraries(fm_index_test.out fn)
+target_link_libraries(fm_index_test.out divsufsort divsufsort64 sdsl)
 
 add_executable(pseudocode.out pseudocode_main.cpp)
-target_link_libraries(pseudocode.out fn)
+target_link_libraries(pseudocode.out divsufsort divsufsort64 sdsl)
 
 add_executable(insertion_demo.out insertion_demo_main.cpp)
-target_link_libraries(insertion_demo.out fn)
+target_link_libraries(insertion_demo.out divsufsort divsufsort64 sdsl)
 
 
 

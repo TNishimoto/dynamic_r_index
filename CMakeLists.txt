@@ -46,46 +46,26 @@ include_directories(${SDSL_INCLUDE_DIR})
 
 
 INCLUDE_DIRECTORIES(modules)
-#INCLUDE_DIRECTORIES(modules/libdivsufsort/include)
-#INCLUDE_DIRECTORIES(modules/simple_btree/include)
-
-#LINK_DIRECTORIES(~/lib)
-#include_directories(~/include)
-
-#
 
 if(NOT TARGET libdivsufsort)
 include_directories(${CMAKE_BINARY_DIR}/modules/libdivsufsort/include)
 add_subdirectory(modules/libdivsufsort)
 endif()
 
-#add_subdirectory(modules/DYNAMIC)
-
-
-
-
-
-
-
-#FILE(GLOB SOURCES lib/*.cpp)
-FILE(GLOB SOURCES modules/libdivsufsort/sa.cpp)
-
-add_library(fn STATIC ${SOURCES})
-target_link_libraries(fn divsufsort divsufsort64 sdsl)
 
 add_executable(build_fm_index.out main/build_fm_index_main.cpp)
-target_link_libraries(build_fm_index.out fn)
+target_link_libraries(build_fm_index.out divsufsort divsufsort64 sdsl)
 
 add_executable(build_r_index.out main/build_r_index_main.cpp)
-target_link_libraries(build_r_index.out fn)
+target_link_libraries(build_r_index.out divsufsort divsufsort64 sdsl)
 
 add_executable(query.out main/query_main.cpp)
-target_link_libraries(query.out fn)
+target_link_libraries(query.out divsufsort divsufsort64 sdsl)
 
 add_executable(build_bwt.out main/build_bwt_main.cpp)
-target_link_libraries(build_bwt.out fn)
+target_link_libraries(build_bwt.out divsufsort divsufsort64 sdsl)
 
 
 add_executable(print_index.out main/print_index_main.cpp)
-target_link_libraries(print_index.out fn)
+target_link_libraries(print_index.out divsufsort divsufsort64 sdsl)
 
