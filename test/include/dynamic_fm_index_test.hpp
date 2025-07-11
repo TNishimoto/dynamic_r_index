@@ -20,7 +20,7 @@ namespace stool
                 std::vector<uint8_t> testBWT = dfmi.get_bwt();
                 try
                 {
-                    stool::equal_check("BWT", correctBWT, testBWT);
+                    stool::EqualChecker::equal_check(correctBWT, testBWT, "BWT");
                 }
                 catch (std::logic_error &e)
                 {
@@ -35,13 +35,13 @@ namespace stool
             {
                 std::vector<uint64_t> correctSA = nds.create_suffix_array();
                 std::vector<uint64_t> testSA = dfmi.get_sa();
-                stool::equal_check("SA", correctSA, testSA);
+                stool::EqualChecker::equal_check(correctSA, testSA, "SA");
             }
             static void ISA_equal_check(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi)
             {
                 std::vector<uint64_t> correctISA = nds.create_inverse_suffix_array();
                 std::vector<uint64_t> testISA = dfmi.get_isa();
-                stool::equal_check("ISA", correctISA, testISA);
+                stool::EqualChecker::equal_check(correctISA, testISA, "ISA");
             }
             static void equal_check(stool::fm_index_test::NaiveDynamicStringForBWT &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi)
             {
@@ -267,7 +267,7 @@ namespace stool
                 bisa.set(&lfds, lfds.get_end_marker_position(), lfds.get_text_size());
 
                 // auto tmp = bisa.to_isa();
-                // stool::equal_check("ISA", isa, tmp);
+                // stool::EqualChecker::equal_check("ISA", isa, tmp);
 
                 stool::dynamic_r_index::DynamicSampledSA dsisa = stool::dynamic_r_index::DynamicSampledSA::build(bisa, &dbwt, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
                 // stool::dynamic_r_index::DynamicSampledSA dsisa2 = stool::dynamic_r_index::DynamicSampledSA::build(isa, &dbwt);
@@ -284,11 +284,11 @@ namespace stool
                 std::vector<uint64_t> test_sa2 = dsisa2.get_sa();
                 std::vector<uint64_t> test_isa2 = dsisa2.get_isa();
                 */
-                stool::equal_check("SA", sa, test_sa);
-                stool::equal_check("ISA", isa, test_isa);
+                stool::EqualChecker::equal_check(sa, test_sa, "SA");
+                stool::EqualChecker::equal_check(isa, test_isa, "ISA");
 
-                // stool::equal_check("SA", sa, test_sa2);
-                // stool::equal_check("ISA", isa, test_isa2);
+                // stool::EqualChecker::equal_check("SA", sa, test_sa2);
+                // stool::EqualChecker::equal_check("ISA", isa, test_isa2);
             }
 
             static void character_insertion_and_deletion_test(uint64_t item_num, uint8_t alphabet_type, bool detailed_check, uint64_t seed)
@@ -444,9 +444,9 @@ namespace stool
 
                 auto isa2 = dfmi2.get_isa();
 
-                stool::equal_check("BWT", bwt1, bwt2);
-                stool::equal_check("SA", sa1, sa2);
-                stool::equal_check("ISA", isa1, isa2);
+                stool::EqualChecker::equal_check(bwt1, bwt2, "BWT");
+                stool::EqualChecker::equal_check(sa1, sa2, "SA");
+                stool::EqualChecker::equal_check(isa1, isa2, "ISA");
             }
 
             static void backward_search_test(uint64_t text_size, uint64_t pattern_count, uint8_t alphabet_type, uint64_t seed)
@@ -476,7 +476,7 @@ namespace stool
                     std::vector<uint64_t> result2 = dfmi.locate_query(pattern);
                     std::sort(result2.begin(), result2.end());
 
-                    stool::equal_check(result1, result2);
+                    stool::EqualChecker::equal_check(result1, result2);
                 }
             }
         };

@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     std::cout << text.size() << std::endl;
 
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text);
-    std::vector<uint64_t> lcpArray = stool::construct_LCP_array(text, sa);
+    std::vector<uint64_t> lcpArray = stool::ArrayConstructor::construct_LCP_array(text, sa);
 
     uint64_t lcp_total = 0;
     uint64_t lcp_max = 0;

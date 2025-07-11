@@ -142,7 +142,7 @@ void func2(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, 
                 stool::DebugPrinter::print_integers(arr[i].sa, "sa");
 
                 stool::DebugPrinter::print_integers(test_sa, "test_sa");
-                stool::equal_check("TestSACheck", test_sa, arr[i].sa);
+                stool::EqualChecker::equal_check("TestSACheck", test_sa, arr[i].sa);
                 */
 
                 /*
@@ -160,7 +160,7 @@ void func2(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, 
                 stool::DebugPrinter::print_integers(dummy_sa, "dummy_sa");
 
 
-                stool::equal_check("TestSACheck", test_sa, dummy_sa);
+                stool::EqualChecker::equal_check("TestSACheck", test_sa, dummy_sa);
                 */
             }
 
@@ -190,7 +190,7 @@ void func2(const std::vector<uint8_t> &text, const std::vector<uint8_t> &chars, 
 
             auto next_sa = arr[i - 1].construct_next_SA_for_move(editHistory.replaced_char, i_pos, insertion_pos, text.size() + inserted_string.size() - 1);
                 stool::DebugPrinter::print_integers(next_sa, "next_sa");
-                stool::equal_check("TestSACheck", next_sa, arr[i].sa);
+                stool::EqualChecker::equal_check(next_sa, arr[i].sa, "TestSACheck");
                 std::cout << "OK!" << std::endl;
 
 
@@ -404,9 +404,9 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 auto last_sa1 = phi1.get_last_sa_values();
                 auto last_sa2 = phi2.get_last_sa_values();
 
-                stool::equal_check("bwt1", bwt1, bwt2);
-                stool::equal_check("first_sa1", first_sa1, first_sa2);
-                stool::equal_check("last_sa1", last_sa1, last_sa2);
+                stool::EqualChecker::equal_check(bwt1, bwt2, "bwt1");
+                stool::EqualChecker::equal_check(first_sa1, first_sa2, "first_sa1");
+                stool::EqualChecker::equal_check(last_sa1, last_sa2, "last_sa1");
                 /*
                 assert(inf1.j == inf2.j);
                 assert(inf1.j_star == inf2.j_star);

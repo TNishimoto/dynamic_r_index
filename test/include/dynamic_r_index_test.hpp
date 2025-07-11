@@ -124,7 +124,7 @@ namespace stool
 
                 try
                 {
-                    stool::equal_check("BWT CHECK", bwt1, bwt2);
+                    stool::EqualChecker::equal_check(bwt1, bwt2, "BWT CHECK");
                 }
                 catch (std::logic_error e)
                 {
@@ -141,7 +141,7 @@ namespace stool
 
                 try
                 {
-                    stool::equal_check("SA CHECK", correctSA, testSA);
+                    stool::EqualChecker::equal_check(correctSA, testSA, "SA CHECK");
                 }
                 catch (std::logic_error e)
                 {
@@ -154,7 +154,7 @@ namespace stool
                 std::vector<uint64_t> testISA = drfmi.get_isa();
                 try
                 {
-                    stool::equal_check("ISA CHECK", correctISA, testISA);
+                    stool::EqualChecker::equal_check(correctISA, testISA, "ISA CHECK");
                 }
                 catch (std::logic_error e)
                 {
@@ -363,8 +363,8 @@ namespace stool
                 // stool::Printer::print("Correct_SA", sa);
                 // stool::Printer::print("Test SA   ", test_sa);
 
-                stool::equal_check(test_sa, sa);
-                stool::equal_check(test_isa, isa);
+                stool::EqualChecker::equal_check(test_sa, sa);
+                stool::EqualChecker::equal_check(test_isa, isa);
 
                 const DynamicPhi &disa = drfmi.get_dynamic_phi();
                 const DynamicRLBWT &dbwt = drfmi.get_dynamic_rlbwt();
@@ -632,8 +632,8 @@ namespace stool
                 std::vector<BWT_and_SA> bwt_sa = BWT_and_SA::build_for_insertion(bwt, sa, edit_history1);
                 stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_insertion_operation(insertion_pos, new_char, edit_history2);
 
-                stool::equal_check("BWT(0)", bwt_sa[0].bwt, drfmi.get_bwt());
-                //stool::equal_check("SA(0)", bwt_sa[0].sa, drfmi.get_sa());
+                stool::EqualChecker::equal_check(bwt_sa[0].bwt, drfmi.get_bwt(), "BWT(0)");
+                //stool::EqualChecker::equal_check("SA(0)", bwt_sa[0].sa, drfmi.get_sa());
 
                 bool b = false;
 
@@ -647,9 +647,9 @@ namespace stool
                         // std::cout << "Move: " << edit_history1.move_history[x].first << " -> " << edit_history1.move_history[x].second << std::endl;
 
                         x++;
-                        stool::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
+                        stool::EqualChecker::equal_check(bwt_sa[x].bwt, drfmi.get_bwt(), "BWT(" + std::to_string(x) + ")");
                         //const stool::dynamic_r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
-                        //stool::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
+                        //stool::EqualChecker::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
 
                         // check_sampling_sa("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, drfmi.get_sampling_sa());
                     }
@@ -713,15 +713,15 @@ namespace stool
 
                     auto bwt_1 = drfmi.get_bwt();
                     auto bwt_2 = drfmi2.get_bwt();
-                    stool::equal_check("BWT(0)", bwt_1, bwt_2);
+                    stool::EqualChecker::equal_check("BWT(0)", bwt_1, bwt_2);
 
                     //assert(inf.value_at_y == inf2.value_at_y);
                     //assert(inf.value_at_z == inf2.value_at_z);
                 }
 
 
-                stool::equal_check("BWT(0)", bwt_sa[0].bwt, drfmi.get_bwt());
-                stool::equal_check("SA(0)", bwt_sa[0].sa, sub.get_sa(drfmi.get_dynamic_phi()));
+                stool::EqualChecker::equal_check("BWT(0)", bwt_sa[0].bwt, drfmi.get_bwt());
+                stool::EqualChecker::equal_check("SA(0)", bwt_sa[0].sa, sub.get_sa(drfmi.get_dynamic_phi()));
 
                 bool b = false;
                 uint64_t x = 0;
@@ -732,10 +732,10 @@ namespace stool
                     {
                         assert(x < edit_history1.move_history.size());
                         x++;
-                        stool::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
+                        stool::EqualChecker::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
 
                         const stool::dynamic_r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
-                        stool::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
+                        stool::EqualChecker::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
                     }
                 }
 
@@ -789,8 +789,8 @@ namespace stool
                 stool::dynamic_r_index::AdditionalInformationUpdatingRIndex inf = drfmi.__preprocess_of_char_deletion_operation(removal_pos, edit_history2);
 
 
-                stool::equal_check("BWT(0)", bwt_sa[0].bwt, drfmi.get_bwt());
-                //stool::equal_check("SA(0)", bwt_sa[0].sa, sub.get_sa(drfmi.get_dynamic_phi()));
+                stool::EqualChecker::equal_check(bwt_sa[0].bwt, drfmi.get_bwt(), "BWT(0)");
+                //stool::EqualChecker::equal_check("SA(0)", bwt_sa[0].sa, sub.get_sa(drfmi.get_dynamic_phi()));
 
                 bool b = false;
                 uint64_t x = 0;
@@ -801,11 +801,11 @@ namespace stool
                     {
                         assert(x < edit_history1.move_history.size());
                         x++;
-                        stool::equal_check("BWT(" + std::to_string(x) + ")", bwt_sa[x].bwt, drfmi.get_bwt());
+                        stool::EqualChecker::equal_check(bwt_sa[x].bwt, drfmi.get_bwt(), "BWT(" + std::to_string(x) + ")");
 
                         /*
                         const stool::dynamic_r_index::DynamicPhi &disa = drfmi.get_dynamic_phi();
-                        stool::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
+                        stool::EqualChecker::equal_check("SA(" + std::to_string(x) + ")", bwt_sa[x].sa, sub.get_sa(disa));
                         */
                     }
                 }
@@ -874,7 +874,7 @@ namespace stool
                     std::vector<uint64_t> result1 = dfmi.locate_query(pattern);
                     std::vector<uint64_t> result2 = drfmi.locate_query(pattern);
 
-                    stool::equal_check(result1, result2);
+                    stool::EqualChecker::equal_check(result1, result2);
                 }
             }
         };

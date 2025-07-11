@@ -106,8 +106,8 @@ void permutation_test_random_insert(stool::old_implementations::NaivePOM &npom, 
     std::vector<uint64_t> pom_pi_vector = pom.get_pi_vector();
     std::vector<uint64_t> pom_inv_pi_vector = pom.get_inverse_pi_vector();
 
-    stool::equal_check(pom_pi_vector, npom.pi_list);
-    stool::equal_check(pom_inv_pi_vector, npom.inverse_pi_list);
+    stool::EqualChecker::equal_check(pom_pi_vector, npom.pi_list);
+    stool::EqualChecker::equal_check(pom_inv_pi_vector, npom.inverse_pi_list);
 }
 
 void permutation_test_random_delete(stool::old_implementations::NaivePOM &npom, stool::old_implementations::PermutationOrderMaintenance &pom, std::mt19937_64 &mt64)
@@ -122,8 +122,8 @@ void permutation_test_random_delete(stool::old_implementations::NaivePOM &npom, 
     std::vector<uint64_t> pom_pi_vector = pom.get_pi_vector();
     std::vector<uint64_t> pom_inv_pi_vector = pom.get_inverse_pi_vector();
 
-    stool::equal_check(pom_pi_vector, npom.pi_list);
-    stool::equal_check(pom_inv_pi_vector, npom.inverse_pi_list);
+    stool::EqualChecker::equal_check(pom_pi_vector, npom.pi_list);
+    stool::EqualChecker::equal_check(pom_inv_pi_vector, npom.inverse_pi_list);
 }
 
 void permutation_test(uint64_t item_num, uint64_t degree, uint64_t seed)
@@ -442,7 +442,7 @@ int main(int argc, char *argv[])
                 text.pop_back();
                 stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::build(text);
 
-                stool::equal_check("BWT", bwt, rlbwt.get_bwt());
+                stool::EqualChecker::equal_check(bwt, rlbwt.get_bwt(), "BWT");
             }
             std::cout << std::endl;
 

@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
     std::cout << "Check BWT" << std::endl;
     std::vector<uint8_t> testBWT1 = dfmi.get_bwt();
 
-    stool::equal_check(bwt, testBWT1);
+    stool::EqualChecker::equal_check(bwt, testBWT1);
 
     stool::TimeDebug::clear();
 
@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
 
     std::cout << "Check BWT" << std::endl;
     std::vector<uint8_t> testBWT2 = dfmi.get_bwt();
-    stool::equal_check(bwt, testBWT2);
+    stool::EqualChecker::equal_check(bwt, testBWT2);
 
     std::cout << "\033[36m";
     std::cout << "=============RESULT===============" << std::endl;

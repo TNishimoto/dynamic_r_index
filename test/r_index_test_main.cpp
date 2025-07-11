@@ -165,7 +165,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 text.pop_back();
                 stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::build(text);
 
-                stool::equal_check("BWT", bwt, rlbwt.get_bwt());
+                stool::EqualChecker::equal_check(bwt, rlbwt.get_bwt(), "BWT");
             }
             std::cout << std::endl;
 

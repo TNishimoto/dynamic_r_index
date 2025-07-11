@@ -29,7 +29,7 @@ std::vector<uint64_t> construct_reversed_perfect_PLCP_array(const std::string &t
         text[i] = text_str[text_str.size() - 1 - i];
     }
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> lcp = stool::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> lcp = stool::ArrayConstructor::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint64_t> plcp;
     plcp.resize(text.size());
     for (uint64_t i = 0; i < text.size(); i++)
@@ -121,7 +121,7 @@ void find_example()
         }
         text.push_back('$');
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-        std::vector<uint64_t> lcp = stool::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
+        std::vector<uint64_t> lcp = stool::ArrayConstructor::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
         std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
         uint64_t rle_size = get_rle_size(bwt);
@@ -232,7 +232,7 @@ void print_counter_example(const CounterExampleInfo &info)
     text.push_back('$');
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
     std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> lcp = stool::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> lcp = stool::ArrayConstructor::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
     std::vector<uint64_t> plcp = construct_PLCP_array(text, sa, lcp);
@@ -266,7 +266,7 @@ CounterExampleInfo find_counter_example(const std::string &str, std::string patt
     text.push_back('$');
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
     std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> lcp = stool::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> lcp = stool::ArrayConstructor::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
     std::vector<uint64_t> plcp = construct_PLCP_array(text, sa, lcp);

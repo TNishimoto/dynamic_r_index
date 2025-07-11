@@ -133,7 +133,7 @@ namespace stool
                 }
                 try
                 {
-                    stool::equal_check("dynamic LF check", correct_array, test_array);
+                    stool::EqualChecker::equal_check(correct_array, test_array, "dynamic LF check");
                 }
                 catch (const std::exception &e)
                 {
