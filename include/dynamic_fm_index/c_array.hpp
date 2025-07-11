@@ -290,7 +290,7 @@ namespace stool
              */
             int64_t successor_on_effective_alphabet(uint8_t value) const
             {
-                return stool::BasicSearch::successor(this->effective_alphabet, value);
+                return stool::BasicSearch::successor_by_linear_search(this->effective_alphabet, value);
             }
 
             /**
@@ -300,7 +300,7 @@ namespace stool
              */
             int64_t predecessor_on_effective_alphabet(uint8_t value) const
             {
-                return stool::BasicSearch::predecessor(this->effective_alphabet, value);
+                return stool::BasicSearch::predecessor_by_linear_search(this->effective_alphabet, value);
             }
 
             /**

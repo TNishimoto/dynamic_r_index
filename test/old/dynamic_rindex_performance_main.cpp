@@ -49,7 +49,7 @@ void mode1(std::string file_path, uint64_t numberOfTrials, uint64_t pattern_leng
     std::vector<std::pair<std::string, uint64_t>> time_profiler;
     std::chrono::system_clock::time_point st1, st2, st3;
     stool::dynamic_r_index::DynamicRIndex drfmi;
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
 
     {
 
@@ -61,7 +61,7 @@ void mode1(std::string file_path, uint64_t numberOfTrials, uint64_t pattern_leng
     uint64_t time1 = std::chrono::duration_cast<std::chrono::nanoseconds>(st2 - st1).count();
     uint64_t time2 = std::chrono::duration_cast<std::chrono::nanoseconds>(st3 - st2).count();
 
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
     std::mt19937_64 mt64(seed);
     uint64_t move_count_for_insertion = 0;
     uint64_t move_count_for_deletion = 0;
@@ -120,7 +120,7 @@ void mode1(std::string file_path, uint64_t numberOfTrials, uint64_t pattern_leng
     std::cout << "Move Count (Insertion): " << move_count_for_insertion << " (Avg: " << (move_count_for_insertion / numberOfTrials) << ")" << std::endl;
     std::cout << "Move Count (Deletion): " << move_count_for_deletion << " (Avg: " << (move_count_for_deletion / numberOfTrials) << ")" << std::endl;
     drfmi.print_memory_usage();
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
 
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;
@@ -155,7 +155,7 @@ void mode2(std::string file_path, uint64_t degree)
         std::cout << it.first << ": " << (it.second / (1000 * 1000)) << "[ms] (Avg: " << (it.second / dbwt.text_size()) << "[ns/char])" << std::endl;
     }
     drfmi.print_memory_usage();
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
 
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;

@@ -438,7 +438,7 @@ int main(int argc, char *argv[])
                 text.push_back('$');
 
                 std::vector<uint64_t> sa = stool::construct_suffix_array(text);
-                std::vector<uint8_t> bwt = stool::construct_BWT(text, sa);
+                std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa);
                 text.pop_back();
                 stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::build(text);
 

@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     std::cout << text.size() << std::endl;
 
     std::vector<uint64_t> sa = stool::construct_suffix_array(text);
-    std::vector<uint8_t> bwt = stool::construct_BWT(text, sa);
+    std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa);
 
     /*
     stool::drfmi::DynamicFMIndex dfmi;

@@ -178,7 +178,7 @@ std::cout << "\e[m" << std::endl;
     std::cout << "Checksum: \t\t\t\t\t" << result.check_sum << std::endl;
     uint64_t sec_time = std::chrono::duration_cast<std::chrono::seconds>(st2 - st1).count();
     std::cout << "Total time: \t\t\t\t\t" << sec_time << " sec" << std::endl;
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
 
     print_query_result(result, stool::QueryType::NONE);
     print_query_result(result, stool::QueryType::PRINT);

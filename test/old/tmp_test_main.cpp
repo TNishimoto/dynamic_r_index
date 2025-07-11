@@ -7,8 +7,8 @@ std::vector<TemporaryRIndex> construct_temp_array(const std::vector<uint8_t> &te
     std::cout << "Pos: " << insertion_pos << std::endl;
 
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
-    std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
     stool::dynamic_r_index::DynamicRIndex drfmi = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, chars, stool::Message::NO_MESSAGE);
 
@@ -362,8 +362,8 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
                 text.push_back(end_marker);
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
-                std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
                 stool::dynamic_r_index::DynamicRIndex drfmi1 = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);
                 stool::dynamic_r_index::DynamicRIndex drfmi2 = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, stool::Message::NO_MESSAGE);

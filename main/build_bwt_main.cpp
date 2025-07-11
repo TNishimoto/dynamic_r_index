@@ -116,7 +116,7 @@ std::cout << "\e[m" << std::endl;
     if(detailed_message_flag == 1){
         rlbwt.print_memory_usage();
     }
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
 
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;

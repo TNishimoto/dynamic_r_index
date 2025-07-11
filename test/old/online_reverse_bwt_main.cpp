@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
     std::cout << "IncrementRun Time:  " << (stool::increment_run_time / (1000 * 1000)) << "[ms] (Avg: " << (stool::increment_run_time / stool::increment_run_count) << "[ns/op])"  << std::endl;
     #endif
     rlbwt.print_memory_usage();
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
 
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;

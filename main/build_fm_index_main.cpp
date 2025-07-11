@@ -73,8 +73,8 @@ std::cout << "\e[m" << std::endl;
         std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(text);
 
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::SHOW_MESSAGE);
-        std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::SHOW_MESSAGE);
-        std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::SHOW_MESSAGE);
+        std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::SHOW_MESSAGE);
+        std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::SHOW_MESSAGE);
         stool::dynamic_r_index::DynamicFMIndex tmp_dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet, isa, sampling_interval, stool::Message::SHOW_MESSAGE);
         dfmi.swap(tmp_dfmi);
     }
@@ -103,7 +103,7 @@ std::cout << "\e[m" << std::endl;
         uint64_t per_time = text_size > 0 ? (((double)ms_time / (double)text_size) * 1000000) : ms_time;
         std::cout << "Total time: \t\t\t\t\t" << sec_time << " sec (" << per_time << " ms/MB)" << std::endl;
     }
-    stool::print_memory_usage();
+    stool::Memory::print_memory_usage();
     std::cout << "==================================" << std::endl;
     std::cout << "\033[39m" << std::endl;
 

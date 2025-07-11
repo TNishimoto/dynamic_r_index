@@ -42,7 +42,7 @@ namespace stool
                     }
                     text.push_back('$');
                     std::vector<uint64_t> sa = stool::construct_suffix_array(text);
-                    std::vector<uint8_t> bwt = stool::construct_BWT(text, sa);
+                    std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa);
 
                     DynamicRIndex drfmi;
                     drfmi.initialize(chars, 8, '$');
@@ -86,7 +86,7 @@ namespace stool
             static void widnow_test2(std::vector<uint8_t> &text, std::vector<uint8_t> &chars)
             {
                 std::vector<uint64_t> sa = stool::construct_suffix_array(text);
-                std::vector<uint8_t> bwt = stool::construct_BWT(text, sa);
+                std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa);
 
                 DynamicRIndex drfmi;
                 drfmi.initialize(chars, 8, '$');

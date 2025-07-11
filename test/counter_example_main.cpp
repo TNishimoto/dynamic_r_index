@@ -122,7 +122,7 @@ void find_example()
         text.push_back('$');
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
         std::vector<uint64_t> lcp = stool::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
-        std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
+        std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
         uint64_t rle_size = get_rle_size(bwt);
         // std::cout << str << ", " << rle_size << std::endl;
@@ -231,9 +231,9 @@ void print_counter_example(const CounterExampleInfo &info)
     }
     text.push_back('$');
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint64_t> lcp = stool::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
-    std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
     std::vector<uint64_t> plcp = construct_PLCP_array(text, sa, lcp);
 
@@ -265,9 +265,9 @@ CounterExampleInfo find_counter_example(const std::string &str, std::string patt
     }
     text.push_back('$');
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> isa = stool::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint64_t> lcp = stool::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
-    std::vector<uint8_t> bwt = stool::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
     std::vector<uint64_t> plcp = construct_PLCP_array(text, sa, lcp);
 
