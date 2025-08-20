@@ -36,9 +36,9 @@ namespace stool
         class DynamicRLBWT
         {
         private:
-            stool::bptree::VLCDequeDynamicPrefixSum run_length_vector;
-            stool::bptree::VLCDequeDynamicPrefixSum c_run_counters;
-            stool::bptree::VLCDequeDynamicPrefixSum run_length_vector_sorted_by_F;
+            stool::bptree::SimpleDynamicPrefixSum run_length_vector;
+            stool::bptree::SimpleDynamicPrefixSum c_run_counters;
+            stool::bptree::SimpleDynamicPrefixSum run_length_vector_sorted_by_F;
             stool::bptree::DynamicWaveletTree head_chars_of_RLBWT;
             stool::dynamic_r_index::CArray cArray;
             int64_t _text_size = 0;
@@ -140,17 +140,17 @@ namespace stool
             }
             static void save(DynamicRLBWT &item, std::ofstream &os)
             {
-                stool::bptree::VLCDequeDynamicPrefixSum::save(item.run_length_vector, os);
-                stool::bptree::VLCDequeDynamicPrefixSum::save(item.c_run_counters, os);
-                stool::bptree::VLCDequeDynamicPrefixSum::save(item.run_length_vector_sorted_by_F, os);
+                stool::bptree::SimpleDynamicPrefixSum::save(item.run_length_vector, os);
+                stool::bptree::SimpleDynamicPrefixSum::save(item.c_run_counters, os);
+                stool::bptree::SimpleDynamicPrefixSum::save(item.run_length_vector_sorted_by_F, os);
                 stool::bptree::DynamicWaveletTree::save(item.head_chars_of_RLBWT, os);
                 stool::dynamic_r_index::CArray::save(item.cArray, os);
             }
             static DynamicRLBWT build_from_data(std::ifstream &ifs)
             {
-                stool::bptree::VLCDequeDynamicPrefixSum tmp_run_length_vector = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);
-                stool::bptree::VLCDequeDynamicPrefixSum tmp_c_run_counters = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);
-                stool::bptree::VLCDequeDynamicPrefixSum tmp_run_length_vector_sorted_by_F = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_c_run_counters = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector_sorted_by_F = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
                 stool::bptree::DynamicWaveletTree tmp_head_chars_of_RLBWT = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
                 stool::dynamic_r_index::CArray tmp_cArray = stool::dynamic_r_index::CArray::load(ifs);
 
@@ -213,7 +213,7 @@ namespace stool
                 st1 = std::chrono::system_clock::now();
 
                 stool::bptree::DynamicWaveletTree tmp_head_chars_of_RLBWT = stool::bptree::DynamicWaveletTree::build(_rlbwt_chars, alphabet);
-                stool::bptree::VLCDequeDynamicPrefixSum tmp_run_length_vector = stool::bptree::VLCDequeDynamicPrefixSum::build(_rlbwt_runs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector = stool::bptree::SimpleDynamicPrefixSum::build(_rlbwt_runs);
 
                 std::vector<uint64_t> c_counters;
                 std::vector<uint64_t> c_run_counters;
@@ -238,7 +238,7 @@ namespace stool
                 }
 
                 stool::dynamic_r_index::CArray tmp_cArray = stool::dynamic_r_index::CArray::build(c_counters);
-                stool::bptree::VLCDequeDynamicPrefixSum tmp_c_run_counters = stool::bptree::VLCDequeDynamicPrefixSum::build(c_run_counters2);
+                stool::bptree::SimpleDynamicPrefixSum tmp_c_run_counters = stool::bptree::SimpleDynamicPrefixSum::build(c_run_counters2);
 
                 std::vector<uint64_t> indexes;
                 indexes.resize(_rlbwt_chars.size(), UINT64_MAX);
@@ -253,7 +253,7 @@ namespace stool
                         }else{
                             return lhs < rhs;
                         } });
-                stool::bptree::VLCDequeDynamicPrefixSum tmp_run_length_vector_sorted_by_F;
+                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector_sorted_by_F;
                 for (auto i : indexes)
                 {
                     tmp_run_length_vector_sorted_by_F.push_back(_rlbwt_runs[i]);

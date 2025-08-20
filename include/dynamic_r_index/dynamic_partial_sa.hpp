@@ -15,8 +15,7 @@ namespace stool
         {
         public:
             stool::bptree::DynamicPermutation pom;
-            stool::bptree::VLCDequeDynamicPrefixSum sampled_isa_gap_vector;
-            stool::bptree::SimpleDynamicPrefixSum sampled_isa_gap_vectorX;
+            stool::bptree::SimpleDynamicPrefixSum sampled_isa_gap_vector;
 
             uint64_t _text_size = 0;
 
@@ -47,14 +46,14 @@ namespace stool
             static void save(DynamicPartialSA &item, std::ofstream &os)
             {
                 stool::bptree::DynamicPermutation::save(item.pom, os);
-                stool::bptree::VLCDequeDynamicPrefixSum::save(item.sampled_isa_gap_vector, os);
+                stool::bptree::SimpleDynamicPrefixSum::save(item.sampled_isa_gap_vector, os);
 
                 os.write(reinterpret_cast<const char *>(&item._text_size), sizeof(uint64_t));
             }
             static DynamicPartialSA build_from_data(std::ifstream &ifs)
             {
                 stool::bptree::DynamicPermutation tmp_pom = stool::bptree::DynamicPermutation::build_from_data(ifs);
-                stool::bptree::VLCDequeDynamicPrefixSum tmp_sampled_isa_gap_vector = stool::bptree::VLCDequeDynamicPrefixSum::build_from_data(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_sampled_isa_gap_vector = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
 
                 uint64_t _text_size = 0;
                 ifs.read(reinterpret_cast<char *>(&_text_size), sizeof(uint64_t));
@@ -91,7 +90,7 @@ namespace stool
             {
                 return this->pom;
             }
-            stool::bptree::VLCDequeDynamicPrefixSum &get_spsi()
+            stool::bptree::SimpleDynamicPrefixSum &get_spsi()
             {
                 return this->sampled_isa_gap_vector;
             }
@@ -107,10 +106,6 @@ namespace stool
                 this->pom.insert(0, 0);
                 this->sampled_isa_gap_vector.push_back(0);
 
-                #if DEBUG
-                this->sampled_isa_gap_vectorX.clear();
-                this->sampled_isa_gap_vectorX.push_back(0);
-                #endif
             }
             void swap(DynamicPartialSA &item)
             {
@@ -118,9 +113,6 @@ namespace stool
                 this->sampled_isa_gap_vector.swap(item.sampled_isa_gap_vector);
                 std::swap(this->_text_size, item._text_size);
 
-                #if DEBUG
-                this->sampled_isa_gap_vectorX.swap(item.sampled_isa_gap_vectorX);
-                #endif
             }
 
             /**
@@ -145,9 +137,6 @@ namespace stool
                 r.sampled_isa_gap_vector.clear();
                 r.pom.clear();
 
-                #if DEBUG
-                r.sampled_isa_gap_vectorX.clear();
-                #endif
                 // PackedSPSIWrapper::clear(this->sampled_isa_gap_vector);
 
                 std::vector<uint64_t> idx_vec;
@@ -168,9 +157,6 @@ namespace stool
                 {
                     r.sampled_isa_gap_vector.push_back(sampled_sa_indexes[idx_vec[0]]);
 
-                    #if DEBUG
-                    r.sampled_isa_gap_vectorX.push_back(sampled_sa_indexes[idx_vec[0]]);
-                    #endif
                 }
 
                 for (int64_t i = 1; i < (int64_t)idx_vec.size(); i++)
@@ -179,9 +165,6 @@ namespace stool
                     int64_t idx2 = idx_vec[i - 1];
                     r.sampled_isa_gap_vector.push_back(sampled_sa_indexes[idx1] - sampled_sa_indexes[idx2]);
 
-                    #if DEBUG
-                    r.sampled_isa_gap_vectorX.push_back(sampled_sa_indexes[idx1] - sampled_sa_indexes[idx2]);
-                    #endif
                 }
 
                 std::vector<uint64_t> ranked_samp_sa;
@@ -201,9 +184,6 @@ namespace stool
                 this->_text_size = new_text_size;
                 this->sampled_isa_gap_vector.clear();
 
-                #if DEBUG
-                this->sampled_isa_gap_vectorX.clear();
-                #endif
                 // PackedSPSIWrapper::clear(this->sampled_isa_gap_vector);
 
                 std::vector<uint64_t> idx_vec;
@@ -224,9 +204,6 @@ namespace stool
                 {
                     sampled_isa_gap_vector.push_back(sampled_sa_indexes[idx_vec[0]]);
 
-                    #if DEBUG
-                    sampled_isa_gap_vectorX.push_back(sampled_sa_indexes[idx_vec[0]]);
-                    #endif
                 }
 
                 for (int64_t i = 1; i < (int64_t)idx_vec.size(); i++)
@@ -235,9 +212,6 @@ namespace stool
                     int64_t idx2 = idx_vec[i - 1];
                     sampled_isa_gap_vector.push_back(sampled_sa_indexes[idx1] - sampled_sa_indexes[idx2]);
 
-                    #if DEBUG
-                    sampled_isa_gap_vectorX.push_back(sampled_sa_indexes[idx1] - sampled_sa_indexes[idx2]);
-                    #endif
                 }
                 // PackedSPSIWrapper::push_dummy_values(this->sampled_isa_gap_vector);
                 // assert(PackedSPSIWrapper::verify(this->sampled_isa_gap_vector, true));
@@ -361,7 +335,6 @@ namespace stool
                 this->pom.verify();
 
                 
-                assert(this->sampled_isa_gap_vectorX.to_string() == this->sampled_isa_gap_vector.to_string());
                 return true;
                 // return PackedSPSIWrapper::verify(this->sampled_isa_gap_vector, true);
             }
@@ -430,10 +403,6 @@ namespace stool
                 if (idx != -1)
                 {
                     this->sampled_isa_gap_vector.increment(idx, 1);
-
-                    #if DEBUG
-                    this->sampled_isa_gap_vectorX.increment(idx, 1);
-                    #endif
                 }
                 this->_text_size++;
 
@@ -457,9 +426,6 @@ namespace stool
                     }
                     this->sampled_isa_gap_vector.decrement(idx, 1);
 
-                    #if DEBUG
-                    this->sampled_isa_gap_vectorX.decrement(idx, 1);
-                    #endif
                 }
                 this->_text_size--;
 
@@ -486,9 +452,6 @@ namespace stool
 
                     this->sampled_isa_gap_vector.insert(idx, diff);
 
-                    #if DEBUG
-                    this->sampled_isa_gap_vectorX.insert(idx, diff);
-                    #endif
                     this->pom.insert(new_sa_index, idx);
                 }
                 else
@@ -503,11 +466,6 @@ namespace stool
                     this->sampled_isa_gap_vector.insert(idx, diff1);
                     this->sampled_isa_gap_vector.insert(idx + 1, diff2);
 
-                    #if DEBUG
-                    this->sampled_isa_gap_vectorX.remove(idx);
-                    this->sampled_isa_gap_vectorX.insert(idx, diff1);
-                    this->sampled_isa_gap_vectorX.insert(idx + 1, diff2);
-                    #endif
                     this->pom.insert(new_sa_index, idx);
                 }
 
@@ -531,19 +489,11 @@ namespace stool
 
                     this->sampled_isa_gap_vector.insert(isa_index, diff1 + diff2);
 
-                    #if DEBUG
-                    this->sampled_isa_gap_vectorX.remove(isa_index + 1);
-                    this->sampled_isa_gap_vectorX.remove(isa_index);
-                    this->sampled_isa_gap_vectorX.insert(isa_index, diff1 + diff2);
-                    #endif
                 }
                 else
                 {
                     this->sampled_isa_gap_vector.remove(isa_index);
 
-                    #if DEBUG
-                    this->sampled_isa_gap_vectorX.remove(isa_index);
-                    #endif
                 }
 
                 this->pom.erase(sa_index);
