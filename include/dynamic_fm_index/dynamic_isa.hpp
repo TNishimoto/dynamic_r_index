@@ -39,7 +39,7 @@ namespace stool
              */
             void set_degree(int64_t degree)
             {
-                this->dp.set_degree(degree);
+                //this->dp.set_degree(degree);
                 this->clear();
             }
             /**

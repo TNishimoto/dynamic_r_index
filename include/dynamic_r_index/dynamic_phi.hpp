@@ -168,8 +168,8 @@ namespace stool
                 stool::bptree::VLCDequeDynamicPrefixSum &last_spsi = lsa.get_spsi();
 
                 stool::bptree::DynamicPermutationBuilder first_dpb, last_dpb;
-                first_dpb.initialize(first_dp, rle_size, degree);
-                last_dpb.initialize(last_dp, rle_size, degree);
+                first_dpb.initialize(first_dp, rle_size);
+                last_dpb.initialize(last_dp, rle_size);
 
                 uint64_t x_text_position = UINT64_MAX;
                 uint64_t y_text_position = UINT64_MAX;
