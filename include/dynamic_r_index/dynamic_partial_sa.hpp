@@ -72,11 +72,13 @@ namespace stool
             ///   Initializers
             ////////////////////////////////////////////////////////////////////////////////
             //@{
+            /*
             void set_degree(uint64_t degree)
             {
                 //this->pom.set_degree(degree);
                 this->clear();
             }
+            */
             /**
              * @brief Build this data structure for a string of length 1.
              */

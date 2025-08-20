@@ -150,9 +150,15 @@ namespace stool
 
 
                     uint64_t pos = RLBWTBuilder::preprocess(rlbwt, rev_text[0]);
-                    //uint64_t counter = 0;
+                    uint64_t counter = 0;
                     for (uint64_t i = 0; i + 1 < rev_text.size(); i++)
                     {
+                        if(counter == 1000000){
+                            std::cout << "Building RLBWT... [" << i << "/" << rev_text.size() << "]" << std::endl;
+                            counter = 1;
+                        }else{
+                            counter++;
+                        }
                         uint8_t c1 = rev_text[i];
                         uint8_t c2 = rev_text[i + 1];
                         uint64_t new_pos = RLBWTBuilder::compute_next_position_to_insert(rlbwt, c1, pos);

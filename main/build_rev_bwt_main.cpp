@@ -46,7 +46,7 @@ std::cout << "\e[m" << std::endl;
 
     std::chrono::system_clock::time_point st1, st2, st3;
 
-    
+    /*
     std::vector<uint8_t> text;
     stool::IO::load(input_file_path, text);
 
@@ -59,11 +59,12 @@ std::cout << "\e[m" << std::endl;
             throw std::runtime_error("The null terminated string must be smallest among all characters in the input text: " + stool::DebugPrinter::to_visible_string(null_terminated_string));
         }
     }
-    
+    */
     
 
     st1 = std::chrono::system_clock::now();
-    stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::build(text, null_terminated_string);
+    //stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::build(text, null_terminated_string);
+    stool::dynamic_r_index::DynamicRLBWT rlbwt = stool::dynamic_r_index::RLBWTBuilder::online_build_for_reversed_text(input_file_path, null_terminated_string);
     
     st2 = std::chrono::system_clock::now();
 
@@ -88,12 +89,12 @@ std::cout << "\e[m" << std::endl;
     std::cout << "Text Length: \t\t" << rlbwt.text_size() << std::endl;
 
     if(rlbwt.text_size() < 1000){
-        
+        /*
        std::string view_text = stool::DebugPrinter::to_string(text);
        view_text.push_back(null_terminated_string);
 
         std::cout << "Text: \t\t\t" << stool::DebugPrinter::to_visible_string(view_text) << std::endl;
-        
+        */
     }else{
         std::cout << "Text: \t\t\t" << "[Omitted]" << std::endl;
     }

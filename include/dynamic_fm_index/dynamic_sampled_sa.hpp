@@ -186,11 +186,13 @@ namespace stool
              * @brief Sets the degree of the DynamicSampledSA.
              * @param degree The degree to set.
              */
+            /*
             void set_degree(int64_t degree)
             {
                 //this->dp.set_degree(degree);
                 this->clear();
             }
+            */
             /**
              * @brief Sets the BWT for the DynamicSampledSA.
              * @param _bwt The DynamicBWT object to set.

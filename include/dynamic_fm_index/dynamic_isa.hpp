@@ -37,11 +37,13 @@ namespace stool
              * @brief Sets the degree for the dynamic permutation.
              * @param degree The degree to set.
              */
+            /*
             void set_degree(int64_t degree)
             {
                 //this->dp.set_degree(degree);
                 this->clear();
             }
+            */
             /**
              * @brief Clears the dynamic permutation and initializes it with a default value.
              */

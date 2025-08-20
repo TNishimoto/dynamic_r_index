@@ -479,6 +479,7 @@ namespace stool
              * @brief Set the degree for the DynamicFMIndex.
              * @param degree The degree to set.
              */
+            /*
             void set_degree(uint64_t degree)
             {
                 this->dbwt.clear();
@@ -487,6 +488,7 @@ namespace stool
                 // this->disa.set_degree(degree);
                 this->dsa.set_degree(degree);
             }
+            */
 
             /**
              * @brief Initialize the DynamicFMIndex with an alphabet.

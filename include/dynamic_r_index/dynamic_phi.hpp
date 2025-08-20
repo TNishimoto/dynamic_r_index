@@ -51,11 +51,13 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
+            /*
             void set_degree(int64_t degree)
             {
                 this->sampled_first_sa.set_degree(degree);
                 this->sampled_last_sa.set_degree(degree);
             }
+            */
             void clear()
             {
                 this->sampled_first_sa.clear();
@@ -135,7 +137,7 @@ namespace stool
                 return r;
             }
 
-            static DynamicPhi build_from_RLBWT(const stool::rlbwt2::RLE<uint8_t> &static_rlbwt, uint64_t degree, [[maybe_unused]] int message_paragraph = stool::Message::SHOW_MESSAGE)
+            static DynamicPhi build_from_RLBWT(const stool::rlbwt2::RLE<uint8_t> &static_rlbwt, [[maybe_unused]] int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 using RLBWT = stool::rlbwt2::RLE<uint8_t>;
                 uint64_t p1 = static_rlbwt.get_end_rle_lposition();
@@ -158,9 +160,11 @@ namespace stool
                 int64_t text_position = text_size;
 
                 DynamicPartialSA fsa;
-                fsa.set_degree(degree);
+                fsa.clear();
+                //fsa.set_degree(degree);
                 DynamicPartialSA lsa;
-                lsa.set_degree(degree);
+                lsa.clear();
+                //lsa.set_degree(degree);
 
                 stool::bptree::DynamicPermutation &first_dp = fsa.get_dynamic_permutation();
                 stool::bptree::SimpleDynamicPrefixSum &first_spsi = fsa.get_spsi();
