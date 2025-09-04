@@ -9,16 +9,42 @@
 #include "stool/include/stool.hpp"
 #include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
 #include "include/dynamic_r_index_test.hpp"
+#include "stool/test/sources/template/dynamic_string_test.hpp"
 //
 
 #include <filesystem>
 
-void main_sub(int mode, bool detailed_check, uint64_t seed)
+void main_sub(int mode, uint64_t text_size, bool detailed_check, uint64_t seed)
 {
     uint64_t max_alphabet_type = stool::UInt8VectorGenerator::get_max_alphabet_type();
+    uint64_t number_of_trials_insert = 100;
+    uint64_t number_of_trials_locate_query = 100;
+
+    uint64_t number_of_trials = 10;
+
+
+    std::function<std::vector<uint64_t>(const std::vector<uint8_t>&)> sa_builder_function = [](const std::vector<uint8_t>& text)
+    {
+        //auto sa = stool::StringFunctions::construct_naive_suffix_array(text);
+        auto sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
+        return sa;
+    };
 
     if (mode == 1)
     {
+        stool::DynamicStringTest::random_test<stool::dynamic_r_index::DynamicRIndex, stool::NaiveDynamicString, false, true>(text_size, 0, 100, 10, true, detailed_check, seed);
+
+        stool::StringTest::locate_query_test<stool::dynamic_r_index::DynamicRIndex>(text_size, 0, number_of_trials, number_of_trials_locate_query, sa_builder_function, true, seed);
+
+        stool::DynamicStringTest::insert_character_test<stool::dynamic_r_index::DynamicRIndex, stool::dynamic_r_index::DynamicFMIndex>(text_size, number_of_trials_insert, number_of_trials, true, detailed_check, seed);
+        stool::DynamicStringTest::remove_character_test<stool::dynamic_r_index::DynamicRIndex, stool::dynamic_r_index::DynamicFMIndex>(text_size, number_of_trials_insert, number_of_trials, true, detailed_check, seed);
+
+        stool::DynamicStringTest::insert_string_test<stool::dynamic_r_index::DynamicRIndex>(text_size, number_of_trials_insert, number_of_trials, 100, true, detailed_check, seed);
+        stool::DynamicStringTest::delete_string_test<stool::dynamic_r_index::DynamicRIndex>(text_size, number_of_trials_insert, number_of_trials, 100, true, detailed_check, seed);
+
+
+
+        /*
         std::cout << "Execute DynamicRIndexTest::random_character_insertion_and_deletion_test." << std::endl;
         for (uint64_t alphabet_type = 0; alphabet_type <= max_alphabet_type; alphabet_type++)
         {
@@ -30,6 +56,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
             }
         }
         std::cout << std::endl;
+        */
     }
     else if (mode == 2)
     {
@@ -240,7 +267,7 @@ void main_sub(int mode, bool detailed_check, uint64_t seed)
     {
         for (uint64_t i = 1; i <= 10; i++)
         {
-            main_sub(i, detailed_check, seed);
+            main_sub(i, text_size, detailed_check, seed);
         }
     }
 }
@@ -274,5 +301,7 @@ int main(int argc, char *argv[])
 
     bool detailed_check = p.get<uint>("detailed_check") == 0 ? false : true;
 
-    main_sub(mode, detailed_check, seed);
+    uint64_t text_size = 2000;
+
+    main_sub(mode, text_size, detailed_check, seed);
 }

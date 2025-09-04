@@ -478,6 +478,9 @@ namespace stool
                 }
             }
 
+            /*
+            Memo: This method should be replaced with LF_inverse_phi_for_insertionX.
+            */
             SAValue LF_inverse_phi_for_insertion(RunPosition i_rp, SAValue sa_value_at_i_plus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);
@@ -500,8 +503,11 @@ namespace stool
                 else
                 {
                     RunPosition i_rp_next = DynamicRLBWTHelper::proper_successor_on_F(dbwt, i_rp, i_c);
-                    bool b2 = this->check_whether_succeeding_replaced_char(i_rp_next, replaced_char, replaced_sa_index, dbwt);
+                    bool b2 = this->check_whether_succeeding_replaced_char(i_rp_next, replaced_char, replaced_sa_index, dbwt);                    
                     uint8_t i_c_next = dbwt.get_char(i_rp_next.run_index);
+
+
+
                     if (i_c <= i_c_next)
                     {
                         if (b1 == false && b2 == true)
@@ -532,17 +538,21 @@ namespace stool
                     }
                 }
             }
+            /*
+            Memo: This method contains a bug, but dynamic r-index works correctly. I will fix this method later.
+            */
             SAValue LF_inverse_phi_for_insertionX(RunPosition i_rp, SAValue sa_value_at_i_plus, SAIndex i_minus_p, uint64_t y_p, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint64_t b1 = false;
-                if (y_p != this->text_size())
+                if (y_p + 1 < this->text_size())
                 {
-                    b1 = i_minus_p == y_p + 1;
+                    b1 = (i_minus_p == y_p + 1);
                 }
                 else
                 {
-                    b1 = i_minus_p == 0;
+                    b1 = (i_minus_p == 0);
                 }
+
 
                 if (b1)
                 {
@@ -598,6 +608,9 @@ namespace stool
                 }
             }
 
+            /*
+            Memo: This method should be replaced with LF_inverse_phi_for_insertionX.
+            */
             SAValue LF_phi_for_insertion(RunPosition i_rp, SAValue sa_value_at_i_minus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);

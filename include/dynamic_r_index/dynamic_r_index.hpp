@@ -142,6 +142,15 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END] Elapsed Time: " << sec_time << " sec (" << per_time << " ms/MB)" << std::endl;
                 }
             }
+            static DynamicRIndex build_from_text(const std::vector<uint8_t> &text_with_end_marker, const std::vector<uint8_t> &alphabet_with_end_marker, int message_paragraph = stool::Message::NO_MESSAGE)
+            {
+                std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text_with_end_marker, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
+                DynamicRIndex r = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, message_paragraph);
+
+                return r;
+            }
 
             static DynamicRIndex build_from_data(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
@@ -519,8 +528,11 @@ namespace stool
                     {
 
                         int64_t next_b = this->dbwt.LF(by);
-                        int64_t next_e = this->dbwt.LF(ex);
+                        int64_t next_e = this->dbwt.LF(ex);                        
                         int64_t next_sa_b_ = this->disa.get_sampled_first_sa_value(by.run_index) - 1;
+                        if(next_sa_b_ == -1){
+                            next_sa_b_ = this->text_size() - 1;
+                        }
                         return BackwardSearchResult(next_b, next_e, next_sa_b_);
                     }
                     else
@@ -533,7 +545,10 @@ namespace stool
                             int64_t next_e = this->dbwt.LF(ey);
 
                             int64_t next_sa_b_ = this->disa.get_sampled_first_sa_value(by.run_index) - 1;
-
+                            if(next_sa_b_ == -1){
+                                next_sa_b_ = this->text_size() - 1;
+                            }
+    
                             return BackwardSearchResult(next_b, next_e, next_sa_b_);
                         }
                         else
@@ -608,13 +623,28 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
-            uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string)
+        uint64_t insert_string(TextIndex u, uint8_t c)
+        {
+            FMIndexEditHistory editHistory;
+
+            return this->insert_char(u, c, editHistory);
+        }
+
+        uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string)
             {
                 FMIndexEditHistory editHistory;
                 return this->insert_string(u, inserted_string, editHistory);
             }
             uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
             {
+                std::string text = this->get_text_str();
+                for(uint64_t i = 0; i < text.size(); i++){
+                    if(text[i] == 0){
+                        text[i] = '$';
+                    }
+                }
+
+
                 output_history.clear();
                 AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa);
 
@@ -640,6 +670,11 @@ namespace stool
                 }
 
                 return output_history.move_history.size();
+            }
+
+            uint64_t delete_substring(TextIndex u)
+            {
+                return this->delete_string(u, 1);
             }
 
             uint64_t delete_string(TextIndex u, uint64_t len)

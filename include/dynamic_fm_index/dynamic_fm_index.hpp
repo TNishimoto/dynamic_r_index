@@ -2,6 +2,7 @@
 #include "./dynamic_bwt.hpp"
 #include "./dynamic_isa.hpp"
 #include "./dynamic_sampled_sa.hpp"
+#include "libdivsufsort/sa.hpp"
 
 namespace stool
 {
@@ -254,6 +255,8 @@ namespace stool
                 return this->dbwt.access(i);
             }
 
+            
+
             /**
              * @brief Get the rank of a character up to a specific position in the index.
              * @param c The character to find the rank for.
@@ -318,6 +321,16 @@ namespace stool
                 return this->dbwt.size();
             }
 
+            static DynamicFMIndex build_from_text(const std::vector<uint8_t> &text_with_end_marker, const std::vector<uint8_t> &alphabet_with_end_marker, int message_paragraph = stool::Message::NO_MESSAGE)
+            {
+                std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text_with_end_marker, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
+                DynamicFMIndex r = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, message_paragraph);
+
+                return r;
+            }
+
             /**
              * @brief Build a DynamicFMIndex from data in a file.
              * @param ifs The input stream to read from.
@@ -337,6 +350,7 @@ namespace stool
                 ifs.read(reinterpret_cast<char *>(&_key), sizeof(uint64_t));
                 if (_key != DynamicFMIndex::LOAD_KEY)
                 {
+                    std::cout << "key: " << _key << std::endl;
                     throw std::runtime_error("This data is not Dynamic FM-index!");
                 }
 
@@ -698,6 +712,10 @@ namespace stool
                 output_history.clear();
                 return this->insert_char(pos, c, &output_history);
             }
+            uint64_t insert_string(int64_t pos, uint8_t c)
+            {
+                return this->insert_char(pos, c, nullptr);
+            }
 
             /**
              * @brief Insert a character into the index.
@@ -708,6 +726,8 @@ namespace stool
              */
             uint64_t insert_char(int64_t pos, uint8_t c, FMIndexEditHistory *output_history = nullptr)
             {
+                assert(c > this->dbwt.get_end_marker());
+
                 SAIndex isa_of_insertionPosOnText = this->dsa.isa(pos);
                 // assert(isa_of_insertionPosOnText == this->dsa.isa(pos));
 
@@ -804,6 +824,7 @@ namespace stool
              */
             uint64_t insert_string(int64_t pos, const std::vector<uint8_t> &pattern, FMIndexEditHistory *output_history = nullptr)
             {
+                assert(pattern.size() > 0);
 
                 SAIndex isa_of_insertionPosOnText = this->dsa.isa(pos);
                 // assert(isa_of_insertionPosOnText == this->dsa.isa(pos));
@@ -824,6 +845,7 @@ namespace stool
 
                 uint8_t oldChar = this->dbwt.access(positionToReplace);
                 uint64_t j = prev_isa;
+                assert(pattern.size() > 0);
                 uint8_t new_letter_L = pattern[pattern.size() - 1];
 
                 this->dbwt.replace_BWT_character(positionToReplace, pattern[pattern.size() - 1]);
@@ -910,6 +932,11 @@ namespace stool
                 this->dsa.update_sample_marks(pos + pattern.size());
 
                 return 0;
+            }
+
+            uint64_t delete_substring(int64_t pos)
+            {
+                return this->delete_char(pos, nullptr);
             }
 
             /**
@@ -1012,7 +1039,7 @@ namespace stool
 
                 SAIndex isa_pos2 = this->dsa.isa(pos);
                 uint8_t new_char = this->dbwt.access(isa_pos2);
-                //uint8_t old_char = this->dbwt.access(positionToReplace);
+                // uint8_t old_char = this->dbwt.access(positionToReplace);
                 uint64_t positionToDelete = this->dbwt.LF(positionToReplace);
                 this->dbwt.replace_BWT_character(positionToReplace, new_char);
 

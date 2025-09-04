@@ -354,10 +354,12 @@ namespace stool
                 }
                 std::cout << DynamicRIndexSnapShotForInsertion::value_with_index(i, index_begin_with_1) << " \t";
                 std::cout << DynamicRIndexSnapShotForInsertion::value_with_index(sa_v, index_begin_with_1) << "\t";
+
+
                 if (circular_shift.size() == this->updated_text.size())
                 {
                     for (uint64_t j = 0; j < circular_shift.size(); j++)
-                    {
+                    {        
                         uint64_t pos = sa_v + j;
                         if (pos >= this->updated_text.size())
                         {
@@ -375,11 +377,16 @@ namespace stool
                             std::cout << circular_shift[j];
                         }
                     }
+
                 }
                 else
                 {
                     std::cout << circular_shift;
                 }
+                for(uint64_t j = circular_shift.size(); j < this->updated_text.size(); j++){
+                    std::cout << " ";
+                }
+
                 std::cout << " \t";
 
                 std::cout << circular_shift[circular_shift.size() - 1] << "\t";

@@ -57,13 +57,14 @@ namespace stool
 
                 return result;
             }
-            static AdditionalInformationUpdatingRIndex phase_C_for_insertion(TextIndex i, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, const PreprocessingResultForInsertion &phaseABReuslt)
+            static AdditionalInformationUpdatingRIndex phase_C_for_insertion(TextIndex i, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, const PreprocessingResultForInsertion &phaseABResult)
             {
-                PositionInformation current_ISA_i_PI = phaseABReuslt.ISA_i_PI;
-                SAValue current_value_at_y_plus = phaseABReuslt.value_at_y_plus;
-                SAValue current_value_at_y_minus = phaseABReuslt.value_at_y_minus;
-                SAIndex current_i_minus = phaseABReuslt.i_minus;
-                //bool current_isSpecialLF = phaseABReuslt.isSpecialLF;
+                PositionInformation current_ISA_i_PI = phaseABResult.ISA_i_PI;
+                SAValue current_value_at_y_plus = phaseABResult.value_at_y_plus;
+                SAValue current_value_at_y_minus = phaseABResult.value_at_y_minus;
+                SAIndex current_i_minus = phaseABResult.i_minus;
+
+                //bool current_isSpecialLF = phaseABResult.isSpecialLF;
 
                 PositionInformation final_x_PI;
                 SAValue final_value_at_y_plus = UINT64_MAX;
@@ -95,17 +96,26 @@ namespace stool
                 // Initialize x_PI.
                 {
                     //next_x_PI.p = dbwt.LF(current_ISA_i_PI.p) + (current_isSpecialLF ? 1 : 0);
-                    next_x_PI.p = dbwt.LF_for_insertion(current_ISA_i_PI.p, current_ISA_i_PI.p, inserted_string[inserted_string.size() - 1], phaseABReuslt.old_char);
+                    next_x_PI.p = dbwt.LF_for_insertion(current_ISA_i_PI.p, current_ISA_i_PI.p, inserted_string[inserted_string.size() - 1], phaseABResult.old_char);
 
                     // next_x_PI.p_on_rlbwt = dbwt.to_run_position(next_x_PI.p, true);
                     RunPosition current_i_on_rlbwt = dbwt.to_run_position(current_ISA_i_PI.p);
-                    next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(current_i_on_rlbwt, current_ISA_i_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
-                    next_x_PI.value_at_p_minus = disa.LF_phi_for_insertion(current_i_on_rlbwt, current_ISA_i_PI.value_at_p_minus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
+
+
+                    next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(current_i_on_rlbwt, current_ISA_i_PI.value_at_p_plus, phaseABResult.old_char, current_ISA_i_PI.p, i, dbwt);
+
+                    //next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertionX(current_i_on_rlbwt, current_ISA_i_PI.value_at_p_plus, current_i_minus, current_ISA_i_PI.p, i, dbwt);
+
+
+                    //assert(next_x_PI.value_at_p_plus == value_at_p_plus_debug);
+
+
+                    next_x_PI.value_at_p_minus = disa.LF_phi_for_insertion(current_i_on_rlbwt, current_ISA_i_PI.value_at_p_minus, phaseABResult.old_char, current_ISA_i_PI.p, i, dbwt);
                 }
 
                 for (uint64_t w = 0; w < inserted_string.size(); w++)
                 {
-                    const uint64_t ins_character = w + 1 < inserted_string.size() ? inserted_string[inserted_string.size() - w - 2] : phaseABReuslt.old_char;
+                    const uint64_t ins_character = w + 1 < inserted_string.size() ? inserted_string[inserted_string.size() - w - 2] : phaseABResult.old_char;
                     uint64_t insert_sa_value = i + inserted_string.size() - w - 1;
 
                     PrimitiveUpdateOperations::r_insert(insert_sa_value, next_x_PI.p, ins_character, next_x_PI.value_at_p_minus, next_x_PI.value_at_p_plus, dbwt, disa);
@@ -136,31 +146,50 @@ namespace stool
                     if (w + 1 < inserted_string.size())
                     {
                         RunPosition prev_x_on_rlbwt = dbwt.to_run_position(next_x_PI.p);
-                        //current_isSpecialLF = dbwt.check_special_LF(current_ISA_i_PI.p, next_x_PI.p, ins_character, phaseABReuslt.old_char);
+                        //current_isSpecialLF = dbwt.check_special_LF(current_ISA_i_PI.p, next_x_PI.p, ins_character, phaseABResult.old_char);
                         //SAIndex _lf_x = dbwt.LF(next_x_PI.p);
-                        SAIndex new_x_position = dbwt.LF_for_insertion(next_x_PI.p, current_ISA_i_PI.p, ins_character, phaseABReuslt.old_char);
+                        SAIndex new_x_position = dbwt.LF_for_insertion(next_x_PI.p, current_ISA_i_PI.p, ins_character, phaseABResult.old_char);
 
                         //uint64_t new_x_position = _lf_x + (current_isSpecialLF ? 1 : 0);
                         uint64_t new_i_minus = current_i_minus >= new_x_position ? current_i_minus + 1 : current_i_minus;
 
-                        // next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
-                        // next_x_PI.value_at_p_minus = disa.LF_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
-                        uint64_t debug1 = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
+                        // next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABResult.old_char, current_ISA_i_PI.p, i, dbwt);
+                        // next_x_PI.value_at_p_minus = disa.LF_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, phaseABResult.old_char, current_ISA_i_PI.p, i, dbwt);
+                        /*
+                        #ifdef DEBUG
+                        uint64_t debug1 = disa.LF_inverse_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, phaseABResult.old_char, current_ISA_i_PI.p, i, dbwt);
+                        #endif
+                        */
+
+
                         next_x_PI.value_at_p_plus = disa.LF_inverse_phi_for_insertionX(prev_x_on_rlbwt, next_x_PI.value_at_p_plus, new_i_minus, new_x_position, i, dbwt);
 
+                        /*
+                        #ifdef DEBUG
                         if (next_x_PI.value_at_p_plus != debug1)
                         {
-                            std::cout << "Error!" << std::endl;
+                            std::cout << "Error!, w = " << w <<  ", collect_value = " << next_x_PI.value_at_p_plus << ", false_value = " << debug1 << std::endl;
                             throw -1;
                         }
+                        #endif
+                        */
 
-                        uint64_t debug2 = disa.LF_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, phaseABReuslt.old_char, current_ISA_i_PI.p, i, dbwt);
+                        #ifdef DEBUG
+                        uint64_t debug2 = disa.LF_phi_for_insertion(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, phaseABResult.old_char, current_ISA_i_PI.p, i, dbwt);
+                        #endif 
+
+
                         next_x_PI.value_at_p_minus = disa.LF_phi_for_insertionX(prev_x_on_rlbwt, next_x_PI.value_at_p_minus, new_i_minus, new_x_position, i, dbwt);
+                        
+                        #ifdef DEBUG
                         if (next_x_PI.value_at_p_minus != debug2)
                         {
-                            std::cout << "Error2!" << std::endl;
+                            std::cout << "Error2! X = " << debug2  << std::endl;
                             throw -1;
                         }
+                        #endif
+                        
+
 
                         next_x_PI.p = new_x_position;
                         // next_x_PI.p_on_rlbwt = dbwt.to_run_position(next_x_PI.p, true);
@@ -195,8 +224,8 @@ namespace stool
 
             static AdditionalInformationUpdatingRIndex preprocess_of_string_insertion_operation(TextIndex i, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa)
             {
-                PreprocessingResultForInsertion phaseABReuslt = phase_AB_for_insertion(i, inserted_string, editHistory, dbwt, disa);
-                return phase_C_for_insertion(i, inserted_string, editHistory, dbwt, disa, phaseABReuslt);
+                PreprocessingResultForInsertion phaseABResult = phase_AB_for_insertion(i, inserted_string, editHistory, dbwt, disa);
+                return phase_C_for_insertion(i, inserted_string, editHistory, dbwt, disa, phaseABResult);
             }
 
             static bool phase_D(FMIndexEditHistory &editHistory, DynamicRLBWT &dbwt, DynamicPhi &disa, PositionInformation &y_PI, PositionInformation &z_PI)
