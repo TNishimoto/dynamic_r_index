@@ -118,7 +118,7 @@ namespace stool
         };
 
         template <typename DYNINDEX>
-        QueryResults process_query_file(DYNINDEX &dyn_index, std::ifstream &query_ifs, std::ostream &log_os, std::string alternative_tab_key, std::string alternative_line_break_key)
+        QueryResults process_query_file(DYNINDEX &dyn_index, std::ifstream &query_ifs, std::ostream &log_os, std::string alternative_tab_key, std::string alternative_line_break_key, bool replace_mode)
         {
             std::string line;
             uint64_t query_number = 0;
@@ -129,6 +129,11 @@ namespace stool
                 std::chrono::system_clock::time_point st1, st2, st3;
 
                 stool::LineQuery q = stool::LineQuery::load_line(line, alternative_tab_key, alternative_line_break_key);
+
+                if (replace_mode && q.type == stool::QueryType::LOCATE)
+                {
+                    q.type = stool::QueryType::LOCATE_SUM;
+                }
 
                 if (q.type == stool::QueryType::PRINT)
                 {

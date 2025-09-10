@@ -39,6 +39,7 @@ std::cout << "\e[m" << std::endl;
     p.add<std::string>("output_index_path", 'o', "The path to the file where the updated index will be written", false, "");
     p.add<std::string>("alternative_tab_key", 't', "The alternative tab key for the command file", false, "");
     p.add<std::string>("alternative_line_break_key", 'n', "The alternative line break key for the command file", false, "");
+    p.add<bool>("replace_mode", 'u', "Each LOCATE query is replaced with LOCATE_SUM query", false, false);
 
     //p.add<bool>("detail_flag", 'b', "detail_flag", true);
 
@@ -50,6 +51,8 @@ std::cout << "\e[m" << std::endl;
     std::string output_file_path = p.get<std::string>("output_index_path");
     std::string alternative_tab_key = p.get<std::string>("alternative_tab_key");
     std::string alternative_line_break_key = p.get<std::string>("alternative_line_break_key");
+    bool replace_mode = p.get<bool>("replace_mode");
+
     //bool detail_flag = p.get<bool>("detail_flag");
 
     // bool isLightWeight = p.get<bool>("lightweight");
@@ -116,7 +119,7 @@ std::cout << "\e[m" << std::endl;
             dfmi.swap(tmp);
         }
         dfmi.print_light_statistics();
-        auto tmp_result = stool::dynamic_r_index::process_query_file(dfmi, query_ifs, log_os, alternative_tab_key, alternative_line_break_key);
+        auto tmp_result = stool::dynamic_r_index::process_query_file(dfmi, query_ifs, log_os, alternative_tab_key, alternative_line_break_key, replace_mode);
         result.swap(tmp_result);
 
         if (os_exist)
@@ -142,7 +145,7 @@ std::cout << "\e[m" << std::endl;
         }
         drfmi.print_light_statistics();
         hash1 = drfmi.compute_RLBWT_hash();
-        auto tmp_result = stool::dynamic_r_index::process_query_file(drfmi, query_ifs, log_os, alternative_tab_key, alternative_line_break_key);
+        auto tmp_result = stool::dynamic_r_index::process_query_file(drfmi, query_ifs, log_os, alternative_tab_key, alternative_line_break_key, replace_mode);
         hash2 = drfmi.compute_RLBWT_hash();
 
         result.swap(tmp_result);
