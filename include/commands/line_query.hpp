@@ -14,9 +14,9 @@ namespace stool
         DELETE = 2,
         COUNT = 3,
         LOCATE = 4,
-        LOCATE_DETAIL = 5,        
-        LOCATE_SUM = 6, 
-        PRINT = 7 
+        LOCATE_DETAIL = 5,
+        LOCATE_SUM = 6,
+        PRINT = 7
     };
 
     struct LineQuery
@@ -26,6 +26,27 @@ namespace stool
         uint64_t position = UINT64_MAX;
         uint64_t length = UINT64_MAX;
         std::vector<uint8_t> pattern;
+
+        static std::vector<uint8_t> sanityze(const std::string &text)
+        {
+            std::vector<uint8_t> r;
+            for (char c : text)
+            {
+                if (c == 0)
+                {
+                    r.push_back('\n');
+                }
+                else if (c == 1)
+                {
+                    r.push_back('\t');
+                }
+                else
+                {
+                    r.push_back(c);
+                }
+            }
+            return r;
+        }
 
         static LineQuery create_NONE_query()
         {
@@ -46,11 +67,10 @@ namespace stool
             r.type = QueryType::INSERT;
             r.position = insertion_position;
             r.pattern.clear();
-            
-            for (char c : text)
-            {
-                r.pattern.push_back(c);
-            }
+
+            std::vector<uint8_t> sanitized_text = sanityze(text);
+            r.pattern.swap(sanitized_text);
+
             return r;
         }
         static LineQuery create_DELETE_query(uint64_t deletion_position, uint64_t length)
@@ -67,10 +87,10 @@ namespace stool
             LineQuery r;
             r.type = QueryType::COUNT;
             r.pattern.clear();
-            for (char c : text)
-            {
-                r.pattern.push_back(c);
-            }
+
+            std::vector<uint8_t> sanitized_text = sanityze(text);
+            r.pattern.swap(sanitized_text);
+
             return r;
         }
         static LineQuery create_LOCATE_query(const std::string &text)
@@ -78,10 +98,10 @@ namespace stool
             LineQuery r;
             r.type = QueryType::LOCATE;
             r.pattern.clear();
-            for (char c : text)
-            {
-                    r.pattern.push_back(c);
-            }
+
+            std::vector<uint8_t> sanitized_text = sanityze(text);
+            r.pattern.swap(sanitized_text);
+
             return r;
         }
         static LineQuery create_LOCATE_SUM_query(const std::string &text)
@@ -89,11 +109,10 @@ namespace stool
             LineQuery r;
             r.type = QueryType::LOCATE_SUM;
             r.pattern.clear();
-            for (char c : text)
-            {
-                    r.pattern.push_back(c);
 
-            }
+            std::vector<uint8_t> sanitized_text = sanityze(text);
+            r.pattern.swap(sanitized_text);
+
             return r;
         }
         /*
@@ -174,4 +193,5 @@ namespace stool
             }
         }
     };
+
 }
