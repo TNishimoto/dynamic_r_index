@@ -149,9 +149,9 @@ namespace stool
              */
             static void save(DynamicSampledSA &item, std::ofstream &os)
             {
-                stool::bptree::DynamicPermutation::save(item.dp, os);
-                stool::bptree::SimpleDynamicBitSequence::save(item.sample_marks_on_text, os);
-                stool::bptree::SimpleDynamicBitSequence::save(item.sample_marks_on_sa, os);
+                stool::bptree::DynamicPermutation::store_to_file(item.dp, os);
+                stool::bptree::SimpleDynamicBitSequence::store_to_file(item.sample_marks_on_text, os);
+                stool::bptree::SimpleDynamicBitSequence::store_to_file(item.sample_marks_on_sa, os);
                 os.write(reinterpret_cast<const char *>(&item.sampling_interval), sizeof(item.sampling_interval));
             }
             /**
@@ -162,9 +162,9 @@ namespace stool
              */
             static DynamicSampledSA build_from_data(std::ifstream &ifs, DynamicBWT *bwt)
             {
-                auto tmp1 = stool::bptree::DynamicPermutation::build_from_data(ifs);
-                auto tmp2 = stool::bptree::SimpleDynamicBitSequence::build_from_data(ifs);
-                auto tmp3 = stool::bptree::SimpleDynamicBitSequence::build_from_data(ifs);
+                auto tmp1 = stool::bptree::DynamicPermutation::load_from_file(ifs);
+                auto tmp2 = stool::bptree::SimpleDynamicBitSequence::load_from_file(ifs);
+                auto tmp3 = stool::bptree::SimpleDynamicBitSequence::load_from_file(ifs);
                 uint64_t tmp4 = 0;
                 ifs.read(reinterpret_cast<char *>(&tmp4), sizeof(uint64_t));
                 DynamicSampledSA r;

@@ -45,15 +45,15 @@ namespace stool
 
             static void save(DynamicPartialSA &item, std::ofstream &os)
             {
-                stool::bptree::DynamicPermutation::save(item.pom, os);
-                stool::bptree::SimpleDynamicPrefixSum::save(item.sampled_isa_gap_vector, os);
+                stool::bptree::DynamicPermutation::store_to_file(item.pom, os);
+                stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.sampled_isa_gap_vector, os);
 
                 os.write(reinterpret_cast<const char *>(&item._text_size), sizeof(uint64_t));
             }
             static DynamicPartialSA build_from_data(std::ifstream &ifs)
             {
-                stool::bptree::DynamicPermutation tmp_pom = stool::bptree::DynamicPermutation::build_from_data(ifs);
-                stool::bptree::SimpleDynamicPrefixSum tmp_sampled_isa_gap_vector = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
+                stool::bptree::DynamicPermutation tmp_pom = stool::bptree::DynamicPermutation::load_from_file(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_sampled_isa_gap_vector = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
 
                 uint64_t _text_size = 0;
                 ifs.read(reinterpret_cast<char *>(&_text_size), sizeof(uint64_t));

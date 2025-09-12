@@ -140,18 +140,18 @@ namespace stool
             }
             static void save(DynamicRLBWT &item, std::ofstream &os)
             {
-                stool::bptree::SimpleDynamicPrefixSum::save(item.run_length_vector, os);
-                stool::bptree::SimpleDynamicPrefixSum::save(item.c_run_counters, os);
-                stool::bptree::SimpleDynamicPrefixSum::save(item.run_length_vector_sorted_by_F, os);
-                stool::bptree::DynamicWaveletTree::save(item.head_chars_of_RLBWT, os);
+                stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.run_length_vector, os);
+                stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.c_run_counters, os);
+                stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.run_length_vector_sorted_by_F, os);
+                stool::bptree::DynamicWaveletTree::store_to_file(item.head_chars_of_RLBWT, os);
                 stool::dynamic_r_index::CArray::save(item.cArray, os);
             }
             static DynamicRLBWT build_from_data(std::ifstream &ifs)
             {
-                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
-                stool::bptree::SimpleDynamicPrefixSum tmp_c_run_counters = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
-                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector_sorted_by_F = stool::bptree::SimpleDynamicPrefixSum::build_from_data(ifs);
-                stool::bptree::DynamicWaveletTree tmp_head_chars_of_RLBWT = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_c_run_counters = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
+                stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector_sorted_by_F = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
+                stool::bptree::DynamicWaveletTree tmp_head_chars_of_RLBWT = stool::bptree::DynamicWaveletTree::load_from_file(ifs);
                 stool::dynamic_r_index::CArray tmp_cArray = stool::dynamic_r_index::CArray::load(ifs);
 
                 DynamicRLBWT r;

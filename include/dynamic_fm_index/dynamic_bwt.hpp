@@ -547,7 +547,7 @@ namespace stool
             static void save(DynamicBWT &item, std::ofstream &os)
             {
                 stool::dynamic_r_index::CArray::save(item.cArray, os);
-                stool::bptree::DynamicWaveletTree::save(item.bwt, os);
+                stool::bptree::DynamicWaveletTree::store_to_file(item.bwt, os);
             }
             /**
              * @brief Build a DynamicBWT from data in a file
@@ -557,7 +557,7 @@ namespace stool
             static DynamicBWT build_from_data(std::ifstream &ifs)
             {
                 stool::dynamic_r_index::CArray cArray = stool::dynamic_r_index::CArray::load(ifs);
-                stool::bptree::DynamicWaveletTree bwt = stool::bptree::DynamicWaveletTree::build_from_data(ifs);
+                stool::bptree::DynamicWaveletTree bwt = stool::bptree::DynamicWaveletTree::load_from_file(ifs);
 
                 DynamicBWT r;
                 r.cArray.swap(cArray);
