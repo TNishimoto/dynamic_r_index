@@ -637,13 +637,6 @@ namespace stool
             }
             uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
             {
-                std::string text = this->get_text_str();
-                for(uint64_t i = 0; i < text.size(); i++){
-                    if(text[i] == 0){
-                        text[i] = '$';
-                    }
-                }
-
 
                 output_history.clear();
                 AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa);
@@ -666,6 +659,7 @@ namespace stool
                 bool b = false;
                 while (!b)
                 {
+                    
                     b = RIndexHelperForUpdate::phase_D(output_history, this->dbwt, this->disa, y_PI, z_PI);
                 }
 
@@ -772,9 +766,9 @@ namespace stool
                 return output_history.move_history.size();
             }
 
-            uint64_t compute_RLBWT_hash() const
+            uint64_t compute_RLBWT_hash(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                return this->dbwt.compute_RLBWT_hash();
+                return this->dbwt.compute_RLBWT_hash(message_paragraph);
             }
 
             //@}

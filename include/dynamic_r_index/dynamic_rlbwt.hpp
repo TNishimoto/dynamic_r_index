@@ -811,20 +811,38 @@ namespace stool
                 }
                 return r;
             }
-            uint64_t compute_RLBWT_hash() const
+            uint64_t compute_RLBWT_hash(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
+                if (message_paragraph >= 0)
+                {
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Computing the hash of the RLBWT..." << std::endl;
+                }
+
                 std::string str = this->head_chars_of_RLBWT.to_string();
                 std::hash<std::string> hasher;
                 uint64_t hash1 = hasher(str);
 
                 uint64_t i = 0;
                 uint64_t hash2 = 0;
+                uint64_t size = this->run_length_vector.size();
+                uint64_t sizeMB = size / (1000 * 1000);
+
+
                 for (uint64_t s : this->run_length_vector)
                 {
                     hash2 ^= (i ^ s);
                     i++;
+
                 }
-                return hash1 ^ hash2;
+                uint64_t r = hash1 ^ hash2;
+
+                if (message_paragraph >= 0)
+                {
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[DONE]" << std::endl;
+                }
+
+
+                return r;
             }
 
             void print(int message_paragraph = 0) const

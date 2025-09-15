@@ -140,7 +140,7 @@ std::cout << "\e[m" << std::endl;
                 std::cerr << "Error: Could not open file for reading." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            auto tmp = stool::dynamic_r_index::DynamicRIndex::build_from_data(ifs);
+            auto tmp = stool::dynamic_r_index::DynamicRIndex::build_from_data(ifs, stool::Message::SHOW_MESSAGE);
             drfmi.swap(tmp);
         }
         drfmi.print_light_statistics();
