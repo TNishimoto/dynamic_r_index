@@ -294,7 +294,9 @@ namespace stool
                     }
                     query_results.push_back(q.type, q.pattern.size(), total_time, 0, micro_time1, micro_time2, sa_values.size());
 
-                    log_os << query_number << "\t" << "LOCATE_SUM" << "\t" << "The sum of occurrence positions of the given pattern: " << "\t" << locate_sum << "\t" << "The number of occurences: " << "\t" << sa_values.size()  << "\t" << "Time (microseconds): " << "\t" << total_time  << std::endl;
+                    log_os << query_number << "\t" << "LOCATE_SUM" << "\t" << "The sum of occurrence positions of the given pattern: " << "\t" << locate_sum 
+                    << "\t" << "The number of occurences: " << "\t" << sa_values.size() << "\t" << "The execution time of backward search (microseconds):" << "\t" << micro_time1 
+                    << "\t" << "The execution time of computing sa-values (microseconds): " << micro_time2  << "\t" << "Time (microseconds): " << "\t" << total_time  << std::endl;
                     
 
                 }
