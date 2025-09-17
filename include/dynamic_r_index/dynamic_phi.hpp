@@ -64,15 +64,15 @@ namespace stool
                 this->sampled_last_sa.clear();
             }
 
-            static void save(DynamicPhi &item, std::ofstream &os)
+            static void store_to_file(DynamicPhi &item, std::ofstream &os)
             {
-                DynamicPartialSA::save(item.sampled_first_sa, os);
-                DynamicPartialSA::save(item.sampled_last_sa, os);
+                DynamicPartialSA::store_to_file(item.sampled_first_sa, os);
+                DynamicPartialSA::store_to_file(item.sampled_last_sa, os);
             }
-            static DynamicPhi build_from_data(std::ifstream &ifs)
+            static DynamicPhi load_from_file(std::ifstream &ifs)
             {
-                DynamicPartialSA tmp_fsa = DynamicPartialSA::build_from_data(ifs);
-                DynamicPartialSA tmp_lsa = DynamicPartialSA::build_from_data(ifs);
+                DynamicPartialSA tmp_fsa = DynamicPartialSA::load_from_file(ifs);
+                DynamicPartialSA tmp_lsa = DynamicPartialSA::load_from_file(ifs);
 
                 DynamicPhi r;
                 r.sampled_first_sa.swap(tmp_fsa);

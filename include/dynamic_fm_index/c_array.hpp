@@ -109,7 +109,7 @@ namespace stool
              * @param item The CArray to save
              * @param os The output file stream
              */
-            static void save(const CArray &item, std::ofstream &os)
+            static void store_to_file(const CArray &item, std::ofstream &os)
             {
                 uint64_t sz1 = item.C.size();
                 uint64_t sz2 = item.effective_alphabet.size();
@@ -124,7 +124,7 @@ namespace stool
              * @param ifs The input file stream
              * @return The loaded CArray
              */
-            static CArray load(std::ifstream &ifs)
+            static CArray load_from_file(std::ifstream &ifs)
             {
                 uint64_t size1 = 0;
                 uint64_t size2 = 0;

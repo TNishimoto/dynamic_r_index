@@ -115,7 +115,7 @@ namespace stool
                 this->disa.verify(mode);
             }
 
-            static void save(DynamicRIndex &item, std::ofstream &os, int message_paragraph = stool::Message::SHOW_MESSAGE)
+            static void store_to_file(DynamicRIndex &item, std::ofstream &os, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
                 {
@@ -127,9 +127,9 @@ namespace stool
                 uint64_t key = DynamicRIndex::LOAD_KEY;
                 os.write(reinterpret_cast<const char *>(&key), sizeof(uint64_t));
 
-                DynamicRLBWT::save(item.dbwt, os);
+                DynamicRLBWT::store_to_file(item.dbwt, os);
 
-                DynamicPhi::save(item.disa, os);
+                DynamicPhi::store_to_file(item.disa, os);
 
                 uint64_t text_size = item.size();
                 st2 = std::chrono::system_clock::now();
@@ -152,7 +152,7 @@ namespace stool
                 return r;
             }
 
-            static DynamicRIndex build_from_data(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
+            static DynamicRIndex load_from_file(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
 
                 if (message_paragraph >= 0)
@@ -169,8 +169,8 @@ namespace stool
                     throw std::runtime_error("This data is not Dynamic r-index!");
                 }
 
-                DynamicRLBWT tmp_dbwt = DynamicRLBWT::build_from_data(ifs);
-                DynamicPhi tmp_disa = DynamicPhi::build_from_data(ifs);
+                DynamicRLBWT tmp_dbwt = DynamicRLBWT::load_from_file(ifs);
+                DynamicPhi tmp_disa = DynamicPhi::load_from_file(ifs);
 
                 DynamicRIndex r;
                 r.dbwt.swap(tmp_dbwt);

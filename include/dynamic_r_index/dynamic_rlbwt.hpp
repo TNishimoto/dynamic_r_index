@@ -138,21 +138,21 @@ namespace stool
                 this->head_chars_of_RLBWT.set_alphabet(_alphabet);
                 this->clear();
             }
-            static void save(DynamicRLBWT &item, std::ofstream &os)
+            static void store_to_file(DynamicRLBWT &item, std::ofstream &os)
             {
                 stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.run_length_vector, os);
                 stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.c_run_counters, os);
                 stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.run_length_vector_sorted_by_F, os);
                 stool::bptree::DynamicWaveletTree::store_to_file(item.head_chars_of_RLBWT, os);
-                stool::dynamic_r_index::CArray::save(item.cArray, os);
+                stool::dynamic_r_index::CArray::store_to_file(item.cArray, os);
             }
-            static DynamicRLBWT build_from_data(std::ifstream &ifs)
+            static DynamicRLBWT load_from_file(std::ifstream &ifs)
             {
                 stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
                 stool::bptree::SimpleDynamicPrefixSum tmp_c_run_counters = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
                 stool::bptree::SimpleDynamicPrefixSum tmp_run_length_vector_sorted_by_F = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);
                 stool::bptree::DynamicWaveletTree tmp_head_chars_of_RLBWT = stool::bptree::DynamicWaveletTree::load_from_file(ifs);
-                stool::dynamic_r_index::CArray tmp_cArray = stool::dynamic_r_index::CArray::load(ifs);
+                stool::dynamic_r_index::CArray tmp_cArray = stool::dynamic_r_index::CArray::load_from_file(ifs);
 
                 DynamicRLBWT r;
                 r.head_chars_of_RLBWT.swap(tmp_head_chars_of_RLBWT);

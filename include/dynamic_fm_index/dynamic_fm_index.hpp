@@ -285,7 +285,7 @@ namespace stool
              * @param os The output stream to save to.
              * @param message_paragraph The paragraph to start the message from.
              */
-            static void save(DynamicFMIndex &item, std::ofstream &os, int message_paragraph = stool::Message::SHOW_MESSAGE)
+            static void store_to_file(DynamicFMIndex &item, std::ofstream &os, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
                 {
@@ -297,8 +297,8 @@ namespace stool
                 uint64_t key = DynamicFMIndex::LOAD_KEY;
                 os.write(reinterpret_cast<const char *>(&key), sizeof(uint64_t));
 
-                DynamicBWT::save(item.dbwt, os);
-                DynamicSampledSA::save(item.dsa, os);
+                DynamicBWT::store_to_file(item.dbwt, os);
+                DynamicSampledSA::store_to_file(item.dsa, os);
 
                 uint64_t text_size = item.size();
                 st2 = std::chrono::system_clock::now();
@@ -337,7 +337,7 @@ namespace stool
              * @param message_paragraph The paragraph to start the message from.
              * @return The constructed DynamicFMIndex.
              */
-            static DynamicFMIndex build_from_data(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
+            static DynamicFMIndex load_from_file(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
                 {
@@ -354,11 +354,11 @@ namespace stool
                     throw std::runtime_error("This data is not Dynamic FM-index!");
                 }
 
-                auto tmp1 = DynamicBWT::build_from_data(ifs);
+                auto tmp1 = DynamicBWT::load_from_file(ifs);
                 DynamicFMIndex r;
                 r.dbwt.swap(tmp1);
 
-                auto tmp2 = DynamicSampledSA::build_from_data(ifs, &r.dbwt);
+                auto tmp2 = DynamicSampledSA::load_from_file(ifs, &r.dbwt);
                 r.dsa.swap(tmp2);
 
                 uint64_t text_size = r.size();

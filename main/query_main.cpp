@@ -115,7 +115,7 @@ std::cout << "\e[m" << std::endl;
                 std::cerr << "Error: Could not open file for reading." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            auto tmp = stool::dynamic_r_index::DynamicFMIndex::build_from_data(ifs);
+            auto tmp = stool::dynamic_r_index::DynamicFMIndex::load_from_file(ifs);
             dfmi.swap(tmp);
         }
         dfmi.print_light_statistics();
@@ -124,7 +124,7 @@ std::cout << "\e[m" << std::endl;
 
         if (os_exist)
         {
-            stool::dynamic_r_index::DynamicFMIndex::save(dfmi, os);
+            stool::dynamic_r_index::DynamicFMIndex::store_to_file(dfmi, os);
         }
     }
     else if (mark == stool::dynamic_r_index::DynamicRIndex::LOAD_KEY)
@@ -140,7 +140,7 @@ std::cout << "\e[m" << std::endl;
                 std::cerr << "Error: Could not open file for reading." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            auto tmp = stool::dynamic_r_index::DynamicRIndex::build_from_data(ifs, stool::Message::SHOW_MESSAGE);
+            auto tmp = stool::dynamic_r_index::DynamicRIndex::load_from_file(ifs, stool::Message::SHOW_MESSAGE);
             drfmi.swap(tmp);
         }
         drfmi.print_light_statistics();
@@ -152,7 +152,7 @@ std::cout << "\e[m" << std::endl;
 
         if (os_exist)
         {
-            stool::dynamic_r_index::DynamicRIndex::save(drfmi, os);
+            stool::dynamic_r_index::DynamicRIndex::store_to_file(drfmi, os);
         }
     }
     else

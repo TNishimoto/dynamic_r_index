@@ -147,7 +147,7 @@ namespace stool
              * @param item The DynamicSampledSA object to save.
              * @param os The output stream to save to.
              */
-            static void save(DynamicSampledSA &item, std::ofstream &os)
+            static void store_to_file(DynamicSampledSA &item, std::ofstream &os)
             {
                 stool::bptree::DynamicPermutation::store_to_file(item.dp, os);
                 stool::bptree::SimpleDynamicBitSequence::store_to_file(item.sample_marks_on_text, os);
@@ -160,7 +160,7 @@ namespace stool
              * @param bwt The DynamicBWT object.
              * @return The built DynamicSampledSA object.
              */
-            static DynamicSampledSA build_from_data(std::ifstream &ifs, DynamicBWT *bwt)
+            static DynamicSampledSA load_from_file(std::ifstream &ifs, DynamicBWT *bwt)
             {
                 auto tmp1 = stool::bptree::DynamicPermutation::load_from_file(ifs);
                 auto tmp2 = stool::bptree::SimpleDynamicBitSequence::load_from_file(ifs);

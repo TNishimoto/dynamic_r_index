@@ -43,14 +43,14 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
-            static void save(DynamicPartialSA &item, std::ofstream &os)
+            static void store_to_file(DynamicPartialSA &item, std::ofstream &os)
             {
                 stool::bptree::DynamicPermutation::store_to_file(item.pom, os);
                 stool::bptree::SimpleDynamicPrefixSum::store_to_file(item.sampled_isa_gap_vector, os);
 
                 os.write(reinterpret_cast<const char *>(&item._text_size), sizeof(uint64_t));
             }
-            static DynamicPartialSA build_from_data(std::ifstream &ifs)
+            static DynamicPartialSA load_from_file(std::ifstream &ifs)
             {
                 stool::bptree::DynamicPermutation tmp_pom = stool::bptree::DynamicPermutation::load_from_file(ifs);
                 stool::bptree::SimpleDynamicPrefixSum tmp_sampled_isa_gap_vector = stool::bptree::SimpleDynamicPrefixSum::load_from_file(ifs);

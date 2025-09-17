@@ -79,7 +79,7 @@ std::cout << "\e[m" << std::endl;
     //drfmi.print_memory_usage();
     //drfmi.print_statistics();
 
-    stool::dynamic_r_index::DynamicRIndex::save(drfmi, os);
+    stool::dynamic_r_index::DynamicRIndex::store_to_file(drfmi, os);
     os.close();
 
     st2 = std::chrono::system_clock::now();
