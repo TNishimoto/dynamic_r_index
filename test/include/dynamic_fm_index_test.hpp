@@ -421,7 +421,7 @@ namespace stool
                         std::cerr << "Error: Could not open file for writing." << std::endl;
                         throw std::runtime_error("File open error");
                     }
-                    stool::dynamic_r_index::DynamicFMIndex::save(dfmi, os, stool::Message::NO_MESSAGE);
+                    stool::dynamic_r_index::DynamicFMIndex::store_to_file(dfmi, os, stool::Message::NO_MESSAGE);
                 }
 
                 stool::dynamic_r_index::DynamicFMIndex dfmi2;
@@ -434,7 +434,7 @@ namespace stool
                         throw std::runtime_error("File open error");
                     }
 
-                    auto tmp = stool::dynamic_r_index::DynamicFMIndex::build_from_data(ifs, stool::Message::NO_MESSAGE);
+                    auto tmp = stool::dynamic_r_index::DynamicFMIndex::load_from_file(ifs, stool::Message::NO_MESSAGE);
                     dfmi2.swap(tmp);
                 }
 
