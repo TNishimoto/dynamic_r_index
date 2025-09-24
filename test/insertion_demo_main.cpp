@@ -46,7 +46,11 @@ int main(int argc, char *argv[])
                 snap_shots[i].print_information(true);
 
                 stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion *prev = i == 0 ? nullptr : &snap_shots[i - 1];
-                snap_shots[i].verify_RLE_update(prev);
+                if(i < snap_shots.size() - 1){
+                    snap_shots[i].verify_RLE_update(prev);
+                    snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
+                    snap_shots[i].verify_SA_update(prev);
+                }
             }
 
 

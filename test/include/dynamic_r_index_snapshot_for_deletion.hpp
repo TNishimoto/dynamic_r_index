@@ -446,7 +446,7 @@ namespace stool
                     }else if(this->t >= high_p - 1 && this->sa[i] == (this->t - this->deletion_length)){
                         color_mode = 1;
                     }else if(this->t < low_p - 1 && this->sa[i] == this->t){
-                        color_mode = 1make;
+                        color_mode = 1;
                     }
                     //std::cout << sa[i] << "\t" << conceptual_matrix[i] << std::endl;
                     print_conceptual_matrix(i, this->sa[i], conceptual_matrix[i], index_begin_with_1, color_mode);

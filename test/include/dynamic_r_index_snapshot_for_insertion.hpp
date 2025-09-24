@@ -8,7 +8,7 @@
 #include "libdivsufsort/sa.hpp"
 #include "./dynamic_fm_index_test.hpp"
 #include "./dynamic_r_index_test.hpp"
-
+#include "./naive_operations.hpp"
 namespace stool
 {
     namespace dynamic_r_index
@@ -56,7 +56,7 @@ namespace stool
                 return conceptual_matrix[i].size() - (endmarker_pos + 1);
             }
 
-            std::vector<uint64_t> construct_dynamic_LF_array(const std::vector<uint64_t> &next_isa) const
+            std::vector<uint64_t> construct_naive_dynamic_LF_array(const std::vector<uint64_t> &next_isa) const
             {
                 // std::vector<uint64_t> suffix_array = this->create_suffix_array();
 
@@ -93,39 +93,36 @@ namespace stool
             */
             uint64_t dynamic_LF(uint64_t i) const
             {
-                // std::string bwt = construct_bwt();
-                // std::vector<uint64_t> isa = create_inverse_suffix_array();
-                uint64_t lf = rank(this->bwt, i, this->bwt[i]) + lex_count(this->bwt, this->bwt[i]) - 1;
+                uint64_t lf = NaiveOperations::rank(this->bwt, i, this->bwt[i]) + NaiveOperations::lex_count(this->bwt, this->bwt[i]) - 1;
                 if (this->j > this->insertion_pos && this->j <= this->insertion_pos + this->inserted_string.size())
                 {
                     uint8_t old_char = this->get_old_character();
                     uint64_t positionToReplace = this->isa[this->insertion_pos + this->inserted_string.size()];
-                    
-                    if (old_char < this->bwt[i] || (positionToReplace <= i && this->bwt[i] == old_char))
-                    {
-                        return lf + 1;
-                    }
-                    else
-                    {
-                        return lf;
-                    }
+                    bool b = old_char < this->bwt[i] || (positionToReplace <= i && this->bwt[i] == old_char);
+                    return lf + (b ? 1 : 0);
                 }
                 else
                 {
                     return lf;
                 }
             }
-
-            void verify_dynamic_LF(const DynamicRIndexSnapShotForInsertion &next) const
+            std::vector<uint64_t> construct_dynamic_LF_array() const
             {
-                std::vector<uint64_t> next_isa = next.isa;
-                std::vector<uint64_t> correct_array = construct_dynamic_LF_array(next_isa);
-                // std::string bwt = construct_bwt();
                 std::vector<uint64_t> test_array;
                 for (uint64_t i = 0; i < this->bwt.size(); i++)
                 {
                     test_array.push_back(this->dynamic_LF(i));
                 }
+                return test_array;
+            }
+
+
+            void verify_dynamic_LF(const DynamicRIndexSnapShotForInsertion &next) const
+            {
+                std::vector<uint64_t> next_isa = next.isa;
+                std::vector<uint64_t> correct_array = construct_naive_dynamic_LF_array(next_isa);
+                // std::string bwt = construct_bwt();
+                std::vector<uint64_t> test_array = construct_dynamic_LF_array();
                 try
                 {
                     stool::EqualChecker::equal_check(correct_array, test_array, "dynamic LF check");
@@ -208,7 +205,7 @@ namespace stool
 
                 for (uint64_t i = 0; i < text.size(); i++)
                 {
-                    conceptual_matrix.push_back(get_circular_string(text, i));
+                    conceptual_matrix.push_back(NaiveOperations::get_circular_string(text, i));
                 }
                 this->sort_conceptual_matrix();
                 this->j = this->updated_text.size();
@@ -218,34 +215,6 @@ namespace stool
                 bwt = construct_bwt();
             }
 
-            static std::string get_circular_string(const std::string &text, uint64_t starting_pos)
-            {
-                return text.substr(starting_pos) + text.substr(0, starting_pos);
-            }
-            static uint64_t rank(const std::string &text, uint64_t i, uint8_t c)
-            {
-                uint64_t count = 0;
-                for (uint64_t j = 0; j <= i; j++)
-                {
-                    if (text[j] == c)
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
-            static uint64_t lex_count(const std::string &text, uint8_t c)
-            {
-                uint64_t count = 0;
-                for (auto c1 : text)
-                {
-                    if (c1 < c)
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
 
             int64_t get_starting_position_of_old_circular_string(uint64_t t) const
             {
@@ -267,11 +236,11 @@ namespace stool
             {
                 this->j--;
                 int64_t p = this->get_starting_position_of_old_circular_string(this->j);
-                std::string new_circular_string = get_circular_string(this->updated_text, this->j);
+                std::string new_circular_string = NaiveOperations::get_circular_string(this->updated_text, this->j);
 
                 if (p != -1)
                 {
-                    std::string old_circular_string = get_circular_string(this->text, p);
+                    std::string old_circular_string = NaiveOperations::get_circular_string(this->text, p);
                     for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
                     {
                         if (conceptual_matrix[i] == old_circular_string)
@@ -417,32 +386,37 @@ namespace stool
             }
             void print_information(bool index_begin_with_1 = false) const
             {
-                int64_t _x = this->naive_compute_x();
-                int64_t _y = this->naive_compute_y();
 
-                int64_t sa_x_minus = this->naive_compute_SA1_minus();
-                int64_t sa_x_plus = this->naive_compute_SA1_plus();
-                int64_t sa_y_minus = this->naive_compute_SA2_minus();
-                int64_t sa_y_plus = this->naive_compute_SA2_plus();
-
-                if(index_begin_with_1){
-                    _x = _x != - 1 ? _x + 1 : -1;
-                    _y = _y != - 1 ? _y + 1 : -1;
-                    sa_x_minus = sa_x_minus != - 1 ? sa_x_minus + 1 : -1;
-                    sa_x_plus = sa_x_plus != - 1 ? sa_x_plus + 1 : -1;
-                    sa_y_minus = sa_y_minus != - 1 ? sa_y_minus + 1 : -1;
-                    sa_y_plus = sa_y_plus != - 1 ? sa_y_plus + 1 : -1;
+                if(this->j > 0){
+                    int64_t _x = this->naive_compute_x();
+                    int64_t _y = this->naive_compute_y();
+    
+                    int64_t sa_x_minus = this->naive_compute_SA1_minus();
+                    int64_t sa_x_plus = this->naive_compute_SA1_plus();
+                    int64_t sa_y_minus = this->naive_compute_SA2_minus();
+                    int64_t sa_y_plus = this->naive_compute_SA2_plus();
+    
+                    if(index_begin_with_1){
+                        _x = _x != - 1 ? _x + 1 : -1;
+                        _y = _y != - 1 ? _y + 1 : -1;
+                        sa_x_minus = sa_x_minus != - 1 ? sa_x_minus + 1 : -1;
+                        sa_x_plus = sa_x_plus != - 1 ? sa_x_plus + 1 : -1;
+                        sa_y_minus = sa_y_minus != - 1 ? sa_y_minus + 1 : -1;
+                        sa_y_plus = sa_y_plus != - 1 ? sa_y_plus + 1 : -1;
+                    }
+    
+                    std::cout << "---- Information ------------------------" << std::endl;
+                    std::cout << "j = " << this->j << std::endl;                
+                    std::cout << "x = " << _x << std::endl;
+                    std::cout << "y = " << _y << std::endl;
+                    std::cout << "SA_{j}[x-1] = " << sa_x_minus << std::endl;
+                    std::cout << "SA_{j}[x+1] = " << sa_x_plus << std::endl;
+                    std::cout << "SA_{j-1}[y-1] = " << sa_y_minus << std::endl;
+                    std::cout << "SA_{j-1}[y+1] = " << sa_y_plus << std::endl;
+    
                 }
 
-                std::cout << "---- Information ------------------------" << std::endl;
-                std::cout << "j = " << this->j << std::endl;                
-                std::cout << "x = " << _x << std::endl;
-                std::cout << "y = " << _y << std::endl;
-                std::cout << "SA_{j}[x-1] = " << sa_x_minus << std::endl;
-                std::cout << "SA_{j}[x+1] = " << sa_x_plus << std::endl;
-                std::cout << "SA_{j-1}[y-1] = " << sa_y_minus << std::endl;
-                std::cout << "SA_{j-1}[y+1] = " << sa_y_plus << std::endl;
-
+                
 
                 if (this->j != 0)
                 {
@@ -473,10 +447,10 @@ namespace stool
                 }
             }
             int64_t compute_x(DynamicRIndexSnapShotForInsertion *prev) const {
-                uint64_t p = this->insertion_pos + this->inserted_string.size();
+                uint64_t high_p = this->insertion_pos + this->inserted_string.size();
                 if(this->j == this->text.size() + this->inserted_string.size()){
                     return 0;
-                }else if(this-> j > this->insertion_pos && this->j <= p){
+                }else if(this-> j > this->insertion_pos && this->j <= high_p){
                     return -1;
                 }
                 else if(this->j > 0 && this->j == this->insertion_pos){
@@ -487,7 +461,7 @@ namespace stool
                         throw std::runtime_error("prev is nullptr");
                     }
                     int64_t prev_x = prev->naive_compute_x();
-                    uint64_t lf = rank(prev->bwt, prev_x, prev->bwt[prev_x]) + lex_count(prev->bwt, prev->bwt[prev_x]) - 1;
+                    uint64_t lf = NaiveOperations::rank(prev->bwt, prev_x, prev->bwt[prev_x]) + NaiveOperations::lex_count(prev->bwt, prev->bwt[prev_x]) - 1;
                     return lf;
                 }else{
                     return -1;
@@ -513,11 +487,11 @@ namespace stool
                     return -1;
                 }else if(this-> j > 0 && this->j <= this->insertion_pos){
                     int64_t prev_y = prev->naive_compute_y();
-                    uint64_t lf = rank(this->bwt, prev_y, this->bwt[prev_y]) + lex_count(this->bwt, this->bwt[prev_y]) - 1;
+                    uint64_t lf = NaiveOperations::rank(this->bwt, prev_y, this->bwt[prev_y]) + NaiveOperations::lex_count(this->bwt, this->bwt[prev_y]) - 1;
                     return lf;
                 }else{
                     int64_t prev_y = prev->naive_compute_y();
-                    uint64_t lf = rank(this->bwt, prev_y, this->bwt[prev_y]) + lex_count(this->bwt, this->bwt[prev_y]) - 1;
+                    uint64_t lf = NaiveOperations::rank(this->bwt, prev_y, this->bwt[prev_y]) + NaiveOperations::lex_count(this->bwt, this->bwt[prev_y]) - 1;
                     int64_t q = this->isa[p];
                     bool b = this->text[this->insertion_pos-1] < this->bwt[prev_y] || (this->text[this->insertion_pos-1] == this->bwt[prev_y] && q <= prev_y);
                     if(b){
@@ -569,6 +543,7 @@ namespace stool
                 }
             }
             uint64_t naive_compute_SA2_minus() const {
+                assert(this->j > 0);
                 auto copy = this->copy();
                 copy.update();
                 int64_t y = this->naive_compute_y();
@@ -583,6 +558,7 @@ namespace stool
                 }
             }
             uint64_t naive_compute_SA2_plus() const {
+                assert(this->j > 0);
                 auto copy = this->copy();
                 copy.update();
                 int64_t y = this->naive_compute_y();
@@ -597,21 +573,115 @@ namespace stool
                 }
             }
 
-            int64_t compute_SA1_minus() const {
-                int64_t x = this->naive_compute_x();
-                if(x == -1){
-                    return -1;
-                }else{
-                    if(x == 0){
-                        return this->sa[this->sa.size() - 1];
-                    }else{
-                        return this->sa[x-1];
+            
+            
+           
+            uint8_t get_c_succ(uint8_t c_v) const{
+                uint16_t c_succ = UINT16_MAX;
+                for(uint64_t i = 0; i < this->bwt.size(); i++){
+                    if(this->bwt[i] > c_v && (uint16_t)this->bwt[i] < c_succ){
+                        c_succ = this->bwt[i];
                     }
                 }
+                if(c_succ == UINT16_MAX){
+                    c_succ = '$';
+                }
+
+                return c_succ;
+            }
+            int64_t compute_sa_s_at_min_U(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_s, uint64_t v) const {
+                int64_t s = -1;
+
+
+                for(int64_t i = v+1; i < rle.size(); i++){
+                    if(rle[i].first == rle[v].first){
+                        s = SA_s[i];
+                        break;
+                    }
+                }
+                return s;
+            }
+            int64_t compute_sa_s_at_min_U_prime(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_s, uint8_t c_succ, uint64_t v) const {
+                int64_t s = -1;
+                for(int64_t i = 0; i < v; i++){
+                    if(rle[i].first == c_succ){
+                        s = SA_s[i];
+                        break;
+                    }
+                }
+                return s;
             }
 
 
-            void verify_SA_update(DynamicRIndexSnapShotForInsertion *prev) const {
+            int64_t compute_SA1_plus(DynamicRIndexSnapShotForInsertion *prev) const {
+                uint64_t high_p = this->insertion_pos + this->inserted_string.size();
+
+                if(prev == nullptr){
+                    return this->naive_compute_SA1_plus();
+                }
+                else if(this->j > this->insertion_pos && this->j <= high_p){
+                    return -1;
+                }
+                else if(this->j == this->insertion_pos){
+                    return this->naive_compute_SA1_plus();
+                }
+                else{
+                    int64_t x = prev->naive_compute_x();
+                    auto rle = NaiveOperations::get_RLE(prev->bwt);
+                    int64_t v = NaiveOperations::get_rle_index_by_position(rle, x);
+                    uint8_t c_v = rle[v].first;
+                    std::cout << "x = " << x << ", v = " << v << ", c_v = " << c_v << " / ";
+
+                    assert(v != -1 && v < rle.size());
+                    uint64_t t_v = NaiveOperations::get_starting_position(rle, v);
+                    uint64_t ell_v = rle[v].second;
+                    auto SA_s = NaiveOperations::get_SA_s(prev->bwt, prev->sa);
+                    uint8_t c_succ = prev->get_c_succ(c_v);
+                    int64_t min_U = prev->compute_sa_s_at_min_U(rle, SA_s, v);
+                    int64_t min_U_prime = prev->compute_sa_s_at_min_U_prime(rle, SA_s, c_succ, v);
+    
+                    int64_t r = 0;
+
+                    for(uint64_t i = 0; i < rle.size(); i++){
+                        std::cout << "[" << (char)rle[i].first << " " << rle[i].second << "]";
+                    }
+                    std::cout << std::endl;
+
+                    std::cout << "x = " << x << ", v = " << v << ", c_v = " << c_v << ", t_v = " << t_v << ", ell_v = " << ell_v << " / " << min_U << std::endl;
+
+
+                    if(x != t_v + ell_v - 1){
+                        r = prev->sa[x+1];
+                        std::cout << "Found1: " << r << std::endl;
+                    }else if(x == t_v + ell_v - 1 && min_U != -1){
+                        r = min_U;
+                        std::cout << "Found2: " << r << std::endl;
+                    }else{
+                        r = min_U_prime;
+                        std::cout << "Found3: " << r << std::endl;
+
+                    }
+                    if(r > 0){
+                        r--;
+                    }else{
+                        r = prev->updated_text.size() -1;
+                    }
+
+                    return r;
+    
+                }
+
+            }
+
+
+
+            void verify_SA_update([[maybe_unused]] DynamicRIndexSnapShotForInsertion *prev) const {
+                int64_t _naive_SA1_plus = this->naive_compute_SA1_plus();
+                int64_t _SA1_plus = this->compute_SA1_plus(prev);
+                if(_naive_SA1_plus != _SA1_plus){
+                    std::cout << "naive_SA1_plus = " << _naive_SA1_plus << ", SA1_plus = " << _SA1_plus << std::endl;
+                    throw std::runtime_error("Error: naive_SA1_plus != SA1_plus");
+                }
 
             }
 
@@ -635,9 +705,13 @@ namespace stool
                         snap_shots[i].print_conceptual_matrix(index_begin_with_1);
                     }
                     stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion *prev = i == 0 ? nullptr : &snap_shots[i - 1];
-                    snap_shots[i].verify_RLE_update(prev);
     
-                    snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
+                    if(i < snap_shots.size() - 1){
+                        snap_shots[i].verify_RLE_update(prev);
+                        snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
+                        snap_shots[i].verify_SA_update(prev);
+                    }
+    
                 }
                 // std::cout << std::endl;
             }
