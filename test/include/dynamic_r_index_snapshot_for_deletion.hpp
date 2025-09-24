@@ -30,6 +30,8 @@ namespace stool
 
             uint64_t t = 0;
 
+            uint64_t SPECIAL_GAP = 10000;
+
             /*
             std::string get_nbwt() const
             {
@@ -69,7 +71,7 @@ namespace stool
                 }
                 if (conceptual_matrix[i].size() == this->text.size())
                 {
-                    return 10000 + (conceptual_matrix[i].size() - (endmarker_pos + 1));
+                    return SPECIAL_GAP + (conceptual_matrix[i].size() - (endmarker_pos + 1));
                 }
                 else
                 {
@@ -88,7 +90,7 @@ namespace stool
                     uint64_t p = this->sa[i];
                     uint64_t q = UINT64_MAX;
 
-                    if (p == 10000)
+                    if (p == SPECIAL_GAP)
                     {
                         q = this->updated_text.size() - 1;
                         /*
@@ -357,7 +359,7 @@ namespace stool
                 return t == 0;
             }
 
-            const DynamicRIndexSnapShotForDeletion copy()
+            const DynamicRIndexSnapShotForDeletion copy() const
             {
                 DynamicRIndexSnapShotForDeletion snap_shot;
                 snap_shot.text = text;
@@ -384,16 +386,180 @@ namespace stool
 
                 return snap_shots;
             }
+            int64_t compute_naive_x() const {
+                if(this->t != 0){
+                    uint64_t p = SPECIAL_GAP + this->t-1;
+                    for(uint64_t i = 0; i < this->conceptual_matrix.size(); i++){
+                        if(this->sa[i] == p){
+                            return i;
+                        }
+                    }
+                    return -1;
+                }else{
+                    return -1;
+                }             
+            }
+            int64_t compute_naive_y() const {
+                uint64_t low_p = this->deletion_pos + 1;
+                uint64_t high_p = low_p + this->deletion_length ;
+                if(this->t >= low_p && this->t <= high_p){
+                    return -1;
+                }
+                else if(this->t == 0){
+                    return -1;
+                }else{
+                    uint64_t value = 0;
+                    if(this->t < low_p){
+                        value = this->t -1;
+                    }else{
+                        value = this->t - 1 - this->deletion_length;
+                    }
 
-            void print_conceptual_matrix() const
+                    auto copy = this->copy();
+                    copy.update();
+                    return copy.isa[value];
+                }
+            }
+
+            void print_conceptual_matrix(bool index_begin_with_1 = false) const
             {
                 std::vector<uint64_t> sa = this->create_suffix_array();
+                int64_t naive_x = this->compute_naive_x();
+                uint64_t low_p = this->deletion_pos + 1;
+                uint64_t high_p = low_p + this->deletion_length ;
+
+
+                std::cout << "---- Information ------------------------" << std::endl;
+                if (this->t != 0)
+                {
+                    std::cout << "i \tSA_{" << this->t << "}\tCM_{" << this->t << "}\t\tL_{" << this->t << "}\tLF_{" << this->t << "}" << std::endl;
+                }
+                else
+                {
+                    std::cout << "i \tSA_{" << this->t << "}\tCM_{" << this->t << "}\t\tL_{" << this->t << "}" << std::endl;
+                }
+                for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
+                {
+                    int64_t color_mode = 0;
+                    if((int64_t)i == naive_x){
+                        color_mode = 2;
+                    }else if(this->t >= high_p - 1 && this->sa[i] == (this->t - this->deletion_length)){
+                        color_mode = 1;
+                    }else if(this->t < low_p - 1 && this->sa[i] == this->t){
+                        color_mode = 1make;
+                    }
+                    //std::cout << sa[i] << "\t" << conceptual_matrix[i] << std::endl;
+                    print_conceptual_matrix(i, this->sa[i], conceptual_matrix[i], index_begin_with_1, color_mode);
+                }
+                std::cout << "--------------------------------" << std::endl;
+                
+                /*
                 std::cout << this->t << "--------------------------------" << std::endl;
                 for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
                 {
                     std::cout << sa[i] << "\t" << conceptual_matrix[i] << std::endl;
                 }
                 std::cout << "--------------------------------" << std::endl;
+                */
+            }
+            void print_conceptual_matrix(uint64_t i, int64_t sa_v, std::string circular_shift, bool index_begin_with_1 = false, int64_t color_mode = 0) const
+            {
+
+                if (color_mode == 1)
+                {
+                    std::cout << "\x1b[43m";
+                }
+                else if (color_mode == 2)
+                {
+                    std::cout << "\x1b[47m";
+                }
+
+                int64_t modified_sa_v = sa_v >= (int64_t)SPECIAL_GAP ? (sa_v - SPECIAL_GAP) : sa_v;
+                uint64_t _i = i;
+                if(index_begin_with_1){
+                    _i++;
+                    modified_sa_v++;
+                }
+
+                std::string modified_sa_v_str = sa_v >= (int64_t)SPECIAL_GAP ? (std::to_string(modified_sa_v) + "*") : std::to_string(modified_sa_v);
+
+
+                if(this->t != 0){
+                    int64_t lf = this->dynamic_LF(i) == UINT64_MAX ? -1 : this->dynamic_LF(i);
+                    if(index_begin_with_1){
+                        lf++;
+                    }
+                    std::cout << _i << "\t" << modified_sa_v_str << "\t" << circular_shift << "\t\t" << this->bwt[i] << "\t" << lf;
+                }
+                else{
+                    std::cout << _i << "\t" << modified_sa_v_str << "\t" << circular_shift << "\t\t" << this->bwt[i];
+                }
+
+                if(color_mode > 0){
+
+                    std::cout << "\x1b[49m" << std::flush;
+                }
+                std::cout << std::endl;
+                /*
+                int64_t p = this->get_starting_position_of_old_circular_string(this->j - 1);
+
+                if (sa_v == (int64_t)this->j)
+                {
+                    std::cout << "\x1b[43m";
+                }
+                else if (sa_v == p)
+                {
+                    std::cout << "\x1b[47m";
+                }
+                std::cout << DynamicRIndexSnapShotForInsertion::value_with_index(i, index_begin_with_1) << " \t";
+                std::cout << DynamicRIndexSnapShotForInsertion::value_with_index(sa_v, index_begin_with_1) << "\t";
+
+
+                if (circular_shift.size() == this->updated_text.size())
+                {
+                    for (uint64_t j = 0; j < circular_shift.size(); j++)
+                    {        
+                        uint64_t pos = sa_v + j;
+                        if (pos >= this->updated_text.size())
+                        {
+                            pos -= this->updated_text.size();
+                        }
+
+                        if (pos >= this->deletion_pos && pos < this->deletion_pos + this->deletion_length)
+                        {
+                            std::cout << "\x1b[31m";
+                            std::cout << circular_shift[j];
+                            std::cout << "\x1b[39m";
+                        }
+                        else
+                        {
+                            std::cout << circular_shift[j];
+                        }
+                    }
+
+                }
+                else
+                {
+                    std::cout << circular_shift;
+                }
+                for(uint64_t j = circular_shift.size(); j < this->updated_text.size(); j++){
+                    std::cout << " ";
+                }
+
+                std::cout << " \t";
+
+                std::cout << circular_shift[circular_shift.size() - 1] << "\t";
+
+                if(this->t != 0){
+                    std::cout << DynamicRIndexSnapShotForInsertion::value_with_index(this->dynamic_LF(i), index_begin_with_1) << "\t";
+                }
+
+                if (sa_v == (int64_t)this->t || sa_v == p)
+                {
+                    std::cout << "\x1b[49m" << std::flush;
+                }
+                std::cout << std::endl;
+                */
             }
 
             static void deletion_test(std::string text, uint64_t deletion_pos, uint64_t deletion_length, bool view = false)

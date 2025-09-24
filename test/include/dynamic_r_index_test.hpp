@@ -473,7 +473,7 @@ namespace stool
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
 
-                NaiveDynamicStringForBWT nds;
+                stool::NaiveDynamicStringX nds;
                 nds.initialzie(text);
  
 

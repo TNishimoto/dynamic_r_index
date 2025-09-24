@@ -9,5 +9,5 @@ list=("cere" "modified_coreutils" "einstein.de.txt" "einstein.en.txt" "Escherich
 for item in "${list[@]}" ; do
   set -- $item
   echo "Search $1"
-  nohup /usr/bin/time -f "#locate, DR-index, 8, $1, pattern_length, 100, Time(sec), %e, Memory(KB), %M" ./query.out -i ${folderpath}/$1.drfmi -q ${querypath}/$1.locate.100.tsv -w ${logpath}/$1.r.locate.100.log -u 1 >> ${logpath}/locate.dr_100.log
+  nohup /usr/bin/time -f "#locate, DFM-index, 8, $1, pattern_length, 100, Time(sec), %e, Memory(KB), %M" ./query.out -i ${folderpath}/$1.8.dfmi -q ${querypath}/$1.locate.100.tsv -w ${logpath}/$1.8.locate.100.log >> ${logpath}/locate_dfm.8.100.log
 done

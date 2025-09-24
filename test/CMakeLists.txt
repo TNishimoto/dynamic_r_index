@@ -61,8 +61,8 @@ target_link_libraries(generate_query.out divsufsort divsufsort64 sdsl)
 add_executable(fm_index_test.out fm_index_test_main.cpp)
 target_link_libraries(fm_index_test.out divsufsort divsufsort64 sdsl)
 
-add_executable(pseudocode.out pseudocode_main.cpp)
-target_link_libraries(pseudocode.out divsufsort divsufsort64 sdsl)
+add_executable(deletion_demo.out deletion_demo_main.cpp)
+target_link_libraries(deletion_demo.out divsufsort divsufsort64 sdsl)
 
 add_executable(insertion_demo.out insertion_demo_main.cpp)
 target_link_libraries(insertion_demo.out divsufsort divsufsort64 sdsl)

@@ -101,10 +101,10 @@ int main(int argc, char *argv[])
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
     p.add<uint>("mode", 'm', "mode", false, 0);
-    p.add<std::string>("text", 't', "text", false, "");
+    p.add<std::string>("text", 't', "text", false, "bbabba$");
 
-    p.add<uint>("position", 'p', "position", false, 0);
-    p.add<uint>("length", 'l', "length", false, 0);
+    p.add<uint>("position", 'p', "position", false, 3);
+    p.add<uint>("length", 'l', "length", false, 1);
     p.add<uint>("seed", 's', "seed", false, 0);
 
     p.add<uint>("detailed_check", 'u', "detailed_check", false, 0);
@@ -118,6 +118,45 @@ int main(int argc, char *argv[])
 
     bool detailed_check = p.get<uint>("detailed_check") == 0 ? false : true;
 
+    std::string command;
+
+    while(true){
+        std::cout << "text \t\t\t = " << text << std::endl;
+        std::cout << "position \t\t = " << stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion::value_with_index(position, true) << std::endl;
+        std::cout << "deletion_length \t = " << length << std::endl;
+        std::cout << "Command? (Press h to display the list of commands.)" << std::endl;
+        
+
+        std::cin >> command;
+        if(command == "exit"){
+            break;
+        }
+        else if(command == "snapshot"){
+
+            std::vector<stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion> snap_shots = stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion::get_all_snap_shots(text, position, length);
+            for (uint64_t i = 0; i < snap_shots.size(); i++)
+            {
+                snap_shots[i].print_conceptual_matrix(true);
+
+            }
+
+
+            //stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion::insertion_demo(text, position, inserted_string, true);
+        }
+        else if(command == "test"){
+            throw std::runtime_error("Not implemented");
+        }
+        else if(command == "h" || command == "help"){
+            std::cout << "--------------[Command list]------------------" << std::endl;
+            std::cout << "snapshot \t\t = Display the snapshot of the insertion." << std::endl;
+            std::cout << "exit \t\t\t = Exit the program." << std::endl;
+            std::cout << "--------------------------------" << std::endl;
+            std::cout << std::endl;
+        }
+            
+    }
+
+    /*
     if (mode == 2)
     {
 
@@ -127,4 +166,6 @@ int main(int argc, char *argv[])
     {
         main_sub(mode, detailed_check, seed);
     }
+    */
+
 }
