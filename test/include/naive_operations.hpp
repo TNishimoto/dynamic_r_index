@@ -103,6 +103,32 @@ namespace stool
                 return SA_e;
             }
 
+            static uint64_t get_SA_plus(const std::vector<uint64_t> &sa, int64_t i){
+                assert(i >= 0 && i < sa.size());
+                if (i == (int64_t)sa.size() - 1)
+                {
+                    return sa[0];
+                }
+                else
+                {
+                    return sa[i + 1];
+                }
+            }
+            static uint64_t get_SA_minus(const std::vector<uint64_t> &sa, int64_t i){
+                assert(i >= 0 && i < sa.size());
+                if (i == 0)
+                {
+                    return sa[sa.size() - 1];
+                }
+                else
+                {
+                    return sa[i - 1];
+                }
+
+            }
+
+
+
         };
     }
 }

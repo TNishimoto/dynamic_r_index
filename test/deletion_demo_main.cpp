@@ -100,23 +100,17 @@ int main(int argc, char *argv[])
     cmdline::parser p;
 
     // p.add<std::string>("input_file", 'i', "input file name", true);
-    p.add<uint>("mode", 'm', "mode", false, 0);
     p.add<std::string>("text", 't', "text", false, "bbabba$");
 
     p.add<uint>("position", 'p', "position", false, 3);
     p.add<uint>("length", 'l', "length", false, 1);
-    p.add<uint>("seed", 's', "seed", false, 0);
 
-    p.add<uint>("detailed_check", 'u', "detailed_check", false, 0);
 
     p.parse_check(argc, argv);
-    uint64_t mode = p.get<uint>("mode");
-    uint64_t seed = p.get<uint>("seed");
     std::string text = p.get<std::string>("text");
     uint64_t position = p.get<uint>("position");
     uint64_t length = p.get<uint>("length");
 
-    bool detailed_check = p.get<uint>("detailed_check") == 0 ? false : true;
 
     std::string command;
 
@@ -138,13 +132,29 @@ int main(int argc, char *argv[])
             {
                 snap_shots[i].print_conceptual_matrix(true);
 
+
+                stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion *prev = i == 0 ? nullptr : &snap_shots[i - 1];
+
+                if (i < snap_shots.size() - 1)
+                {
+                    snap_shots[i].verify_RLE_update(prev);
+                    snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
+                    snap_shots[i].verify_SA_update(prev);
+                }
+
             }
 
 
             //stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion::insertion_demo(text, position, inserted_string, true);
         }
         else if(command == "test"){
-            throw std::runtime_error("Not implemented");
+            uint64_t alphabet_type = 0;
+            uint64_t number_of_trials = 100;
+            uint64_t text_size = 100;
+            uint64_t insertion_length = 10;
+            uint64_t seed = 0;
+            stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion::deletion_test(text_size, insertion_length, alphabet_type, number_of_trials, seed);
+
         }
         else if(command == "h" || command == "help"){
             std::cout << "--------------[Command list]------------------" << std::endl;

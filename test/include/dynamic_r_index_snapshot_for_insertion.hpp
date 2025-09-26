@@ -13,16 +13,17 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        enum ModeForInsertion {
-            Preprocessing = 1, 
-            CharInsertion = 2,
-            PostPreprocessingA = 3, 
-            PostPreprocessingB = 4
-        };
 
         class DynamicRIndexSnapShotForInsertion
         {
-        public:
+            enum ModeForInsertion {
+                Preprocessing = 1, 
+                CharInsertion = 2,
+                PostPreprocessing = 3, 
+                Finished = 4
+            };
+    
+            public:
             std::string text;
             std::string updated_text;
             std::string inserted_string;
@@ -45,14 +46,10 @@ namespace stool
                 else if(this->j >= this->insertion_pos + 1 && this->j <= high_p){
                     return CharInsertion;
                 }
-                else{
-                    int64_t x = this->naive_compute_x();
-                    int64_t y = this->naive_compute_y();
-                    if(x == y){
-                        return PostPreprocessingB;
-                    }else{
-                        return PostPreprocessingA;
-                    }
+                else if(this->j > 0){
+                    return PostPreprocessing;
+                }else{
+                    return Finished;
                 }
             }
 
@@ -416,10 +413,14 @@ namespace stool
                     int64_t _x = this->naive_compute_x();
                     int64_t _y = this->naive_compute_y();
 
-                    int64_t sa_x_minus = this->naive_compute_SA1_minus();
-                    int64_t sa_x_plus = this->naive_compute_SA1_plus();
-                    int64_t sa_y_minus = this->naive_compute_SA2_minus();
-                    int64_t sa_y_plus = this->naive_compute_SA2_plus();
+                    int64_t sa_x_minus = _x == -1 ? -1 : NaiveOperations::get_SA_minus(this->sa, _x);
+                    int64_t sa_x_plus = _x == -1 ? -1 : NaiveOperations::get_SA_plus(this->sa, _x);
+
+                    auto next_snapshot = this->copy();
+                    next_snapshot.update();
+
+                    int64_t sa_y_minus = _y == -1 ? -1 : NaiveOperations::get_SA_minus(next_snapshot.sa, _y);
+                    int64_t sa_y_plus = _y == -1 ? -1 : NaiveOperations::get_SA_plus(next_snapshot.sa, _y);
 
                     if (index_begin_with_1)
                     {
@@ -458,16 +459,16 @@ namespace stool
 
             int64_t naive_compute_x() const
             {
-                int64_t p = this->insertion_pos + this->inserted_string.size();
-                if (this->j > p)
+                ModeForInsertion mode = this->get_mode();
+                if (mode == Preprocessing)
                 {
                     return this->isa[this->j - this->inserted_string.size() - 1];
                 }
-                else if (this->j > this->insertion_pos)
+                else if (mode == CharInsertion)
                 {
                     return -1;
                 }
-                else if (this->j > 0)
+                else if (mode == PostPreprocessing)
                 {
                     return this->isa[this->j - 1];
                 }
@@ -478,12 +479,13 @@ namespace stool
             }
             int64_t compute_x(DynamicRIndexSnapShotForInsertion *prev) const
             {
-                int64_t high_p = this->insertion_pos + this->inserted_string.size();
-                if (this->j == (int64_t)this->text.size() + (int64_t)this->inserted_string.size())
+                int64_t j_max = (int64_t)this->text.size() + (int64_t)this->inserted_string.size(); 
+                ModeForInsertion mode = this->get_mode();
+                if (this->j == j_max)
                 {
                     return 0;
                 }
-                else if (this->j > this->insertion_pos && this->j <= high_p)
+                else if (mode == CharInsertion)
                 {
                     return -1;
                 }
@@ -491,7 +493,10 @@ namespace stool
                 {
                     return this->isa[this->insertion_pos - 1];
                 }
-                else if (this->j > 0)
+                else if (mode == Finished){
+                    return -1;
+                }
+                else
                 {
                     if (prev == nullptr)
                     {
@@ -501,15 +506,12 @@ namespace stool
                     uint64_t lf = NaiveOperations::rank(prev->bwt, prev_x, prev->bwt[prev_x]) + NaiveOperations::lex_count(prev->bwt, prev->bwt[prev_x]) - 1;
                     return lf;
                 }
-                else
-                {
-                    return -1;
-                }
             }
 
             int64_t naive_compute_y() const
             {
-                if (this->j > 0)
+                ModeForInsertion mode = this->get_mode();
+                if (mode != Finished)
                 {
                     auto copy = this->copy();
                     copy.update();
@@ -522,16 +524,17 @@ namespace stool
             }
             int64_t compute_y(DynamicRIndexSnapShotForInsertion *prev) const
             {
-                int64_t p = this->insertion_pos + this->inserted_string.size();
-                if (this->j > p)
+                ModeForInsertion mode = this->get_mode();
+
+                if (mode == Preprocessing)
                 {
                     return this->compute_x(prev);
                 }
-                else if (this->j == 0)
+                else if (mode == Finished)
                 {
                     return -1;
                 }
-                else if (this->j > 0 && this->j <= this->insertion_pos)
+                else if (mode == PostPreprocessing)
                 {
                     int64_t prev_y = prev->naive_compute_y();
                     uint64_t lf = NaiveOperations::rank(this->bwt, prev_y, this->bwt[prev_y]) + NaiveOperations::lex_count(this->bwt, this->bwt[prev_y]) - 1;
@@ -539,6 +542,8 @@ namespace stool
                 }
                 else
                 {
+                    int64_t p = this->insertion_pos + this->inserted_string.size();
+
                     int64_t prev_y = prev->naive_compute_y();
                     uint64_t lf = NaiveOperations::rank(this->bwt, prev_y, this->bwt[prev_y]) + NaiveOperations::lex_count(this->bwt, this->bwt[prev_y]) - 1;
                     int64_t q = this->isa[p];
@@ -571,88 +576,6 @@ namespace stool
                 {
                     std::cout << "naive_y = " << _naive_y << ", y = " << _y << std::endl;
                     throw std::runtime_error("Error: naive_y != y");
-                }
-            }
-            int64_t naive_compute_SA1_minus() const
-            {
-                int64_t x = this->naive_compute_x();
-                if (x == -1)
-                {
-                    return -1;
-                }
-                else
-                {
-                    if (x == 0)
-                    {
-                        return this->sa[this->sa.size() - 1];
-                    }
-                    else
-                    {
-                        return this->sa[x - 1];
-                    }
-                }
-            }
-            uint64_t naive_compute_SA1_plus() const
-            {
-                int64_t x = this->naive_compute_x();
-                if (x == -1)
-                {
-                    return -1;
-                }
-                else
-                {
-                    if (x == (int64_t)this->sa.size() - 1)
-                    {
-                        return this->sa[0];
-                    }
-                    else
-                    {
-                        return this->sa[x + 1];
-                    }
-                }
-            }
-            uint64_t naive_compute_SA2_minus() const
-            {
-                assert(this->j > 0);
-                auto copy = this->copy();
-                copy.update();
-                int64_t y = this->naive_compute_y();
-                if (y == -1)
-                {
-                    return -1;
-                }
-                else
-                {
-                    if (y == 0)
-                    {
-                        return copy.sa[copy.sa.size() - 1];
-                    }
-                    else
-                    {
-                        return copy.sa[y - 1];
-                    }
-                }
-            }
-            uint64_t naive_compute_SA2_plus() const
-            {
-                assert(this->j > 0);
-                auto copy = this->copy();
-                copy.update();
-                int64_t y = this->naive_compute_y();
-                if (y == -1)
-                {
-                    return -1;
-                }
-                else
-                {
-                    if (y == (int64_t)copy.sa.size() - 1)
-                    {
-                        return copy.sa[0];
-                    }
-                    else
-                    {
-                        return copy.sa[y + 1];
-                    }
                 }
             }
 
@@ -783,7 +706,7 @@ namespace stool
                 {
                     return -1;
                 }
-                else if ((next_mode == PostPreprocessingA || next_mode == PostPreprocessingB) && mode == CharInsertion)
+                else if (next_mode == PostPreprocessing && mode == CharInsertion)
                 {
                     return naive_answer;
                 }
@@ -831,8 +754,10 @@ namespace stool
             void verify_SA_update(DynamicRIndexSnapShotForInsertion *prev) const
             {
                 ModeForInsertion mode = this->get_mode();
-                if(mode == CharInsertion || mode == PostPreprocessingA || mode == PostPreprocessingB){
-                    int64_t _naive_SA1_plus = this->naive_compute_SA1_plus();
+                if(mode == PostPreprocessing){
+                    int64_t x = this->naive_compute_x();
+                    assert(x != -1);
+                    int64_t _naive_SA1_plus = NaiveOperations::get_SA_plus(this->sa, x);
                     int64_t _SA1_plus = prev->compute_next_SA1_plus(mode, _naive_SA1_plus);
                     if (_naive_SA1_plus != _SA1_plus)
                     {
@@ -841,8 +766,13 @@ namespace stool
                     }
                 }
                 if(prev != nullptr){
-                    if(mode == CharInsertion || mode == PostPreprocessingA || mode == PostPreprocessingB){
-                        int64_t _naive_SA2_plus = this->naive_compute_SA2_plus();
+                    if(mode == CharInsertion || mode == PostPreprocessing){
+                        int64_t _y = this->naive_compute_y();
+                        assert(_y != -1);
+                        auto next_snapshot = this->copy();
+                        next_snapshot.update();
+
+                        int64_t _naive_SA2_plus = NaiveOperations::get_SA_plus(next_snapshot.sa, _y);
                         int64_t y_plus = prev->naive_compute_y();
                         int64_t _SA2_plus = this->compute_next_SA2_plus(y_plus);
                         if (_naive_SA2_plus != _SA2_plus)
@@ -851,9 +781,7 @@ namespace stool
                             throw std::runtime_error("Error: naive_SA2_plus != SA2_plus");
                         }
                     }
-                }
-
-                
+                }                
             }
 
             /*
