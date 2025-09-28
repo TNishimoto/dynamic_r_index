@@ -579,119 +579,7 @@ namespace stool
                 }
             }
 
-            uint8_t get_c_succ(uint8_t c_v) const
-            {
-                uint16_t c_succ = UINT16_MAX;
-                for (uint64_t i = 0; i < this->bwt.size(); i++)
-                {
-                    if (this->bwt[i] > c_v && (uint16_t)this->bwt[i] < c_succ)
-                    {
-                        c_succ = this->bwt[i];
-                    }
-                }
-                if (c_succ == UINT16_MAX)
-                {
-                    c_succ = '$';
-                }
-
-                return c_succ;
-            }
-            int64_t compute_sa_s_at_min_U(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_s, int64_t v) const
-            {
-                int64_t s = -1;
-
-                for (int64_t i = v + 1; i < (int64_t)rle.size(); i++)
-                {
-                    if (rle[i].first == rle[v].first)
-                    {
-                        s = SA_s[i];
-                        break;
-                    }
-                }
-                return s;
-            }
-            int64_t compute_sa_s_at_min_U_prime(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_s, uint8_t c_succ, int64_t v) const
-            {
-                int64_t s = -1;
-                for (int64_t i = 0; i < v; i++)
-                {
-                    if (rle[i].first == c_succ)
-                    {
-                        s = SA_s[i];
-                        break;
-                    }
-                }
-                return s;
-            }
-
-            int64_t compute_SA_j_h_for_SA1_plus() const
-            {
-                int64_t x = this->naive_compute_x();
-                auto rle = NaiveOperations::get_RLE(this->bwt);
-                int64_t v = NaiveOperations::get_rle_index_by_position(rle, x);
-                uint8_t c_v = rle[v].first;
-
-                assert(v != -1 && v < (int64_t)rle.size());
-                int64_t t_v = NaiveOperations::get_starting_position(rle, v);
-                int64_t ell_v = rle[v].second;
-                auto SA_s = NaiveOperations::get_SA_s(this->bwt, this->sa);
-                uint8_t c_succ = this->get_c_succ(c_v);
-                int64_t min_U = this->compute_sa_s_at_min_U(rle, SA_s, v);
-                int64_t min_U_prime = this->compute_sa_s_at_min_U_prime(rle, SA_s, c_succ, v);
-
-                int64_t SA_j_h = 0;
-
-                if (x != t_v + ell_v - 1)
-                {
-                    SA_j_h = this->sa[x + 1];
-                }
-                else if (x == t_v + ell_v - 1 && min_U != -1)
-                {
-                    SA_j_h = min_U;
-                }
-                else
-                {
-                    SA_j_h = min_U_prime;
-                }
-
-                return SA_j_h;
-            }
-
             
-            int64_t compute_SA_j_g_for_SA2_plus(int64_t y_plus) const
-            {
-                auto rle = NaiveOperations::get_RLE(this->bwt);
-                int64_t v = NaiveOperations::get_rle_index_by_position(rle, y_plus);
-                uint8_t c_v = rle[v].first;
-                int64_t t_v = NaiveOperations::get_starting_position(rle, v);
-                int64_t ell_v = rle[v].second;
-                auto SA_s = NaiveOperations::get_SA_s(this->bwt, this->sa);
-                uint8_t c_succ = this->get_c_succ(c_v);
-
-                int64_t min_U = this->compute_sa_s_at_min_U(rle, SA_s, v);
-                int64_t min_U_prime = this->compute_sa_s_at_min_U_prime(rle, SA_s, c_succ, v);
-
-                int64_t SA_j_g = 0;
-
-                if (y_plus != t_v + ell_v - 1)
-                {
-                    SA_j_g = this->sa[y_plus + 1];
-                }
-                else if (y_plus == t_v + ell_v - 1 && min_U != -1)
-                {
-                    SA_j_g = min_U;
-                }
-                else
-                {
-                    SA_j_g = min_U_prime;
-                }
-
-                return SA_j_g;
-
-            }
-            
-
-
             int64_t compute_next_SA1_plus(ModeForInsertion next_mode, int64_t naive_answer) const
             {
                 ModeForInsertion mode = this->get_mode();
@@ -712,7 +600,9 @@ namespace stool
                 }
                 else
                 {
-                    int64_t SA_j_h = this->compute_SA_j_h_for_SA1_plus();
+                    int64_t x = this->naive_compute_x();
+                    int64_t sa_x_plus = NaiveOperations::get_SA_plus(this->sa, x);
+                    int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order(x, sa_x_plus, this->bwt, this->sa);
                     if (SA_j_h > 0)
                     {
                         return SA_j_h - 1;
@@ -739,7 +629,8 @@ namespace stool
                 }
                 else
                 {
-                    int64_t SA_j_g = this->compute_SA_j_g_for_SA2_plus(y_plus);
+                    int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
+                    int64_t SA_j_g = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
                     if (SA_j_g > 0)
                     {
                         return SA_j_g - 1;

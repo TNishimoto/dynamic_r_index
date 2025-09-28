@@ -104,7 +104,7 @@ namespace stool
             }
 
             static uint64_t get_SA_plus(const std::vector<uint64_t> &sa, int64_t i){
-                assert(i >= 0 && i < sa.size());
+                assert(i >= 0 && i < (int64_t)sa.size());
                 if (i == (int64_t)sa.size() - 1)
                 {
                     return sa[0];
@@ -115,7 +115,7 @@ namespace stool
                 }
             }
             static uint64_t get_SA_minus(const std::vector<uint64_t> &sa, int64_t i){
-                assert(i >= 0 && i < sa.size());
+                assert(i >= 0 && i < (int64_t)sa.size());
                 if (i == 0)
                 {
                     return sa[sa.size() - 1];
@@ -125,6 +125,86 @@ namespace stool
                     return sa[i - 1];
                 }
 
+            }
+            static uint8_t get_c_succ(uint8_t c_v, const std::string &bwt)
+            {
+                uint16_t c_succ = UINT16_MAX;
+                for (uint64_t i = 0; i < bwt.size(); i++)
+                {
+                    if (bwt[i] > c_v && (uint16_t)bwt[i] < c_succ)
+                    {
+                        c_succ = bwt[i];
+                    }
+                }
+                if (c_succ == UINT16_MAX)
+                {
+                    c_succ = '$';
+                }
+
+                return c_succ;
+            }
+
+            static int64_t compute_sa_s_at_min_U(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_s, int64_t v)
+            {
+                int64_t s = -1;
+
+                for (int64_t i = v + 1; i < (int64_t)rle.size(); i++)
+                {
+                    if (rle[i].first == rle[v].first)
+                    {
+                        s = SA_s[i];
+                        break;
+                    }
+                }
+                return s;
+            }
+            static int64_t compute_sa_s_at_min_U_prime(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_s, uint8_t c_succ)
+            {
+                int64_t s = -1;
+                for (int64_t i = 0; i < (int64_t)rle.size(); i++)
+                {
+                    if (rle[i].first == c_succ)
+                    {
+                        s = SA_s[i];
+                        break;
+                    }
+                }
+                return s;
+            }
+
+            static int64_t compute_next_SA_in_dynamic_LF_order(int64_t x, int64_t sa_x_plus, const std::string &bwt, const std::vector<uint64_t> &sa)
+            {
+                auto rle = NaiveOperations::get_RLE(bwt);
+                int64_t v = NaiveOperations::get_rle_index_by_position(rle, x);
+                uint8_t c_v = rle[v].first;
+
+                assert(v != -1 && v < (int64_t)rle.size());
+                int64_t t_v = NaiveOperations::get_starting_position(rle, v);
+                int64_t ell_v = rle[v].second;
+                auto SA_s = NaiveOperations::get_SA_s(bwt, sa);
+                uint8_t c_succ = NaiveOperations::get_c_succ(c_v, bwt);
+                int64_t min_U = NaiveOperations::compute_sa_s_at_min_U(rle, SA_s, v);
+                int64_t min_U_prime = NaiveOperations::compute_sa_s_at_min_U_prime(rle, SA_s, c_succ);
+
+                int64_t SA_j_h = 0;
+
+                if (x != t_v + ell_v - 1)
+                {
+                    SA_j_h = sa_x_plus;
+                }
+                else if (x == t_v + ell_v - 1 && min_U != -1)
+                {
+                    SA_j_h = min_U;
+                }
+                else
+                {
+                    assert(min_U_prime != -1);
+                    SA_j_h = min_U_prime;
+                }
+
+                
+
+                return SA_j_h;
             }
 
 

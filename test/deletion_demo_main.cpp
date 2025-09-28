@@ -152,6 +152,9 @@ int main(int argc, char *argv[])
             uint64_t number_of_trials = 100;
             uint64_t text_size = 100;
             uint64_t insertion_length = 10;
+            //uint64_t text_size = 10;
+            //uint64_t insertion_length = 3;
+
             uint64_t seed = 0;
             stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion::deletion_test(text_size, insertion_length, alphabet_type, number_of_trials, seed);
 

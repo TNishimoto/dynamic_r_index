@@ -464,16 +464,18 @@ namespace stool
             */
             int64_t compute_x(DynamicRIndexSnapShotForDeletion *prev) const
             {
-                int64_t j_max = (int64_t)this->text.size(); 
+                int64_t j_max = (int64_t)this->text.size();
                 ModeForDeletion mode = this->get_mode();
                 if (this->j == j_max)
                 {
                     return 0;
                 }
-                else if(mode == Finished){
+                else if (mode == Finished)
+                {
                     return -1;
                 }
-                else{
+                else
+                {
                     assert(prev != nullptr);
                     int64_t prev_x = prev->naive_compute_x();
                     ModeForDeletion prev_mode = prev->get_mode();
@@ -481,18 +483,20 @@ namespace stool
 
                     uint64_t lf = NaiveOperations::rank(prev->bwt, prev_x, prev_x_char) + NaiveOperations::lex_count(prev->bwt, prev_x_char) - 1;
 
-                    if(prev_mode == CharDeletion){
+                    if (prev_mode == CharDeletion)
+                    {
                         int64_t prev_q = prev->isa[this->deletion_pos];
                         int64_t prev_q_char = prev->bwt[prev_q];
 
                         bool b = prev_q_char < prev_x_char || (prev_q_char == prev_x_char && prev_q <= prev_x);
 
                         return b ? lf - 1 : lf;
-                    }else{
+                    }
+                    else
+                    {
                         return lf;
                     }
                 }
-
             }
             int64_t compute_y(DynamicRIndexSnapShotForDeletion *prev) const
             {
@@ -501,29 +505,30 @@ namespace stool
                 {
                     return this->naive_compute_x();
                 }
-                else if(mode == Finished || mode == CharDeletion){
+                else if (mode == Finished || mode == CharDeletion)
+                {
                     return -1;
-                }else if(this->j == this->deletion_pos){
+                }
+                else if (this->j == this->deletion_pos)
+                {
                     int64_t q = this->isa[this->deletion_pos];
                     uint64_t lf = NaiveOperations::rank(this->bwt, q, this->bwt[q]) + NaiveOperations::lex_count(this->bwt, this->bwt[q]) - 1;
                     return lf;
-                }else{
+                }
+                else
+                {
                     int64_t prev_y = prev->naive_compute_y();
                     assert(prev_y != -1);
-                    assert(prev_y < this->bwt.size());
+                    assert(prev_y < (int64_t)this->bwt.size());
                     uint64_t lf = NaiveOperations::rank(this->bwt, prev_y, this->bwt[prev_y]) + NaiveOperations::lex_count(this->bwt, this->bwt[prev_y]) - 1;
                     return lf;
                 }
-
             }
-
 
             void print_conceptual_matrix(bool index_begin_with_1 = false) const
             {
                 std::vector<uint64_t> sa = this->create_suffix_array();
                 int64_t naive_x = this->naive_compute_x();
-                int64_t low_p = this->deletion_pos + 1;
-                //int64_t high_p = low_p + this->deletion_length;
                 ModeForDeletion mode = this->get_mode();
 
                 std::cout << "---- Information ------------------------" << std::endl;
@@ -614,7 +619,9 @@ namespace stool
                 if (mode == Finished)
                 {
                     return -1;
-                }else{
+                }
+                else
+                {
                     return this->isa[this->j - 1 + SPECIAL_GAP];
                 }
             }
@@ -622,9 +629,12 @@ namespace stool
             {
 
                 ModeForDeletion mode = this->get_mode();
-                if(mode == Finished || mode == CharDeletion){
+                if (mode == Finished || mode == CharDeletion)
+                {
                     return -1;
-                }else{
+                }
+                else
+                {
 
                     uint64_t value = 0;
                     if (mode == PostPreprocessing)
@@ -641,7 +651,6 @@ namespace stool
                     return copy.isa[value];
                 }
             }
-
 
             void verify_RLE_update(DynamicRIndexSnapShotForDeletion *prev) const
             {
@@ -668,27 +677,79 @@ namespace stool
                     throw std::runtime_error("Error: naive_y != y");
                 }
             }
-            int64_t compute_next_SA1_plus(ModeForDeletion next_mode, int64_t naive_answer) const
+            int64_t compute_SA_j_h_for_SA1_plus(int64_t forbidden_sa_value) const
+            {
+
+                int64_t x = this->naive_compute_x();
+                int64_t sa_x_plus = NaiveOperations::get_SA_plus(this->sa, x);
+                int64_t SA_j_h_candidate = NaiveOperations::compute_next_SA_in_dynamic_LF_order(x, sa_x_plus, this->bwt, this->sa);
+                assert(SA_j_h_candidate != -1);
+                if (SA_j_h_candidate == forbidden_sa_value)
+                {
+
+                    int64_t forbidden_sa_value_pos = this->isa[forbidden_sa_value];
+                    int64_t sa_forbidden_sa_value_pos_plus = NaiveOperations::get_SA_plus(this->sa, forbidden_sa_value_pos);
+                    int64_t SA_j_h_candidate_for_forbidden_sa_value_pos = NaiveOperations::compute_next_SA_in_dynamic_LF_order(forbidden_sa_value_pos, sa_forbidden_sa_value_pos_plus, this->bwt, this->sa);
+                    return SA_j_h_candidate_for_forbidden_sa_value_pos;
+                }
+                else
+                {
+                    return SA_j_h_candidate;
+                }
+            }
+            int64_t compute_SA_j_h_for_SA2_plus(int64_t y_plus) const
+            {
+
+                int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
+                int64_t SA_j_h_candidate = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
+                assert(SA_j_h_candidate != -1);
+                return SA_j_h_candidate;
+            }
+
+            int64_t compute_next_SA1_plus() const
             {
                 ModeForDeletion mode = this->get_mode();
-                throw std::runtime_error("Error: compute_next_SA1_plus is not implemented");
 
-                /*
-                if(next_mode == Preprocessing){
-                    throw std::runtime_error("Error: next_mode == Preprocessing");
-                }
-                else if (next_mode == CharDeletion)
+                int64_t SA_j_h = -1;
+                if (mode == CharDeletion)
                 {
-                    return -1;
+                    int64_t forbitten_sa_value = this->deletion_pos;
+                    SA_j_h = this->compute_SA_j_h_for_SA1_plus(forbitten_sa_value);
                 }
-                else if (next_mode == PostPreprocessing && mode == CharInsertion)
+                else
+                {
+                    SA_j_h = this->compute_SA_j_h_for_SA1_plus(-1);
+                }
+
+                if (SA_j_h == (int64_t)SPECIAL_GAP)
+                {
+                    return this->updated_text.size() - 1;
+                }
+                else if (SA_j_h > 0)
+                {
+                    return SA_j_h - 1;
+                }
+                else
+                {
+                    return this->updated_text.size() - 1;
+                }
+            }
+            int64_t compute_next_SA2_plus(int64_t y_plus, ModeForDeletion prev_mode, int64_t naive_answer) const
+            {
+                if (prev_mode == CharDeletion)
                 {
                     return naive_answer;
                 }
                 else
                 {
-                    int64_t SA_j_h = this->compute_SA_j_h_for_SA1_plus();
-                    if (SA_j_h > 0)
+                    int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
+                    int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
+
+                    if (SA_j_h == (int64_t)SPECIAL_GAP)
+                    {
+                        return this->updated_text.size() - 1;
+                    }
+                    else if (SA_j_h > 0)
                     {
                         return SA_j_h - 1;
                     }
@@ -697,72 +758,50 @@ namespace stool
                         return this->updated_text.size() - 1;
                     }
                 }
-                */
-            }
-            int64_t compute_next_SA2_plus(int64_t y_plus) const
-            {
-                ModeForDeletion mode = this->get_mode();
-                throw std::runtime_error("Error: compute_next_SA2_plus is not implemented");
-
-                /*
-                int64_t y = this->naive_compute_y();
-
-                if(mode == Preprocessing){
-                    throw std::runtime_error("Error: next_mode == Preprocessing");
-                }
-                else if (mode == CharInsertion && y < (int64_t)this->sa.size() && (int64_t)this->sa[y] == this->insertion_pos - 1)
-                {
-                    return this->insertion_pos - 1;
-                }
-                else
-                {
-                    int64_t SA_j_g = this->compute_SA_j_g_for_SA2_plus(y_plus);
-                    if (SA_j_g > 0)
-                    {
-                        return SA_j_g - 1;
-                    }
-                    else
-                    {
-                        return this->updated_text.size() - 1;
-                    }
-                }
-                */
             }
             void verify_SA_update(DynamicRIndexSnapShotForDeletion *prev) const
             {
                 ModeForDeletion mode = this->get_mode();
-                
-                if(mode == CharDeletion || mode == PostPreprocessing){
+
+                if (mode == CharDeletion || mode == PostPreprocessing)
+                {
                     int64_t _x = this->naive_compute_x();
                     assert(_x != -1);
 
                     int64_t _naive_SA1_plus = NaiveOperations::get_SA_plus(this->sa, _x);
-                    int64_t _SA1_plus = prev->compute_next_SA1_plus(mode, _naive_SA1_plus);
+                    /*
+                    if(_naive_SA1_plus > SPECIAL_GAP){
+                        _naive_SA1_plus = _naive_SA1_plus - SPECIAL_GAP;
+                    }
+                    */
+
+                    int64_t _SA1_plus = prev->compute_next_SA1_plus();
                     if (_naive_SA1_plus != _SA1_plus)
                     {
                         std::cout << "naive_SA1_plus = " << _naive_SA1_plus << ", SA1_plus = " << _SA1_plus << std::endl;
                         throw std::runtime_error("Error: naive_SA1_plus != SA1_plus");
                     }
                 }
-                if(prev != nullptr){
-                    if(mode == PostPreprocessing){
-                        int64_t _y = this->naive_compute_y();
-                        assert(_y != -1);
-                        auto next_snapshot = this->copy();
-                        next_snapshot.update();
 
-                        int64_t _naive_SA2_plus = NaiveOperations::get_SA_plus(next_snapshot.sa, _y);
-                        int64_t y_plus = prev->naive_compute_y();
-                        int64_t _SA2_plus = this->compute_next_SA2_plus(y_plus);
-                        if (_naive_SA2_plus != _SA2_plus)
-                        {
-                            std::cout << "naive_SA2_plus = " << _naive_SA2_plus << ", SA2_plus = " << _SA2_plus << std::endl;
-                            throw std::runtime_error("Error: naive_SA2_plus != SA2_plus");
-                        }
+                if (mode == PostPreprocessing)
+                {
+                    int64_t _y = this->naive_compute_y();
+                    assert(_y != -1);
+                    auto next_snapshot = this->copy();
+                    next_snapshot.update();
+
+                    int64_t _naive_SA2_plus = NaiveOperations::get_SA_plus(next_snapshot.sa, _y);
+                    int64_t y_plus = prev->naive_compute_y();
+
+                    int64_t _SA2_plus = this->compute_next_SA2_plus(y_plus, prev->get_mode(), _naive_SA2_plus);
+                    if (_naive_SA2_plus != _SA2_plus)
+                    {
+                        next_snapshot.print_conceptual_matrix();
+
+                        std::cout << "naive_SA2_plus = " << _naive_SA2_plus << ", SA2_plus = " << _SA2_plus << std::endl;
+                        throw std::runtime_error("Error: naive_SA2_plus != SA2_plus");
                     }
-                } 
-                
-                
+                }
             }
 
             static void deletion_test(std::string text, uint64_t deletion_pos, uint64_t deletion_length, bool view = false)
@@ -786,18 +825,19 @@ namespace stool
                     {
                         std::cout << "j = " << snap_shots[i].j << std::endl;
                         std::cout << "new_char = " << (char)snap_shots[i].get_new_character() << std::endl;
+                        /*
                         std::cout << "replace_pos = " << snap_shots[i].isa[snap_shots[i].deletion_pos] << std::endl;
                         std::vector<uint64_t> next_isa = snap_shots[i + 1].isa;
                         std::vector<uint64_t> lf_array = snap_shots[i].construct_dynamic_LF_array(next_isa);
                         std::cout << "bwt: " << snap_shots[i].bwt << std::endl;
                         stool::DebugPrinter::print_integers(snap_shots[i].sa, "sa");
                         stool::DebugPrinter::print_integers(lf_array, "lf_array");
+                        */
 
                         snap_shots[i].print_conceptual_matrix();
 
                         std::cout << std::endl;
                     }
-
 
                     stool::dynamic_r_index::DynamicRIndexSnapShotForDeletion *prev = i == 0 ? nullptr : &snap_shots[i - 1];
 
