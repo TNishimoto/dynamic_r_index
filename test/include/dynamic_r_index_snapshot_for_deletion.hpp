@@ -40,15 +40,7 @@ namespace stool
 
             uint64_t SPECIAL_GAP = 10000;
 
-            /*
-            std::string get_nbwt() const
-            {
-                std::string bwt2 = this->bwt;
-
-                bwt2[this->isa[this->deletion_pos]] = this->text[this->deletion_pos + this->deletion_length - 1];
-                return bwt2;
-            }
-            */
+        private:
             ModeForDeletion get_mode() const
             {
                 int64_t high_p = this->deletion_pos + this->deletion_length;
@@ -74,164 +66,12 @@ namespace stool
             {
                 return this->text[this->deletion_pos + this->deletion_length - 1];
             }
-            uint8_t get_new_character() const
-            {
-                if (this->deletion_pos == 0)
-                {
-                    return this->text[this->text.size() - 1];
-                }
-                else
-                {
-                    return this->text[this->deletion_pos - 1];
-                }
-            }
-
-            uint64_t access_suffix_array(uint64_t i) const
-            {
-                uint64_t endmarker_pos = conceptual_matrix[i].size() - 1;
-                for (uint64_t j = 0; j < conceptual_matrix[i].size(); j++)
-                {
-                    if (conceptual_matrix[i][j] == end_marker)
-                    {
-                        endmarker_pos = j;
-                        break;
-                    }
-                }
-                if (conceptual_matrix[i].size() == this->text.size())
-                {
-                    return SPECIAL_GAP + (conceptual_matrix[i].size() - (endmarker_pos + 1));
-                }
-                else
-                {
-                    return conceptual_matrix[i].size() - (endmarker_pos + 1);
-                }
-            }
-
-            std::vector<uint64_t> construct_dynamic_LF_array(const std::vector<uint64_t> &next_isa) const
-            {
-                // std::vector<uint64_t> suffix_array = this->create_suffix_array();
-
-                std::vector<uint64_t> lf_array;
-                lf_array.resize(this->sa.size(), UINT64_MAX);
-                for (uint64_t i = 0; i < this->sa.size(); i++)
-                {
-                    uint64_t p = this->sa[i];
-                    uint64_t q = UINT64_MAX;
-
-                    if (p == SPECIAL_GAP)
-                    {
-                        q = this->updated_text.size() - 1;
-                        /*
-                        if (this->deletion_pos == 0 && this->j > this->deletion_pos && this->j <= this->deletion_pos + this->deletion_length)
-                        {
-                            q = UINT64_MAX;
-                        }
-                        else
-                        {
-                        }
-                        */
-                    }
-                    else
-                    {
-                        q = p - 1;
-                    }
-
-                    if (q == UINT64_MAX)
-                    {
-                        lf_array[i] = UINT64_MAX;
-                    }
-                    else if (next_isa[q] != UINT64_MAX)
-                    {
-                        lf_array[i] = next_isa[q];
-                    }
-                    else
-                    {
-                        lf_array[i] = UINT64_MAX;
-                    }
-                }
-                return lf_array;
-            }
-
-            uint64_t dynamic_LF(uint64_t i) const
-            {
-                int64_t lf = rank(this->bwt, i, this->bwt[i]) + lex_count(this->bwt, this->bwt[i]) - 1;
-
-                if (this->j > this->deletion_pos && this->j <= this->deletion_pos + this->deletion_length)
-                {
-                    uint64_t replace_pos = this->isa[this->deletion_pos];
-
-                    uint8_t new_char = this->get_new_character();
-
-                    if (i == replace_pos)
-                    {
-                        return UINT64_MAX;
-                    }
-                    else
-                    {
-
-                        uint8_t c = this->bwt[i];
-
-                        if (c > new_char || (i > replace_pos && c == new_char))
-                        {
-                            return lf > 0 ? lf - 1 : this->conceptual_matrix.size() - 2;
-                        }
-                        else
-                        {
-                            return lf;
-                        }
-                    }
-                }
-                else
-                {
-                    return lf;
-                }
-            }
-
-            void verify_dynamic_LF(const DynamicRIndexSnapShotForDeletion &next) const
-            {
-                std::vector<uint64_t> next_isa = next.isa;
-                std::vector<uint64_t> correct_array = construct_dynamic_LF_array(next_isa);
-                // std::string bwt = construct_bwt();
-                std::vector<uint64_t> test_array;
-
-                for (uint64_t i = 0; i < this->bwt.size(); i++)
-                {
-                    test_array.push_back(this->dynamic_LF(i));
-                }
-
-                try
-                {
-                    stool::EqualChecker::equal_check(correct_array, test_array, "dynamic LF check");
-                }
-                catch (const std::exception &e)
-                {
-                    std::cout << "Error: " << e.what() << std::endl;
-
-                    std::cout << "j = " << this->j << std::endl;
-                    std::cout << "deletion_pos = " << deletion_pos << std::endl;
-                    std::cout << "deletion_length = " << deletion_length << std::endl;
-                    std::cout << "text = " << text << std::endl;
-                    std::cout << "updated_text = " << updated_text << std::endl;
-
-                    this->print_conceptual_matrix();
-                    next.print_conceptual_matrix();
-
-                    stool::DebugPrinter::print_integers(this->sa, "current suffix_array");
-                    stool::DebugPrinter::print_integers(next.sa, "next suffix_array");
-
-                    stool::DebugPrinter::print_integers(correct_array, "correct_array");
-                    stool::DebugPrinter::print_integers(test_array, "test_array");
-                    throw -1;
-                }
-            }
-
-        private:
             std::vector<uint64_t> create_suffix_array() const
             {
                 std::vector<uint64_t> suffix_array;
                 for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
                 {
-                    suffix_array.push_back(access_suffix_array(i));
+                    suffix_array.push_back(NaiveOperations::access_suffix_array_for_deletion(conceptual_matrix, i, end_marker, this->text.size(), this->SPECIAL_GAP));
                 }
                 return suffix_array;
             }
@@ -247,81 +87,8 @@ namespace stool
                 }
                 return isa;
             }
-            std::string construct_bwt() const
-            {
-                std::string bwt;
-                for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
-                {
-                    bwt.push_back(conceptual_matrix[i][conceptual_matrix[i].size() - 1]);
-                }
-                return bwt;
-            }
-            /*
-            uint64_t access_inverse_suffix_array(uint64_t i) const
-            {
-                uint64_t endmarker_pos = conceptual_matrix[i].size() - 1;
-                for (uint64_t j = 0; j < conceptual_matrix[i].size(); j++)
-                {
-                    if (conceptual_matrix[i][j] == end_marker)
-                    {
-                        endmarker_pos = j;
-                        break;
-                    }
-                }
-                return conceptual_matrix[i].size() - (endmarker_pos + 1);
-            }
-            */
 
         public:
-            void build(const std::string &_text, uint64_t _deletion_pos, uint64_t &_deletion_length)
-            {
-                text = std::string(_text.begin(), _text.end());
-                deletion_pos = _deletion_pos;
-                deletion_length = _deletion_length;
-
-                this->updated_text = text.substr(0, deletion_pos) + text.substr(deletion_pos + deletion_length);
-
-                for (uint64_t i = 0; i < text.size(); i++)
-                {
-                    conceptual_matrix.push_back(get_circular_string(text, i));
-                }
-                this->sort_conceptual_matrix();
-                this->j = this->text.size();
-
-                sa = create_suffix_array();
-                isa = create_inverse_suffix_array();
-                bwt = construct_bwt();
-            }
-
-            static std::string get_circular_string(const std::string &text, uint64_t starting_pos)
-            {
-                return text.substr(starting_pos) + text.substr(0, starting_pos);
-            }
-            static uint64_t rank(const std::string &text, uint64_t i, uint8_t c)
-            {
-                uint64_t count = 0;
-                for (uint64_t j = 0; j <= i; j++)
-                {
-                    if (text[j] == c)
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
-            static uint64_t lex_count(const std::string &text, uint8_t c)
-            {
-                uint64_t count = 0;
-                for (auto c1 : text)
-                {
-                    if (c1 < c)
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
-
             int64_t get_starting_position_of_new_circular_string(int64_t t) const
             {
                 if (t < this->deletion_pos)
@@ -338,130 +105,12 @@ namespace stool
                 }
             }
 
-            void update()
-            {
-                this->j--;
-                std::string old_circular_string = get_circular_string(this->text, this->j);
-                int64_t p = this->get_starting_position_of_new_circular_string(this->j);
-
-                if (p != -1)
-                {
-                    std::string new_circular_string = get_circular_string(this->updated_text, p);
-
-                    for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
-                    {
-                        if (conceptual_matrix[i] == old_circular_string)
-                        {
-                            conceptual_matrix[i] = new_circular_string;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    uint64_t x = UINT64_MAX;
-                    for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
-                    {
-                        if (conceptual_matrix[i] == old_circular_string)
-                        {
-                            x = i;
-                            break;
-                        }
-                    }
-                    conceptual_matrix.erase(conceptual_matrix.begin() + x);
-                }
-                this->sort_conceptual_matrix();
-
-                sa = create_suffix_array();
-                isa = create_inverse_suffix_array();
-                bwt = construct_bwt();
-            }
-
-            void sort_conceptual_matrix()
-            {
-                std::sort(conceptual_matrix.begin(), conceptual_matrix.end());
-            }
-
             bool is_stop() const
             {
                 return this->j == 0;
             }
 
-            const DynamicRIndexSnapShotForDeletion copy() const
-            {
-                DynamicRIndexSnapShotForDeletion snap_shot;
-                snap_shot.text = text;
-                snap_shot.updated_text = updated_text;
-                snap_shot.deletion_length = deletion_length;
-                snap_shot.deletion_pos = deletion_pos;
-                snap_shot.conceptual_matrix = conceptual_matrix;
-                snap_shot.j = j;
-                return snap_shot;
-            }
-
-            static std::vector<DynamicRIndexSnapShotForDeletion> get_all_snap_shots(std::string text, uint64_t deletion_pos, uint64_t deletion_length)
-            {
-                std::vector<DynamicRIndexSnapShotForDeletion> snap_shots;
-                DynamicRIndexSnapShotForDeletion snap_shot;
-                snap_shot.build(text, deletion_pos, deletion_length);
-                snap_shots.push_back(snap_shot);
-
-                while (!snap_shots[snap_shots.size() - 1].is_stop())
-                {
-                    snap_shots.push_back(snap_shots[snap_shots.size() - 1].copy());
-                    snap_shots[snap_shots.size() - 1].update();
-                }
-
-                return snap_shots;
-            }
-            /*
-            int64_t compute_naive_x() const
-            {
-                if (this->j != 0)
-                {
-                    uint64_t p = SPECIAL_GAP + this->j - 1;
-                    for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
-                    {
-                        if (this->sa[i] == p)
-                        {
-                            return i;
-                        }
-                    }
-                    return -1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            int64_t compute_naive_y() const
-            {
-                ModeForDeletion mode = this->get_mode();
-                std::cout << "mode = " << mode << std::endl;
-                if (mode == CharDeletion || mode == Finished)
-                {
-                    return -1;
-                }
-                else
-                {
-
-                    uint64_t value = 0;
-                    if (mode == PostPreprocessing)
-                    {
-                        value = this->j - 1;
-                    }
-                    else
-                    {
-                        value = this->j - 1 - this->deletion_length;
-                    }
-
-                    auto copy = this->copy();
-                    copy.update();
-                    assert(copy.isa[value] != UINT64_MAX);
-                    return copy.isa[value];
-                }
-            }
-            */
+            // X and Y value methods
             int64_t compute_x(DynamicRIndexSnapShotForDeletion *prev) const
             {
                 int64_t j_max = (int64_t)this->text.size();
@@ -525,6 +174,290 @@ namespace stool
                 }
             }
 
+            // SA value methods
+            int64_t compute_SA_j_h_for_SA1_plus(int64_t forbidden_sa_value) const
+            {
+
+                int64_t x = this->naive_compute_x();
+                int64_t sa_x_plus = NaiveOperations::get_SA_plus(this->sa, x);
+                int64_t SA_j_h_candidate = NaiveOperations::compute_next_SA_in_dynamic_LF_order(x, sa_x_plus, this->bwt, this->sa);
+                assert(SA_j_h_candidate != -1);
+                if (SA_j_h_candidate == forbidden_sa_value)
+                {
+
+                    int64_t forbidden_sa_value_pos = this->isa[forbidden_sa_value];
+                    int64_t sa_forbidden_sa_value_pos_plus = NaiveOperations::get_SA_plus(this->sa, forbidden_sa_value_pos);
+                    int64_t SA_j_h_candidate_for_forbidden_sa_value_pos = NaiveOperations::compute_next_SA_in_dynamic_LF_order(forbidden_sa_value_pos, sa_forbidden_sa_value_pos_plus, this->bwt, this->sa);
+                    return SA_j_h_candidate_for_forbidden_sa_value_pos;
+                }
+                else
+                {
+                    return SA_j_h_candidate;
+                }
+            }
+
+            int64_t compute_next_SA1_plus() const
+            {
+                ModeForDeletion mode = this->get_mode();
+
+                int64_t SA_j_h = -1;
+                if (mode == CharDeletion)
+                {
+                    int64_t forbitten_sa_value = this->deletion_pos;
+                    SA_j_h = this->compute_SA_j_h_for_SA1_plus(forbitten_sa_value);
+                }
+                else
+                {
+                    SA_j_h = this->compute_SA_j_h_for_SA1_plus(-1);
+                }
+
+                if (SA_j_h == (int64_t)SPECIAL_GAP)
+                {
+                    return this->updated_text.size() - 1;
+                }
+                else if (SA_j_h > 0)
+                {
+                    return SA_j_h - 1;
+                }
+                else
+                {
+                    return this->updated_text.size() - 1;
+                }
+            }
+            int64_t compute_next_SA2_plus(int64_t y_plus, ModeForDeletion prev_mode, int64_t naive_answer) const
+            {
+                if (prev_mode == CharDeletion)
+                {
+                    return naive_answer;
+                }
+                else
+                {
+                    int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
+                    int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
+
+                    if (SA_j_h == (int64_t)SPECIAL_GAP)
+                    {
+                        return this->updated_text.size() - 1;
+                    }
+                    else if (SA_j_h > 0)
+                    {
+                        return SA_j_h - 1;
+                    }
+                    else
+                    {
+                        return this->updated_text.size() - 1;
+                    }
+                }
+            }
+            // Dynamic LF methods
+            std::vector<uint64_t> construct_dynamic_LF_array(const std::vector<uint64_t> &next_isa) const
+            {
+                // std::vector<uint64_t> suffix_array = this->create_suffix_array();
+
+                std::vector<uint64_t> lf_array;
+                lf_array.resize(this->sa.size(), UINT64_MAX);
+                for (uint64_t i = 0; i < this->sa.size(); i++)
+                {
+                    uint64_t p = this->sa[i];
+                    uint64_t q = UINT64_MAX;
+
+                    if (p == SPECIAL_GAP)
+                    {
+                        q = this->updated_text.size() - 1;
+                        /*
+                        if (this->deletion_pos == 0 && this->j > this->deletion_pos && this->j <= this->deletion_pos + this->deletion_length)
+                        {
+                            q = UINT64_MAX;
+                        }
+                        else
+                        {
+                        }
+                        */
+                    }
+                    else
+                    {
+                        q = p - 1;
+                    }
+
+                    if (q == UINT64_MAX)
+                    {
+                        lf_array[i] = UINT64_MAX;
+                    }
+                    else if (next_isa[q] != UINT64_MAX)
+                    {
+                        lf_array[i] = next_isa[q];
+                    }
+                    else
+                    {
+                        lf_array[i] = UINT64_MAX;
+                    }
+                }
+                return lf_array;
+            }
+
+            uint64_t dynamic_LF(uint64_t i) const
+            {
+                int64_t lf = NaiveOperations::rank(this->bwt, i, this->bwt[i]) + NaiveOperations::lex_count(this->bwt, this->bwt[i]) - 1;
+
+                if (this->j > this->deletion_pos && this->j <= this->deletion_pos + this->deletion_length)
+                {
+                    uint64_t replace_pos = this->isa[this->deletion_pos];
+
+                    uint8_t new_char = NaiveOperations::get_previous_character(this->text, this->deletion_pos);
+
+                    if (i == replace_pos)
+                    {
+                        return UINT64_MAX;
+                    }
+                    else
+                    {
+
+                        uint8_t c = this->bwt[i];
+
+                        if (c > new_char || (i > replace_pos && c == new_char))
+                        {
+                            return lf > 0 ? lf - 1 : this->conceptual_matrix.size() - 2;
+                        }
+                        else
+                        {
+                            return lf;
+                        }
+                    }
+                }
+                else
+                {
+                    return lf;
+                }
+            }
+
+            // Build, copy, and update methods
+            void build(const std::string &_text, uint64_t _deletion_pos, uint64_t &_deletion_length)
+            {
+                text = std::string(_text.begin(), _text.end());
+                deletion_pos = _deletion_pos;
+                deletion_length = _deletion_length;
+
+                this->updated_text = text.substr(0, deletion_pos) + text.substr(deletion_pos + deletion_length);
+
+                for (uint64_t i = 0; i < text.size(); i++)
+                {
+                    conceptual_matrix.push_back(NaiveOperations::get_circular_string(text, i));
+                }
+                NaiveOperations::sort_conceptual_matrix(this->conceptual_matrix);
+                this->j = this->text.size();
+
+                sa = create_suffix_array();
+                isa = create_inverse_suffix_array();
+                bwt = NaiveOperations::construct_bwt_from_conceptual_matrix(this->conceptual_matrix);
+            }
+
+            static std::vector<DynamicRIndexSnapShotForDeletion> get_all_snap_shots(std::string text, uint64_t deletion_pos, uint64_t deletion_length)
+            {
+                std::vector<DynamicRIndexSnapShotForDeletion> snap_shots;
+                DynamicRIndexSnapShotForDeletion snap_shot;
+                snap_shot.build(text, deletion_pos, deletion_length);
+                snap_shots.push_back(snap_shot);
+
+                while (!snap_shots[snap_shots.size() - 1].is_stop())
+                {
+                    snap_shots.push_back(snap_shots[snap_shots.size() - 1].copy());
+                    snap_shots[snap_shots.size() - 1].update();
+                }
+
+                return snap_shots;
+            }
+
+            void update()
+            {
+                this->j--;
+                std::string old_circular_string = NaiveOperations::get_circular_string(this->text, this->j);
+                int64_t p = this->get_starting_position_of_new_circular_string(this->j);
+
+                if (p != -1)
+                {
+                    std::string new_circular_string = NaiveOperations::get_circular_string(this->updated_text, p);
+
+                    for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
+                    {
+                        if (conceptual_matrix[i] == old_circular_string)
+                        {
+                            conceptual_matrix[i] = new_circular_string;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    uint64_t x = UINT64_MAX;
+                    for (uint64_t i = 0; i < this->conceptual_matrix.size(); i++)
+                    {
+                        if (conceptual_matrix[i] == old_circular_string)
+                        {
+                            x = i;
+                            break;
+                        }
+                    }
+                    conceptual_matrix.erase(conceptual_matrix.begin() + x);
+                }
+                NaiveOperations::sort_conceptual_matrix(this->conceptual_matrix);
+
+                sa = create_suffix_array();
+                isa = create_inverse_suffix_array();
+                bwt = NaiveOperations::construct_bwt_from_conceptual_matrix(this->conceptual_matrix);
+            }
+            const DynamicRIndexSnapShotForDeletion copy() const
+            {
+                DynamicRIndexSnapShotForDeletion snap_shot;
+                snap_shot.text = text;
+                snap_shot.updated_text = updated_text;
+                snap_shot.deletion_length = deletion_length;
+                snap_shot.deletion_pos = deletion_pos;
+                snap_shot.conceptual_matrix = conceptual_matrix;
+                snap_shot.j = j;
+                return snap_shot;
+            }
+
+            // Naive methods
+            int64_t naive_compute_x() const
+            {
+                ModeForDeletion mode = this->get_mode();
+                if (mode == Finished)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return this->isa[this->j - 1 + SPECIAL_GAP];
+                }
+            }
+            int64_t naive_compute_y() const
+            {
+
+                ModeForDeletion mode = this->get_mode();
+                if (mode == Finished || mode == CharDeletion)
+                {
+                    return -1;
+                }
+                else
+                {
+
+                    uint64_t value = 0;
+                    if (mode == PostPreprocessing)
+                    {
+                        value = this->j - 1;
+                    }
+                    else
+                    {
+                        value = this->j - 1 - this->deletion_length;
+                    }
+
+                    auto copy = this->copy();
+                    copy.update();
+                    return copy.isa[value];
+                }
+            }
+
+            // Print methods
             void print_conceptual_matrix(bool index_begin_with_1 = false) const
             {
                 std::vector<uint64_t> sa = this->create_suffix_array();
@@ -613,42 +546,43 @@ namespace stool
                 std::cout << std::endl;
             }
 
-            int64_t naive_compute_x() const
+            // Verify methods
+
+            void verify_dynamic_LF(const DynamicRIndexSnapShotForDeletion &next) const
             {
-                ModeForDeletion mode = this->get_mode();
-                if (mode == Finished)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return this->isa[this->j - 1 + SPECIAL_GAP];
-                }
-            }
-            int64_t naive_compute_y() const
-            {
+                std::vector<uint64_t> next_isa = next.isa;
+                std::vector<uint64_t> correct_array = construct_dynamic_LF_array(next_isa);
+                // std::string bwt = construct_bwt();
+                std::vector<uint64_t> test_array;
 
-                ModeForDeletion mode = this->get_mode();
-                if (mode == Finished || mode == CharDeletion)
+                for (uint64_t i = 0; i < this->bwt.size(); i++)
                 {
-                    return -1;
+                    test_array.push_back(this->dynamic_LF(i));
                 }
-                else
+
+                try
                 {
+                    stool::EqualChecker::equal_check(correct_array, test_array, "dynamic LF check");
+                }
+                catch (const std::exception &e)
+                {
+                    std::cout << "Error: " << e.what() << std::endl;
 
-                    uint64_t value = 0;
-                    if (mode == PostPreprocessing)
-                    {
-                        value = this->j - 1;
-                    }
-                    else
-                    {
-                        value = this->j - 1 - this->deletion_length;
-                    }
+                    std::cout << "j = " << this->j << std::endl;
+                    std::cout << "deletion_pos = " << deletion_pos << std::endl;
+                    std::cout << "deletion_length = " << deletion_length << std::endl;
+                    std::cout << "text = " << text << std::endl;
+                    std::cout << "updated_text = " << updated_text << std::endl;
 
-                    auto copy = this->copy();
-                    copy.update();
-                    return copy.isa[value];
+                    this->print_conceptual_matrix();
+                    next.print_conceptual_matrix();
+
+                    stool::DebugPrinter::print_integers(this->sa, "current suffix_array");
+                    stool::DebugPrinter::print_integers(next.sa, "next suffix_array");
+
+                    stool::DebugPrinter::print_integers(correct_array, "correct_array");
+                    stool::DebugPrinter::print_integers(test_array, "test_array");
+                    throw -1;
                 }
             }
 
@@ -675,88 +609,6 @@ namespace stool
                 {
                     std::cout << "naive_y = " << _naive_y << ", y = " << _y << ", mode = " << mode << std::endl;
                     throw std::runtime_error("Error: naive_y != y");
-                }
-            }
-            int64_t compute_SA_j_h_for_SA1_plus(int64_t forbidden_sa_value) const
-            {
-
-                int64_t x = this->naive_compute_x();
-                int64_t sa_x_plus = NaiveOperations::get_SA_plus(this->sa, x);
-                int64_t SA_j_h_candidate = NaiveOperations::compute_next_SA_in_dynamic_LF_order(x, sa_x_plus, this->bwt, this->sa);
-                assert(SA_j_h_candidate != -1);
-                if (SA_j_h_candidate == forbidden_sa_value)
-                {
-
-                    int64_t forbidden_sa_value_pos = this->isa[forbidden_sa_value];
-                    int64_t sa_forbidden_sa_value_pos_plus = NaiveOperations::get_SA_plus(this->sa, forbidden_sa_value_pos);
-                    int64_t SA_j_h_candidate_for_forbidden_sa_value_pos = NaiveOperations::compute_next_SA_in_dynamic_LF_order(forbidden_sa_value_pos, sa_forbidden_sa_value_pos_plus, this->bwt, this->sa);
-                    return SA_j_h_candidate_for_forbidden_sa_value_pos;
-                }
-                else
-                {
-                    return SA_j_h_candidate;
-                }
-            }
-            int64_t compute_SA_j_h_for_SA2_plus(int64_t y_plus) const
-            {
-
-                int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
-                int64_t SA_j_h_candidate = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
-                assert(SA_j_h_candidate != -1);
-                return SA_j_h_candidate;
-            }
-
-            int64_t compute_next_SA1_plus() const
-            {
-                ModeForDeletion mode = this->get_mode();
-
-                int64_t SA_j_h = -1;
-                if (mode == CharDeletion)
-                {
-                    int64_t forbitten_sa_value = this->deletion_pos;
-                    SA_j_h = this->compute_SA_j_h_for_SA1_plus(forbitten_sa_value);
-                }
-                else
-                {
-                    SA_j_h = this->compute_SA_j_h_for_SA1_plus(-1);
-                }
-
-                if (SA_j_h == (int64_t)SPECIAL_GAP)
-                {
-                    return this->updated_text.size() - 1;
-                }
-                else if (SA_j_h > 0)
-                {
-                    return SA_j_h - 1;
-                }
-                else
-                {
-                    return this->updated_text.size() - 1;
-                }
-            }
-            int64_t compute_next_SA2_plus(int64_t y_plus, ModeForDeletion prev_mode, int64_t naive_answer) const
-            {
-                if (prev_mode == CharDeletion)
-                {
-                    return naive_answer;
-                }
-                else
-                {
-                    int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
-                    int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
-
-                    if (SA_j_h == (int64_t)SPECIAL_GAP)
-                    {
-                        return this->updated_text.size() - 1;
-                    }
-                    else if (SA_j_h > 0)
-                    {
-                        return SA_j_h - 1;
-                    }
-                    else
-                    {
-                        return this->updated_text.size() - 1;
-                    }
                 }
             }
             void verify_SA_update(DynamicRIndexSnapShotForDeletion *prev) const
@@ -804,6 +656,7 @@ namespace stool
                 }
             }
 
+            // Test methods
             static void deletion_test(std::string text, uint64_t deletion_pos, uint64_t deletion_length, bool view = false)
             {
                 std::vector<DynamicRIndexSnapShotForDeletion> snap_shots = DynamicRIndexSnapShotForDeletion::get_all_snap_shots(text, deletion_pos, deletion_length);
@@ -824,7 +677,7 @@ namespace stool
                     if (view)
                     {
                         std::cout << "j = " << snap_shots[i].j << std::endl;
-                        std::cout << "new_char = " << (char)snap_shots[i].get_new_character() << std::endl;
+                        std::cout << "new_char = " << (char)NaiveOperations::get_previous_character(snap_shots[i].text, snap_shots[i].deletion_pos) << std::endl;
                         /*
                         std::cout << "replace_pos = " << snap_shots[i].isa[snap_shots[i].deletion_pos] << std::endl;
                         std::vector<uint64_t> next_isa = snap_shots[i + 1].isa;

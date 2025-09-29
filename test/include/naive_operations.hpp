@@ -171,6 +171,103 @@ namespace stool
                 }
                 return s;
             }
+            static uint8_t get_previous_character(const std::string &text, uint64_t i){
+                if(i == 0){
+                    return text[text.size() - 1];
+                }
+                else{
+                    return text[i - 1];
+                }
+            }
+            static std::vector<uint64_t> create_suffix_array_from_conceptual_matrix(const std::vector<std::string> &conceptual_matrix, uint8_t end_marker) {
+                std::vector<uint64_t> suffix_array;
+                for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
+                {
+                    suffix_array.push_back(access_suffix_array(conceptual_matrix, i, end_marker));
+                }
+                return suffix_array;
+            }
+            static std::vector<uint64_t> create_inverse_suffix_array_from_conceptual_matrix(const std::vector<std::string> &conceptual_matrix, uint8_t end_marker)
+            {
+                std::vector<uint64_t> suffix_array = NaiveOperations::create_suffix_array_from_conceptual_matrix(conceptual_matrix, end_marker);
+                uint64_t max = *std::max_element(suffix_array.begin(), suffix_array.end());
+                std::vector<uint64_t> isa;
+                isa.resize(max + 1, UINT64_MAX);
+                for (uint64_t i = 0; i < suffix_array.size(); i++)
+                {
+                    isa[suffix_array[i]] = i;
+                }
+                return isa;
+            }
+            static uint64_t access_inverse_suffix_array(const std::vector<std::string> &conceptual_matrix,uint64_t i, uint8_t end_marker)
+            {
+                uint64_t endmarker_pos = conceptual_matrix[i].size() - 1;
+                for (uint64_t j = 0; j < conceptual_matrix[i].size(); j++)
+                {
+                    if (conceptual_matrix[i][j] == end_marker)
+                    {
+                        endmarker_pos = j;
+                        break;
+                    }
+                }
+                return conceptual_matrix[i].size() - (endmarker_pos + 1);
+            }
+            static std::string construct_bwt_from_conceptual_matrix(const std::vector<std::string> &conceptual_matrix)
+            {
+                std::string bwt;
+                for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
+                {
+                    bwt.push_back(conceptual_matrix[i][conceptual_matrix[i].size() - 1]);
+                }
+                return bwt;
+            }
+
+
+
+            static uint64_t access_suffix_array(const std::vector<std::string> &conceptual_matrix, uint64_t i, uint8_t end_marker)
+            {
+                uint64_t endmarker_pos = conceptual_matrix[i].size() - 1;
+                for (uint64_t j = 0; j < conceptual_matrix[i].size(); j++)
+                {
+                    if (conceptual_matrix[i][j] == end_marker)
+                    {
+                        endmarker_pos = j;
+                        break;
+                    }
+                }
+                return conceptual_matrix[i].size() - (endmarker_pos + 1);
+            }
+            static uint64_t access_suffix_array_for_deletion(const std::vector<std::string> &conceptual_matrix, uint64_t i, uint8_t end_marker, uint64_t old_text_size, uint64_t special_gap)
+            {
+                uint64_t endmarker_pos = conceptual_matrix[i].size() - 1;
+                for (uint64_t j = 0; j < conceptual_matrix[i].size(); j++)
+                {
+                    if (conceptual_matrix[i][j] == end_marker)
+                    {
+                        endmarker_pos = j;
+                        break;
+                    }
+                }
+                if (conceptual_matrix[i].size() == old_text_size)
+                {
+                    return special_gap + (conceptual_matrix[i].size() - (endmarker_pos + 1));
+                }
+                else
+                {
+                    return conceptual_matrix[i].size() - (endmarker_pos + 1);
+                }
+
+            }
+            static int64_t value_with_index(int64_t value, bool index_begin_with_1 = false)
+            {
+                return index_begin_with_1 ? value + 1 : value;
+            }
+            static void sort_conceptual_matrix(std::vector<std::string> &conceptual_matrix)
+            {
+                std::sort(conceptual_matrix.begin(), conceptual_matrix.end());
+            }
+
+
 
             static int64_t compute_next_SA_in_dynamic_LF_order(int64_t x, int64_t sa_x_plus, const std::string &bwt, const std::vector<uint64_t> &sa)
             {

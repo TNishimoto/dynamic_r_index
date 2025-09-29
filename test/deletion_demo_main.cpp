@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 
     while(true){
         std::cout << "text \t\t\t = " << text << std::endl;
-        std::cout << "position \t\t = " << stool::dynamic_r_index::DynamicRIndexSnapShotForInsertion::value_with_index(position, true) << std::endl;
+        std::cout << "position \t\t = " << stool::dynamic_r_index::NaiveOperations::value_with_index(position, true) << std::endl;
         std::cout << "deletion_length \t = " << length << std::endl;
         std::cout << "Command? (Press h to display the list of commands.)" << std::endl;
         
