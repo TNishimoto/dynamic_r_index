@@ -38,7 +38,11 @@ namespace stool
 
             int64_t j = 0;
 
-            uint64_t SPECIAL_GAP = 10000;
+            int64_t get_special_gap() const {
+                return 10000;
+            }
+
+            //uint64_t SPECIAL_GAP = 10000;
 
         private:
             ModeForDeletion get_mode() const
@@ -71,7 +75,7 @@ namespace stool
                 std::vector<uint64_t> suffix_array;
                 for (uint64_t i = 0; i < conceptual_matrix.size(); i++)
                 {
-                    suffix_array.push_back(NaiveOperations::access_suffix_array_for_deletion(conceptual_matrix, i, end_marker, this->text.size(), this->SPECIAL_GAP));
+                    suffix_array.push_back(NaiveOperations::access_suffix_array_for_deletion(conceptual_matrix, i, end_marker, this->text.size(), this->get_special_gap()));
                 }
                 return suffix_array;
             }
@@ -127,17 +131,19 @@ namespace stool
                 {
                     assert(prev != nullptr);
                     int64_t prev_x = prev->naive_compute_x();
-                    ModeForDeletion prev_mode = prev->get_mode();
                     char prev_x_char = prev->bwt[prev_x];
+
+                    ModeForDeletion prev_mode = prev->get_mode();
 
                     uint64_t lf = NaiveOperations::rank(prev->bwt, prev_x, prev_x_char) + NaiveOperations::lex_count(prev->bwt, prev_x_char) - 1;
 
                     if (prev_mode == CharDeletion)
                     {
-                        int64_t prev_q = prev->isa[this->deletion_pos];
-                        int64_t prev_q_char = prev->bwt[prev_q];
 
-                        bool b = prev_q_char < prev_x_char || (prev_q_char == prev_x_char && prev_q <= prev_x);
+                        int64_t prev_p = prev->isa[this->deletion_pos];
+                        int64_t prev_p_char = prev->bwt[prev_p];
+
+                        bool b = prev_p_char < prev_x_char || (prev_p_char == prev_x_char && prev_p <= prev_x);
 
                         return b ? lf - 1 : lf;
                     }
@@ -158,7 +164,7 @@ namespace stool
                 {
                     return -1;
                 }
-                else if (this->j == this->deletion_pos)
+                else if (prev != nullptr && prev->get_mode() == CharDeletion && mode == PostPreprocessing)
                 {
                     int64_t q = this->isa[this->deletion_pos];
                     uint64_t lf = NaiveOperations::rank(this->bwt, q, this->bwt[q]) + NaiveOperations::lex_count(this->bwt, this->bwt[q]) - 1;
@@ -179,14 +185,14 @@ namespace stool
             {
 
                 int64_t x = this->naive_compute_x();
-                int64_t sa_x_plus = NaiveOperations::get_SA_plus(this->sa, x);
+                int64_t sa_x_plus = NaiveOperations::get_array_pos_plus(this->sa, x);
                 int64_t SA_j_h_candidate = NaiveOperations::compute_next_SA_in_dynamic_LF_order(x, sa_x_plus, this->bwt, this->sa);
                 assert(SA_j_h_candidate != -1);
                 if (SA_j_h_candidate == forbidden_sa_value)
                 {
 
                     int64_t forbidden_sa_value_pos = this->isa[forbidden_sa_value];
-                    int64_t sa_forbidden_sa_value_pos_plus = NaiveOperations::get_SA_plus(this->sa, forbidden_sa_value_pos);
+                    int64_t sa_forbidden_sa_value_pos_plus = NaiveOperations::get_array_pos_plus(this->sa, forbidden_sa_value_pos);
                     int64_t SA_j_h_candidate_for_forbidden_sa_value_pos = NaiveOperations::compute_next_SA_in_dynamic_LF_order(forbidden_sa_value_pos, sa_forbidden_sa_value_pos_plus, this->bwt, this->sa);
                     return SA_j_h_candidate_for_forbidden_sa_value_pos;
                 }
@@ -211,7 +217,7 @@ namespace stool
                     SA_j_h = this->compute_SA_j_h_for_SA1_plus(-1);
                 }
 
-                if (SA_j_h == (int64_t)SPECIAL_GAP)
+                if (SA_j_h == this->get_special_gap())
                 {
                     return this->updated_text.size() - 1;
                 }
@@ -232,10 +238,10 @@ namespace stool
                 }
                 else
                 {
-                    int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
+                    int64_t sa_yp_plus = NaiveOperations::get_array_pos_plus(this->sa, y_plus);
                     int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
 
-                    if (SA_j_h == (int64_t)SPECIAL_GAP)
+                    if (SA_j_h == this->get_special_gap())
                     {
                         return this->updated_text.size() - 1;
                     }
@@ -256,39 +262,31 @@ namespace stool
 
                 std::vector<uint64_t> lf_array;
                 lf_array.resize(this->sa.size(), UINT64_MAX);
+                int64_t special_counter = 0;
                 for (uint64_t i = 0; i < this->sa.size(); i++)
                 {
-                    uint64_t p = this->sa[i];
-                    uint64_t q = UINT64_MAX;
+                    uint64_t sa_value = this->sa[i];
+                    uint64_t sa_value_minus = UINT64_MAX;
+                    assert(sa_value != 0);
 
-                    if (p == SPECIAL_GAP)
+                    if (sa_value == (uint64_t)this->get_special_gap())
                     {
-                        q = this->updated_text.size() - 1;
-                        /*
-                        if (this->deletion_pos == 0 && this->j > this->deletion_pos && this->j <= this->deletion_pos + this->deletion_length)
-                        {
-                            q = UINT64_MAX;
-                        }
-                        else
-                        {
-                        }
-                        */
+                        sa_value_minus = this->updated_text.size() - 1;
                     }
                     else
                     {
-                        q = p - 1;
+                        sa_value_minus = sa_value - 1;
                     }
-
-                    if (q == UINT64_MAX)
+                    
+                    if (next_isa[sa_value_minus] != UINT64_MAX)
                     {
-                        lf_array[i] = UINT64_MAX;
-                    }
-                    else if (next_isa[q] != UINT64_MAX)
-                    {
-                        lf_array[i] = next_isa[q];
+                        lf_array[i] = next_isa[sa_value_minus];
                     }
                     else
                     {
+                        special_counter++;
+                        assert(special_counter <= 1);
+
                         lf_array[i] = UINT64_MAX;
                     }
                 }
@@ -297,26 +295,27 @@ namespace stool
 
             uint64_t dynamic_LF(uint64_t i) const
             {
-                int64_t lf = NaiveOperations::rank(this->bwt, i, this->bwt[i]) + NaiveOperations::lex_count(this->bwt, this->bwt[i]) - 1;
+                uint8_t c = this->bwt[i];
+                int64_t lf = NaiveOperations::rank(this->bwt, i, c) + NaiveOperations::lex_count(this->bwt, c) - 1;
+                ModeForDeletion mode = this->get_mode();
 
-                if (this->j > this->deletion_pos && this->j <= this->deletion_pos + this->deletion_length)
+                if (mode == CharDeletion)
                 {
-                    uint64_t replace_pos = this->isa[this->deletion_pos];
+                    uint64_t p = this->isa[this->deletion_pos];
+                    uint8_t p_char = NaiveOperations::get_previous_character(this->text, this->deletion_pos);
 
-                    uint8_t new_char = NaiveOperations::get_previous_character(this->text, this->deletion_pos);
-
-                    if (i == replace_pos)
+                    if (i == p)
                     {
                         return UINT64_MAX;
                     }
                     else
                     {
 
-                        uint8_t c = this->bwt[i];
-
-                        if (c > new_char || (i > replace_pos && c == new_char))
+                        if (p_char < c || (c == p_char && p < i))
                         {
-                            return lf > 0 ? lf - 1 : this->conceptual_matrix.size() - 2;
+                            assert(lf > 0);
+                            return lf-1;
+                            //return lf > 0 ? lf - 1 : next_conceptual_matrix_size;
                         }
                         else
                         {
@@ -427,7 +426,7 @@ namespace stool
                 }
                 else
                 {
-                    return this->isa[this->j - 1 + SPECIAL_GAP];
+                    return this->isa[this->j - 1 + this->get_special_gap()];
                 }
             }
             int64_t naive_compute_y() const
@@ -514,7 +513,7 @@ namespace stool
                     std::cout << "\x1b[47m";
                 }
 
-                int64_t modified_sa_v = sa_v >= (int64_t)SPECIAL_GAP ? (sa_v - SPECIAL_GAP) : sa_v;
+                int64_t modified_sa_v = sa_v >= this->get_special_gap() ? (sa_v - this->get_special_gap()) : sa_v;
                 uint64_t _i = i;
                 if (index_begin_with_1)
                 {
@@ -522,12 +521,12 @@ namespace stool
                     modified_sa_v++;
                 }
 
-                std::string modified_sa_v_str = sa_v >= (int64_t)SPECIAL_GAP ? (std::to_string(modified_sa_v) + "*") : std::to_string(modified_sa_v);
+                std::string modified_sa_v_str = sa_v >= this->get_special_gap() ? (std::to_string(modified_sa_v) + "*") : std::to_string(modified_sa_v);
 
                 if (this->j != 0)
                 {
-                    int64_t lf = this->dynamic_LF(i) == UINT64_MAX ? -1 : this->dynamic_LF(i);
-                    if (index_begin_with_1)
+                    int64_t lf = this->dynamic_LF(i) == UINT64_MAX ? -1 : this->dynamic_LF(i);                    
+                    if (index_begin_with_1 && lf != -1)
                     {
                         lf++;
                     }
@@ -559,6 +558,7 @@ namespace stool
                 {
                     test_array.push_back(this->dynamic_LF(i));
                 }
+
 
                 try
                 {
@@ -620,7 +620,7 @@ namespace stool
                     int64_t _x = this->naive_compute_x();
                     assert(_x != -1);
 
-                    int64_t _naive_SA1_plus = NaiveOperations::get_SA_plus(this->sa, _x);
+                    int64_t _naive_SA1_plus = NaiveOperations::get_array_pos_plus(this->sa, _x);
                     /*
                     if(_naive_SA1_plus > SPECIAL_GAP){
                         _naive_SA1_plus = _naive_SA1_plus - SPECIAL_GAP;
@@ -642,7 +642,7 @@ namespace stool
                     auto next_snapshot = this->copy();
                     next_snapshot.update();
 
-                    int64_t _naive_SA2_plus = NaiveOperations::get_SA_plus(next_snapshot.sa, _y);
+                    int64_t _naive_SA2_plus = NaiveOperations::get_array_pos_plus(next_snapshot.sa, _y);
                     int64_t y_plus = prev->naive_compute_y();
 
                     int64_t _SA2_plus = this->compute_next_SA2_plus(y_plus, prev->get_mode(), _naive_SA2_plus);

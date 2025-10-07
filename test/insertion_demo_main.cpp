@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
                 if(i < snap_shots.size() - 1){
                     snap_shots[i].verify_RLE_update(prev);
                     snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
-                    snap_shots[i].verify_SA_update(prev);
+                    snap_shots[i].verify_SA_update(prev, snap_shots[0].sa);
                 }
             }
 

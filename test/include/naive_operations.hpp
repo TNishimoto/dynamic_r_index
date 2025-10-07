@@ -15,6 +15,32 @@ namespace stool
     {
         class NaiveOperations{
             public:
+            static int64_t inverse_phi(const std::vector<uint64_t> &sa, int64_t x){
+                for(int64_t j = 0; j < (int64_t)sa.size(); j++){
+                    if((int64_t)sa[j] == x){
+                        if(j + 1 < (int64_t)sa.size()){
+                            return sa[j + 1];
+                        }else{
+                            return sa[0];
+                        }
+                    }
+                }
+                throw std::runtime_error("Error: inverse_phi");
+            }
+            static int64_t phi(const std::vector<uint64_t> &sa, int64_t x){
+                for(int64_t j = 0; j < (int64_t)sa.size(); j++){
+                    if((int64_t)sa[j] == x){
+                        if(j > 0){
+                            return sa[j - 1];
+                        }else{
+                            return sa[sa.size() - 1];
+                        }
+                    }
+                }
+                throw std::runtime_error("Error: phi");
+            }
+
+
             static std::string get_circular_string(const std::string &text, uint64_t starting_pos)
             {
                 assert(starting_pos < text.size());
@@ -103,29 +129,30 @@ namespace stool
                 return SA_e;
             }
 
-            static uint64_t get_SA_plus(const std::vector<uint64_t> &sa, int64_t i){
-                assert(i >= 0 && i < (int64_t)sa.size());
-                if (i == (int64_t)sa.size() - 1)
+            static uint64_t get_array_pos_plus(const std::vector<uint64_t> &array, int64_t i){
+                assert(i >= 0 && i < (int64_t)array.size());
+                if (i == (int64_t)array.size() - 1)
                 {
-                    return sa[0];
+                    return array[0];
                 }
                 else
                 {
-                    return sa[i + 1];
+                    return array[i + 1];
                 }
             }
-            static uint64_t get_SA_minus(const std::vector<uint64_t> &sa, int64_t i){
-                assert(i >= 0 && i < (int64_t)sa.size());
+            static uint64_t get_array_pos_minus(const std::vector<uint64_t> &array, int64_t i){
+                assert(i >= 0 && i < (int64_t)array.size());
                 if (i == 0)
                 {
-                    return sa[sa.size() - 1];
+                    return array[array.size() - 1];
                 }
                 else
                 {
-                    return sa[i - 1];
+                    return array[i - 1];
                 }
-
             }
+
+
             static uint8_t get_c_succ(uint8_t c_v, const std::string &bwt)
             {
                 uint16_t c_succ = UINT16_MAX;
@@ -143,6 +170,58 @@ namespace stool
 
                 return c_succ;
             }
+            static uint8_t get_c_prev(uint8_t c_v, const std::string &bwt)
+            {
+                int16_t c_prev = -1;
+                int16_t c_max = -1;
+                for (uint64_t i = 0; i < bwt.size(); i++)
+                {
+                    if (bwt[i] < c_v && (uint16_t)bwt[i] > c_prev)
+                    {
+                        c_prev = bwt[i];
+                    }
+                    if(bwt[i] > c_max)
+                    {
+                        c_max = bwt[i];
+                    }
+                }
+                if (c_prev == -1)
+                {
+                    c_prev = c_max;
+                }
+
+                return c_prev;
+            }
+
+            static int64_t compute_sa_e_at_max_V(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_e, int64_t v)
+            {
+                int64_t s = -1;
+
+
+                for (int64_t i = v-1; i >= 0; i--)
+                {
+                    if (rle[i].first == rle[v].first)
+                    {
+                        s = SA_e[i];
+                        break;
+                    }
+                }
+                return s;
+            }
+            static int64_t compute_sa_e_at_max_V_prime(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_e, uint8_t c_prev)
+            {
+                int64_t s = -1;
+                for (int64_t i = (int64_t)rle.size() - 1; i >= 0; i--)
+                {
+                    if (rle[i].first == c_prev)
+                    {
+                        s = SA_e[i];
+                        break;
+                    }
+                }
+                return s;
+            }
+
 
             static int64_t compute_sa_s_at_min_U(std::vector<std::pair<uint8_t, uint64_t>> &rle, std::vector<uint64_t> &SA_s, int64_t v)
             {
@@ -268,6 +347,39 @@ namespace stool
             }
 
 
+            static int64_t compute_next_SA_in_dynamic_LF_order2(int64_t x, int64_t sa_x_minus, const std::string &bwt, const std::vector<uint64_t> &sa)
+            {
+                auto rle = NaiveOperations::get_RLE(bwt);
+                int64_t v = NaiveOperations::get_rle_index_by_position(rle, x);
+                uint8_t c_v = rle[v].first;
+
+                assert(v != -1 && v < (int64_t)rle.size());
+                int64_t t_v = NaiveOperations::get_starting_position(rle, v);
+                //int64_t ell_v = rle[v].second;
+
+                auto SA_e = NaiveOperations::get_SA_e(bwt, sa);
+                uint8_t c_prev = NaiveOperations::get_c_prev(c_v, bwt);
+                int64_t max_V = NaiveOperations::compute_sa_e_at_max_V(rle, SA_e, v);
+                int64_t max_V_prime = NaiveOperations::compute_sa_e_at_max_V_prime(rle, SA_e, c_prev);
+
+                int64_t SA_j_h = 0;
+
+                if (x != t_v)
+                {
+                    SA_j_h = sa_x_minus;
+                }
+                else if (x == t_v  && max_V != -1)
+                {
+                    SA_j_h = max_V;
+                }
+                else
+                {
+                    assert(max_V_prime != -1);
+                    SA_j_h = max_V_prime;
+                }
+                return SA_j_h;
+
+            }
 
             static int64_t compute_next_SA_in_dynamic_LF_order(int64_t x, int64_t sa_x_plus, const std::string &bwt, const std::vector<uint64_t> &sa)
             {

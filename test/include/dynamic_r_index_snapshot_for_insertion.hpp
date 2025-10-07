@@ -18,6 +18,7 @@ namespace stool
         {
             enum ModeForInsertion
             {
+                None = 0,
                 Preprocessing = 1,
                 CharInsertion = 2,
                 PostPreprocessing = 3,
@@ -60,6 +61,24 @@ namespace stool
                     return Finished;
                 }
             }
+            bool is_first_preprocessing_mode() const
+            {
+                return this->j == (int64_t)this->updated_text.size();
+            }
+            bool is_first_postprocessing_mode() const
+            {
+                return this->j == this->insertion_pos;
+            }
+
+            bool is_last_preprocessing_mode() const
+            {
+                int64_t high_p = this->insertion_pos + this->inserted_string.size();
+                return this->j == high_p + 1;
+            }
+            bool is_last_insertion_mode() const
+            {
+                return this->j == this->insertion_pos + 1;
+            }
 
             int64_t get_starting_position_of_old_circular_string(int64_t t) const
             {
@@ -84,25 +103,89 @@ namespace stool
 
             // X and Y value methods
 
+            int64_t compute_isa_i_minus(DynamicRIndexSnapShotForInsertion *prev) const
+            {
+                // ModeForInsertion mode = this->get_mode();
+                ModeForInsertion prev_mode = (ModeForInsertion)None;
+
+                if (prev_mode == None)
+                {
+                    return this->naive_compute_isa_i_minus();
+                }
+                else if (prev_mode == Preprocessing)
+                {
+                    return prev->naive_compute_isa_i_minus();
+                }
+                else if (prev_mode == CharInsertion)
+                {
+                    int64_t naive_isa_i_minus = prev->naive_compute_isa_i_minus();
+                    int64_t prev_y = prev->naive_compute_y();
+                    if (prev_y <= naive_isa_i_minus)
+                    {
+                        return naive_isa_i_minus + 1;
+                    }
+                    else
+                    {
+                        return naive_isa_i_minus;
+                    }
+                }
+                else
+                {
+                    throw std::runtime_error("Error: mode == Preprocessing");
+                }
+            }
+            int64_t compute_isa_p(DynamicRIndexSnapShotForInsertion *prev) const
+            {
+                ModeForInsertion prev_mode = (ModeForInsertion)None;
+
+                if (prev_mode == None)
+                {
+                    return this->naive_compute_isa_p();
+                }
+                else if (prev_mode == Preprocessing)
+                {
+                    return prev->naive_compute_isa_p();
+                }
+                else if (prev_mode == CharInsertion)
+                {
+                    int64_t naive_isa_p = prev->naive_compute_isa_p();
+                    int64_t prev_y = prev->naive_compute_y();
+                    if (prev_y <= naive_isa_p)
+                    {
+                        return naive_isa_p + 1;
+                    }
+                    else
+                    {
+                        return naive_isa_p;
+                    }
+                }
+                else
+                {
+                    throw std::runtime_error("Error: mode == Preprocessing");
+                }
+            }
+
             int64_t compute_x(DynamicRIndexSnapShotForInsertion *prev) const
             {
                 int64_t j_max = (int64_t)this->text.size() + (int64_t)this->inserted_string.size();
                 ModeForInsertion mode = this->get_mode();
-                if (this->j == j_max)
+                ModeForInsertion prev_mode = (ModeForInsertion)None;
+                if (prev != nullptr)
+                {
+                    prev_mode = prev->get_mode();
+                }
+
+                if (mode == CharInsertion || mode == Finished)
+                {
+                    throw std::runtime_error("Error: mode == CharInsertion || mode == Finished");
+                }
+                else if (this->j == j_max)
                 {
                     return 0;
                 }
-                else if (mode == CharInsertion)
+                else if (mode == PostPreprocessing && prev_mode == CharInsertion)
                 {
-                    return -1;
-                }
-                else if (this->j > 0 && this->j == this->insertion_pos)
-                {
-                    return this->isa[this->insertion_pos - 1];
-                }
-                else if (mode == Finished)
-                {
-                    return -1;
+                    return this->compute_isa_i_minus(prev);
                 }
                 else
                 {
@@ -117,21 +200,15 @@ namespace stool
             {
                 ModeForInsertion mode = this->get_mode();
 
-                if (mode == Preprocessing)
+                if (mode == Finished)
+                {
+                    throw std::runtime_error("Error: mode == Finished");
+                }
+                else if (mode == Preprocessing)
                 {
                     return this->compute_x(prev);
                 }
-                else if (mode == Finished)
-                {
-                    return -1;
-                }
-                else if (mode == PostPreprocessing)
-                {
-                    int64_t prev_y = prev->naive_compute_y();
-                    uint64_t lf = NaiveOperations::rank(this->bwt, prev_y, this->bwt[prev_y]) + NaiveOperations::lex_count(this->bwt, this->bwt[prev_y]) - 1;
-                    return lf;
-                }
-                else
+                else if (mode == CharInsertion)
                 {
                     int64_t p = this->insertion_pos + this->inserted_string.size();
                     int64_t q = this->isa[p];
@@ -148,34 +225,77 @@ namespace stool
                         return lf;
                     }
                 }
+                else
+                {
+                    int64_t prev_y = prev->naive_compute_y();
+                    uint64_t lf = NaiveOperations::rank(this->bwt, prev_y, this->bwt[prev_y]) + NaiveOperations::lex_count(this->bwt, this->bwt[prev_y]) - 1;
+                    return lf;
+                }
             }
 
             // SA value methods
 
-            int64_t compute_next_SA1_plus(ModeForInsertion next_mode, int64_t naive_answer) const
+            int64_t compute_next_SA1_plus(int64_t inverse_phi_i, int64_t inverse_phi_i_plus, const DynamicRIndexSnapShotForInsertion &next) const
             {
-                ModeForInsertion mode = this->get_mode();
+                ModeForInsertion next_mode = next.get_mode();
+
+                std::cout << "inverse_phi_i = " << inverse_phi_i << ", inverse_phi_i_plus = " << inverse_phi_i_plus << "/" << "i = " << this->insertion_pos << "/" << next_mode << std::endl;
+
 
                 // uint64_t high_p = this->insertion_pos + this->inserted_string.size();
                 // int64_t y = this->naive_compute_y();
 
                 if (next_mode == Preprocessing)
                 {
-                    throw std::runtime_error("Error: next_mode == Preprocessing");
+                    if(next.is_last_preprocessing_mode()){
+                        return inverse_phi_i >= (int64_t)(this->insertion_pos + this->inserted_string.size()) ? inverse_phi_i + this->inserted_string.size() : inverse_phi_i;
+                    }else{
+                        throw std::runtime_error("Error: mode == Preprocessing");
+                    }
                 }
-                else if (next_mode == CharInsertion)
+                else if (next.is_first_postprocessing_mode())
                 {
-                    return -1;
+                    return inverse_phi_i_plus >= (int64_t)this->insertion_pos ? inverse_phi_i_plus + this->inserted_string.size(): inverse_phi_i_plus;
                 }
-                else if (next_mode == PostPreprocessing && mode == CharInsertion)
+                else
+                {
+                    int64_t x = this->naive_compute_x();
+                    assert(x != -1 && x < (int64_t)this->sa.size());
+                    int64_t sa_x_plus = NaiveOperations::get_array_pos_plus(this->sa, x);
+                    int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order(x, sa_x_plus, this->bwt, this->sa);
+                    if (SA_j_h > 0)
+                    {
+                        return SA_j_h - 1;
+                    }
+                    else
+                    {
+                        return this->updated_text.size() - 1;
+                    }
+                }
+            }
+            int64_t compute_next_SA1_minus(int64_t naive_answer, const DynamicRIndexSnapShotForInsertion &next) const
+            {
+                ModeForInsertion next_mode = next.get_mode();
+
+                // uint64_t high_p = this->insertion_pos + this->inserted_string.size();
+                // int64_t y = this->naive_compute_y();
+                if (next_mode == Preprocessing)
+                {
+                    if(next.is_last_preprocessing_mode()){
+                        return naive_answer;
+                    }else{
+                        throw std::runtime_error("Error: mode == Preprocessing");
+                    }
+                }
+                else if (next.is_first_postprocessing_mode())
                 {
                     return naive_answer;
                 }
                 else
                 {
                     int64_t x = this->naive_compute_x();
-                    int64_t sa_x_plus = NaiveOperations::get_SA_plus(this->sa, x);
-                    int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order(x, sa_x_plus, this->bwt, this->sa);
+                    int64_t sa_x_minus = NaiveOperations::get_array_pos_minus(this->sa, x);
+                    int64_t SA_j_h = NaiveOperations::compute_next_SA_in_dynamic_LF_order2(x, sa_x_minus, this->bwt, this->sa);
                     if (SA_j_h > 0)
                     {
                         return SA_j_h - 1;
@@ -195,16 +315,71 @@ namespace stool
 
                 if (mode == Preprocessing)
                 {
-                    throw std::runtime_error("Error: next_mode == Preprocessing");
+                    if (this->is_last_preprocessing_mode())
+                    {
+                        int64_t x = this->naive_compute_x();
+                        int64_t _naive_SA1_plus = NaiveOperations::get_array_pos_plus(this->sa, x);
+                        return _naive_SA1_plus;
+                    }
+                    else
+                    {
+                        throw std::runtime_error("Error: mode == Preprocessing");
+                    }
                 }
                 else if (mode == CharInsertion && y < (int64_t)this->sa.size() && (int64_t)this->sa[y] == this->insertion_pos - 1)
                 {
                     return this->insertion_pos - 1;
                 }
+                else if (mode == CharInsertion && y == (int64_t)this->sa.size() && (int64_t)this->sa[0] == this->insertion_pos - 1)
+                {
+                    return this->insertion_pos - 1;
+                }
                 else
                 {
-                    int64_t sa_yp_plus = NaiveOperations::get_SA_plus(this->sa, y_plus);
+                    int64_t sa_yp_plus = NaiveOperations::get_array_pos_plus(this->sa, y_plus);
                     int64_t SA_j_g = NaiveOperations::compute_next_SA_in_dynamic_LF_order(y_plus, sa_yp_plus, this->bwt, this->sa);
+                    if (SA_j_g > 0)
+                    {
+                        return SA_j_g - 1;
+                    }
+                    else
+                    {
+                        return this->updated_text.size() - 1;
+                    }
+                }
+            }
+            int64_t compute_next_SA2_minus(int64_t y_plus) const
+            {
+                ModeForInsertion mode = this->get_mode();
+
+                // uint64_t high_p = this->insertion_pos + this->inserted_string.size();
+                int64_t y = this->naive_compute_y();
+
+                if (mode == Preprocessing)
+                {
+                    if (this->is_last_preprocessing_mode())
+                    {
+                        int64_t x = this->naive_compute_x();
+                        int64_t _naive_SA1_minus = NaiveOperations::get_array_pos_minus(this->sa, x);
+                        return _naive_SA1_minus;
+                    }
+                    else
+                    {
+                        throw std::runtime_error("Error: mode == Preprocessing");
+                    }
+                }
+                else if (mode == CharInsertion && y > 0 && (int64_t)this->sa[y - 1] == this->insertion_pos - 1)
+                {
+                    return this->insertion_pos - 1;
+                }
+                else if (mode == CharInsertion && y == 0 && (int64_t)this->sa[this->sa.size() - 1] == this->insertion_pos - 1)
+                {
+                    return this->insertion_pos - 1;
+                }
+                else
+                {
+                    int64_t sa_yp_minus = NaiveOperations::get_array_pos_minus(this->sa, y_plus);
+                    int64_t SA_j_g = NaiveOperations::compute_next_SA_in_dynamic_LF_order2(y_plus, sa_yp_minus, this->bwt, this->sa);
                     if (SA_j_g > 0)
                     {
                         return SA_j_g - 1;
@@ -244,11 +419,11 @@ namespace stool
             uint64_t dynamic_LF(uint64_t i) const
             {
                 uint64_t lf = NaiveOperations::rank(this->bwt, i, this->bwt[i]) + NaiveOperations::lex_count(this->bwt, this->bwt[i]) - 1;
-                if (this->j > this->insertion_pos && this->j <= this->insertion_pos + (int64_t)this->inserted_string.size())
+                if (this->get_mode() == CharInsertion)
                 {
                     uint8_t old_char = NaiveOperations::get_previous_character(this->text, this->insertion_pos);
-                    uint64_t positionToReplace = this->isa[this->insertion_pos + this->inserted_string.size()];
-                    bool b = old_char < this->bwt[i] || (positionToReplace <= i && this->bwt[i] == old_char);
+                    uint64_t q = this->isa[this->insertion_pos + this->inserted_string.size()];
+                    bool b = old_char < this->bwt[i] || (q <= i && this->bwt[i] == old_char);
                     return lf + (b ? 1 : 0);
                 }
                 else
@@ -343,6 +518,34 @@ namespace stool
             }
 
             // Naive methods
+            int64_t naive_compute_isa_i_minus() const
+            {
+                return NaiveOperations::get_array_pos_minus(this->isa, this->insertion_pos);
+            }
+            int64_t naive_compute_isa_p() const
+            {
+                ModeForInsertion mode = this->get_mode();
+                if (mode == Preprocessing)
+                {
+                    if (this->is_last_preprocessing_mode())
+                    {
+                        int64_t p = this->insertion_pos + this->inserted_string.size();
+                        int64_t q = this->isa[p];
+                        return q;
+                    }
+                    else
+                    {
+                        return this->isa[this->insertion_pos];
+                    }
+                }
+                else
+                {
+                    int64_t p = this->insertion_pos + this->inserted_string.size();
+                    int64_t q = this->isa[p];
+                    return q;
+                }
+            }
+
             int64_t naive_compute_x() const
             {
                 ModeForInsertion mode = this->get_mode();
@@ -468,14 +671,14 @@ namespace stool
                     int64_t _x = this->naive_compute_x();
                     int64_t _y = this->naive_compute_y();
 
-                    int64_t sa_x_minus = _x == -1 ? -1 : NaiveOperations::get_SA_minus(this->sa, _x);
-                    int64_t sa_x_plus = _x == -1 ? -1 : NaiveOperations::get_SA_plus(this->sa, _x);
+                    int64_t sa_x_minus = _x == -1 ? -1 : NaiveOperations::get_array_pos_minus(this->sa, _x);
+                    int64_t sa_x_plus = _x == -1 ? -1 : NaiveOperations::get_array_pos_plus(this->sa, _x);
 
                     auto next_snapshot = this->copy();
                     next_snapshot.update();
 
-                    int64_t sa_y_minus = _y == -1 ? -1 : NaiveOperations::get_SA_minus(next_snapshot.sa, _y);
-                    int64_t sa_y_plus = _y == -1 ? -1 : NaiveOperations::get_SA_plus(next_snapshot.sa, _y);
+                    int64_t sa_y_minus = _y == -1 ? -1 : NaiveOperations::get_array_pos_minus(next_snapshot.sa, _y);
+                    int64_t sa_y_plus = _y == -1 ? -1 : NaiveOperations::get_array_pos_plus(next_snapshot.sa, _y);
 
                     if (index_begin_with_1)
                     {
@@ -546,55 +749,113 @@ namespace stool
             }
             void verify_RLE_update(DynamicRIndexSnapShotForInsertion *prev) const
             {
-                int64_t _naive_x = this->naive_compute_x();
-                int64_t _x = this->compute_x(prev);
+                ModeForInsertion mode = this->get_mode();
 
-                if (_naive_x != _x)
+                if (mode == Preprocessing || mode == CharInsertion || (mode == PostPreprocessing && prev->get_mode() == CharInsertion))
                 {
-                    std::cout << "naive_x = " << _naive_x << ", x = " << _x << std::endl;
-                    throw std::runtime_error("Error: naive_x != x");
+                    int64_t _naive_isa_i_minus = this->naive_compute_isa_i_minus();
+                    int64_t _isa_i_minus = this->compute_isa_i_minus(prev);
+                    if (_naive_isa_i_minus != _isa_i_minus)
+                    {
+                        std::cout << "naive_isa_i_minus = " << _naive_isa_i_minus << ", isa_i_minus = " << _isa_i_minus << std::endl;
+                        std::cout << "mode = " << mode << "/" << prev->get_mode() << std::endl;
+                        throw std::runtime_error("Error: naive_isa_i_minus != isa_i_minus");
+                    }
                 }
-                int64_t _naive_y = this->naive_compute_y();
-                int64_t _y = this->compute_y(prev);
 
-                if (_naive_y != _y)
+                if (mode == Preprocessing || mode == CharInsertion)
                 {
-                    std::cout << "naive_y = " << _naive_y << ", y = " << _y << std::endl;
-                    throw std::runtime_error("Error: naive_y != y");
+                    int64_t _naive_isa_p = this->naive_compute_isa_p();
+                    int64_t _isa_p = this->compute_isa_p(prev);
+                    if (_naive_isa_p != _isa_p)
+                    {
+                        std::cout << "naive_isa_p = " << _naive_isa_p << ", isa_p = " << _isa_p << std::endl;
+                        std::cout << "mode = " << mode << "/" << prev->get_mode() << std::endl;
+                        throw std::runtime_error("Error: naive_isa_p != isa_p");
+                    }
+                }
+
+                if (mode == Preprocessing || mode == PostPreprocessing)
+                {
+                    int64_t _naive_x = this->naive_compute_x();
+                    int64_t _x = this->compute_x(prev);
+
+                    if (_naive_x != _x)
+                    {
+                        std::cout << "naive_x = " << _naive_x << ", x = " << _x << std::endl;
+                        throw std::runtime_error("Error: naive_x != x");
+                    }
+                }
+
+                if (mode != Finished)
+                {
+                    int64_t _naive_y = this->naive_compute_y();
+                    int64_t _y = this->compute_y(prev);
+
+                    if (_naive_y != _y)
+                    {
+                        std::cout << "naive_y = " << _naive_y << ", y = " << _y << std::endl;
+                        throw std::runtime_error("Error: naive_y != y");
+                    }
                 }
             }
 
-            void verify_SA_update(DynamicRIndexSnapShotForInsertion *prev) const
+            void verify_SA_update(DynamicRIndexSnapShotForInsertion *prev, const std::vector<uint64_t> &original_SA) const
             {
                 ModeForInsertion mode = this->get_mode();
-                if (mode == PostPreprocessing)
+                if (mode == PostPreprocessing || this->is_last_preprocessing_mode())
                 {
+                    int64_t _naive_inverse_phi_i = NaiveOperations::inverse_phi(original_SA, this->insertion_pos);
+                    int64_t _naive_inverse_phi_i_plus = NaiveOperations::inverse_phi(original_SA, this->insertion_pos + 1);
+
+
                     int64_t x = this->naive_compute_x();
                     assert(x != -1);
-                    int64_t _naive_SA1_plus = NaiveOperations::get_SA_plus(this->sa, x);
-                    int64_t _SA1_plus = prev->compute_next_SA1_plus(mode, _naive_SA1_plus);
+                    int64_t _naive_SA1_plus = NaiveOperations::get_array_pos_plus(this->sa, x);
+                    int64_t _SA1_plus = prev->compute_next_SA1_plus(_naive_inverse_phi_i, _naive_inverse_phi_i_plus, *this);
                     if (_naive_SA1_plus != _SA1_plus)
                     {
                         std::cout << "naive_SA1_plus = " << _naive_SA1_plus << ", SA1_plus = " << _SA1_plus << std::endl;
                         throw std::runtime_error("Error: naive_SA1_plus != SA1_plus");
                     }
+
+                    int64_t _naive_SA1_minus = NaiveOperations::get_array_pos_minus(this->sa, x);
+                    int64_t _SA1_minus = prev->compute_next_SA1_minus(_naive_SA1_minus, *this);
+                    if (_naive_SA1_minus != _SA1_minus)
+                    {
+                        std::cout << "naive_SA1_minus = " << _naive_SA1_minus << ", SA1_minus = " << _SA1_minus << std::endl;
+                        throw std::runtime_error("Error: naive_SA1_minus != SA1_minus");
+                    }
                 }
                 if (prev != nullptr)
                 {
-                    if (mode == CharInsertion || mode == PostPreprocessing)
+                    if (this->is_last_preprocessing_mode() || mode == CharInsertion || mode == PostPreprocessing)
                     {
                         int64_t _y = this->naive_compute_y();
                         assert(_y != -1);
                         auto next_snapshot = this->copy();
                         next_snapshot.update();
 
-                        int64_t _naive_SA2_plus = NaiveOperations::get_SA_plus(next_snapshot.sa, _y);
+                        int64_t _naive_SA2_plus = NaiveOperations::get_array_pos_plus(next_snapshot.sa, _y);
                         int64_t y_plus = prev->naive_compute_y();
                         int64_t _SA2_plus = this->compute_next_SA2_plus(y_plus);
                         if (_naive_SA2_plus != _SA2_plus)
                         {
                             std::cout << "naive_SA2_plus = " << _naive_SA2_plus << ", SA2_plus = " << _SA2_plus << std::endl;
                             throw std::runtime_error("Error: naive_SA2_plus != SA2_plus");
+                        }
+
+                        int64_t _naive_SA2_minus = NaiveOperations::get_array_pos_minus(next_snapshot.sa, _y);
+                        int64_t _SA2_minus = this->compute_next_SA2_minus(y_plus);
+                        if (_naive_SA2_minus != _SA2_minus)
+                        {
+                            std::cout << "y: " << _y << ", y_plus: " << y_plus << std::endl;
+                            std::cout << "naive_SA2_minus = " << _naive_SA2_minus << ", SA2_minus = " << _SA2_minus << std::endl;
+                            std::cout << "naive_SA2_plus = " << _naive_SA2_plus << ", SA2_plus = " << _SA2_plus << std::endl;
+
+                            this->print_conceptual_matrix(true);
+                            next_snapshot.print_conceptual_matrix(true);
+                            throw std::runtime_error("Error: naive_SA2_minus != SA2_minus");
                         }
                     }
                 }
@@ -620,7 +881,7 @@ namespace stool
                     {
                         snap_shots[i].verify_RLE_update(prev);
                         snap_shots[i].verify_dynamic_LF(snap_shots[i + 1]);
-                        snap_shots[i].verify_SA_update(prev);
+                        snap_shots[i].verify_SA_update(prev, snap_shots[0].sa);
                     }
                 }
                 // std::cout << std::endl;
