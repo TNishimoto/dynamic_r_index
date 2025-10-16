@@ -84,7 +84,7 @@ namespace stool
         std::vector<uint64_t> create_inverse_suffix_array()
         {
             std::vector<uint64_t> sa = this->create_suffix_array();
-            return stool::ArrayConstructor::construct_ISA(this->text, sa, stool::Message::NO_MESSAGE);
+            return stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
         }
         std::vector<uint8_t> create_bwt()
         {

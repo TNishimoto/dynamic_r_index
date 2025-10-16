@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     }
 
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text_vec, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text_vec, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
     std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text_vec, sa, stool::Message::NO_MESSAGE);
 
     std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(text_vec);

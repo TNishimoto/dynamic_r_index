@@ -58,8 +58,8 @@ namespace stool
                 if (this->type == EditType::InsertionOfString)
                 {
                     std::cout << "PositionToReplace: " << replaced_sa_index << std::endl;
-                    stool::Printer::print_chars("Pattern", this->inserted_string);
-                    stool::Printer::print("Inserted_sa_indexes", this->inserted_sa_indexes);
+                    stool::DebugPrinter::print_characters(this->inserted_string, "Pattern");
+                    stool::DebugPrinter::print_integers(this->inserted_sa_indexes,"Inserted_sa_indexes");
                     std::cout << "j: " << this->first_j << ", j': " << this->first_j_prime << std::endl;
 
                     for (auto pair : move_history)
@@ -73,7 +73,7 @@ namespace stool
                     // std::cout << "PositionToReplace: " << replaced_sa_index << std::endl;
 
                     // stool::Printer::print_chars("Pattern", this->inserted_string);
-                    stool::Printer::print("Deleted_sa_indexes", this->deleted_sa_indexes);
+                    stool::DebugPrinter::print_integers(this->deleted_sa_indexes,"Deleted_sa_indexes");
                     std::cout << "j: " << this->first_j << ", j': " << this->first_j_prime << std::endl;
 
                     for (auto pair : move_history)

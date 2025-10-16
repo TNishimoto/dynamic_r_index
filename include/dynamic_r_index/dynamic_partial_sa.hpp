@@ -365,8 +365,8 @@ namespace stool
                         sa_vector[idx] = this->get_sampled_sa_value(idx);
                     }
                 }
-                stool::Printer::print("isa_gap_vector", gap_vector);
-                stool::Printer::print("sampled_sa_vector", sa_vector);
+                stool::DebugPrinter::print_integers(gap_vector,"isa_gap_vector");
+                stool::DebugPrinter::print_integers(sa_vector,"sampled_sa_vector");
                 this->pom.print();
             }
             std::vector<uint64_t> get_sampled_sa_values() const

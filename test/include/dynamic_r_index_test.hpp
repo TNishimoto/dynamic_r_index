@@ -269,7 +269,7 @@ namespace stool
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
                 std::vector<uint64_t> f_next_array;
@@ -350,7 +350,7 @@ namespace stool
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
 
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
                 // stool::Printer::print("BWT", bwt);
@@ -399,8 +399,8 @@ namespace stool
                             if (collect_sa.size() < 100)
                             {
                                 std::cout << std::endl;
-                                stool::Printer::print("SA(collect)", collect_sa);
-                                stool::Printer::print("SA(test)   ", sampling_sa);
+                                stool::DebugPrinter::print_integers(collect_sa, "SA(collect)");
+                                stool::DebugPrinter::print_integers(sampling_sa, "SA(test)   ");
                             }
                             throw std::logic_error("[" + name + "]" + "Different Values, i = " + std::to_string(i));
                         }
@@ -420,7 +420,7 @@ namespace stool
                 text.push_back(end_marker);
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
                 std::string filepath = "drfmi.bits";
@@ -479,7 +479,7 @@ namespace stool
 
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
                 // stool::Printer::print("BWT", bwt);
                 // stool::Printer::print("SA", sa);
@@ -541,7 +541,7 @@ namespace stool
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
                 stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
@@ -595,7 +595,7 @@ namespace stool
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
                 // stool::Printer::print("BWT", bwt);
                 // stool::Printer::print("SA", sa);
@@ -670,7 +670,7 @@ namespace stool
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
                 uint64_t size = text.size();
@@ -754,7 +754,7 @@ namespace stool
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
                 uint64_t size = text.size();
@@ -857,7 +857,7 @@ namespace stool
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
                 stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);

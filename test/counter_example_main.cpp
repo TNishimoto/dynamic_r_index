@@ -231,7 +231,7 @@ void print_counter_example(const CounterExampleInfo &info)
     }
     text.push_back('$');
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
     std::vector<uint64_t> lcp = stool::ArrayConstructor::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 
@@ -265,7 +265,7 @@ CounterExampleInfo find_counter_example(const std::string &str, std::string patt
     }
     text.push_back('$');
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
-    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text, sa, stool::Message::NO_MESSAGE);
+    std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
     std::vector<uint64_t> lcp = stool::ArrayConstructor::construct_LCP_array(text, sa, stool::Message::NO_MESSAGE);
     std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text, sa, stool::Message::NO_MESSAGE);
 

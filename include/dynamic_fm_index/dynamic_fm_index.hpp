@@ -2,6 +2,7 @@
 #include "./dynamic_bwt.hpp"
 #include "./dynamic_isa.hpp"
 #include "./dynamic_sampled_sa.hpp"
+#include "stool/include/light_stool.hpp"
 #include "libdivsufsort/sa.hpp"
 
 namespace stool
@@ -324,7 +325,7 @@ namespace stool
             static DynamicFMIndex build_from_text(const std::vector<uint8_t> &text_with_end_marker, const std::vector<uint8_t> &alphabet_with_end_marker, int message_paragraph = stool::Message::NO_MESSAGE)
             {
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text_with_end_marker, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
                 DynamicFMIndex r = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, isa, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, message_paragraph);
 
@@ -697,7 +698,7 @@ namespace stool
             {
                 std::vector<uint64_t> sa = this->get_sa();
                 std::vector<uint8_t> bwt = this->get_bwt();
-                stool::Printer::print_bwt_table(bwt, sa);
+                stool::DebugPrinter::print_bwt_table(bwt, sa);
             }
 
             /**

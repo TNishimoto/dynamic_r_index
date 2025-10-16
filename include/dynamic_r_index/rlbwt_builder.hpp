@@ -182,7 +182,7 @@ namespace stool
                 std::cout << "Get Text Size" << std::endl;
                 uint64_t text_size = stool::OnlineFileReader::get_text_size(file_path);
 
-                stool::Printer::print_chars("Alphabet", chars);
+                stool::DebugPrinter::print_characters(chars,"Alphabet");
                 std::cout << "Text length: " << text_size << std::endl;
 
                 std::cout << "Building" << std::endl;

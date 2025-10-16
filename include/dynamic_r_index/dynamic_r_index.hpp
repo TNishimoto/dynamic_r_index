@@ -145,7 +145,7 @@ namespace stool
             static DynamicRIndex build_from_text(const std::vector<uint8_t> &text_with_end_marker, const std::vector<uint8_t> &alphabet_with_end_marker, int message_paragraph = stool::Message::NO_MESSAGE)
             {
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text_with_end_marker, stool::Message::NO_MESSAGE);
-                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
+                std::vector<uint64_t> isa = stool::ArrayConstructor::construct_ISA(sa, stool::Message::NO_MESSAGE);
                 std::vector<uint8_t> bwt = stool::ArrayConstructor::construct_BWT(text_with_end_marker, sa, stool::Message::NO_MESSAGE);
                 DynamicRIndex r = stool::dynamic_r_index::DynamicRIndex::build_from_BWT(bwt, alphabet_with_end_marker, message_paragraph);
 
@@ -401,7 +401,7 @@ namespace stool
             {
                 std::vector<uint64_t> sa = this->get_sa();
                 std::vector<uint8_t> bwt = this->get_bwt();
-                stool::Printer::print_bwt_table(bwt, sa);
+                stool::DebugPrinter::print_bwt_table(bwt, sa);
             }
 
             void print_content(int message_paragraph = 1) const

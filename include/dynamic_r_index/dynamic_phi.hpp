@@ -990,8 +990,8 @@ namespace stool
                 std::vector<uint64_t> lsa = this->sampled_last_sa.get_sampled_sa_values();
 
                 std::cout << "========= DynamicPhi ==========" << std::endl;
-                stool::Printer::print("Sampled first sa values", fsa);
-                stool::Printer::print("Sampled last sa values", lsa);
+                stool::DebugPrinter::print_integers(fsa,"Sampled first sa values");
+                stool::DebugPrinter::print_integers(lsa,"Sampled last sa values");
                 std::cout << "===============================" << std::endl;
             }
 

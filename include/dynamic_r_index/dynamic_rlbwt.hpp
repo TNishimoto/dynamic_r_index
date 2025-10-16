@@ -866,13 +866,13 @@ namespace stool
                 }
 
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << std::flush;
-                stool::Printer::print_chars("Chr", charVec);
+                stool::DebugPrinter::print_characters(charVec,"Chr");
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << std::flush;
-                stool::Printer::print("RLV", rVec);
+                stool::DebugPrinter::print_integers(rVec,"RLV");
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << std::flush;
-                stool::Printer::print("ST ", stVec);
+                stool::DebugPrinter::print_integers(stVec,"ST ");
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << std::flush;
-                stool::Printer::print("FLV", fVec);
+                stool::DebugPrinter::print_integers(fVec,"FLV");
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "=================================================" << std::endl;
             }
             void print_content(int message_paragraph = 0) const
