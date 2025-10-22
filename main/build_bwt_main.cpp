@@ -48,7 +48,7 @@ std::cout << "\e[m" << std::endl;
 
     
     std::vector<uint8_t> text;
-    stool::IO::load(input_file_path, text);
+    stool::FileReader::load_vector(input_file_path, text);
 
     //bool null_terminated_string_check = true;
     for(uint i = 0; i < text.size(); i++){
@@ -103,7 +103,7 @@ std::cout << "\e[m" << std::endl;
     std::cout << "Output File: \t\t" << output_file_path << std::endl;
     if(rlbwt.text_size() < 1000){
         std::vector<uint8_t> bwt;
-        stool::IO::load(output_file_path, bwt);
+        stool::FileReader::load_vector(output_file_path, bwt);
         std::string bwt_str = stool::DebugPrinter::to_string(bwt);
 
         std::cout << "BWT: \t\t\t" << stool::DebugPrinter::to_visible_string(bwt_str) << std::endl;

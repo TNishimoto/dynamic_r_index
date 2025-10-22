@@ -91,7 +91,7 @@ std::cout << "\e[m" << std::endl;
         throw std::runtime_error("File open error");
     }
 
-    uint64_t mark = stool::IO::load_first_64bits(input_file_path);
+    uint64_t mark = stool::FileReader::load_first_64bits(input_file_path);
 
     uint64_t hash1 = 0;
     uint64_t hash2 = 0;

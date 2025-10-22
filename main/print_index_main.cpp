@@ -33,7 +33,7 @@ std::cout << "\e[m" << std::endl;
     std::string output_text_path = p.get<std::string>("output_text_path");
     std::string output_bwt_path = p.get<std::string>("output_bwt_path");
 
-    uint64_t mark = stool::IO::load_first_64bits(input_file_path);
+    uint64_t mark = stool::FileReader::load_first_64bits(input_file_path);
 
     std::chrono::system_clock::time_point st1, st2;
     st1 = std::chrono::system_clock::now();

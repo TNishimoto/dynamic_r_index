@@ -231,7 +231,7 @@ int main(int argc, char *argv[])
     //  uint index_type = p.get<uint>("index_type");
 
     std::vector<uint8_t> text;
-    stool::IO::load_text(input_file_path, text, false);
+    stool::FileReader::load_vector(input_file_path, text);
     /*
     if (output_file_path.size() == 0)
     {

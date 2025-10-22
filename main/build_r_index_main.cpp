@@ -64,7 +64,7 @@ std::cout << "\e[m" << std::endl;
     else
     {
         std::vector<uint8_t> text;
-        stool::IO::load_text(input_file_path, text, true, null_terminated_string);
+        stool::FileReader::load_vector_with_end_marker_if_no_end_marker(input_file_path, text, null_terminated_string);
 
         std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(text);
 

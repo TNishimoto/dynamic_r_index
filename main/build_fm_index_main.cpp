@@ -61,7 +61,7 @@ std::cout << "\e[m" << std::endl;
     if (text_type == is_bwt)
     {
         std::vector<uint8_t> bwt;
-        stool::IO::load_text(input_file_path, bwt);
+        stool::FileReader::load_vector(input_file_path, bwt);
         std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(bwt);
         stool::dynamic_r_index::DynamicFMIndex tmp_dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet, sampling_interval, stool::Message::SHOW_MESSAGE);
         dfmi.swap(tmp_dfmi);
@@ -69,7 +69,7 @@ std::cout << "\e[m" << std::endl;
     else
     {
         std::vector<uint8_t> text;
-        stool::IO::load_text(input_file_path, text, true, null_terminated_string);
+        stool::FileReader::load_vector_with_end_marker_if_no_end_marker(input_file_path, text, null_terminated_string);
         std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(text);
 
         std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::SHOW_MESSAGE);
