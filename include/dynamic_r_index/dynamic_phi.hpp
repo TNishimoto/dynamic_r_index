@@ -110,18 +110,18 @@ namespace stool
                 st1 = std::chrono::system_clock::now();
 
                 DynamicPhi r;
-                // this->sampled_first_sa.build(sampled_first_sa_indexes, __text_size, stool::Message::add_message_paragraph(message_paragraph));
-                // this->sampled_last_sa.build(sampled_last_sa_indexes, __text_size, stool::Message::add_message_paragraph(message_paragraph));
+                // this->sampled_first_sa.build(sampled_first_sa_indexes, __text_size, stool::Message::increment_paragraph_level(message_paragraph));
+                // this->sampled_last_sa.build(sampled_last_sa_indexes, __text_size, stool::Message::increment_paragraph_level(message_paragraph));
 
-                // DynamicPartialSA::build_from_sampled_sa_indexes(this->sampled_first_sa, sampled_first_sa_indexes, __text_size, stool::Message::add_message_paragraph(message_paragraph));
+                // DynamicPartialSA::build_from_sampled_sa_indexes(this->sampled_first_sa, sampled_first_sa_indexes, __text_size, stool::Message::increment_paragraph_level(message_paragraph));
                 // this->sampled_first_sa.verify();
 
                 // this->sampled_first_sa.swap(tmp_fsa);
 
-                auto tmp_fsa = DynamicPartialSA::build_from_sampled_sa_indexes(sampled_first_sa_indexes, __text_size, stool::Message::add_message_paragraph(message_paragraph));
+                auto tmp_fsa = DynamicPartialSA::build_from_sampled_sa_indexes(sampled_first_sa_indexes, __text_size, stool::Message::increment_paragraph_level(message_paragraph));
                 r.sampled_first_sa.swap(tmp_fsa);
 
-                auto tmp_lsa = DynamicPartialSA::build_from_sampled_sa_indexes(sampled_last_sa_indexes, __text_size, stool::Message::add_message_paragraph(message_paragraph));
+                auto tmp_lsa = DynamicPartialSA::build_from_sampled_sa_indexes(sampled_last_sa_indexes, __text_size, stool::Message::increment_paragraph_level(message_paragraph));
                 r.sampled_last_sa.swap(tmp_lsa);
 
                 st2 = std::chrono::system_clock::now();

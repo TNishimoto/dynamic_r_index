@@ -231,7 +231,7 @@ namespace stool
             static void random_character_insertion_and_deletion_test(uint64_t item_num, uint8_t alphabet_type, uint64_t seed, bool detailed_check)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 DynamicFMIndex dfmi;
@@ -263,7 +263,7 @@ namespace stool
             static void F_test(uint64_t text_size, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
@@ -344,7 +344,7 @@ namespace stool
             static void inverse_phi_test_without_updates(uint64_t text_size, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
@@ -411,8 +411,8 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
+                std::vector<uint8_t> text = stool::RandomString::create_random_sequence(text_size, chars, seed);
 
                 uint64_t end_marker = 0;
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);
@@ -466,7 +466,7 @@ namespace stool
                 }
                 
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 // dfmi.initialize(alphabet_with_end_marker);
@@ -535,7 +535,7 @@ namespace stool
             static void detailed_string_insertion_test(uint64_t text_size, uint64_t str_len, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 std::vector<uint8_t> text = DynamicRIndexTest::create_text(text_size, chars, alphabet_with_end_marker[0], mt64);
@@ -587,7 +587,7 @@ namespace stool
             static void detailed_insertion_test(uint64_t text_size, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 // stool::dynamic_r_index::DynamicRIndex drfmi;
@@ -662,7 +662,7 @@ namespace stool
             static void detailed_deletion_test(uint64_t text_size, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 // stool::dynamic_r_index::DynamicRIndex drfmi;
@@ -746,7 +746,7 @@ namespace stool
             static void detailed_deletion_test(uint64_t text_size, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 // stool::dynamic_r_index::DynamicRIndex drfmi;
@@ -849,7 +849,7 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = DynamicFMIndexTest::create_alphabet_with_end_marker(chars);
 
                 // stool::dynamic_r_index::DynamicRIndex drfmi;
@@ -869,7 +869,7 @@ namespace stool
 
                 for (uint64_t i = 0; i < pattern_count; i++)
                 {
-                    std::vector<uint8_t> pattern = stool::UInt8VectorGenerator::create_random_substring(text, get_rand_uni_int(mt64));
+                    std::vector<uint8_t> pattern = stool::RandomString::create_random_substring(text, get_rand_uni_int(mt64));
                     // stool::Printer::print_string(pattern);
                     std::vector<uint64_t> result1 = dfmi.locate_query(pattern);
                     std::vector<uint64_t> result2 = drfmi.locate_query(pattern);

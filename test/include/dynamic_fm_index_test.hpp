@@ -249,11 +249,11 @@ namespace stool
             static void sampled_isa_test(uint64_t text_size, uint8_t alphabet_type, [[maybe_unused]] bool detailed_check, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 uint8_t end_marker = alphabet_with_end_marker[0];
 
-                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
+                std::vector<uint8_t> text = stool::RandomString::create_random_sequence(text_size, chars, seed);
                 text.push_back(end_marker);
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
@@ -294,7 +294,7 @@ namespace stool
             static void character_insertion_and_deletion_test(uint64_t item_num, uint8_t alphabet_type, bool detailed_check, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
 
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 uint8_t end_marker = alphabet_with_end_marker[0];
@@ -332,11 +332,11 @@ namespace stool
             static void string_deletion_for_LF_test(uint64_t item_num, uint64_t pattern_length, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 uint8_t end_marker = alphabet_with_end_marker[0];
 
-                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(item_num, chars, seed);
+                std::vector<uint8_t> text = stool::RandomString::create_random_sequence(item_num, chars, seed);
 
                 stool::NaiveDynamicStringX nds;
                 nds.initialzie(end_marker);
@@ -361,7 +361,7 @@ namespace stool
             static void string_insertion_and_deletion_test(uint64_t item_num, uint64_t pattern_length, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 uint8_t end_marker = alphabet_with_end_marker[0];
 
@@ -394,8 +394,8 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
+                std::vector<uint8_t> text = stool::RandomString::create_random_sequence(text_size, chars, seed);
 
                 uint64_t end_marker = 0;
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars, end_marker);
@@ -453,8 +453,8 @@ namespace stool
             {
                 std::mt19937_64 mt64(seed);
                 std::uniform_int_distribution<uint64_t> get_rand_uni_int(0, UINT32_MAX);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
+                std::vector<uint8_t> text = stool::RandomString::create_random_sequence(text_size, chars, seed);
 
                 std::vector<uint8_t> alphabet_with_end_marker = create_alphabet_with_end_marker(chars);
                 // uint8_t end_marker = alphabet_with_end_marker[0];
@@ -470,7 +470,7 @@ namespace stool
 
                 for (uint64_t i = 0; i < pattern_count; i++)
                 {
-                    std::vector<uint8_t> pattern = stool::UInt8VectorGenerator::create_random_substring(text, get_rand_uni_int(mt64));
+                    std::vector<uint8_t> pattern = stool::RandomString::create_random_substring(text, get_rand_uni_int(mt64));
                     // stool::Printer::print_string(pattern);
                     std::vector<uint64_t> result1 = stool::StringFunctionsOnSA::locate_query(text, pattern, sa);
                     std::vector<uint64_t> result2 = dfmi.locate_query(pattern);

@@ -696,7 +696,7 @@ namespace stool
                     std::vector<uint64_t> output_sampled_sa_rank;
                     std::vector<uint64_t> output_sampled_sa;
 
-                    DynamicSampledSA::build_sampled_sa_and_bits(BISA, text_size, sampling_interval, _sample_marks_on_text, _sample_marks_on_sa, output_sampled_sa_rank, output_sampled_sa, stool::Message::add_message_paragraph(message_paragraph));
+                    DynamicSampledSA::build_sampled_sa_and_bits(BISA, text_size, sampling_interval, _sample_marks_on_text, _sample_marks_on_sa, output_sampled_sa_rank, output_sampled_sa, stool::Message::increment_paragraph_level(message_paragraph));
 
                     auto tmp1 = stool::bptree::SimpleDynamicBitSequence::build(_sample_marks_on_text);
                     auto tmp2 = stool::bptree::SimpleDynamicBitSequence::build(_sample_marks_on_sa);
@@ -704,12 +704,12 @@ namespace stool
                     r.dp.clear();
                     r.sample_marks_on_text.swap(tmp1);
                     r.sample_marks_on_sa.swap(tmp2);
-                    r.dp.build(output_sampled_sa_rank.begin(), output_sampled_sa_rank.end(), output_sampled_sa_rank.size(), stool::Message::add_message_paragraph(message_paragraph));
+                    r.dp.build(output_sampled_sa_rank.begin(), output_sampled_sa_rank.end(), output_sampled_sa_rank.size(), stool::Message::increment_paragraph_level(message_paragraph));
                 }
 
                 // r.dp.clear();
-                // DynamicSampledSA::build_sample_sa(BISA, text_size, sampling_interval, output_sampled_sa_rank, output_sampled_sa, stool::Message::add_message_paragraph(message_paragraph));
-                // r.dp.build(output_sampled_sa_rank.begin(), output_sampled_sa_rank.end(), output_sampled_sa_rank.size(), stool::Message::add_message_paragraph(message_paragraph));
+                // DynamicSampledSA::build_sample_sa(BISA, text_size, sampling_interval, output_sampled_sa_rank, output_sampled_sa, stool::Message::increment_paragraph_level(message_paragraph));
+                // r.dp.build(output_sampled_sa_rank.begin(), output_sampled_sa_rank.end(), output_sampled_sa_rank.size(), stool::Message::increment_paragraph_level(message_paragraph));
 
                 st2 = std::chrono::system_clock::now();
 
@@ -754,7 +754,7 @@ namespace stool
                 {
                     std::vector<bool> _sample_marks_on_text;
                     std::vector<bool> _sample_marks_on_sa;
-                    DynamicSampledSA::build_bits(isa, sampling_interval, _sample_marks_on_text, _sample_marks_on_sa, stool::Message::add_message_paragraph(message_paragraph));
+                    DynamicSampledSA::build_bits(isa, sampling_interval, _sample_marks_on_text, _sample_marks_on_sa, stool::Message::increment_paragraph_level(message_paragraph));
 
                     auto tmp1 = stool::bptree::SimpleDynamicBitSequence::build(_sample_marks_on_text);
                     auto tmp2 = stool::bptree::SimpleDynamicBitSequence::build(_sample_marks_on_sa);
@@ -766,8 +766,8 @@ namespace stool
                 std::vector<uint64_t> output_sampled_sa_rank;
                 std::vector<uint64_t> output_sampled_sa;
                 r.dp.clear();
-                DynamicSampledSA::build_sample_sa(isa, sampling_interval, output_sampled_sa_rank, output_sampled_sa, stool::Message::add_message_paragraph(message_paragraph));
-                r.dp.build(output_sampled_sa_rank.begin(), output_sampled_sa_rank.end(), output_sampled_sa_rank.size(), stool::Message::add_message_paragraph(message_paragraph));
+                DynamicSampledSA::build_sample_sa(isa, sampling_interval, output_sampled_sa_rank, output_sampled_sa, stool::Message::increment_paragraph_level(message_paragraph));
+                r.dp.build(output_sampled_sa_rank.begin(), output_sampled_sa_rank.end(), output_sampled_sa_rank.size(), stool::Message::increment_paragraph_level(message_paragraph));
 
                 st2 = std::chrono::system_clock::now();
 
@@ -1114,15 +1114,15 @@ namespace stool
 
                 std::vector<uint64_t> pi = this->dp.get_pi_vector();
                 std::vector<uint64_t> inv_pi = this->dp.get_inverse_pi_vector();
-                std::string s3 = stool::DebugPrinter::to_integer_string(pi);
-                std::string s4 = stool::DebugPrinter::to_integer_string(inv_pi);
+                std::string s3 = stool::ConverterToString::to_integer_string(pi);
+                std::string s4 = stool::ConverterToString::to_integer_string(inv_pi);
 
                 std::vector<uint64_t> _sampled_sa;
                 for (uint64_t i = 0; i < pi.size(); i++)
                 {
                     _sampled_sa.push_back(this->sampled_sa(i));
                 }
-                std::string s5 = stool::DebugPrinter::to_integer_string(_sampled_sa);
+                std::string s5 = stool::ConverterToString::to_integer_string(_sampled_sa);
 
                 std::cout << "======== DynamicSampledSA =======" << std::endl;
                 std::cout << "text bits: \t" << s1 << std::endl;

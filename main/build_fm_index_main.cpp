@@ -9,6 +9,19 @@
 #include "../include/dynamic_r_index.hpp"
 #include "libdivsufsort/sa.hpp"
 
+uint8_t get_first_character(const std::string &text, uint8_t default_character = '\0'){
+    if(text.size() == 0){
+        return default_character;
+    }
+    if(text[0] == '\\' && text.size() > 1){
+        auto tmp = text.substr(1);
+        return std::stoi(tmp);
+    }else{
+        return text[0];
+    }
+
+}
+
 int main(int argc, char *argv[])
 {
 std::cout << "\033[41m";
@@ -36,7 +49,7 @@ std::cout << "\e[m" << std::endl;
     uint text_type = p.get<uint>("is_bwt");
     uint sampling_interval = p.get<uint>("sampling_interval");
     std::string tmp_null_terminated_string = p.get<std::string>("null_terminated_string");
-    uint8_t null_terminated_string = stool::DebugPrinter::get_first_character(tmp_null_terminated_string);
+    uint8_t null_terminated_string = get_first_character(tmp_null_terminated_string);
 
     uint is_bwt = 1;
 

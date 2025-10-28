@@ -29,7 +29,7 @@ namespace stool
 
                 stool::WT wt = stool::rlbwt2::WaveletTreeOnHeadChars::build(&static_rlbwt);
                 stool::rlbwt2::LightFPosDataStructure fpos_array;
-                fpos_array.build(static_rlbwt.get_head_char_vec(), *static_rlbwt.get_lpos_vec(), &wt, stool::Message::add_message_paragraph(message_paragraph));
+                fpos_array.build(static_rlbwt.get_head_char_vec(), *static_rlbwt.get_lpos_vec(), &wt, stool::Message::increment_paragraph_level(message_paragraph));
                 using LF_DATA = stool::rlbwt2::LFDataStructureBasedOnRLBWT<RLBWT, stool::rlbwt2::LightFPosDataStructure>;
                 LF_DATA rle_wt(&static_rlbwt, &fpos_array);
 

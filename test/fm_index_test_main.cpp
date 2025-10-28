@@ -73,7 +73,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
     else if (mode == 4)
     {
         std::cout << "sampled_isa_test" << std::endl;
-        for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
+        for (uint64_t alphabet_type = 0; alphabet_type <= stool::Alphabet::get_max_alphabet_type(); alphabet_type++)
         {
             for (uint64_t i = 0; i < trial_num; i++)
             {
@@ -91,7 +91,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
 
 
         /*
-        for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
+        for (uint64_t alphabet_type = 0; alphabet_type <= stool::Alphabet::get_max_alphabet_type(); alphabet_type++)
         {
             for (uint64_t i = 0; i < trial_num; i++)
             {
@@ -109,7 +109,7 @@ void fm_index_test(uint64_t text_size, uint64_t mode, bool detailed_check, uint6
         uint64_t length_of_insertion_string = 2;
         for (uint64_t x = 0; x < 3; x++)
         {
-            for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
+            for (uint64_t alphabet_type = 0; alphabet_type <= stool::Alphabet::get_max_alphabet_type(); alphabet_type++)
             {
                 uint64_t length_of_text = 10;
 

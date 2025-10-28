@@ -90,7 +90,7 @@ namespace stool
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(CArray):" << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Effective Alphabet: " << stool::DebugPrinter::to_character_string(this->effective_alphabet) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Effective Alphabet: " << stool::ConverterToString::to_character_string(this->effective_alphabet) << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 

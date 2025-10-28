@@ -209,7 +209,7 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text length: \t\t\t\t\t" << this->size() << std::endl;
                 if (this->text_size() < 1000)
                 {
-                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_text_str()) << std::endl;
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->get_text_str()) << std::endl;
                 }
                 else
                 {
@@ -217,11 +217,11 @@ namespace stool
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
                 auto alphabet = this->get_alphabet();
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::DebugPrinter::to_integer_string_with_characters(alphabet) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::ConverterToString::to_integer_string_with_characters(alphabet) << std::endl;
 
                 if (this->text_size() < 1000)
                 {
-                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_bwt_str()) << std::endl;
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->get_bwt_str()) << std::endl;
                 }
                 else
                 {
@@ -397,10 +397,10 @@ namespace stool
                 st1 = std::chrono::system_clock::now();
 
                 DynamicFMIndex r;
-                DynamicBWT _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::add_message_paragraph(message_paragraph));
+                DynamicBWT _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::increment_paragraph_level(message_paragraph));
                 r.dbwt.swap(_dbwt);
 
-                DynamicSampledSA _dsa = DynamicSampledSA::build(isa, &r.dbwt, sampling_interval_of_SA, stool::Message::add_message_paragraph(message_paragraph));
+                DynamicSampledSA _dsa = DynamicSampledSA::build(isa, &r.dbwt, sampling_interval_of_SA, stool::Message::increment_paragraph_level(message_paragraph));
                 r.dsa.swap(_dsa);
 
                 st2 = std::chrono::system_clock::now();
@@ -434,15 +434,15 @@ namespace stool
                 std::chrono::system_clock::time_point st1, st2;
                 st1 = std::chrono::system_clock::now();
 
-                stool::bwt::LFDataStructure lfds = stool::bwt::LFDataStructure::build(bwt, stool::Message::add_message_paragraph(message_paragraph));
+                stool::bwt::LFDataStructure lfds = stool::bwt::LFDataStructure::build(bwt, stool::Message::increment_paragraph_level(message_paragraph));
                 stool::bwt::BackwardISA<stool::bwt::LFDataStructure> bisa;
                 bisa.set(&lfds, lfds.get_end_marker_position(), lfds.get_text_size());
 
                 DynamicFMIndex r;
-                DynamicBWT _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::add_message_paragraph(message_paragraph));
+                DynamicBWT _dbwt = DynamicBWT::build(bwt, alphabet, stool::Message::increment_paragraph_level(message_paragraph));
                 r.dbwt.swap(_dbwt);
 
-                DynamicSampledSA _dsa = DynamicSampledSA::build(bisa, &r.dbwt, sampling_interval_of_SA, stool::Message::add_message_paragraph(message_paragraph));
+                DynamicSampledSA _dsa = DynamicSampledSA::build(bisa, &r.dbwt, sampling_interval_of_SA, stool::Message::increment_paragraph_level(message_paragraph));
                 r.dsa.swap(_dsa);
 
                 st2 = std::chrono::system_clock::now();
@@ -481,7 +481,7 @@ namespace stool
                 {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Clearing Dynamic FM-index..." << std::endl;
                 }
-                this->dbwt.clear(stool::Message::add_message_paragraph(message_paragraph));
+                this->dbwt.clear(stool::Message::increment_paragraph_level(message_paragraph));
                 // this->disa.clear();
                 this->dsa.clear();
                 if (message_paragraph >= 0)

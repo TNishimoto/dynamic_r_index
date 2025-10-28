@@ -53,10 +53,10 @@ std::cout << "\e[m" << std::endl;
     //bool null_terminated_string_check = true;
     for(uint i = 0; i < text.size(); i++){
         if(text[i] == null_terminated_string){
-            throw std::runtime_error("The input text must not contain the null terminated string: " + stool::DebugPrinter::to_visible_string(null_terminated_string));
+            throw std::runtime_error("The input text must not contain the null terminated string: " + stool::ConverterToString::to_visible_string(null_terminated_string));
         }
         if(text[i] < null_terminated_string){
-            throw std::runtime_error("The null terminated string must be smallest among all characters in the input text: " + stool::DebugPrinter::to_visible_string(null_terminated_string));
+            throw std::runtime_error("The null terminated string must be smallest among all characters in the input text: " + stool::ConverterToString::to_visible_string(null_terminated_string));
         }
     }
     */
@@ -90,24 +90,24 @@ std::cout << "\e[m" << std::endl;
 
     if(rlbwt.text_size() < 1000){
         /*
-       std::string view_text = stool::DebugPrinter::to_string(text);
+       std::string view_text = stool::ConverterToString::to_string(text);
        view_text.push_back(null_terminated_string);
 
-        std::cout << "Text: \t\t\t" << stool::DebugPrinter::to_visible_string(view_text) << std::endl;
+        std::cout << "Text: \t\t\t" << stool::ConverterToString::to_visible_string(view_text) << std::endl;
         */
     }else{
         std::cout << "Text: \t\t\t" << "[Omitted]" << std::endl;
     }
-    std::cout << "Null terminated string: " << stool::DebugPrinter::to_visible_string(null_terminated_string) << std::endl;
+    std::cout << "Null terminated string: " << stool::ConverterToString::to_visible_string(null_terminated_string) << std::endl;
 
 
     std::cout << "Output File: \t\t" << output_file_path << std::endl;
     if(rlbwt.text_size() < 1000){
         std::vector<uint8_t> bwt;
         stool::FileReader::load_vector(output_file_path, bwt);
-        std::string bwt_str = stool::DebugPrinter::to_string(bwt);
+        std::string bwt_str = stool::ConverterToString::to_string(bwt);
 
-        std::cout << "BWT: \t\t\t" << stool::DebugPrinter::to_visible_string(bwt_str) << std::endl;
+        std::cout << "BWT: \t\t\t" << stool::ConverterToString::to_visible_string(bwt_str) << std::endl;
     }else{
         std::cout << "BWT: \t\t\t" << "[Omitted]" << std::endl;
     }

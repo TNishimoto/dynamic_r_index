@@ -9,6 +9,30 @@
 #include "../include/dynamic_r_index.hpp"
 #include "libdivsufsort/sa.hpp"
 
+void create_all_permutations(uint64_t len, const std::vector<uint8_t> &alphabet, const std::string &prefix, std::vector<std::string> &output)
+{
+    if (prefix.size() > len)
+    {
+        for (uint8_t c : alphabet)
+        {
+            std::string new_prefix = prefix + (std::string(1, c));
+            create_all_permutations(len, alphabet, new_prefix, output);
+        }
+    }
+    else
+    {
+        output.push_back(prefix);
+    }
+}
+std::vector<std::string> create_all_permutations(uint64_t len, const std::vector<uint8_t> &alphabet)
+{
+    std::string prefix = "";
+    std::vector<std::string> output;
+    create_all_permutations(len, alphabet, prefix, output);
+    return output;
+}
+
+
 uint64_t get_rle_size(const std::vector<uint8_t> &text)
 {
     uint64_t size = 0;
@@ -22,10 +46,12 @@ uint64_t get_rle_size(const std::vector<uint8_t> &text)
     return size + 1;
 }
 
-std::vector<uint64_t> construct_reversed_perfect_PLCP_array(const std::string &text_str){
+std::vector<uint64_t> construct_reversed_perfect_PLCP_array(const std::string &text_str)
+{
     std::vector<uint8_t> text;
     text.resize(text_str.size());
-    for(uint64_t i = 0; i < text_str.size(); i++){
+    for (uint64_t i = 0; i < text_str.size(); i++)
+    {
         text[i] = text_str[text_str.size() - 1 - i];
     }
     std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
@@ -35,11 +61,14 @@ std::vector<uint64_t> construct_reversed_perfect_PLCP_array(const std::string &t
     for (uint64_t i = 0; i < text.size(); i++)
     {
         uint64_t x = text.size() - 1 - sa[i];
-        if(i + 1 < text.size()){
-            plcp[x] = lcp[i] < lcp[i+1] ? lcp[i+1] : lcp[i];
-        }else{
+        if (i + 1 < text.size())
+        {
+            plcp[x] = lcp[i] < lcp[i + 1] ? lcp[i + 1] : lcp[i];
+        }
+        else
+        {
             plcp[x] = lcp[i];
-        }        
+        }
     }
     return plcp;
 }
@@ -50,15 +79,17 @@ std::vector<uint64_t> construct_perfect_PLCP_array(const std::vector<uint8_t> &t
     plcp.resize(text.size());
     for (uint64_t i = 0; i < text.size(); i++)
     {
-        if(i + 1 < text.size()){
-            plcp[sa[i]] = lcp[i] < lcp[i+1] ? lcp[i+1] : lcp[i];
-        }else{
+        if (i + 1 < text.size())
+        {
+            plcp[sa[i]] = lcp[i] < lcp[i + 1] ? lcp[i + 1] : lcp[i];
+        }
+        else
+        {
             plcp[sa[i]] = lcp[i];
-        }        
+        }
     }
     return plcp;
 }
-
 
 std::vector<uint64_t> construct_PLCP_array(const std::vector<uint8_t> &text, const std::vector<uint64_t> &sa, const std::vector<uint64_t> &lcp)
 {
@@ -107,7 +138,7 @@ uint64_t find_bounded_distance(const std::vector<uint64_t> &plcp, uint64_t i)
 
 void find_example()
 {
-    std::vector<std::string> r = stool::StringGenerator::create_all_permutations(8, {'a', 'b'});
+    std::vector<std::string> r = create_all_permutations(8, {'a', 'b'});
     std::cout << r.size() << std::endl;
 
     std::vector<uint8_t> alphabet_with_end_marker = {'$', 'a', 'b'};
@@ -215,10 +246,7 @@ void print_PLCP(std::string str)
     str.push_back('$');
     auto plcp = construct_reversed_perfect_PLCP_array(str);
     stool::DebugPrinter::print_integers(plcp, "rPLCP");
-
-
 }
-
 
 void print_counter_example(const CounterExampleInfo &info)
 {
@@ -323,7 +351,7 @@ CounterExampleInfo find_counter_example(const std::string &str, std::string patt
 /*
 void find_counter_example1()
 {
-    std::vector<std::string> r = stool::StringGenerator::create_all_permutations(12, {'a', 'b'});
+    std::vector<std::string> r = create_all_permutations(12, {'a', 'b'});
     std::cout << r.size() << std::endl;
 
     std::vector<uint8_t> alphabet_with_end_marker = {'$', 'a', 'b'};
@@ -374,8 +402,8 @@ void find_counter_example2()
 
 void find_counter_example3(uint64_t max_text_len, uint64_t max_pattern_len)
 {
-    std::vector<std::string> r = stool::StringGenerator::create_all_permutations(max_text_len, {'a', 'b'});
-    std::vector<std::string> patterns = stool::StringGenerator::create_all_permutations(max_pattern_len, {'a', 'b'});
+    std::vector<std::string> r = create_all_permutations(max_text_len, {'a', 'b'});
+    std::vector<std::string> patterns = create_all_permutations(max_pattern_len, {'a', 'b'});
 
     uint64_t k = 0;
     double threshold = 0.9;

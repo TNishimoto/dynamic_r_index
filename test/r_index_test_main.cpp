@@ -16,7 +16,7 @@
 
 void main_sub(int mode, uint64_t text_size, bool detailed_check, uint64_t seed)
 {
-    uint64_t max_alphabet_type = stool::UInt8VectorGenerator::get_max_alphabet_type();
+    uint64_t max_alphabet_type = stool::Alphabet::get_max_alphabet_type();
     uint64_t number_of_trials_insert = 100;
     uint64_t number_of_trials_locate_query = 100;
 
@@ -184,7 +184,7 @@ void main_sub(int mode, uint64_t text_size, bool detailed_check, uint64_t seed)
             for (uint64_t i = 0; i < 100; i++)
             {
                 std::cout << "+" << std::flush;
-                std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(length, chars, i);
+                std::vector<uint8_t> text = stool::RandomString::create_random_sequence(length, chars, i);
                 text.push_back('$');
 
                 std::vector<uint64_t> sa = libdivsufsort::construct_suffix_array(text, stool::Message::NO_MESSAGE);
@@ -216,7 +216,7 @@ void main_sub(int mode, uint64_t text_size, bool detailed_check, uint64_t seed)
     else if (mode == 10)
     {
         std::cout << "save_and_load_test" << std::endl;
-        for (uint64_t alphabet_type = 0; alphabet_type <= stool::UInt8VectorGenerator::get_max_alphabet_type(); alphabet_type++)
+        for (uint64_t alphabet_type = 0; alphabet_type <= stool::Alphabet::get_max_alphabet_type(); alphabet_type++)
         {
             for (uint64_t i = 0; i < 30; i++)
             {
@@ -235,8 +235,8 @@ void main_sub(int mode, uint64_t text_size, bool detailed_check, uint64_t seed)
             std::cout << alphabet_type << std::flush;
             uint64_t text_size = 200;
 
-            std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
-            std::vector<uint8_t> text = stool::UInt8VectorGenerator::create_random_sequence(text_size, chars, seed);
+            std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
+            std::vector<uint8_t> text = stool::RandomString::create_random_sequence(text_size, chars, seed);
 
             uint64_t end_marker = '$';
             std::vector<uint8_t> alphabet_with_end_marker = stool::dynamic_r_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, end_marker);

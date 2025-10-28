@@ -890,7 +890,7 @@ namespace stool
             static void insertion_test(uint64_t text_size, uint64_t insertion_length, uint8_t alphabet_type, uint64_t seed)
             {
                 std::mt19937_64 mt64(seed);
-                std::vector<uint8_t> chars = stool::UInt8VectorGenerator::create_alphabet(alphabet_type);
+                std::vector<uint8_t> chars = stool::Alphabet::create_alphabet(alphabet_type);
                 std::vector<uint8_t> alphabet_with_end_marker = fm_index_test::DynamicFMIndexTest::create_alphabet_with_end_marker(chars, '$');
 
                 // dfmi.initialize(alphabet_with_end_marker);

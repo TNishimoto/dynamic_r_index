@@ -66,18 +66,18 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicRIndex):" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text length: \t\t\t\t\t" << this->size() << std::endl;
                 if(this->text_size() < 1000){
-                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_text_str()) << std::endl;
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->get_text_str()) << std::endl;
                 }else{
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
                 auto alphabet = this->get_alphabet();
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::DebugPrinter::to_integer_string_with_characters(alphabet) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::ConverterToString::to_integer_string_with_characters(alphabet) << std::endl;
 
             
 
                 if(this->text_size() < 1000){
-                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::DebugPrinter::to_visible_string(this->get_bwt_str()) << std::endl;
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->get_bwt_str()) << std::endl;
                 }else{
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
@@ -264,16 +264,16 @@ namespace stool
                     std::vector<uint64_t> sampled_first_sa_indexes;
 
                     {
-                        stool::rlbwt2::RLE<uint8_t> static_rlbwt = stool::rlbwt2::RLE<uint8_t>::build_from_BWT(bwt, stool::Message::add_message_paragraph(message_paragraph));
-                        SamplingSATBuilder::build(static_rlbwt, sampled_first_sa_indexes, sampled_last_sa_indexes, stool::Message::add_message_paragraph(message_paragraph));
+                        stool::rlbwt2::RLE<uint8_t> static_rlbwt = stool::rlbwt2::RLE<uint8_t>::build_from_BWT(bwt, stool::Message::increment_paragraph_level(message_paragraph));
+                        SamplingSATBuilder::build(static_rlbwt, sampled_first_sa_indexes, sampled_last_sa_indexes, stool::Message::increment_paragraph_level(message_paragraph));
                     }
 
-                    DynamicPhi tmp_disa = DynamicPhi::build_from_sampled_sa_indexes(sampled_last_sa_indexes, sampled_first_sa_indexes, text_size, stool::Message::add_message_paragraph(message_paragraph));
+                    DynamicPhi tmp_disa = DynamicPhi::build_from_sampled_sa_indexes(sampled_last_sa_indexes, sampled_first_sa_indexes, text_size, stool::Message::increment_paragraph_level(message_paragraph));
                     r.disa.swap(tmp_disa);
                 }
 
                 {
-                    DynamicRLBWT tmp_dbwt = DynamicRLBWT::build_from_BWT(bwt, alphabet, stool::Message::add_message_paragraph(message_paragraph));
+                    DynamicRLBWT tmp_dbwt = DynamicRLBWT::build_from_BWT(bwt, alphabet, stool::Message::increment_paragraph_level(message_paragraph));
                     r.dbwt.swap(tmp_dbwt);
                 }
 
@@ -289,7 +289,7 @@ namespace stool
 
                 return r;
 
-                // this->disa.build(sampled_last_sa_indexes, sampled_first_sa_indexes, this->dbwt.text_size(), stool::Message::add_message_paragraph(message_paragraph));
+                // this->disa.build(sampled_last_sa_indexes, sampled_first_sa_indexes, this->dbwt.text_size(), stool::Message::increment_paragraph_level(message_paragraph));
             }
 
             DynamicRLBWT *_get_dbwt_pointer()
@@ -318,19 +318,19 @@ namespace stool
                     {
                         stool::rlbwt2::RLE<uint8_t> static_rlbwt = stool::rlbwt2::RLE<uint8_t>::build_from_file(file_path, message_paragraph);
                         text_size = static_rlbwt.str_size();
-                        SamplingSATBuilder::build(static_rlbwt, sampled_first_sa_indexes, sampled_last_sa_indexes, stool::Message::add_message_paragraph(message_paragraph));
+                        SamplingSATBuilder::build(static_rlbwt, sampled_first_sa_indexes, sampled_last_sa_indexes, stool::Message::increment_paragraph_level(message_paragraph));
                     }
 
-                    DynamicPhi tmp_disa = DynamicPhi::build_from_sampled_sa_indexes(sampled_last_sa_indexes, sampled_first_sa_indexes, text_size, stool::Message::add_message_paragraph(message_paragraph));
+                    DynamicPhi tmp_disa = DynamicPhi::build_from_sampled_sa_indexes(sampled_last_sa_indexes, sampled_first_sa_indexes, text_size, stool::Message::increment_paragraph_level(message_paragraph));
                     r.disa.swap(tmp_disa);
                 }
 
                 {
                     std::vector<uint8_t> rlbwt_char_vector;
                     std::vector<uint64_t> rlbwt_run_length_vector;
-                    stool::RLEIO::build_RLBWT_from_BWT_file(file_path, rlbwt_char_vector, rlbwt_run_length_vector, stool::Message::add_message_paragraph(message_paragraph));
+                    stool::RLEIO::build_RLBWT_from_BWT_file(file_path, rlbwt_char_vector, rlbwt_run_length_vector, stool::Message::increment_paragraph_level(message_paragraph));
                     std::vector<uint8_t> alphabet = stool::StringFunctions::get_alphabet(rlbwt_char_vector);
-                    DynamicRLBWT tmp_dbwt = DynamicRLBWT::build_from_RLBWT(rlbwt_char_vector, rlbwt_run_length_vector, alphabet, stool::Message::add_message_paragraph(message_paragraph));
+                    DynamicRLBWT tmp_dbwt = DynamicRLBWT::build_from_RLBWT(rlbwt_char_vector, rlbwt_run_length_vector, alphabet, stool::Message::increment_paragraph_level(message_paragraph));
                     r.dbwt.swap(tmp_dbwt);
                 }
 
@@ -407,7 +407,7 @@ namespace stool
             void print_content(int message_paragraph = 1) const
             {
                 this->dbwt.print_content();
-                this->disa.print_content(stool::Message::add_message_paragraph(message_paragraph));
+                this->disa.print_content(stool::Message::increment_paragraph_level(message_paragraph));
             }
 
             uint64_t size_in_bytes() const

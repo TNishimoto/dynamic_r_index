@@ -178,7 +178,7 @@ namespace stool
                 }
 
                 r.pom.clear();
-                r.pom.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::add_message_paragraph(message_paragraph));
+                r.pom.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::increment_paragraph_level(message_paragraph));
                 return r;
             }
             void build(const std::vector<uint64_t> &sampled_sa_indexes, uint64_t new_text_size, int message_paragraph = stool::Message::SHOW_MESSAGE)
@@ -235,12 +235,12 @@ namespace stool
 
                 /*
                 stool::bptree::DynamicPermutation tmp_dp;
-                tmp_dp.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::add_message_paragraph(message_paragraph));
+                tmp_dp.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::increment_paragraph_level(message_paragraph));
                 this->pom.swap(tmp_dp);
                 */
 
                 this->pom.clear();
-                this->pom.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::add_message_paragraph(message_paragraph));
+                this->pom.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::increment_paragraph_level(message_paragraph));
             }
             //@}
 
