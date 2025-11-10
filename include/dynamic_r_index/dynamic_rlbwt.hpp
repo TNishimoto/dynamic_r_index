@@ -507,12 +507,12 @@ namespace stool
             int64_t get_f_index(RunIndex i) const
             {
                 uint8_t c = this->head_chars_of_RLBWT.at(i);
-                int64_t rank = this->head_chars_of_RLBWT.rank(i + 1, c);
+                int64_t rank = this->head_chars_of_RLBWT.one_based_rank(i + 1, c);
 
                 // uint8_t c = DynRankSWrapper::access(*this->bwt_top_chars, i);
                 // assert(this->head_chars_of_RLBWT.at(i) == c);
                 // int64_t rank = DynRankSWrapper::rank(*this->bwt_top_chars, c, i);
-                // assert(this->head_chars_of_RLBWT.rank(i+1, c) == rank);
+                // assert(this->head_chars_of_RLBWT.one_based_rank(i+1, c) == rank);
 
                 int64_t id = this->cArray.get_c_id(c);
                 int64_t psum = id > 0 ? this->c_run_counters.psum(id - 1) : 0;
@@ -598,9 +598,9 @@ namespace stool
                     int64_t id = this->cArray.get_c_id(c);
                     if (id != -1)
                     {
-                        uint64_t rank = this->head_chars_of_RLBWT.rank(i.run_index + 1, c);
+                        uint64_t rank = this->head_chars_of_RLBWT.one_based_rank(i.run_index + 1, c);
                         // uint64_t rank = DynRankSWrapper::rank(*this->bwt_top_chars, c, i.run_index);
-                        // assert(rank == this->head_chars_of_RLBWT.rank(i.run_index+1, c));
+                        // assert(rank == this->head_chars_of_RLBWT.one_based_rank(i.run_index+1, c));
                         if (rank > 0)
                         {
                             int64_t f_index = id > 0 ? this->c_run_counters.psum(id - 1) : 0;
@@ -662,8 +662,8 @@ namespace stool
             }
             int64_t rank_on_first_characters_of_RLBWT(uint8_t c, int64_t run_index) const
             {
-                return this->head_chars_of_RLBWT.rank(run_index + 1, c);
-                // assert(DynRankSWrapper::rank(*this->bwt_top_chars, c, run_index) == this->head_chars_of_RLBWT.rank(run_index+1, c));
+                return this->head_chars_of_RLBWT.one_based_rank(run_index + 1, c);
+                // assert(DynRankSWrapper::rank(*this->bwt_top_chars, c, run_index) == this->head_chars_of_RLBWT.one_based_rank(run_index+1, c));
                 // return DynRankSWrapper::rank(*this->bwt_top_chars, c, run_index);
             }
             int64_t select_on_first_characters_of_RLBWT(int64_t ith, uint8_t c) const
@@ -1081,7 +1081,7 @@ namespace stool
 #endif
 
                 this->head_chars_of_RLBWT.insert(run_index, c);
-                uint64_t rank = this->head_chars_of_RLBWT.rank(run_index + 1, c);
+                uint64_t rank = this->head_chars_of_RLBWT.one_based_rank(run_index + 1, c);
                 int64_t new_f_index = this->get_f_index_by_char(c) + rank - 1;
 
                 bool c_b = this->cArray.occurs_in_effective_alphabet(c);

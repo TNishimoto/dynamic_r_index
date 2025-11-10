@@ -382,7 +382,7 @@ namespace stool
             {
                 if (i >= 0)
                 {
-                    return this->bwt.rank(i + 1, c);
+                    return this->bwt.one_based_rank(i + 1, c);
                 }
                 else
                 {

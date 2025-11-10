@@ -120,8 +120,8 @@ namespace stool
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Content(DynamicSampledSA):" << std::endl;
                 this->dp.print_content(message_paragraph + 1);
-                this->sample_marks_on_text.print_content(message_paragraph + 1);
-                this->sample_marks_on_sa.print_content(message_paragraph + 1);
+                this->sample_marks_on_text.print_content("sample_marks_on_text", message_paragraph + 1);
+                this->sample_marks_on_sa.print_content("sample_marks_on_sa", message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
@@ -824,7 +824,7 @@ namespace stool
             {
                 assert(this->bwt != nullptr);
 
-                uint64_t rank = this->sample_marks_on_text.rank1(i + 1);
+                uint64_t rank = this->sample_marks_on_text.one_based_rank1(i + 1);
                 bool b = this->sample_marks_on_text[i];
                 if (b)
                 {
@@ -868,7 +868,7 @@ namespace stool
 
                     assert(dist <= this->size());
                 }
-                predecessor_rank = this->sample_marks_on_sa.rank1(sa_pos);
+                predecessor_rank = this->sample_marks_on_sa.one_based_rank1(sa_pos);
 
                 assert(predecessor_rank < this->dp.size());
 
@@ -955,8 +955,8 @@ namespace stool
 
                 if (b)
                 {
-                    uint64_t rank = this->sample_marks_on_sa.rank1(j);
-                    uint64_t rank_prime = this->sample_marks_on_sa.rank1(j_prime);
+                    uint64_t rank = this->sample_marks_on_sa.one_based_rank1(j);
+                    uint64_t rank_prime = this->sample_marks_on_sa.one_based_rank1(j_prime);
 
                     if (b_prime)
                     {
@@ -1004,7 +1004,7 @@ namespace stool
                         uint64_t mid_t_pos = t_pos - this->sampling_interval;
                         uint64_t mid_sa_pos = this->isa(mid_t_pos);
                         assert(!this->sample_marks_on_sa[mid_sa_pos]);
-                        uint64_t mid_sample_sa_rank = this->sample_marks_on_sa.rank1(mid_sa_pos);
+                        uint64_t mid_sample_sa_rank = this->sample_marks_on_sa.one_based_rank1(mid_sa_pos);
                         int64_t mid_t_pos_rank = current_t_pos_rank;
                         this->dp.insert(mid_sample_sa_rank, mid_t_pos_rank);
                         assert(!this->sample_marks_on_text[mid_t_pos]);
@@ -1022,7 +1022,7 @@ namespace stool
                 if (current_t_pos_rank == 0 && t_pos > 0)
                 {
                     uint64_t sa_pos0 = this->isa(0);
-                    uint64_t sample_sa_rank0 = this->sample_marks_on_sa.rank1(sa_pos0);
+                    uint64_t sample_sa_rank0 = this->sample_marks_on_sa.one_based_rank1(sa_pos0);
 
                     this->dp.insert(sample_sa_rank0, 0);
                     assert(!this->sample_marks_on_text[0]);
@@ -1040,7 +1040,7 @@ namespace stool
             {
                 if (t_pos > 0)
                 {
-                    uint64_t rank = this->sample_marks_on_text.rank1(t_pos);
+                    uint64_t rank = this->sample_marks_on_text.one_based_rank1(t_pos);
                     this->update_sample_marks_sub(rank);
                 }
                 else
@@ -1049,7 +1049,7 @@ namespace stool
                     if (!b)
                     {
                         uint64_t sa_pos0 = this->isa(0);
-                        uint64_t sample_sa_rank0 = this->sample_marks_on_sa.rank1(sa_pos0);
+                        uint64_t sample_sa_rank0 = this->sample_marks_on_sa.one_based_rank1(sa_pos0);
                         this->dp.insert(sample_sa_rank0, 0);
                         this->sample_marks_on_text.set_bit(0, true);
                         this->sample_marks_on_sa.set_bit(sa_pos0, true);
@@ -1070,7 +1070,7 @@ namespace stool
                 this->sample_marks_on_sa.remove(removed_sa_index);
                 if (b)
                 {
-                    uint64_t rank = this->sample_marks_on_sa.rank1(removed_sa_index);
+                    uint64_t rank = this->sample_marks_on_sa.one_based_rank1(removed_sa_index);
                     this->dp.erase(rank);
                 }
             }
