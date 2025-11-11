@@ -1112,8 +1112,8 @@ namespace stool
                 std::string s1 = this->sample_marks_on_text.to_string();
                 std::string s2 = this->sample_marks_on_sa.to_string();
 
-                std::vector<uint64_t> pi = this->dp.get_pi_vector();
-                std::vector<uint64_t> inv_pi = this->dp.get_inverse_pi_vector();
+                std::vector<uint64_t> pi = this->dp.to_pi_vector();
+                std::vector<uint64_t> inv_pi = this->dp.to_inverse_pi_vector();
                 std::string s3 = stool::ConverterToString::to_integer_string(pi);
                 std::string s4 = stool::ConverterToString::to_integer_string(inv_pi);
 

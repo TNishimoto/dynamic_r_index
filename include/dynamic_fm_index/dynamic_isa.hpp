@@ -96,7 +96,7 @@ namespace stool
              */
             std::vector<uint64_t> get_sa() const
             {
-                return this->dp.get_pi_vector();
+                return this->dp.to_pi_vector();
             }
             /**
              * @brief Returns the inverse suffix array as a vector.
@@ -104,7 +104,7 @@ namespace stool
              */
             std::vector<uint64_t> get_isa() const
             {
-                return this->dp.get_inverse_pi_vector();
+                return this->dp.to_inverse_pi_vector();
             }
             //@}
 

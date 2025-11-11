@@ -367,7 +367,7 @@ namespace stool
                 }
                 stool::DebugPrinter::print_integers(gap_vector,"isa_gap_vector");
                 stool::DebugPrinter::print_integers(sa_vector,"sampled_sa_vector");
-                this->pom.print();
+                this->pom.print_trees();
             }
             std::vector<uint64_t> get_sampled_sa_values() const
             {
@@ -381,7 +381,7 @@ namespace stool
             }
             void print_detailed_info() const
             {
-                this->pom.print();
+                this->pom.print_trees();
                 std::cout << this->sampled_isa_gap_vector.to_string() << std::endl;
             }
 
