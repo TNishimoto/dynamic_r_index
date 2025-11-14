@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stack>
 #include <unordered_map>
-#include "stool/include/stool.hpp"
+#include "stool/include/lib.hpp"
 #include "libdivsufsort/sa.hpp"
 #include "./dynamic_fm_index_test.hpp"
 #include "./dynamic_r_index_test.hpp"

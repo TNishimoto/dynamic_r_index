@@ -6,8 +6,8 @@
 #include <chrono>
 // #include "qgram_tree.h"
 // #include "include/debug/debug.hpp"
-#include "stool/include/stool.hpp"
-#include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
+#include "stool/include/lib.hpp"
+#include "b_tree_plus_alpha/include/all.hpp"
 #include "include/dynamic_r_index_test.hpp"
 #include "stool/test/sources/template/dynamic_string_test.hpp"
 //

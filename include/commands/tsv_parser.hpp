@@ -1,6 +1,6 @@
 #pragma once
 #include "./line_query.hpp"
-#include "stool/include/stool.hpp"
+#include "stool/include/lib.hpp"
 #include "../all.hpp"
 
 namespace stool

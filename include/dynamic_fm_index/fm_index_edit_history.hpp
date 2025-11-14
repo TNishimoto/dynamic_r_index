@@ -4,7 +4,7 @@
  */
 
 #pragma once
-#include "stool/include/light_stool.hpp"
+#include "stool/include/all.hpp"
 #include "./tools.hpp"
 
 namespace stool

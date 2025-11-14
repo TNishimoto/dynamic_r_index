@@ -5,7 +5,7 @@
 #include <cassert>
 #include <chrono>
 #include <filesystem>
-#include "stool/include/stool.hpp"
+#include "stool/include/lib.hpp"
 #include "../include/dynamic_r_index/rlbwt_builder.hpp"
 
 uint8_t get_first_character(const std::string &text, uint8_t default_character = '\0'){

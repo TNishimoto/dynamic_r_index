@@ -1,6 +1,6 @@
 #pragma once
 #include "./dynamic_rlbwt.hpp"
-#include "stool/include/stool.hpp"
+#include "stool/include/lib.hpp"
 
 
 namespace stool

@@ -4,7 +4,7 @@
 #include <bitset>
 #include <cassert>
 #include <chrono>
-#include "stool/include/stool.hpp"
+#include "stool/include/lib.hpp"
 #include "include/dynamic_r_index_snapshot_for_insertion.hpp"
 #include "include/dynamic_r_index_snapshot_for_deletion.hpp"
 //

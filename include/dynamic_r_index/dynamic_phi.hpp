@@ -1,7 +1,7 @@
 #pragma once
 #include "./dynamic_partial_sa.hpp"
-#include "stool/include/stool.hpp"
-#include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
+#include "stool/include/lib.hpp"
+#include "b_tree_plus_alpha/include/all.hpp"
 
 namespace stool
 {

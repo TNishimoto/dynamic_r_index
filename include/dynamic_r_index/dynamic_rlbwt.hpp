@@ -1,5 +1,5 @@
 #pragma once
-#include "b_tree_plus_alpha/include/b_tree_plus_alpha.hpp"
+#include "b_tree_plus_alpha/include/all.hpp"
 #include "../dynamic_fm_index/time_debug.hpp"
 #include "../dynamic_fm_index/tools.hpp"
 #include "../dynamic_fm_index/c_array.hpp"

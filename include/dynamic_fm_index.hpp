@@ -2,7 +2,7 @@
 #include "dynamic_fm_index/dynamic_bwt.hpp"
 #include "dynamic_fm_index/dynamic_isa.hpp"
 #include "dynamic_fm_index/dynamic_sampled_sa.hpp"
-#include "stool/include/light_stool.hpp"
+#include "stool/include/all.hpp"
 #include "libdivsufsort/sa.hpp"
 
 namespace stool

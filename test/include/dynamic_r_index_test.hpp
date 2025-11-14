@@ -5,7 +5,7 @@
 #include <stack>
 #include <unordered_map>
 #include "libdivsufsort/sa.hpp"
-#include "stool/include/stool.hpp"
+#include "stool/include/lib.hpp"
 #include "../../include/all.hpp"
 #include "./dynamic_fm_index_test.hpp"
 

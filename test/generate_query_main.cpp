@@ -5,7 +5,7 @@
 #include <cassert>
 #include <chrono>
 #include <filesystem>
-#include "stool/include/stool.hpp"
+#include "stool/include/lib.hpp"
 #include "../include/all.hpp"
 #include "libdivsufsort/sa.hpp"
 
