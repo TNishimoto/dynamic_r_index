@@ -28,11 +28,11 @@ namespace stool
 #endif
 
         using namespace dynamic_r_index;
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicRLBWT
-        /// @brief      A dynamic data structure storing RLBWT. This implementation requires $O(r)$ words for the number r of runs in the BWT of the input string.
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+
+        /**
+         * @brief A dynamic data structure storing RLBWT. This implementation requires $O(r)$ words for the number r of runs in the BWT of the input string. [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class DynamicRLBWT
         {
         private:

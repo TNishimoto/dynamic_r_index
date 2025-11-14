@@ -6,11 +6,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicISA
-        /// @brief      A dynamic data structure for accessing SA and ISA. This implementation requires $O(n log n)$ words for the input string of length $n$.
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A dynamic data structure for accessing SA and ISA. This implementation requires $O(n log n)$ words for the input string of length $n$. [Unchecked AI comment].
+         * \ingroup DynamicFMIndexes
+         */
         class DynamicISA
         {
             stool::bptree::DynamicPermutation dp;

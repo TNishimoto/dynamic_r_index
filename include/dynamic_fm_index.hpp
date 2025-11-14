@@ -1,7 +1,7 @@
 #pragma once
-#include "./dynamic_bwt.hpp"
-#include "./dynamic_isa.hpp"
-#include "./dynamic_sampled_sa.hpp"
+#include "dynamic_fm_index/dynamic_bwt.hpp"
+#include "dynamic_fm_index/dynamic_isa.hpp"
+#include "dynamic_fm_index/dynamic_sampled_sa.hpp"
 #include "stool/include/light_stool.hpp"
 #include "libdivsufsort/sa.hpp"
 
@@ -10,13 +10,14 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @class DynamicFMIndex
          * @brief A dynamic data structure of FM-index. This implementation requires $O(n log n)$ words for the input string of length $n$.
          *
          * @details The DynamicFMIndex class provides a dynamic implementation of the FM-index, which is a compressed full-text substring index.
          * It allows for efficient string operations such as insertion, deletion, and searching within a text.
          * The class uses a combination of dynamic BWT (Burrows-Wheeler Transform) and dynamic sampled suffix array to achieve these operations.
          *
+         * \ingroup DynamicFMIndexes
+         * \ingroup StringIndexes
          * @tparam T The type of the elements stored in the index.
          */
         class DynamicFMIndex

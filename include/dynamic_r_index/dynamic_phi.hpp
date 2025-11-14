@@ -7,11 +7,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicPhi
-        /// @brief      A dynamic data structure supporting phi and inverse phi queries.
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A dynamic data structure supporting phi and inverse phi queries [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class DynamicPhi
         {
         public:

@@ -6,7 +6,7 @@
 #include <chrono>
 #include <filesystem>
 #include "stool/include/stool.hpp"
-#include "../include/dynamic_r_index.hpp"
+#include "../include/all.hpp"
 #include "libdivsufsort/sa.hpp"
 
 uint8_t get_first_character(const std::string &text, uint8_t default_character = '\0'){

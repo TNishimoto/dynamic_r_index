@@ -6,11 +6,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      SamplingSATBuilder
-        /// @brief      A builder of sampling suffix arrays
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A builder of sampling suffix arrays. [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class SamplingSATBuilder
         {
             using RLBWT = stool::rlbwt2::RLE<uint8_t>;

@@ -4,7 +4,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-
+        /**
+         * @brief A structure that stores position information needed during R-Index updates [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         struct PositionInformation
         {
             uint64_t p = UINT64_MAX;

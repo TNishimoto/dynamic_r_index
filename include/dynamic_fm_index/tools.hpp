@@ -21,11 +21,12 @@ namespace stool
         using ISAValue = uint64_t;
         using SAInterval = std::pair<int64_t, int64_t>;
 
+
         /**
-         * @enum EditType
-         * @brief Enumeration representing the types of edits that can be performed on the FM-index.
+         * @brief Enumeration representing the types of edits that can be performed on the FM-index. [Unchecked AI comment].
+         * \ingroup DynamicFMIndexes
          */
-        enum class EditType
+         enum class EditType
         {
             InsertionOfChar,   ///< Represents the insertion of a single character.
             InsertionOfString, ///< Represents the insertion of a string.

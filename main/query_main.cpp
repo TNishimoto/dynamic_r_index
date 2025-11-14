@@ -5,7 +5,7 @@
 #include <cassert>
 #include <chrono>
 #include <filesystem>
-#include "../include/dynamic_r_index.hpp"
+#include "../include/all.hpp"
 #include "libdivsufsort/sa.hpp"
 
 

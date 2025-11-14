@@ -28,7 +28,10 @@ namespace stool
         }
 
 #endif
-
+        /**
+         * @brief Helper functions for R-Index updates [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class RIndexHelperForUpdate
         {
 

@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include "libdivsufsort/sa.hpp"
 #include "stool/include/stool.hpp"
-#include "../../include/dynamic_r_index.hpp"
+#include "../../include/all.hpp"
 #include "./dynamic_fm_index_test.hpp"
 
 namespace stool

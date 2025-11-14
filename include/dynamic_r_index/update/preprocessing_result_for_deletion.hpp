@@ -4,6 +4,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
+        /**
+         * @brief PreprocessingResultForDeletion [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         struct PreprocessingResultForDeletion
         {
         public:

@@ -7,11 +7,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      RLBWTBuilder
-        /// @brief      A builder of RLBWT
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A builder of RLBWT. [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class RLBWTBuilder
         {
         private:

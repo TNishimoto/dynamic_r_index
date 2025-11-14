@@ -5,11 +5,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicRLBWTHelper
-        /// @brief      Helper functions for dynamic RLBWT
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief Helper functions for dynamic RLBWT [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class DynamicRLBWTHelper
         {
         private:

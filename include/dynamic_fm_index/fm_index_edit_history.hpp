@@ -13,11 +13,10 @@ namespace stool
     {
         
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      FMIndexEditHistory
-        /// @brief      Values for updating dynamic FM-index.
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief Values for updating dynamic FM-index. [Unchecked AI comment].
+         * \ingroup DynamicFMIndexes
+         */
         class FMIndexEditHistory
         {
         public:

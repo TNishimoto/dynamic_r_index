@@ -7,13 +7,10 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A class representing the C array in a dynamic FM-index.
-         *
-         * The C array is a fundamental component of the FM-index that stores cumulative
-         * character frequencies. This class manages both the C array and the effective alphabet
-         * used in the index.
+         * @brief A class representing the C array in a dynamic FM-index. [Unchecked AI comment].
+         * \ingroup DynamicFMIndexes
          */
-        class CArray
+         class CArray
         {
             static inline constexpr int C_ARRAY_MAX_SIZE = 257;
 

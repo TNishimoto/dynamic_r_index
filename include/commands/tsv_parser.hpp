@@ -1,7 +1,7 @@
 #pragma once
 #include "./line_query.hpp"
 #include "stool/include/stool.hpp"
-#include "../dynamic_r_index.hpp"
+#include "../all.hpp"
 
 namespace stool
 {

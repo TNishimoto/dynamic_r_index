@@ -6,7 +6,7 @@
 #include <chrono>
 #include <filesystem>
 #include "stool/include/stool.hpp"
-#include "../include/dynamic_r_index.hpp"
+#include "../include/all.hpp"
 #include "libdivsufsort/sa.hpp"
 
 bool check_run(const std::vector<uint8_t> &text, uint64_t i, uint64_t len){

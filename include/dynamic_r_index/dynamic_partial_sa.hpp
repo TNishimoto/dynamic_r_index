@@ -5,12 +5,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicPartialSA
-        /// @brief      A dynamic data structure for managing sampled suffix array values
-        /// @details    Memory: $O(r)$ words for $r$ sampled suffix array values.
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A dynamic data structure for managing sampled suffix array values [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class DynamicPartialSA
         {
         public:

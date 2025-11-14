@@ -12,6 +12,10 @@ namespace stool
 {
     namespace dynamic_r_index
     {
+        /**
+         * @brief Primitive update operations for R-Index updates [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
+         */
         class PrimitiveUpdateOperations
         {
         public:

@@ -6,14 +6,10 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A structure that stores additional information needed during R-Index updates
-         * 
-         * This structure maintains various suffix array values and indices that are required
-         * during the dynamic update process of an R-Index data structure.
-         * It keeps track of positions y and z in the suffix array, along with values
-         * at those positions and their adjacent positions (y-1, y+1, z-1, z+1).
+         * @brief A structure that stores additional information needed during R-Index updates [Unchecked AI comment].
+         * \ingroup DynamicRIndexes
          */
-        struct AdditionalInformationUpdatingRIndex
+         struct AdditionalInformationUpdatingRIndex
         {
         public:
             SAIndex y;              ///< Position y in the suffix array

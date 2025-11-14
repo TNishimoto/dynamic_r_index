@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stack>
 #include <unordered_map>
-#include "../../include/dynamic_r_index.hpp"
+#include "../../include/all.hpp"
 #include "stool/include/stool.hpp"
 #include "./naive_dynamic_string_x.hpp"
 namespace stool

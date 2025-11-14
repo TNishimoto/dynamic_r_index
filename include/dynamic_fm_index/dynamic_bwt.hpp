@@ -17,11 +17,10 @@ namespace stool
     {
         bool __view_flag = false;
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /// @class      DynamicBWT
-        /// @brief      A dynamic data structure storing BWT. This implementation requires $O(n log σ)$ bits of space for the input string of length $n$ and alphabet size $σ$.
-        ///
-        ////////////////////////////////////////////////////////////////////////////////
+        /**
+         * @brief A dynamic data structure storing BWT. This implementation requires $O(n log σ)$ bits of space for the input string of length $n$ and alphabet size $σ$. [Unchecked AI comment].
+         * \ingroup DynamicFMIndexes
+         */
         class DynamicBWT
         {
             stool::dynamic_r_index::CArray cArray; ///< C array for storing character counts
