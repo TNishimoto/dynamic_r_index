@@ -9,6 +9,7 @@ namespace stool
         /**
          * @brief A dynamic data structure for accessing SA and ISA. This implementation requires $O(n log n)$ words for the input string of length $n$. [Unchecked AI comment].
          * \ingroup DynamicFMIndexes
+         * \ingroup MainDataStructures
          */
         class DynamicISA
         {

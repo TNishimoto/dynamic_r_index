@@ -10,6 +10,7 @@ namespace stool
         /**
          * @brief A dynamic data structure supporting phi and inverse phi queries [Unchecked AI comment].
          * \ingroup DynamicRIndexes
+         * \ingroup MainDataStructures
          */
         class DynamicPhi
         {

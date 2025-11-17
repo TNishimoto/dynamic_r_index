@@ -32,6 +32,7 @@ namespace stool
         /**
          * @brief A dynamic data structure storing RLBWT. This implementation requires $O(r)$ words for the number r of runs in the BWT of the input string. [Unchecked AI comment].
          * \ingroup DynamicRIndexes
+         * \ingroup MainDataStructures
          */
         class DynamicRLBWT
         {

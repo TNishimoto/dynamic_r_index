@@ -7,18 +7,145 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A class representing the C array in a dynamic FM-index. [Unchecked AI comment].
+         * @brief A dynamic data structure for stroing two arrays \p C[0..σ-1] and \p D[0..σ-1] related to an effective alphabet \p Σ = {c_{1}, c_{2}, ..., c_{σ-1}} of a string \p T[0..n-1]. [in progress].
+         * @details The details of this data structure are as follows:
+         * @li Σ = {c_{1}, c_{2}, ..., c_{σ-1}} is a set of characters that appear in the string \p T[0..n-1].
+         * @li Each D[i] stores the i-th character c_{i} in Σ.
+         * @li Each C[i] stores the number of occurrences of c_{1}, c_{2}, ..., c_{i} in \p T[0..n-1].
          * \ingroup DynamicFMIndexes
+         * \ingroup MainDataStructures
          */
          class CArray
         {
             static inline constexpr int C_ARRAY_MAX_SIZE = 257;
 
             std::vector<uint64_t> C;
-            std::vector<uint8_t> effective_alphabet;
+            std::vector<uint8_t> effective_alphabet; // D
 
         public:
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Lightweight functions for accessing to properties of this class
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
             /**
+             * @brief Returns the total memory usage in bytes
+             */
+            uint64_t size_in_bytes() const
+            {
+                return (2 * sizeof(std::vector<uint64_t>)) + (this->C.capacity() * sizeof(uint64_t)) + (this->effective_alphabet.capacity() * sizeof(uint64_t));
+            }
+
+            //@}
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Main queries
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+            /**
+             * @brief Return \p D[0..σ-1] as a vector.
+             * @note O(σ) time
+             */
+            std::vector<uint8_t> get_alphabet() const
+            {
+                std::vector<uint8_t> r = this->effective_alphabet;
+                return r;
+            }
+            /**
+             * @brief Gets the count for a 
+             * @param c The character to get the count for
+             * @return The count for the character
+             */
+            uint64_t get_c_count(uint8_t c) const
+            {
+                uint64_t x = c;
+                return this->C[x + 1] - this->C[x];
+            }
+
+            /**
+             * @brief Gets the value at a specific index in the CArray
+             * @param i The index to get the value for
+             * @return The value at the index
+             */
+            uint64_t at(uint64_t i) const
+            {
+                return this->C[i];
+            }
+
+            /**
+             * @brief Gets the ID of a character in the effective alphabet
+             * @param c The character to get the ID for
+             * @return The ID of the character, or -1 if not found
+             */
+            int64_t get_c_id(uint8_t c) const
+            {
+                
+                int64_t size = this->effective_alphabet.size();
+                for (int64_t i = 0; i < size; i++)
+                {
+                    if (this->effective_alphabet[i] == c)
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+                
+            }
+
+            /**
+             * @brief Finds the successor of a value in the effective alphabet
+             * @param value The value to find the successor for
+             * @return The index of the successor, or -1 if not found
+             */
+            int64_t successor_on_effective_alphabet(uint8_t value) const
+            {
+                return stool::BasicSearch::successor_by_linear_search(this->effective_alphabet, value);
+            }
+
+            /**
+             * @brief Finds the predecessor of a value in the effective alphabet
+             * @param value The value to find the predecessor for
+             * @return The index of the predecessor, or -1 if not found
+             */
+            int64_t predecessor_on_effective_alphabet(uint8_t value) const
+            {
+                return stool::BasicSearch::predecessor_by_linear_search(this->effective_alphabet, value);
+            }
+
+            /**
+             * @brief Checks if a character occurs in the effective alphabet
+             * @param value The character to check
+             * @return True if the character occurs, false otherwise
+             */
+            bool occurs_in_effective_alphabet(uint8_t value) const
+            {
+                return this->get_c_count(value) > 0;
+            }
+
+            /**
+             * @brief Gets a character from the effective alphabet by index
+             * @param i The index to get the character for
+             * @return The character at the index
+             */
+            uint8_t get_character_in_effective_alphabet(uint64_t i) const
+            {
+                return this->effective_alphabet[i];
+            }
+
+            /**
+             * @brief Gets the size of the effective alphabet
+             * @return The number of characters in the effective alphabet
+             */
+            uint64_t effective_alphabet_size() const
+            {
+                return this->effective_alphabet.size();
+            }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Update operations
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+        /**
              * @brief Initializes the C array and effective alphabet data structures
              *
              * The C array is a fundamental component of the FM-index that stores cumulative
@@ -35,110 +162,6 @@ namespace stool
             }
 
             /**
-             * @brief Calculates the total memory usage of the CArray in bytes
-             * @return The total size in bytes
-             */
-            uint64_t size_in_bytes() const
-            {
-                return (2 * sizeof(std::vector<uint64_t>)) + (this->C.capacity() * sizeof(uint64_t)) + (this->effective_alphabet.capacity() * sizeof(uint64_t));
-            }
-
-            /**
-             * @brief Gets memory usage information as a vector of strings
-             * @param message_paragraph The paragraph level for message formatting
-             * @return Vector of strings containing memory usage information
-             */
-            std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
-            {
-                std::vector<std::string> log;
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=CArray: " + std::to_string(this->size_in_bytes()) + " bytes =");
-                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
-                return log;
-            }
-
-            /**
-             * @brief Prints the current state of the CArray to stdout
-             */
-            void print() const
-            {
-                std::cout << "====== CArray ======" << std::endl;
-                stool::DebugPrinter::print_integers(this->C);
-                stool::DebugPrinter::print_integers_with_characters(this->effective_alphabet);
-                std::cout << "====================" << std::endl;
-            }
-
-            /**
-             * @brief Prints memory usage information to stdout
-             * @param message_paragraph The paragraph level for message formatting
-             */
-            void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
-            {
-                std::vector<std::string> log = this->get_memory_usage_info(message_paragraph);
-                for (std::string &s : log)
-                {
-                    std::cout << s << std::endl;
-                }
-            }
-
-            /**
-             * @brief Prints statistics about the CArray to stdout
-             * @param message_paragraph The paragraph level for message formatting
-             */
-            void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
-            {
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(CArray):" << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Effective Alphabet: " << stool::ConverterToString::to_character_string(this->effective_alphabet) << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
-            }
-
-            /**
-             * @brief Gets the current effective alphabet
-             * @return Vector containing the effective alphabet characters
-             */
-            std::vector<uint8_t> get_alphabet() const
-            {
-                std::vector<uint8_t> r = this->effective_alphabet;
-                return r;
-            }
-
-            /**
-             * @brief Saves the CArray to a file stream
-             * @param item The CArray to save
-             * @param os The output file stream
-             */
-            static void store_to_file(const CArray &item, std::ofstream &os)
-            {
-                uint64_t sz1 = item.C.size();
-                uint64_t sz2 = item.effective_alphabet.size();
-                os.write(reinterpret_cast<const char *>(&sz1), sizeof(uint64_t));
-                os.write(reinterpret_cast<const char *>(&sz2), sizeof(uint64_t));
-                os.write(reinterpret_cast<const char *>(item.C.data()), item.C.size() * sizeof(uint64_t));
-                os.write(reinterpret_cast<const char *>(item.effective_alphabet.data()), item.effective_alphabet.size() * sizeof(uint8_t));
-            }
-
-            /**
-             * @brief Loads a CArray from a file stream
-             * @param ifs The input file stream
-             * @return The loaded CArray
-             */
-            static CArray load_from_file(std::ifstream &ifs)
-            {
-                uint64_t size1 = 0;
-                uint64_t size2 = 0;
-
-                ifs.read(reinterpret_cast<char *>(&size1), sizeof(uint64_t));
-                ifs.read(reinterpret_cast<char *>(&size2), sizeof(uint64_t));
-                CArray r;
-                r.C.resize(size1);
-                r.effective_alphabet.resize(size2);
-
-                ifs.read(reinterpret_cast<char *>(r.C.data()), size1 * sizeof(uint64_t));
-                ifs.read(reinterpret_cast<char *>(r.effective_alphabet.data()), size2 * sizeof(uint8_t));
-
-                return r;
-            }
-
-            /**
              * @brief Swaps the contents of this CArray with another
              * @param item The CArray to swap with
              */
@@ -148,24 +171,6 @@ namespace stool
                 this->effective_alphabet.swap(item.effective_alphabet);
             }
 
-            /**
-             * @brief Builds a CArray from a count vector
-             * @param count_c_vector The input count vector
-             * @return The constructed CArray
-             */
-            static CArray build(const std::vector<uint64_t> &count_c_vector)
-            {
-                CArray r;
-                r.initialize();
-                for (uint64_t i = 0; i < count_c_vector.size(); i++)
-                {
-                    if (count_c_vector[i] > 0)
-                    {
-                        r.increase(i, count_c_vector[i]);
-                    }
-                }
-                return r;
-            }
 
             /**
              * @brief Clears the CArray and reinitializes it
@@ -241,93 +246,128 @@ namespace stool
                 this->increase(removedChar, -1);
             }
 
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Print and verification functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
             /**
-             * @brief Gets the count for a character in the CArray
-             * @param c The character to get the count for
-             * @return The count for the character
+             * @brief Gets memory usage information as a vector of strings
+             * @param message_paragraph The paragraph level for message formatting
+             * @return Vector of strings containing memory usage information
              */
-            uint64_t get_c_count(uint8_t c) const
+            std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                uint64_t x = c;
-                return this->C[x + 1] - this->C[x];
+                std::vector<std::string> log;
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "=CArray: " + std::to_string(this->size_in_bytes()) + " bytes =");
+                log.push_back(stool::Message::get_paragraph_string(message_paragraph) + "==");
+                return log;
             }
 
             /**
-             * @brief Gets the value at a specific index in the CArray
-             * @param i The index to get the value for
-             * @return The value at the index
+             * @brief Prints the current state of the CArray to stdout
              */
-            uint64_t at(uint64_t i) const
+            void print() const
             {
-                return this->C[i];
+                std::cout << "====== CArray ======" << std::endl;
+                stool::DebugPrinter::print_integers(this->C);
+                stool::DebugPrinter::print_integers_with_characters(this->effective_alphabet);
+                std::cout << "====================" << std::endl;
             }
 
             /**
-             * @brief Gets the ID of a character in the effective alphabet
-             * @param c The character to get the ID for
-             * @return The ID of the character, or -1 if not found
+             * @brief Prints memory usage information to stdout
+             * @param message_paragraph The paragraph level for message formatting
              */
-            int64_t get_c_id(uint8_t c) const
+            void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
-                int64_t size = this->effective_alphabet.size();
-                for (int64_t i = 0; i < size; i++)
+                std::vector<std::string> log = this->get_memory_usage_info(message_paragraph);
+                for (std::string &s : log)
                 {
-                    if (this->effective_alphabet[i] == c)
+                    std::cout << s << std::endl;
+                }
+            }
+
+            /**
+             * @brief Prints statistics about the CArray to stdout
+             * @param message_paragraph The paragraph level for message formatting
+             */
+            void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
+            {
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(CArray):" << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Effective Alphabet: " << stool::ConverterToString::to_character_string(this->effective_alphabet) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
+            }
+            //@}
+
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Load, save, and builder functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
+            /**
+             * @brief Builds a CArray from a count vector
+             * @param count_c_vector The input count vector
+             * @return The constructed CArray
+             */
+            static CArray build(const std::vector<uint64_t> &count_c_vector)
+            {
+                CArray r;
+                r.initialize();
+                for (uint64_t i = 0; i < count_c_vector.size(); i++)
+                {
+                    if (count_c_vector[i] > 0)
                     {
-                        return i;
+                        r.increase(i, count_c_vector[i]);
                     }
                 }
-                return -1;
+                return r;
+            }
+            /**
+             * @brief Saves the CArray to a file stream
+             * @param item The CArray to save
+             * @param os The output file stream
+             */
+            static void store_to_file(const CArray &item, std::ofstream &os)
+            {
+                uint64_t sz1 = item.C.size();
+                uint64_t sz2 = item.effective_alphabet.size();
+                os.write(reinterpret_cast<const char *>(&sz1), sizeof(uint64_t));
+                os.write(reinterpret_cast<const char *>(&sz2), sizeof(uint64_t));
+                os.write(reinterpret_cast<const char *>(item.C.data()), item.C.size() * sizeof(uint64_t));
+                os.write(reinterpret_cast<const char *>(item.effective_alphabet.data()), item.effective_alphabet.size() * sizeof(uint8_t));
             }
 
             /**
-             * @brief Finds the successor of a value in the effective alphabet
-             * @param value The value to find the successor for
-             * @return The index of the successor, or -1 if not found
+             * @brief Loads a CArray from a file stream
+             * @param ifs The input file stream
+             * @return The loaded CArray
              */
-            int64_t successor_on_effective_alphabet(uint8_t value) const
+            static CArray load_from_file(std::ifstream &ifs)
             {
-                return stool::BasicSearch::successor_by_linear_search(this->effective_alphabet, value);
+                uint64_t size1 = 0;
+                uint64_t size2 = 0;
+
+                ifs.read(reinterpret_cast<char *>(&size1), sizeof(uint64_t));
+                ifs.read(reinterpret_cast<char *>(&size2), sizeof(uint64_t));
+                CArray r;
+                r.C.resize(size1);
+                r.effective_alphabet.resize(size2);
+
+                ifs.read(reinterpret_cast<char *>(r.C.data()), size1 * sizeof(uint64_t));
+                ifs.read(reinterpret_cast<char *>(r.effective_alphabet.data()), size2 * sizeof(uint8_t));
+
+                return r;
             }
 
-            /**
-             * @brief Finds the predecessor of a value in the effective alphabet
-             * @param value The value to find the predecessor for
-             * @return The index of the predecessor, or -1 if not found
-             */
-            int64_t predecessor_on_effective_alphabet(uint8_t value) const
-            {
-                return stool::BasicSearch::predecessor_by_linear_search(this->effective_alphabet, value);
-            }
+            //@}
 
-            /**
-             * @brief Checks if a character occurs in the effective alphabet
-             * @param value The character to check
-             * @return True if the character occurs, false otherwise
-             */
-            bool occurs_in_effective_alphabet(uint8_t value) const
-            {
-                return this->get_c_count(value) > 0;
-            }
 
-            /**
-             * @brief Gets a character from the effective alphabet by index
-             * @param i The index to get the character for
-             * @return The character at the index
-             */
-            uint8_t get_character_in_effective_alphabet(uint64_t i) const
-            {
-                return this->effective_alphabet[i];
-            }
 
-            /**
-             * @brief Gets the size of the effective alphabet
-             * @return The number of characters in the effective alphabet
-             */
-            uint64_t effective_alphabet_size() const
-            {
-                return this->effective_alphabet.size();
-            }
+
         };
     }
 }

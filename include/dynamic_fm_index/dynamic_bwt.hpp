@@ -20,6 +20,7 @@ namespace stool
         /**
          * @brief A dynamic data structure storing BWT. This implementation requires $O(n log σ)$ bits of space for the input string of length $n$ and alphabet size $σ$. [Unchecked AI comment].
          * \ingroup DynamicFMIndexes
+         * \ingroup MainDataStructures
          */
         class DynamicBWT
         {

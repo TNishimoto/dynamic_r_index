@@ -8,6 +8,7 @@ namespace stool
         /**
          * @brief A dynamic data structure for managing sampled suffix array values [Unchecked AI comment].
          * \ingroup DynamicRIndexes
+         * \ingroup MainDataStructures
          */
         class DynamicPartialSA
         {
