@@ -7,11 +7,10 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A dynamic data structure for stroing two arrays \p C[0..σ-1] and \p D[0..σ-1] related to an effective alphabet \p Σ = {c_{1}, c_{2}, ..., c_{σ-1}} of a string \p T[0..n-1]. [in progress].
+         * @brief A dynamic data structure for stroing two arrays \p C[0..σ-1] and \p D[0..σ'-1] related to an alphabet \p Σ = {c_{1}, c_{2}, ..., c_{σ-1}} of a string \p T[0..n-1]. 
          * @details The details of this data structure are as follows:
-         * @li Σ = {c_{1}, c_{2}, ..., c_{σ-1}} is a set of characters that appear in the string \p T[0..n-1].
-         * @li Each D[i] stores the i-th character c_{i} in Σ.
          * @li Each C[i] stores the number of occurrences of c_{1}, c_{2}, ..., c_{i} in \p T[0..n-1].
+         * @li Each D[i] stores the i-th character c'_{i} in Σ'. Here, Σ = {c'_{1}, c'_{2}, ..., c'_{σ'-1}} is a set of characters that appear in the string \p T[0..n-1].
          * \ingroup DynamicFMIndexes
          * \ingroup MainDataStructures
          */
@@ -35,6 +34,13 @@ namespace stool
             {
                 return (2 * sizeof(std::vector<uint64_t>)) + (this->C.capacity() * sizeof(uint64_t)) + (this->effective_alphabet.capacity() * sizeof(uint64_t));
             }
+            /**
+             * @brief Return \p σ'
+             */
+            uint64_t effective_alphabet_size() const
+            {
+                return this->effective_alphabet.size();
+            }
 
             //@}
             ////////////////////////////////////////////////////////////////////////////////
@@ -42,18 +48,18 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
             /**
-             * @brief Return \p D[0..σ-1] as a vector.
+             * @brief Return \p D[0..σ'-1] as a vector.
              * @note O(σ) time
              */
-            std::vector<uint8_t> get_alphabet() const
+            std::vector<uint8_t> get_effective_alphabet() const
             {
                 std::vector<uint8_t> r = this->effective_alphabet;
                 return r;
             }
+
             /**
-             * @brief Gets the count for a 
-             * @param c The character to get the count for
-             * @return The count for the character
+             * @brief Return the number of occurrences of a character \p c in \p T[0..n-1].
+             * @note O(1) time
              */
             uint64_t get_c_count(uint8_t c) const
             {
@@ -62,9 +68,8 @@ namespace stool
             }
 
             /**
-             * @brief Gets the value at a specific index in the CArray
-             * @param i The index to get the value for
-             * @return The value at the index
+             * @brief Return \p C[i]
+             * @note O(1) time
              */
             uint64_t at(uint64_t i) const
             {
@@ -72,9 +77,7 @@ namespace stool
             }
 
             /**
-             * @brief Gets the ID of a character in the effective alphabet
-             * @param c The character to get the ID for
-             * @return The ID of the character, or -1 if not found
+             * @brief Return the rank of a given character \p c in \p Σ' if it exists, otherwise return -1.
              */
             int64_t get_c_id(uint8_t c) const
             {
@@ -92,9 +95,8 @@ namespace stool
             }
 
             /**
-             * @brief Finds the successor of a value in the effective alphabet
-             * @param value The value to find the successor for
-             * @return The index of the successor, or -1 if not found
+             * @brief Return the index of the successor of a character \p c in \p Σ' if it exists, otherwise return -1.
+             * @note O(σ') time
              */
             int64_t successor_on_effective_alphabet(uint8_t value) const
             {
@@ -102,9 +104,8 @@ namespace stool
             }
 
             /**
-             * @brief Finds the predecessor of a value in the effective alphabet
-             * @param value The value to find the predecessor for
-             * @return The index of the predecessor, or -1 if not found
+             * @brief Return the index of the predecessor of a character \p c in \p Σ' if it exists, otherwise return -1.
+             * @note O(σ') time
              */
             int64_t predecessor_on_effective_alphabet(uint8_t value) const
             {
@@ -112,33 +113,23 @@ namespace stool
             }
 
             /**
-             * @brief Checks if a character occurs in the effective alphabet
-             * @param value The character to check
-             * @return True if the character occurs, false otherwise
+             * @brief Checks if a character \p c occurs in \p Σ'
+             * @note O(1) time
              */
-            bool occurs_in_effective_alphabet(uint8_t value) const
+            bool occurs_in_effective_alphabet(uint8_t c) const
             {
-                return this->get_c_count(value) > 0;
+                return this->get_c_count(c) > 0;
             }
 
             /**
-             * @brief Gets a character from the effective alphabet by index
-             * @param i The index to get the character for
-             * @return The character at the index
+             * @brief Return the i-th character in \p Σ'
+             * @note O(1) time
              */
             uint8_t get_character_in_effective_alphabet(uint64_t i) const
             {
                 return this->effective_alphabet[i];
             }
 
-            /**
-             * @brief Gets the size of the effective alphabet
-             * @return The number of characters in the effective alphabet
-             */
-            uint64_t effective_alphabet_size() const
-            {
-                return this->effective_alphabet.size();
-            }
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -146,24 +137,18 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         /**
-             * @brief Initializes the C array and effective alphabet data structures
-             *
-             * The C array is a fundamental component of the FM-index that stores cumulative
-             * character frequencies. This method:
-             * - Clears any existing data in the C array
-             * - Resizes it to C_ARRAY_MAX_SIZE (257) elements, initialized to 0
-             * - Clears the effective_alphabet vector which tracks actual characters used
+             * @brief Initializes the two arrays \p C and \p D
              */
             void initialize()
             {
                 this->C.clear();
                 this->C.resize(CArray::C_ARRAY_MAX_SIZE, 0);
                 this->effective_alphabet.clear();
+                assert(this->verify());
             }
 
             /**
-             * @brief Swaps the contents of this CArray with another
-             * @param item The CArray to swap with
+             * @brief Swap operation
              */
             void swap(CArray &item)
             {
@@ -173,7 +158,7 @@ namespace stool
 
 
             /**
-             * @brief Clears the CArray and reinitializes it
+             * @brief Alias of initialize()
              */
             void clear()
             {
@@ -181,15 +166,14 @@ namespace stool
             }
 
             /**
-             * @brief Increases the count for a character in the CArray
-             * @param newChar The character to increase
-             * @param delta The amount to increase by
+             * @brief Increases the number of occurrences of a character \p c in \p T[0..n-1] by \p delta
+             * @note O(σ) time
              */
-            void increase(uint8_t newChar, int64_t delta)
+            void increase(uint8_t c, int64_t delta)
             {
                 if (delta > 0)
                 {
-                    bool b = this->occurs_in_effective_alphabet(newChar);
+                    bool b = this->occurs_in_effective_alphabet(c);
                     if (!b)
                     {
                         int64_t ins_pos = 0;
@@ -197,53 +181,56 @@ namespace stool
                         for (int64_t i = 0; i < size; i++)
                         {
                             uint8_t p2 = i + 1 < size ? this->effective_alphabet[i + 1] : UINT8_MAX;
-                            if (this->effective_alphabet[i] < newChar && newChar <= p2)
+                            if (this->effective_alphabet[i] < c && c <= p2)
                             {
                                 ins_pos = i + 1;
                             }
                         }
-                        this->effective_alphabet.insert(this->effective_alphabet.begin() + ins_pos, newChar);
+                        this->effective_alphabet.insert(this->effective_alphabet.begin() + ins_pos, c);
                     }
                 }
 
-                for (uint64_t i = newChar + 1; i < this->C.size(); i++)
+                for (uint64_t i = c + 1; i < this->C.size(); i++)
                 {
                     this->C[i] += delta;
                 }
 
-                if (this->get_c_count(newChar) == 0)
+                if (this->get_c_count(c) == 0)
                 {
-                    int64_t id = this->get_c_id(newChar);
+                    int64_t id = this->get_c_id(c);
                     this->effective_alphabet.erase(this->effective_alphabet.begin() + id);
                 }
+                assert(this->verify());
             }
 
             /**
-             * @brief Increases the count for a character by 1
-             * @param newChar The character to increase
+             * @brief Increases the number of occurrences of a character \p c in \p T[0..n-1] by 1
+             * @note O(σ) time
              */
-            void increase(uint8_t newChar)
+            void increase(uint8_t c)
             {
-                this->increase(newChar, 1);
+                this->increase(c, 1);
+                assert(this->verify());
             }
 
             /**
-             * @brief Decreases the count for a character in the CArray
-             * @param removedChar The character to decrease
-             * @param delta The amount to decrease by
+             * @brief Decreases the number of occurrences of a character \p c in \p T[0..n-1] by \p delta
+             * @note O(σ) time
              */
-            void decrease(uint8_t removedChar, int64_t delta)
+            void decrease(uint8_t c, int64_t delta)
             {
-                this->increase(removedChar, -delta);
+                this->increase(c, -delta);
+                assert(this->verify());
             }
 
             /**
-             * @brief Decreases the count for a character by 1
-             * @param removedChar The character to decrease
+             * @brief Decreases the number of occurrences of a character \p c in \p T[0..n-1] by 1
+             * @note O(σ) time
              */
             void decrease(uint8_t removedChar)
             {
                 this->increase(removedChar, -1);
+                assert(this->verify());
             }
 
             //@}
@@ -254,9 +241,8 @@ namespace stool
             //@{
 
             /**
-             * @brief Gets memory usage information as a vector of strings
-             * @param message_paragraph The paragraph level for message formatting
-             * @return Vector of strings containing memory usage information
+             * @brief Return the memory usage information of this data structure as a vector of strings
+             * @param message_paragraph The paragraph depth of message logs
              */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -267,9 +253,9 @@ namespace stool
             }
 
             /**
-             * @brief Prints the current state of the CArray to stdout
+             * @brief Prints detailed information about this instance
              */
-            void print() const
+            void print_info() const
             {
                 std::cout << "====== CArray ======" << std::endl;
                 stool::DebugPrinter::print_integers(this->C);
@@ -278,8 +264,8 @@ namespace stool
             }
 
             /**
-             * @brief Prints memory usage information to stdout
-             * @param message_paragraph The paragraph level for message formatting
+             * @brief Print the memory usage information of this data structure
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
              */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -291,14 +277,27 @@ namespace stool
             }
 
             /**
-             * @brief Prints statistics about the CArray to stdout
-             * @param message_paragraph The paragraph level for message formatting
+             * @brief Print the statistics of this data structure
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(CArray):" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Effective Alphabet: " << stool::ConverterToString::to_character_string(this->effective_alphabet) << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
+            }
+            /**
+             * @brief Verify the internal consistency of this data structure.
+             */
+            bool verify() const {
+                for (uint64_t i = 1; i < this->C.size(); i++) {
+                    if(this->C[i] < this->C[i-1]){
+                        this->print_info();
+                        std::cout << "i = " << i << ", C[i] = " << this->C[i] << ", C[i-1] = " << this->C[i-1] << std::endl;
+                        throw std::logic_error("Error: CArray::verify(), C[i] < C[i-1]");
+                    }
+                }
+                return true;
             }
             //@}
 
@@ -309,27 +308,23 @@ namespace stool
             //@{
 
             /**
-             * @brief Builds a CArray from a count vector
-             * @param count_c_vector The input count vector
-             * @return The constructed CArray
+             * @brief Build CArray from a vector \p Q, where \p Q[c] is the number of occurrences of the character \p c in \p T[0..n-1].
              */
-            static CArray build(const std::vector<uint64_t> &count_c_vector)
+            static CArray build(const std::vector<uint64_t> &vector_Q)
             {
                 CArray r;
                 r.initialize();
-                for (uint64_t i = 0; i < count_c_vector.size(); i++)
+                for (uint64_t i = 0; i < vector_Q.size(); i++)
                 {
-                    if (count_c_vector[i] > 0)
+                    if (vector_Q[i] > 0)
                     {
-                        r.increase(i, count_c_vector[i]);
+                        r.increase(i, vector_Q[i]);
                     }
                 }
                 return r;
             }
             /**
-             * @brief Saves the CArray to a file stream
-             * @param item The CArray to save
-             * @param os The output file stream
+             * @brief Save the given instance \p item to a file stream \p os
              */
             static void store_to_file(const CArray &item, std::ofstream &os)
             {
@@ -342,9 +337,7 @@ namespace stool
             }
 
             /**
-             * @brief Loads a CArray from a file stream
-             * @param ifs The input file stream
-             * @return The loaded CArray
+             * @brief Return the CArray loaded from a file stream \p ifs
              */
             static CArray load_from_file(std::ifstream &ifs)
             {

@@ -182,9 +182,9 @@ namespace stool
                 return this->head_chars_of_RLBWT.get_alphabet_size();
             }
 
-            std::vector<uint8_t> get_alphabet() const
+            std::vector<uint8_t> get_effective_alphabet() const
             {
-                return this->cArray.get_alphabet();
+                return this->cArray.get_effective_alphabet();
             }
 
             /*

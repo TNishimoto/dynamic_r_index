@@ -102,9 +102,9 @@ namespace stool
              * @brief Get the alphabet used in the index.
              * @return A vector containing the alphabet.
              */
-            std::vector<uint8_t> get_alphabet() const
+            std::vector<uint8_t> get_effective_alphabet() const
             {
-                return this->dbwt.get_alphabet();
+                return this->dbwt.get_effective_alphabet();
             }
 
             /**
@@ -217,7 +217,7 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
-                auto alphabet = this->get_alphabet();
+                auto alphabet = this->get_effective_alphabet();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::ConverterToString::to_integer_string_with_characters(alphabet) << std::endl;
 
                 if (this->text_size() < 1000)
@@ -255,30 +255,6 @@ namespace stool
             uint8_t access(int64_t i) const
             {
                 return this->dbwt.access(i);
-            }
-
-            
-
-            /**
-             * @brief Get the rank of a character up to a specific position in the index.
-             * @param c The character to find the rank for.
-             * @param i The position up to which to find the rank.
-             * @return The rank of the character.
-             */
-            int64_t rank(uint8_t c, int64_t i) const
-            {
-                return this->dbwt.rank(c, i);
-            }
-
-            /**
-             * @brief Get the position of the ith occurrence of a character in the index.
-             * @param c The character to find.
-             * @param ith The occurrence number.
-             * @return The position of the ith occurrence of the character.
-             */
-            int64_t select(uint8_t c, int64_t ith) const
-            {
-                return this->dbwt.select(c, ith);
             }
 
             /**
@@ -532,17 +508,16 @@ namespace stool
              */
             BackwardSearchResult backward_search(const Interval &intv, uint8_t c) const
             {
-                uint64_t num1 = this->dbwt.rank(c, intv.first - 1);
+                uint64_t num1 = intv.first > 0 ? this->dbwt.rank(intv.first - 1, c) : 0;
                 uint64_t c_count = this->dbwt.get_c_array().get_c_count(c);
                 if (num1 < c_count)
                 {
-                    uint64_t fst_c_pos = this->dbwt.select(c, num1 + 1);
+                    uint64_t fst_c_pos = this->dbwt.select(num1, c);
 
                     if ((int64_t)fst_c_pos <= intv.second)
                     {
-                        uint64_t last_ith = this->dbwt.rank(c, intv.second);
-
-                        uint64_t lst_c_pos = this->dbwt.select(c, last_ith);
+                        int64_t last_ith = this->dbwt.rank(intv.second, c);
+                        uint64_t lst_c_pos = this->dbwt.select(last_ith-1, c);
 
                         return BackwardSearchResult(this->dbwt.LF(fst_c_pos), this->dbwt.LF(lst_c_pos));
                     }
@@ -757,7 +732,7 @@ namespace stool
                 {
                     C_count++;
                 }
-                uint64_t rank_value = this->dbwt.rank(new_letter_L, positionToReplace);
+                uint64_t rank_value = this->dbwt.rank(positionToReplace, new_letter_L);
                 if (positionToReplace <= oldPositionToInsert && new_letter_L == oldChar)
                 {
                     rank_value++;
@@ -857,7 +832,7 @@ namespace stool
                 {
                     C_count++;
                 }
-                uint64_t rank_value = this->dbwt.rank(new_letter_L, positionToReplace);
+                uint64_t rank_value = this->dbwt.rank(positionToReplace, new_letter_L);
                 if (positionToReplace <= oldPositionToInsert && new_letter_L == oldChar)
                 {
                     rank_value++;
@@ -892,7 +867,7 @@ namespace stool
                     {
                         C_count++;
                     }
-                    int64_t rank_value = this->dbwt.rank(new_letter_L, positionToInsert);
+                    int64_t rank_value = this->dbwt.rank(positionToInsert, new_letter_L);
                     if (positionToReplace <= oldPositionToInsert && pattern[k - 1] == oldChar)
                         rank_value++;
 

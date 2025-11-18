@@ -37,9 +37,9 @@ namespace stool
                 return this->dbwt.get_alphabet_size();
             }
 
-            std::vector<uint8_t> get_alphabet() const
+            std::vector<uint8_t> get_effective_alphabet() const
             {
-                return this->dbwt.get_alphabet();
+                return this->dbwt.get_effective_alphabet();
             }
             uint64_t get_end_marker() const
             {
@@ -71,7 +71,7 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
-                auto alphabet = this->get_alphabet();
+                auto alphabet = this->get_effective_alphabet();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::ConverterToString::to_integer_string_with_characters(alphabet) << std::endl;
 
             
