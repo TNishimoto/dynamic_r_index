@@ -18,7 +18,7 @@ namespace stool
         bool __view_flag = false;
 
         /**
-         * @brief A dynamic data structure storing the BWT L[0..n-1] of a string \p T[0..n-1] over an alphabet \p Σ[0..σ-1]. [in progress]
+         * @brief A dynamic data structure storing the BWT \p L[0..n-1] of a string \p T[0..n-1] over an alphabet \p Σ[0..σ-1]. [in progress]
          * @note $O(n log σ)$ bits of space
          * \ingroup DynamicFMIndexes
          * \ingroup MainDataStructures
@@ -88,16 +88,14 @@ namespace stool
                 return this->bwt.get_alphabet_size();
             }
             /**
-             * @brief Get the end marker character
-             * @return End marker character
+             * @brief Return the smallest character in the alphabet \p Σ
              */
             uint8_t get_end_marker() const
             {
                 return this->bwt.get_smallest_character_in_alphabet();
             }
             /**
-             * @brief Get the C array
-             * @return Reference to the C array
+             * @brief Return the reference to the C array in this instance
              */
             const stool::dynamic_r_index::CArray &get_c_array() const
             {
@@ -112,6 +110,7 @@ namespace stool
             //@{
             /**
              * @brief Return the effective alphabet \p Σ'[0..σ'-1]  as a vector
+             * @note O(σ') time
              */
             std::vector<uint8_t> get_effective_alphabet() const
             {
@@ -152,10 +151,8 @@ namespace stool
                 return this->bwt.count_c(c);
             }
             /**
-             * @brief Get the rank of a character up to a given position
-             * @param c Character to rank
-             * @param i Position
-             * @return Rank of character c up to position i
+             * @brief Counts the number of occurrences of a character \p c in \p L[0..i].
+             * @note O(log σ log n) time
              */
             int64_t rank(int64_t i, uint8_t c) const
             {
@@ -165,53 +162,17 @@ namespace stool
                 return this->bwt.one_based_rank(i + 1, c);
             }
             /**
-             * @brief Get the position of the ith occurrence of a character
-             * @param c Character to find
-             * @param ith Occurrence number
-             * @return Position of the ith occurrence
+             * @brief Returns the position \p p of the (i+1)-th 1 in \p L if such a position exists, otherwise returns -1
+             * @note O(log σ log n) time
              */
             int64_t select(int64_t ith, uint8_t c) const
             {
                 return this->bwt.select(ith, c);
             }
-            /**
-             * @brief Compute LF mapping for deletion
-             * @param i Position
-             * @param new_char New character
-             * @param replace_pos Position to replace
-             * @param current_processing_position Current processing position
-             * @return LF mapping result
-             */
-            int64_t LF_for_deletion(uint64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
-            {
-                if (i == replace_pos)
-                {
-                    return LF_for_deletion(current_processing_position, new_char, replace_pos, current_processing_position);
-                }
-                else
-                {
-                    uint8_t c = this->access(i);
-                    uint64_t p = this->LF(i);
-
-                    if (c > new_char || (i > replace_pos && c == new_char))
-                    {
-                        if (p > 0)
-                        {
-                            p--;
-                        }
-                        else
-                        {
-                            p = this->size() - 2;
-                        }
-                    }
-                    return p;
-                }
-            }
 
             /**
-             * @brief Compute LF mapping
-             * @param i Position
-             * @return LF mapping result
+             * @brief Compute the LF function for a given position \p i.
+             * @note O(log σ log n) time
              */
             int64_t LF(int64_t i) const
             {
@@ -239,6 +200,37 @@ namespace stool
                 return lf;
             }
 
+            /**
+             * @brief Compute the special LF mapping for deletion
+             * @note O(log σ log n) time
+             */
+            int64_t LF_for_deletion(uint64_t i, uint8_t new_char, uint64_t replace_pos, uint64_t current_processing_position) const
+            {
+                if (i == replace_pos)
+                {
+                    return LF_for_deletion(current_processing_position, new_char, replace_pos, current_processing_position);
+                }
+                else
+                {
+                    uint8_t c = this->access(i);
+                    uint64_t p = this->LF(i);
+
+                    if (c > new_char || (i > replace_pos && c == new_char))
+                    {
+                        if (p > 0)
+                        {
+                            p--;
+                        }
+                        else
+                        {
+                            p = this->size() - 2;
+                        }
+                    }
+                    return p;
+                }
+            }
+
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -247,10 +239,9 @@ namespace stool
             //@{
 
             /**
-             * @brief Get the text represented by the BWT
-             * @return Vector of characters representing the text
+             * @brief Return \p T as a vector of characters
              */
-            std::vector<uint8_t> get_text() const
+            std::vector<uint8_t> to_original_string() const
             {
                 std::vector<uint8_t> r;
                 r.resize(this->size(), 0);
@@ -265,54 +256,43 @@ namespace stool
                 return r;
             }
             /**
-             * @brief Get the BWT as a vector of characters
-             * @return Vector of characters representing the BWT
+             * @brief Return \p T as a string
              */
-            std::vector<uint8_t> get_bwt() const
+            std::string to_original_string_str() const
+            {
+                std::vector<uint8_t> r = this->to_original_string();
+                std::string s(reinterpret_cast<const char*>(r.data()), r.size());
+                return s;
+            }
+            /**
+             * @brief Return \p L as a vector of characters
+             */
+            std::vector<uint8_t> to_bwt(int64_t endmarker = -1) const
             {
                 std::vector<uint8_t> r;
                 r.resize(this->size(), 0);
                 for (int64_t i = 0; i < this->size(); i++)
                 {
-                    r[i] = this->access(i);
+                    uint8_t c = this->access(i);
+                    if (endmarker != -1 && c == this->get_end_marker())
+                    {
+                        r[i] = endmarker;
+                    }
+                    else
+                    {
+                        r[i] = c;
+                    }
                 }
                 return r;
             }
 
             /**
-             * @brief Get the BWT as a string
-             * @param endmarker End marker character
-             * @return String representation of the BWT
+             * @brief Return \p L as a string
              */
-            std::string get_bwt_str(int64_t endmarker = -1) const
+            std::string to_bwt_str(int64_t endmarker = -1) const
             {
-                std::vector<uint8_t> r = this->get_bwt();
-                std::string s;
-                for (auto c : r)
-                {
-                    if (endmarker != -1 && c == this->get_end_marker())
-                    {
-                        s.push_back(endmarker);
-                    }
-                    else
-                    {
-                        s.push_back(c);
-                    }
-                }
-                return s;
-            }
-            /**
-             * @brief Get the text as a string
-             * @return String representation of the text
-             */
-            std::string get_text_str() const
-            {
-                std::vector<uint8_t> r = this->get_text();
-                std::string s;
-                for (auto c : r)
-                {
-                    s.push_back(c);
-                }
+                std::vector<uint8_t> r = this->to_bwt(endmarker);
+                std::string s(reinterpret_cast<const char*>(r.data()), r.size());
                 return s;
             }
             //@}
@@ -323,8 +303,7 @@ namespace stool
             //@{
 
             /**
-             * @brief Initialize the DynamicBWT with the given alphabet
-             * @param _alphabet The alphabet to initialize with
+             * @brief Initialize this instance with an empty BWT and a given alphabet
              */
             void initialize(const std::vector<uint8_t> &_alphabet)
             {
@@ -334,15 +313,12 @@ namespace stool
                     assert(_alphabet.size() > 0);
                     throw std::invalid_argument("The alphabet of FM-index must contain a character");
                 }
-                // this->end_marker = *std::min_element(std::begin(_alphabet), std::end(_alphabet));;
-
                 this->bwt.set_alphabet(_alphabet);
 
                 this->clear();
             }
             /**
-             * @brief Swap the contents of this DynamicBWT with another
-             * @param item The DynamicBWT to swap with
+             * @brief Swap operation
              */
             void swap(DynamicBWT &item)
             {
@@ -351,8 +327,8 @@ namespace stool
             }
 
             /**
-             * @brief Clear the DynamicBWT
-             * @param message_paragraph Message paragraph level
+             * @brief Clear all the elements in this instance
+             * @param message_paragraph The paragraph depth of message logs
              */
             void clear(int message_paragraph = stool::Message::NO_MESSAGE)
             {
@@ -375,11 +351,10 @@ namespace stool
                 }
             }
             /**
-             * @brief Replace a character in the BWT
-             * @param pos Position to replace
-             * @param c New character
+             * @brief Replace \p L[pos] with \p c
+             * @note O(σ + log σ log n) time
              */
-            void replace_BWT_character(int64_t pos, uint8_t c)
+            void set_character(int64_t pos, uint8_t c)
             {
 #ifdef TIME_DEBUG
                 std::chrono::system_clock::time_point start, end;
@@ -400,11 +375,10 @@ namespace stool
 #endif
             }
             /**
-             * @brief Insert a character into the BWT
-             * @param pos Position to insert
-             * @param c Character to insert
+             * @brief Insert a given character \p c into \p L at position \p pos
+             * @note O(σ + log σ log n) time
              */
-            void insert_BWT_character(int64_t pos, uint8_t c)
+            void insert(int64_t pos, uint8_t c)
             {
 #ifdef TIME_DEBUG
                 std::chrono::system_clock::time_point start, end;
@@ -422,10 +396,10 @@ namespace stool
             }
 
             /**
-             * @brief Remove a character from the BWT
-             * @param pos Position to remove
+             * @brief Remove the \pos-th character from \p L
+             * @note O(σ + log σ log n) time
              */
-            void remove_BWT_character(int64_t pos)
+            void remove(int64_t pos)
             {
 #ifdef TIME_DEBUG
                 std::chrono::system_clock::time_point start, end;
@@ -449,6 +423,10 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+            /**
+             * @brief Return the memory usage information of this data structure as a vector of strings
+             * @param message_paragraph The paragraph depth of message logs
+             */
             std::vector<std::string> get_memory_usage_info(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::vector<std::string> log1 = this->cArray.get_memory_usage_info(message_paragraph + 1);
@@ -469,8 +447,8 @@ namespace stool
                 return r;
             }
             /**
-             * @brief Print memory usage information
-             * @param message_paragraph Message paragraph level
+             * @brief Print the memory usage information of this data structure
+             * @param message_paragraph The paragraph depth of message logs (-1 for no output)
              */
             void print_memory_usage(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -481,8 +459,8 @@ namespace stool
                 }
             }
             /**
-             * @brief Print statistics about the BWT
-             * @param message_paragraph Message paragraph level
+             * @brief Print the statistics of this data structure
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -495,8 +473,8 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
             /**
-             * @brief Print the content of the BWT
-             * @param message_paragraph Message paragraph level
+             * @brief Print the BWT \p L
+             * @param message_paragraph The paragraph depth of message logs
              */
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
@@ -507,12 +485,14 @@ namespace stool
             }
             //@}
 
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Load, save, and builder functions
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
             /**
-             * @brief Build a DynamicBWT from a BWT and alphabet
-             * @param _bwt The BWT to build from
-             * @param _alphabet The alphabet to use
-             * @param message_paragraph Message paragraph level
-             * @return The built DynamicBWT
+             * @brief Build this instance from a given BWT \p _bwt and alphabet \p _alphabet
+             * @param message_paragraph The paragraph depth of message logs
              */
             static DynamicBWT build(const std::vector<uint8_t> &_bwt, const std::vector<uint8_t> &_alphabet, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
@@ -562,17 +542,8 @@ namespace stool
 
                 return r;
             }
-            //@}
-
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Load, save, and builder functions
-            ////////////////////////////////////////////////////////////////////////////////
-            //@{
-
             /**
-             * @brief Save the DynamicBWT to a file
-             * @param item DynamicBWT to save
-             * @param os Output stream
+             * @brief Save the given instance \p item to a file stream \p os
              */
             static void store_to_file(DynamicBWT &item, std::ofstream &os)
             {
@@ -580,9 +551,7 @@ namespace stool
                 stool::bptree::DynamicWaveletTree::store_to_file(item.bwt, os);
             }
             /**
-             * @brief Build a DynamicBWT from data in a file
-             * @param ifs Input stream
-             * @return The built DynamicBWT
+             * @brief Return the DynamicBWT instance loaded from a file stream \p ifs
              */
             static DynamicBWT load_from_file(std::ifstream &ifs)
             {

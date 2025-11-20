@@ -79,7 +79,7 @@ std::cout << "\e[m" << std::endl;
                 std::cerr << "Error: Could not open file for writing." << std::endl;
                 throw std::runtime_error("File open error");
             }
-            std::vector<uint8_t> _text = dfmi.get_text();
+            std::vector<uint8_t> _text = dfmi.to_original_string();
             ofs.write(reinterpret_cast<const char*>(_text.data()), _text.size());
             ofs.close();
         }

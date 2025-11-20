@@ -1014,7 +1014,7 @@ namespace stool
                 stool::increment_run_time += time1;
 #endif
             }
-            void insert_BWT_character(int64_t pos, uint8_t c)
+            void insert(int64_t pos, uint8_t c)
             {
                 auto ridx = this->to_run_position(pos);
                 uint8_t c2 = this->access_character_by_run_index(ridx.run_index);
@@ -1046,7 +1046,7 @@ namespace stool
                     }
                 }
             }
-            void remove_BWT_character(int64_t pos)
+            void remove(int64_t pos)
             {
                 auto ridx = this->to_run_position(pos);
                 uint64_t len = this->run_length_vector.at(ridx.run_index);

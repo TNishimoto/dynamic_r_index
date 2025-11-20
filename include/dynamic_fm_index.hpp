@@ -222,7 +222,7 @@ namespace stool
 
                 if (this->text_size() < 1000)
                 {
-                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->get_bwt_str()) << std::endl;
+                    std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->to_bwt_str()) << std::endl;
                 }
                 else
                 {
@@ -617,36 +617,48 @@ namespace stool
              * @brief Get the BWT of the index.
              * @return A vector containing the BWT.
              */
+            std::vector<uint8_t> to_bwt() const
+            {
+                return this->dbwt.to_bwt();
+            }
             std::vector<uint8_t> get_bwt() const
             {
-                return this->dbwt.get_bwt();
+                return this->to_bwt();
             }
 
             /**
              * @brief Get the text of the index.
              * @return A vector containing the text.
              */
-            std::vector<uint8_t> get_text() const
+            std::vector<uint8_t> to_original_string() const
             {
-                return this->dbwt.get_text();
+                return this->dbwt.to_original_string();
             }
 
             /**
              * @brief Get the BWT of the index as a string.
              * @return A string containing the BWT.
              */
+            std::string to_bwt_str() const
+            {
+                return this->dbwt.to_bwt_str();
+            }
             std::string get_bwt_str() const
             {
-                return this->dbwt.get_bwt_str();
+                return this->to_bwt_str();
             }
 
             /**
              * @brief Get the text of the index as a string.
              * @return A string containing the text.
              */
+            std::string to_original_string_str() const
+            {
+                return this->dbwt.to_original_string_str();
+            }
             std::string get_text_str() const
             {
-                return this->dbwt.get_text_str();
+                return this->dbwt.to_original_string_str();
             }
 
             /**
@@ -673,7 +685,7 @@ namespace stool
             void print_bwt_table() const
             {
                 std::vector<uint64_t> sa = this->get_sa();
-                std::vector<uint8_t> bwt = this->get_bwt();
+                std::vector<uint8_t> bwt = this->to_bwt();
                 stool::DebugPrinter::print_bwt_table(bwt, sa);
             }
 
@@ -723,7 +735,7 @@ namespace stool
                 uint64_t j = prev_isa;
                 uint8_t new_letter_L = c;
 
-                this->dbwt.replace_BWT_character(positionToReplace, new_letter_L);
+                this->dbwt.set_character(positionToReplace, new_letter_L);
                 // this->dbwt.update_C_for_deletion(oldChar);
                 // this->dbwt.update_C_for_insertion(new_letter_L);
 
@@ -746,7 +758,7 @@ namespace stool
                     output_history->inserted_sa_indexes.push_back(positionToInsert);
                 }
 
-                this->dbwt.insert_BWT_character(positionToInsert, oldChar);
+                this->dbwt.insert(positionToInsert, oldChar);
                 if (positionToInsert <= j)
                 {
                     j++;
@@ -825,7 +837,7 @@ namespace stool
                 assert(pattern.size() > 0);
                 uint8_t new_letter_L = pattern[pattern.size() - 1];
 
-                this->dbwt.replace_BWT_character(positionToReplace, pattern[pattern.size() - 1]);
+                this->dbwt.set_character(positionToReplace, pattern[pattern.size() - 1]);
 
                 uint64_t C_count = this->dbwt.get_c_array().at(new_letter_L);
                 if (oldChar < new_letter_L)
@@ -844,7 +856,7 @@ namespace stool
                 {
                     new_letter_L = pattern[k - 1];
 
-                    this->dbwt.insert_BWT_character(positionToInsert, new_letter_L);
+                    this->dbwt.insert(positionToInsert, new_letter_L);
                     this->dsa.update_for_insertion(positionToInsert, pos);
 
                     if (output_history != nullptr)
@@ -881,7 +893,7 @@ namespace stool
                     output_history->inserted_sa_indexes.push_back(positionToInsert);
                 }
 
-                this->dbwt.insert_BWT_character(positionToInsert, oldChar);
+                this->dbwt.insert(positionToInsert, oldChar);
                 // this->dbwt.update_C_for_insertion(oldChar);
                 if (positionToInsert <= j)
                 {
@@ -949,8 +961,8 @@ namespace stool
                 SAIndex isa_pos_prev = this->dbwt.LF(isa_pos);
                 // uint8_t oldChar = this->dbwt.access(isa_pos_succ);
 
-                this->dbwt.replace_BWT_character(isa_pos_succ, newChar);
-                this->dbwt.remove_BWT_character(isa_pos);
+                this->dbwt.set_character(isa_pos_succ, newChar);
+                this->dbwt.remove(isa_pos);
                 // this->dbwt.update_C_for_deletion(oldChar);
 
                 SAIndex new_isa_pos_succ = isa_pos_succ <= isa_pos ? isa_pos_succ : isa_pos_succ - 1;
@@ -1018,7 +1030,7 @@ namespace stool
                 uint8_t new_char = this->dbwt.access(isa_pos2);
                 // uint8_t old_char = this->dbwt.access(positionToReplace);
                 uint64_t positionToDelete = this->dbwt.LF(positionToReplace);
-                this->dbwt.replace_BWT_character(positionToReplace, new_char);
+                this->dbwt.set_character(positionToReplace, new_char);
 
                 uint64_t positionToDeleteOnText = pointer - 1;
 
@@ -1028,7 +1040,7 @@ namespace stool
                     output_history->replaced_sa_index = positionToReplace;
                 }
 
-                // this->dbwt.replace_BWT_character(positionToReplace, new_char);
+                // this->dbwt.set_character(positionToReplace, new_char);
 
                 // uint64_t tmp_rank;
                 for (int64_t k = len - 1; k >= 0; k--)
@@ -1047,7 +1059,7 @@ namespace stool
                         output_history->deleted_sa_indexes.push_back(positionToDelete);
                     }
 
-                    this->dbwt.remove_BWT_character(positionToDelete);
+                    this->dbwt.remove(positionToDelete);
                     this->dsa.update_for_deletion(positionToDelete, positionToDeleteOnText);
 
                     if (positionToDelete < positionToReplace)
@@ -1090,8 +1102,8 @@ namespace stool
             {
                 uint8_t j_char = this->dbwt.access(j);
 
-                this->dbwt.remove_BWT_character(j);
-                this->dbwt.insert_BWT_character(j_prime, j_char);
+                this->dbwt.remove(j);
+                this->dbwt.insert(j_prime, j_char);
             }
 
             /**

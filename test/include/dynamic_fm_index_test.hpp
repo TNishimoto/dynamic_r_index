@@ -17,7 +17,7 @@ namespace stool
             static void BWT_equal_check(stool::NaiveDynamicStringX &nds, stool::dynamic_r_index::DynamicFMIndex &dfmi)
             {
                 std::vector<uint8_t> correctBWT = nds.create_bwt();
-                std::vector<uint8_t> testBWT = dfmi.get_bwt();
+                std::vector<uint8_t> testBWT = dfmi.to_bwt();
                 try
                 {
                     stool::EqualChecker::equal_check(correctBWT, testBWT, "BWT");
@@ -175,7 +175,7 @@ namespace stool
                 uint64_t replace_pos = p_on_sa;
                 // std::cout << "REPLACE: " << replace_pos << "/" << (char)old_char<< " ->" << (char)new_char << std::endl;
 
-                dbwt.replace_BWT_character(p_on_sa, new_char);
+                dbwt.set_character(p_on_sa, new_char);
                 p_on_sa = p_on_next;
                 if (p_on_sa != idx_array[0])
                 {
@@ -211,7 +211,7 @@ namespace stool
                     //uint8_t current_char = dbwt.access(p_on_sa);
                     uint64_t p_on_next = dbwt.LF_for_deletion(p_on_sa, new_char, replace_pos, p_on_sa);
 
-                    dbwt.remove_BWT_character(p_on_sa);
+                    dbwt.remove(p_on_sa);
                     if (replace_pos > p_on_sa)
                     {
                         replace_pos--;
@@ -409,7 +409,7 @@ namespace stool
                 std::string filepath = "dfmi.bits";
 
                 stool::dynamic_r_index::DynamicFMIndex dfmi = stool::dynamic_r_index::DynamicFMIndex::build(bwt, alphabet_with_end_marker, stool::dynamic_r_index::DynamicSampledSA::DEFAULT_SAMPLING_INTERVAL, stool::Message::NO_MESSAGE);
-                auto bwt1 = dfmi.get_bwt();
+                auto bwt1 = dfmi.to_bwt();
                 auto sa1 = dfmi.get_sa();
                 auto isa1 = dfmi.get_isa();
 
@@ -438,7 +438,7 @@ namespace stool
                     dfmi2.swap(tmp);
                 }
 
-                auto bwt2 = dfmi2.get_bwt();
+                auto bwt2 = dfmi2.to_bwt();
 
                 auto sa2 = dfmi2.get_sa();
 
