@@ -16,7 +16,7 @@
 /// @{
 /// @}
 
-
+#include "./debug/dynamic_isa.hpp"
 #include "./dynamic_fm_index.hpp"
 #include "./dynamic_r_index.hpp"
 #include "./commands/query.hpp"

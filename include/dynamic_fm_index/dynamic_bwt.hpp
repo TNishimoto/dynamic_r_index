@@ -18,7 +18,7 @@ namespace stool
         bool __view_flag = false;
 
         /**
-         * @brief A dynamic data structure storing the BWT \p L[0..n-1] of a string \p T[0..n-1] over an alphabet \p Σ[0..σ-1]. [in progress]
+         * @brief A dynamic data structure storing the BWT \p L[0..n-1] of a string \p T[0..n-1] over an alphabet \p Σ[0..σ-1].
          * @note $O(n log σ)$ bits of space
          * \ingroup DynamicFMIndexes
          * \ingroup MainDataStructures

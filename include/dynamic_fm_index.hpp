@@ -1,6 +1,5 @@
 #pragma once
 #include "dynamic_fm_index/dynamic_bwt.hpp"
-#include "dynamic_fm_index/dynamic_isa.hpp"
 #include "dynamic_fm_index/dynamic_sampled_sa.hpp"
 #include "stool/include/all.hpp"
 #include "libdivsufsort/sa.hpp"
@@ -129,9 +128,9 @@ namespace stool
              * @brief Get the number of sampled suffix array values.
              * @return The number of sampled suffix array values.
              */
-            uint64_t get_sampled_suffix_array_values_count() const
+            uint64_t get_sampled_suffix_array_size() const
             {
-                return this->dsa.get_sampled_suffix_array_values_count();
+                return this->dsa.get_sampled_suffix_array_size();
             }
 
             /**
@@ -191,8 +190,8 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text length: " << this->size() << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: " << this->dbwt.get_alphabet_size() << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Sampling interval: " << this->dsa.get_sampling_interval() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of sampled sa-values: " << this->dsa.get_sampled_suffix_array_values_count() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The density of sampled sa-values: " << (this->size() / this->dsa.get_sampled_suffix_array_values_count()) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of sampled sa-values: " << this->dsa.get_sampled_suffix_array_size() << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The density of sampled sa-values: " << (this->size() / this->dsa.get_sampled_suffix_array_size()) << std::endl;
 
                 this->dbwt.print_statistics(message_paragraph + 1);
                 this->dsa.print_statistics(message_paragraph + 1);
@@ -230,8 +229,8 @@ namespace stool
                 }
 
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Sampling interval for Sampled suffix array: \t" << this->get_samling_interval() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of sampled sa-values: \t\t" << this->get_sampled_suffix_array_values_count() << std::endl;
-                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Average sampling interval: \t\t\t" << (this->size() / this->get_sampled_suffix_array_values_count()) << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "The number of sampled sa-values: \t\t" << this->get_sampled_suffix_array_size() << std::endl;
+                std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Average sampling interval: \t\t\t" << (this->size() / this->get_sampled_suffix_array_size()) << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
@@ -667,7 +666,7 @@ namespace stool
              */
             std::vector<uint64_t> get_sa() const
             {
-                return this->dsa.get_sa();
+                return this->dsa.to_sa();
             }
 
             /**
@@ -676,7 +675,7 @@ namespace stool
              */
             std::vector<uint64_t> get_isa() const
             {
-                return this->dsa.get_isa();
+                return this->dsa.to_isa();
             }
 
             /**

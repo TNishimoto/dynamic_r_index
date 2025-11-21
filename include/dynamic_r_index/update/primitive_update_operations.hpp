@@ -1,6 +1,5 @@
 #pragma once
 #include "../../dynamic_fm_index/dynamic_bwt.hpp"
-#include "../../dynamic_fm_index/dynamic_isa.hpp"
 #include "./../dynamic_rlbwt_helper.hpp"
 #include "./../dynamic_phi.hpp"
 #include "./../sampling_sa_builder.hpp"

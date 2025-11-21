@@ -1,6 +1,6 @@
 #pragma once
 #include "b_tree_plus_alpha/include/all.hpp"
-#include "./dynamic_bwt.hpp"
+#include "../dynamic_fm_index/dynamic_bwt.hpp"
 
 namespace stool
 {
@@ -8,8 +8,7 @@ namespace stool
     {
         /**
          * @brief A dynamic data structure for accessing SA and ISA. This implementation requires $O(n log n)$ words for the input string of length $n$. [Unchecked AI comment].
-         * \ingroup DynamicFMIndexes
-         * \ingroup MainDataStructures
+         * @note This class is used for debugging purposes.
          */
         class DynamicISA
         {
