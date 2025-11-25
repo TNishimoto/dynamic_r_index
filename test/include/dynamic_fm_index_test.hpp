@@ -277,8 +277,8 @@ namespace stool
 
                 assert(dsisa.size() == sa.size());
 
-                std::vector<uint64_t> test_sa = dsisa.get_sa();
-                std::vector<uint64_t> test_isa = dsisa.get_isa();
+                std::vector<uint64_t> test_sa = dsisa.to_sa();
+                std::vector<uint64_t> test_isa = dsisa.to_isa();
 
                 /*
                 std::vector<uint64_t> test_sa2 = dsisa2.get_sa();

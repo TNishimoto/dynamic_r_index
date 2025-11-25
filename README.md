@@ -13,7 +13,7 @@ The following table shows the working space of the dynamic r-index and dynamic F
 
 | -                     | Dynamic r-index | Dynamic FM-index         |
 |-----------------------|-----------------|--------------------------|
-| Working space (bytes) | O(r log n)      | O(n log σ + (n/s) log n) |
+| Working space (bytes) | $O(r \log n)$      | O(n log σ + (n/s) log n) |
 
 Here, $T$ is an input string of length $n$ over an alphabet of size $\sigma$; $r$ is the number of runs in the BWT $L$ of $T$;  
 $s \geq 1$ is the user-defined parameter for the dynamic FM-index. The dynamic FM-index stores $O(n/s)$ values in the suffix array of $T$ to support locate query. 
@@ -368,6 +368,12 @@ Statistics(DynamicRIndex):
   The number of runs in BWT:                    14
 
 ```
+
+## Dependencies
+
+- [STool](https://github.com/TNishimoto/stool)
+- [B-tree_plus_alpha](https://github.com/TNishimoto/b_tree_plus_alpha) 
+- [SDSL](https://github.com/simongog/sdsl-lite)
 
 ## API Documentation (in preparation)
 

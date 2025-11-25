@@ -21,6 +21,24 @@ namespace stool
         using ISAValue = uint64_t;
         using SAInterval = std::pair<int64_t, int64_t>;
 
+        #ifdef TIME_DEBUG
+        uint64_t __insert_new_run_count = 0;
+        uint64_t __insert_new_run_time = 0;
+
+        void __reset_time_DynamicRLBWT()
+        {
+            __insert_new_run_count = 0;
+            __insert_new_run_time = 0;
+        }
+
+        void __print_time_DynamicRLBWT()
+        {
+            std::cout << "insert_new_run, count: " << __insert_new_run_count << ", time: " << __insert_new_run_time << " ns, " << (__insert_new_run_time / __insert_new_run_count) << " ns/per" << std::endl;
+            __insert_new_run_count = 0;
+            __insert_new_run_time = 0;
+        }
+
+#endif
 
         /**
          * @brief Enumeration representing the types of edits that can be performed on the FM-index. [Unchecked AI comment].

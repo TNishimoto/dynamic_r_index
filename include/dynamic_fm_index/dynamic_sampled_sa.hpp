@@ -13,7 +13,7 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief O(n log n / k)-bit dynamic data structure for accessing SA[0..n-1] and ISA[0..n-1] sampled by the sampling interval \p k.  [in progress].
+         * @brief O(n log n / k)-bit dynamic data structure for accessing SA[0..n-1] and ISA[0..n-1] sampled by the sampling interval \p k.
          * @details This data structure consists of the following three components:
          * - Dynamic bit sequence \p B[0..n-1]: B[i] = 1 if and only if SA[i] is a sampled value.
          * - Dynamic bit sequence \p F[0..n-1]: F[i] = 1 if and only if i is a sampled SA value.
