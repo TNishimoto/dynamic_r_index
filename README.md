@@ -1,19 +1,40 @@
 # Dynamic r-index
 
-This repository provides an implementation of [the dynamic r-index](https://arxiv.org/abs/2504.19482) supporting count and locate queries on an input string. 
+This repository provides an implementation of [the dynamic r-index](https://arxiv.org/abs/2504.19482) supporting count and locate queries on an input string $T[0..n-1]$ represented as a BWT $L[0..n-1]$. 
 The dynamic r-index is a dynamic version of [the r-index](https://dl.acm.org/doi/10.1145/3375890) and 
-can be stored in a working space proportional to the number of runs in the BWT of the input string. 
+can be stored in $O(r \log n)$ bytes for the number $r$ of runs in the BWT. 
 Please refer to [the r-index repository](https://github.com/nicolaprezza/r-index) for more detailed information on the r-index. 
 
-As a byproduct of the dynamic r-index, this repository also provides an implementation of [the dynamic FM-index](https://www.sciencedirect.com/science/article/pii/S1570866709000343) proposed by Salson et al. 
-The dynamic FM-index is a dynamic version of [the FM-index](https://en.wikipedia.org/wiki/FM-index) and can be stored in a working space proportional to the size of the input string. 
+The following table lists the main operations and update operations supported by the dynamic r-index. 
+
+| Operation             | Time complexity                           | Description                                                         |
+| --------------------- | ----------------------------------------- | ------------------------------------------------------------------- |
+| build_from_BWT($L$)     | $O(n \log σ \log n)$                     | Return the dynamic r-index built from the BWT $L[0..n-1]$           |
+| insert_string($i$, $P$)   | average $O((m + L_{avg}) \log σ \log n)$ | Insert a given string $P[0..m-1]$ into $T[0..n-1]$ at position $i$  |
+| delete_string($i$, $m$)   | average $O((m + L_{avg}) \log σ \log n)$ | Delete substring $T[i..i+m-1]$ from $T[0..n-1]$                     |
+| count_query($P$)        | $O(m \log σ \log n)$                     | Return the number of the occurrences of $P[0..m-1]$ in $T[0..n-1]$  |
+| locate_query($P$)       | $O((m+occ) \log σ \log n)$               | Return the occurrences of $P[0..m-1]$ in $T[0..n-1]$                |
+| backward_search($P$)    | $O(m \log σ \log n)$                     | Return the sa-interval of $P[0..m-1]$ in $T[0..n-1]$                |
+
+> [!NOTE]  
+> $σ$ is the alphabet size of the input string $T$
+
+> [!NOTE]  
+> These time complexites for the dynamic r-index are slightly larger than the time complexities descrived in the original paper. 
+> This is because the dynamic data structures used in this index are implemented using [B-trees](https://github.com/TNishimoto/b_tree_plus_alpha) for performance reasons.
+
+
+## Dynamic FM-index
+
+This repository also provides an implementation of [the dynamic FM-index](https://www.sciencedirect.com/science/article/pii/S1570866709000343) proposed by Salson et al. 
+The dynamic FM-index is a dynamic version of [the FM-index](https://en.wikipedia.org/wiki/FM-index) and can be stored $O(n \log n)$ bytes. 
 Please refer to [the original dynamic FM-index repository](https://framagit.org/mikaels/dfmi) for more detailed information on the dynamic FM-index. 
 
 The following table shows the working space of the dynamic r-index and dynamic FM-index.
 
 | -                     | Dynamic r-index | Dynamic FM-index         |
 |-----------------------|-----------------|--------------------------|
-| Working space (bytes) | $O(r \log n)$      | O(n log σ + (n/s) log n) |
+| Working space (bytes) | $O(r \log n)$      | $O(n \log σ + (n/s) \log n)$ |
 
 Here, $T$ is an input string of length $n$ over an alphabet of size $\sigma$; $r$ is the number of runs in the BWT $L$ of $T$;  
 $s \geq 1$ is the user-defined parameter for the dynamic FM-index. The dynamic FM-index stores $O(n/s)$ values in the suffix array of $T$ to support locate query. 
@@ -23,18 +44,15 @@ The following table shows the time complexity of the common update operations an
 | Operation             | Time                                  |                                     | Description                                    |
 |-----------------------|---------------------------------------|-------------------------------------|------------------------------------------------|
 |                       | Dynamic r-index                       | Dynamic FM-index                    |                                                |
-| ::build_from_BWT(L)   | $O(n log σ log n)$                    | O(n log σ log n)                    | Build the index for T by processing L          |
-| T.insert_string(i, P) | average $O((m + L_{avg})log σ log n)$ | average O((m + L_{avg})log σ log n) | Insert P  into T at position i                 |
-| T.delete_string(i, m) | average $O((m + L_{avg})log σ log n)$ | average O((m + L_{avg})log σ log n) | Delete substring T[i..i+m-1] from T            |
-| T.count_query(P)      | $O(m log σ log n)$                    | O(m log σ log n)                    | Return the number of the occurrences of P in T |
-| T.locate_query(P)     | $O((m+occ) log σ log n)$              | O((m+s・occ) log σ log n)            | Return the occurrences of P in T               |
-| T.backward_search(P)  | $O(m log σ log n)$                    | O(m log σ log n)                    | Return the sa-interval of P in T               |
+| ::build_from_BWT(L)   | $O(n \log σ \log n)$                    | $O(n \log σ \log n)$                    | Build the index for $T$ by processing $L$          |
+| T.insert_string(i, P) | average $O((m + L_{avg}) \log σ \log n)$ | average $O((m + L_{avg}) \log σ \log n)$ | Insert $P$ into $T$ at position $i$                 |
+| T.delete_string(i, m) | average $O((m + L_{avg}) \log σ \log n)$ | average $O((m + L_{avg}) \log σ \log n)$ | Delete substring $T[i..i+m-1]$ from $T$            |
+| T.count_query(P)      | $O(m \log σ \log n)$                    | $O(m \log σ \log n)$                    | Return the number of the occurrences of $P$ in $T$ |
+| T.locate_query(P)     | $O((m+occ) \log σ \log n)$              | $O((m+s・occ) \log σ \log n)$            | Return the occurrences of $P$ in $T$               |
+| T.backward_search(P)  | $O(m \log σ \log n)$                    | $O(m \log σ \log n)$                    | Return the sa-interval of $P$ in $T$               |
 
 Here, $m$ is the length of the given string $P$; $occ$ is the number of the occurrences of $P$ in $T$; $L_{avg}$ is the average of the values in the LCP array of $T$.
 
-> [!NOTE]  
-> These time complexites for the dynamic r-index are slightly larger than the time complexities descrived in the original paper. 
-> This is because the dynamic data structures used in this index are implemented using [B-trees](https://github.com/TNishimoto/b_tree_plus_alpha) for performance reasons.
 
 
 
