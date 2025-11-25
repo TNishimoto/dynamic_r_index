@@ -19,10 +19,11 @@ The following table lists the main operations and update operations supported by
 > [!NOTE]  
 > - $σ$ is the alphabet size of the input string $T$
 > - $L_{avg}$ is the average of the LCP values in the LCP array of $T$.
+> - insert_string and delete_string run in $O((m + L_{max}) \log σ \log n)$ time in the worst case for the maximum value $L_{max}$ in the LCP array.
 
-> [!NOTE]  
-> These time complexites for the dynamic r-index are slightly larger than the time complexities descrived in the original paper. 
-> This is because the dynamic data structures used in this index are implemented using [B-trees](https://github.com/TNishimoto/b_tree_plus_alpha) for performance reasons.
+> [!IMPORTANT]
+> These time complexites are slightly larger than the time complexities descrived in the original paper. 
+> This is because this implementation uses [B-trees](https://github.com/TNishimoto/b_tree_plus_alpha) for performance reasons.
 
 
 ## Dynamic FM-index
