@@ -25,42 +25,33 @@ The following table lists the main operations and update operations supported by
 > These time complexites are slightly larger than the time complexities descrived in the original paper. 
 > This is because this implementation uses [B-trees](https://github.com/TNishimoto/b_tree_plus_alpha) for performance reasons.
 
-
 ## Dynamic FM-index
 
 This repository also provides an implementation of [the dynamic FM-index](https://www.sciencedirect.com/science/article/pii/S1570866709000343) proposed by Salson et al. 
-The dynamic FM-index is a dynamic version of [the FM-index](https://en.wikipedia.org/wiki/FM-index) and can be stored $O(n \log n)$ bytes. 
+The dynamic FM-index is a dynamic version of [the FM-index](https://en.wikipedia.org/wiki/FM-index) and can be stored $O(n \log σ + (n/s) \log n)$ bytes 
+for a parameter $1 \leq s \leq n$. 
 Please refer to [the original dynamic FM-index repository](https://framagit.org/mikaels/dfmi) for more detailed information on the dynamic FM-index. 
 
-The following table shows the working space of the dynamic r-index and dynamic FM-index.
+The following table lists the main operations and update operations supported by the dynamic FM-index. 
 
-| -                     | Dynamic r-index | Dynamic FM-index         |
-|-----------------------|-----------------|--------------------------|
-| Working space (bytes) | $O(r \log n)$      | $O(n \log σ + (n/s) \log n)$ |
+| Operation             | Time complexity                               | Description                                                         |
+| --------------------- | --------------------------------------------- | ------------------------------------------------------------------- |
+| build_from_BWT($L$)     | $O(n \log σ \log n)$                       | Return the dynamic r-index built from the BWT $L[0..n-1]$           |
+| insert_string($i$, $P$)   | average $O((m + L_{avg}) \log σ \log n)$ | Insert a given string $P[0..m-1]$ into $T[0..n-1]$ at position $i$  |
+| delete_string($i$, $m$)   | average $O((m + L_{avg}) \log σ \log n)$ | Delete substring $T[i..i+m-1]$ from $T[0..n-1]$                     |
+| count_query($P$)        | $O(m \log σ \log n)$                       | Return the number of the occurrences of $P[0..m-1]$ in $T[0..n-1]$  |
+| locate_query($P$)       | $O((m+s・occ) \log σ \log n)$              | Return the occurrences of $P[0..m-1]$ in $T[0..n-1]$                |
+| backward_search($P$)    | $O(m \log σ \log n)$                       | Return the sa-interval of $P[0..m-1]$ in $T[0..n-1]$                |
 
-Here, $T$ is an input string of length $n$ over an alphabet of size $\sigma$; $r$ is the number of runs in the BWT $L$ of $T$;  
-$s \geq 1$ is the user-defined parameter for the dynamic FM-index. The dynamic FM-index stores $O(n/s)$ values in the suffix array of $T$ to support locate query. 
+## Dependencies
 
-The following table shows the time complexity of the common update operations and queries supported by the two dynamic indexes. 
-
-| Operation             | Time                                  |                                     | Description                                    |
-|-----------------------|---------------------------------------|-------------------------------------|------------------------------------------------|
-|                       | Dynamic r-index                       | Dynamic FM-index                    |                                                |
-| ::build_from_BWT(L)   | $O(n \log σ \log n)$                    | $O(n \log σ \log n)$                    | Build the index for $T$ by processing $L$          |
-| T.insert_string(i, P) | average $O((m + L_{avg}) \log σ \log n)$ | average $O((m + L_{avg}) \log σ \log n)$ | Insert $P$ into $T$ at position $i$                 |
-| T.delete_string(i, m) | average $O((m + L_{avg}) \log σ \log n)$ | average $O((m + L_{avg}) \log σ \log n)$ | Delete substring $T[i..i+m-1]$ from $T$            |
-| T.count_query(P)      | $O(m \log σ \log n)$                    | $O(m \log σ \log n)$                    | Return the number of the occurrences of $P$ in $T$ |
-| T.locate_query(P)     | $O((m+occ) \log σ \log n)$              | $O((m+s・occ) \log σ \log n)$            | Return the occurrences of $P$ in $T$               |
-| T.backward_search(P)  | $O(m \log σ \log n)$                    | $O(m \log σ \log n)$                    | Return the sa-interval of $P$ in $T$               |
-
-Here, $m$ is the length of the given string $P$; $occ$ is the number of the occurrences of $P$ in $T$; $L_{avg}$ is the average of the values in the LCP array of $T$.
-
-
-
+- [STool](https://github.com/TNishimoto/stool)
+- [B-tree_plus_alpha](https://github.com/TNishimoto/b_tree_plus_alpha) 
+- [SDSL](https://github.com/simongog/sdsl-lite)
 
 ## Download
 
-The source codes in 'module' directory are maintained in different repositories. 
+The source codes in 'modules' directory are maintained in different repositories. 
 So, to download all the necessary source codes, do the following:
 
 ```
@@ -72,7 +63,8 @@ git submodule update
 
 ## Compile
 
-This program uses the [SDSL library](https://github.com/simongog/sdsl-lite). Assuming that the library and header files are installed in the ~/lib and ~/include directories, respectively, the source code of this repository can be compiled using the following commands:
+This implementation uses [SDSL library](https://github.com/simongog/sdsl-lite). 
+Assuming that the library and header files are installed in the ~/lib and ~/include directories, respectively, the source code of this repository can be compiled using the following commands:
 
 ```
 mkdir build  
@@ -93,12 +85,10 @@ When the compilation is successful, the following executable files are generated
 
 ### build_bwt.out
 
-This executable file builds the BWT of a given file.
-The following are the command-line options: 
+This executable file computes and outputs the BWT of a given file.
 
 ```
-usage: ./build_bwt.out --input_file_path=string [options] ... 
-options:
+Command-line options:
   -i, --input_file_path           The file path to a text (string)
   -o, --output_file_path          The path to the file where the BWT will be written (string [=])
   -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
@@ -107,12 +97,10 @@ options:
 ```
 
 > [!NOTE]  
-> The null terminated string is appended to the input text as the last character.
+> The null terminated string $c$ is appended to the input text as the last character.
+> The input string must not contain $c$, and this character must be smallest than the characters in the input text.
 
-> [!WARNING]  
-> The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
-
-The following is an example of how to execute this file.
+### Example
 
 ```
 % ./build_bwt.out -i ../examples/ab.txt -o ab$.bwt -c "$"        
@@ -389,11 +377,6 @@ Statistics(DynamicRIndex):
 
 ```
 
-## Dependencies
-
-- [STool](https://github.com/TNishimoto/stool)
-- [B-tree_plus_alpha](https://github.com/TNishimoto/b_tree_plus_alpha) 
-- [SDSL](https://github.com/simongog/sdsl-lite)
 
 ## API Documentation (in preparation)
 
