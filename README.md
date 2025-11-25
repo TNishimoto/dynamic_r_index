@@ -100,9 +100,9 @@ Command-line options:
 > The null terminated string $c$ is appended to the input text as the last character.
 > The input string must not contain $c$, and this character must be smallest than the characters in the input text.
 
-### Example
 
 ```
+## Example
 % ./build_bwt.out -i ../examples/ab.txt -o ab$.bwt -c "$"        
 
 =============RESULT===============
@@ -125,12 +125,10 @@ Total allocated space: 62KB
 
 ### build_r_index.out
 
-This executable file builds the dynamic r-index for a given file. 
-The following are the command-line options: 
+This executable file builds the dynamic r-index from a given string or BWT. 
 
 ```
-usage: ./build_r_index.out --input_file_path=string [options] ... 
-options:
+Command-line options:
   -i, --input_file_path           The file path to either a text or a BWT (string)
   -o, --output_file_path          The path to the file where the dynamic r-index will be written (string [=])
   -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
@@ -138,15 +136,8 @@ options:
   -?, --help                      print this message
 ```
 
-> [!NOTE]  
-> The null terminated string is appended to the input text as the last character.
-
-> [!WARNING]  
-> The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
-
-The following is an example of how to execute this file.
-
 ```
+## Example
 % ./build_r_index.out -i ../examples/ab.txt -o ab.dri  
 
 =============RESULT===============
@@ -187,12 +178,10 @@ Total allocated space: 186KB
 
 ### build_fm_index.out
 
-The executable file builds the dynamic fm-index for a given file. 
-The following are the command-line options: 
+This executable file builds the dynamic FM-index from a given string or BWT. 
 
 ```
-usage: ./build_fm_index.out --input_file_path=string [options] ... 
-options:
+Command-line options:
   -i, --input_file_path           The file path to either a text or a BWT (string)
   -o, --output_file_path          The path to the file where the dynamic FM-index will be written (string [=])
   -c, --null_terminated_string    The special character indicating the end of text (string [=\0])
@@ -201,15 +190,8 @@ options:
   -?, --help                      print this message
 ```
 
-> [!NOTE]  
-> The null terminated string is appended to the input text as the last character.
-
-> [!WARNING]  
-> The input string must not contain the null terminated string, and the character must be smallest than the characters in the input text.
-
-The following is an example of how to execute this file.
-
 ```
+## Example
 % ./build_fm_index.out -i ../examples/ab.txt -o ab.dfmi  
 
 =============RESULT===============
@@ -255,21 +237,18 @@ Total allocated space: 1148KB
 
 ### print_index.out
 
-This executable file shows the information about a given index.
-The following are the command-line options: 
+This executable file shows the information about a given dynamic r-index or dynamic FM-index.
 
 ```
-usage: ./print_index.out --input_file_path=string [options] ... 
-options:
+Command-line options:
   -i, --input_file_path     The file path to the dynamic r-index or the dynamic FM-index (string)
   -o, --output_text_path    The path to the file where the text will be written (string [=])
   -b, --output_bwt_path     The path to the file where the BWT will be written (string [=])
   -?, --help                print this message
 ```
 
-The following is an example of how to execute this file.
-
 ```
+## Example
 % ./build_r_index.out -i ../examples/ab.txt -o ab$.dri -c "$"
 % ./print_index.out -i ab$.dri -o ab$2.txt -b ab$2.bwt
 
@@ -290,13 +269,21 @@ Statistics(DynamicRIndex):
 
 ### query.out
 
-This executable file performs commands to the dynamic r-index or the dynamic FM-index. 
-Here, these queries can update the loaded index. 
-The following are the command-line options: 
+This executable file reads a given command file and performs commands to the loaded index (dynamic r-index or dynamic FM-index). 
+The command file is a tsv format and contains one command per line. 
+The following six commands are supported:
+
+| Command    | Parameter 1 | Parameter 2 | Description                                                   |
+|------------|-------------|-------------|---------------------------------------------------------------|
+| INSERT     | i           | P           | Insert a given string $P$ into $T[0..n-1]$ at position $i$    |
+| DELETE     | i           | m           | Delete the substring $T[i..i+m-1]$ from $T[0..n-1]$           |
+| COUNT      | P           | -           | Return the number of the occurrences of $P$ in $T$            |
+| LOCATE     | P           | -           | Return the occurrence positions of $P$ in $T$                 |
+| LOCATE_SUM | P           | -           | Compute the sum of the occurrence positions of $P$ in $T$     |
+| PRINT      | -           | -           | Print $T$ and its BWT                                         |
 
 ```
-usage: ./query.out --input_index_path=string --command_file=string --log_file=string [options] ... 
-options:
+Command-line options:
   -i, --input_index_path     The file path to the dynamic r-index or the dynamic FM-index (string)
   -q, --command_file         The file path to commands (string)
   -w, --log_file             The file path to the log file (string)
@@ -304,21 +291,9 @@ options:
   -?, --help                 print this message
 ```
 
-The command file contains one command per line.
-The following six commands are supported:
-
-| Command    | Parameter 1 | Parameter 2 | Description                                           |
-|------------|-------------|-------------|-------------------------------------------------------|
-| INSERT     | i           | P           | Insert the given string P into T at position i        |
-| DELETE     | i           | m           | Delete the substring T[i..i+m-1] from T               |
-| COUNT      | P           | -           | Return the number of the occurrences of P in T        |
-| LOCATE     | P           | -           | Return the occurrence positions of P in T             |
-| LOCATE_SUM | P           | -           | Compute the sum of the occurrence positions of P in T |
-| PRINT      | -           | -           | Print T and its BWT                                   |
-
-The following is an example of how to execute this file.
-
 ```
+## Example
+
 % ./build_r_index.out -i ../examples/ab.txt -o ab$.dri -c "$"
 % cat ../examples/command.tsv 
 > PRINT
