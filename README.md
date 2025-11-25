@@ -17,7 +17,8 @@ The following table lists the main operations and update operations supported by
 | backward_search($P$)    | $O(m \log σ \log n)$                     | Return the sa-interval of $P[0..m-1]$ in $T[0..n-1]$                |
 
 > [!NOTE]  
-> $σ$ is the alphabet size of the input string $T$
+> - $σ$ is the alphabet size of the input string $T$
+> - $L_{avg}$ is the average of the LCP values in the LCP array of $T$.
 
 > [!NOTE]  
 > These time complexites for the dynamic r-index are slightly larger than the time complexities descrived in the original paper. 
