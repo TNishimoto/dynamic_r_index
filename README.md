@@ -18,6 +18,7 @@ The following table lists the main operations and update operations supported by
 
 > [!NOTE]  
 > - $σ$ is the alphabet size of the input string $T$
+> - $occ$ is the number of occurrences of $P$ in $T$
 > - $L_{avg}$ is the average of the LCP values in the LCP array of $T$.
 > - insert_string and delete_string run in $O((m + L_{max}) \log σ \log n)$ time in the worst case for the maximum value $L_{max}$ in the LCP array.
 
