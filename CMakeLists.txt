@@ -53,19 +53,18 @@ add_subdirectory(modules/libdivsufsort)
 endif()
 
 
-add_executable(build_fm_index.out main/build_fm_index_main.cpp)
-target_link_libraries(build_fm_index.out divsufsort divsufsort64 sdsl)
+add_executable(build_fm_index main/build_fm_index_main.cpp)
+target_link_libraries(build_fm_index divsufsort divsufsort64 sdsl)
 
-add_executable(build_r_index.out main/build_r_index_main.cpp)
-target_link_libraries(build_r_index.out divsufsort divsufsort64 sdsl)
+add_executable(build_r_index main/build_r_index_main.cpp)
+target_link_libraries(build_r_index divsufsort divsufsort64 sdsl)
 
-add_executable(query.out main/query_main.cpp)
-target_link_libraries(query.out divsufsort divsufsort64 sdsl)
+add_executable(query main/query_main.cpp)
+target_link_libraries(query divsufsort divsufsort64 sdsl)
 
-add_executable(build_bwt.out main/build_bwt_main.cpp)
-target_link_libraries(build_bwt.out divsufsort divsufsort64 sdsl)
+add_executable(build_bwt main/build_bwt_main.cpp)
+target_link_libraries(build_bwt divsufsort divsufsort64 sdsl)
 
-
-add_executable(print_index.out main/print_index_main.cpp)
-target_link_libraries(print_index.out divsufsort divsufsort64 sdsl)
+add_executable(print_index main/print_index_main.cpp)
+target_link_libraries(print_index divsufsort divsufsort64 sdsl)
 

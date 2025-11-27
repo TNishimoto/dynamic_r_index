@@ -6,7 +6,21 @@ namespace stool
     {
 
         /**
-         * @brief An implementation of the dynamic r-index. This implementation runs in $O(r)$ words for the number r of runs in the BWT of the input string [Unchecked AI comment].
+         * @brief Dynamic r-index supporting pattern matching queries and text updates
+         * 
+         * This class implements the dynamic r-index data structure, which provides:
+         * - Pattern matching: Count and locate occurrences of patterns
+         * - Dynamic updates: Insert and delete substrings
+         * - Space efficiency: O(r log n) bytes where r is the number of BWT runs
+         * 
+         * The dynamic r-index is particularly efficient for highly repetitive texts
+         * where the number of BWT runs r is much smaller than the text length n.
+         * 
+         * @note Time complexities:
+         *   - Count query: O(m log σ log n) where m is pattern length
+         *   - Locate query: O((m + occ) log σ log n) where occ is number of occurrences
+         *   - Insert/Delete: Average O((m + L_avg) log σ log n) where L_avg is average LCP
+         * 
          * \ingroup StringIndexes
          * \ingroup DynamicRIndexes
          */
@@ -32,20 +46,37 @@ namespace stool
             DynamicRIndex(DynamicRIndex &&) noexcept = default;
             DynamicRIndex &operator=(DynamicRIndex &&) noexcept = default;
 
+            /**
+             * @brief Get the alphabet size (number of distinct characters)
+             * @return The alphabet size including the end marker
+             */
             uint64_t get_alphabet_size() const
             {
                 return this->dbwt.get_alphabet_size();
             }
 
+            /**
+             * @brief Get the effective alphabet (distinct characters in the text)
+             * @return Vector of distinct characters in lexicographic order
+             */
             std::vector<uint8_t> get_effective_alphabet() const
             {
                 return this->dbwt.get_effective_alphabet();
             }
+            
+            /**
+             * @brief Get the end marker character
+             * @return The end marker character value
+             */
             uint64_t get_end_marker() const
             {
                 return this->dbwt.get_end_marker();
             }
 
+            /**
+             * @brief Get the number of runs in the BWT
+             * @return The number of runs in the current BWT
+             */
             uint64_t run_count() const
             {
                 return this->dbwt.run_count();
@@ -115,6 +146,12 @@ namespace stool
                 this->disa.verify(mode);
             }
 
+            /**
+             * @brief Save the dynamic r-index to a binary file
+             * @param item The DynamicRIndex instance to save
+             * @param os Output file stream (must be opened in binary mode)
+             * @param message_paragraph Message indentation level for progress output
+             */
             static void store_to_file(DynamicRIndex &item, std::ofstream &os, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
@@ -152,6 +189,13 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Load a dynamic r-index from a binary file
+             * @param ifs Input file stream (must be opened in binary mode)
+             * @param message_paragraph Message indentation level for progress output
+             * @return A new DynamicRIndex instance loaded from the file
+             * @throws std::runtime_error if the file is not a valid dynamic r-index
+             */
             static DynamicRIndex load_from_file(std::ifstream &ifs, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
 
@@ -196,22 +240,46 @@ namespace stool
             uint64_t _j_prime = UINT64_MAX;
             */
 
+            /**
+             * @brief Get the text length
+             * @return The length of the indexed text (including end marker)
+             */
             uint64_t size() const
             {
                 return this->dbwt.text_size();
             }
+            
+            /**
+             * @brief Get the BWT as a byte vector
+             * @return The Burrows-Wheeler Transform of the text
+             */
             std::vector<uint8_t> get_bwt() const
             {
                 return this->dbwt.get_bwt();
             }
+            
+            /**
+             * @brief Get the original text as a byte vector
+             * @return The original text (including end marker)
+             */
             std::vector<uint8_t> get_text() const
             {
                 return this->dbwt.get_text();
             }
+            
+            /**
+             * @brief Get the BWT as a string
+             * @return The BWT represented as a string
+             */
             std::string get_bwt_str() const
             {
                 return this->dbwt.get_bwt_str();
             }
+            
+            /**
+             * @brief Get the original text as a string
+             * @return The original text represented as a string
+             */
             std::string get_text_str() const
             {
                 return this->dbwt.get_text_str();
@@ -248,6 +316,14 @@ namespace stool
                 return DynamicRIndex::build_from_BWT(bwt, alphabet, stool::Message::NO_MESSAGE);
             }
 
+            /**
+             * @brief Build a dynamic r-index from a BWT
+             * @param bwt The Burrows-Wheeler Transform
+             * @param alphabet The alphabet (distinct characters including end marker)
+             * @param message_paragraph Message indentation level for progress output
+             * @return A new DynamicRIndex instance
+             * @note Time complexity: O(n log σ log n) where n is text length
+             */
             static DynamicRIndex build_from_BWT(const std::vector<uint8_t> &bwt, const std::vector<uint8_t> &alphabet, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 uint64_t text_size = bwt.size();
@@ -301,6 +377,12 @@ namespace stool
                 return &this->disa;
             }
 
+            /**
+             * @brief Build a dynamic r-index from a BWT file
+             * @param file_path Path to the BWT file
+             * @param message_paragraph Message indentation level for progress output
+             * @return A new DynamicRIndex instance
+             */
             static DynamicRIndex build_from_BWT_file(std::string file_path, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0)
@@ -558,6 +640,13 @@ namespace stool
                     }
                 }
             }
+            /**
+             * @brief Perform backward search to find the SA-interval of a pattern
+             * @param pattern The pattern to search for
+             * @return BackwardSearchResult containing the SA-interval [b, e]
+             * @note Time complexity: O(m log σ log n) where m is pattern length
+             * @note Returns empty interval if pattern does not exist
+             */
             BackwardSearchResult backward_search(const std::vector<uint8_t> &pattern) const
             {
                 BackwardSearchResult tmp;
@@ -575,6 +664,12 @@ namespace stool
                 }
                 return tmp;
             }
+            /**
+             * @brief Compute SA values from a backward search result
+             * @param bsr The backward search result containing SA-interval
+             * @return Vector of SA values for all positions in the interval
+             * @note Used internally by locate_query()
+             */
             std::vector<uint64_t> compute_sa_values(const BackwardSearchResult &bsr) const
             {
                 std::vector<uint64_t> r;
@@ -591,6 +686,12 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Count the number of occurrences of a pattern
+             * @param pattern The pattern to search for
+             * @return The number of occurrences (0 if pattern does not exist)
+             * @note Time complexity: O(m log σ log n) where m is pattern length
+             */
             uint64_t count_query(const std::vector<uint8_t> &pattern) const
             {
 
@@ -604,6 +705,13 @@ namespace stool
                     return intv.e - intv.b + 1;
                 }
             }
+            /**
+             * @brief Find all occurrence positions of a pattern
+             * @param pattern The pattern to search for
+             * @return Vector of occurrence positions (SA values)
+             * @note Time complexity: O((m + occ) log σ log n) where occ is number of occurrences
+             * @note Returns empty vector if pattern does not exist
+             */
             std::vector<uint64_t> locate_query(const std::vector<uint8_t> &pattern) const
             {
                 BackwardSearchResult bsr = this->backward_search(pattern);
@@ -623,6 +731,13 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
+        /**
+         * @brief Insert a single character at a given position
+         * @param u The text position to insert at (0-indexed)
+         * @param c The character to insert
+         * @return The number of BWT reorder operations performed
+         * @note Time complexity: Average O((1 + L_avg) log σ log n)
+         */
         uint64_t insert_string(TextIndex u, uint8_t c)
         {
             FMIndexEditHistory editHistory;
@@ -630,11 +745,26 @@ namespace stool
             return this->insert_char(u, c, editHistory);
         }
 
+        /**
+         * @brief Insert a string at a given position
+         * @param u The text position to insert at (0-indexed)
+         * @param inserted_string The string to insert
+         * @return The number of BWT reorder operations performed
+         * @note Time complexity: Average O((m + L_avg) log σ log n) where m is string length
+         */
         uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string)
             {
                 FMIndexEditHistory editHistory;
                 return this->insert_string(u, inserted_string, editHistory);
             }
+            
+            /**
+             * @brief Insert a string at a given position (with edit history)
+             * @param u The text position to insert at (0-indexed)
+             * @param inserted_string The string to insert
+             * @param output_history Output parameter for edit history
+             * @return The number of BWT reorder operations performed
+             */
             uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
             {
 
@@ -671,6 +801,14 @@ namespace stool
                 return this->delete_string(u, 1);
             }
 
+            /**
+             * @brief Delete a substring from the text
+             * @param u The starting position of the substring to delete (0-indexed)
+             * @param len The length of the substring to delete
+             * @return The number of BWT reorder operations performed
+             * @throws std::logic_error if len < 1 or u + len >= text_size()
+             * @note Time complexity: Average O((len + L_avg) log σ log n)
+             */
             uint64_t delete_string(TextIndex u, uint64_t len)
             {
                 if(len < 1){
@@ -683,6 +821,14 @@ namespace stool
                 FMIndexEditHistory editHistory;
                 return this->delete_string(u, len, editHistory);
             }
+            
+            /**
+             * @brief Delete a substring from the text (with edit history)
+             * @param u The starting position of the substring to delete (0-indexed)
+             * @param len The length of the substring to delete
+             * @param output_history Output parameter for edit history
+             * @return The number of BWT reorder operations performed
+             */
             uint64_t delete_string(TextIndex u, uint64_t len, FMIndexEditHistory &output_history)
             {
                 if(len < 1){

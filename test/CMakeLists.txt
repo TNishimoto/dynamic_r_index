@@ -46,26 +46,26 @@ endif()
 #add_subdirectory(modules/DYNAMIC)
 
 
-add_executable(r_index_test.out r_index_test_main.cpp)
-target_link_libraries(r_index_test.out divsufsort divsufsort64 sdsl)
+add_executable(r_index_test r_index_test_main.cpp)
+target_link_libraries(r_index_test divsufsort divsufsort64 sdsl)
 
-add_executable(lighweight_query.out lighweight_query_main.cpp)
-target_link_libraries(lighweight_query.out divsufsort divsufsort64 sdsl)
+add_executable(lighweight_query lighweight_query_main.cpp)
+target_link_libraries(lighweight_query divsufsort divsufsort64 sdsl)
 
-add_executable(counter_example.out counter_example_main.cpp)
-target_link_libraries(counter_example.out divsufsort divsufsort64 sdsl)
+add_executable(counter_example counter_example_main.cpp)
+target_link_libraries(counter_example divsufsort divsufsort64 sdsl)
 
-add_executable(generate_query.out generate_query_main.cpp)
-target_link_libraries(generate_query.out divsufsort divsufsort64 sdsl)
+add_executable(generate_query generate_query_main.cpp)
+target_link_libraries(generate_query divsufsort divsufsort64 sdsl)
 
-add_executable(fm_index_test.out fm_index_test_main.cpp)
-target_link_libraries(fm_index_test.out divsufsort divsufsort64 sdsl)
+add_executable(fm_index_test fm_index_test_main.cpp)
+target_link_libraries(fm_index_test divsufsort divsufsort64 sdsl)
 
-add_executable(deletion_demo.out deletion_demo_main.cpp)
-target_link_libraries(deletion_demo.out divsufsort divsufsort64 sdsl)
+add_executable(deletion_demo deletion_demo_main.cpp)
+target_link_libraries(deletion_demo divsufsort divsufsort64 sdsl)
 
-add_executable(insertion_demo.out insertion_demo_main.cpp)
-target_link_libraries(insertion_demo.out divsufsort divsufsort64 sdsl)
+add_executable(insertion_demo insertion_demo_main.cpp)
+target_link_libraries(insertion_demo divsufsort divsufsort64 sdsl)
 
 
 

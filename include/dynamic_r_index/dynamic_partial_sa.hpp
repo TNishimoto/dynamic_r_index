@@ -6,26 +6,37 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A dynamic data structure for managing sampled suffix array values [Unchecked AI comment].
+         * @brief Dynamic data structure for managing sampled suffix array values
+         * 
+         * This class stores sampled SA values and their corresponding ISA gaps,
+         * enabling efficient access to SA values at sampled positions.
+         * 
          * \ingroup DynamicRIndexes
          * \ingroup MainDataStructures
          */
         class DynamicPartialSA
         {
         public:
-            stool::bptree::DynamicPermutation pom;
-            stool::bptree::SimpleDynamicPrefixSum sampled_isa_gap_vector;
+            stool::bptree::DynamicPermutation pom;                    ///< Dynamic permutation storing sampled positions
+            stool::bptree::SimpleDynamicPrefixSum sampled_isa_gap_vector; ///< Gap vector for sampled ISA values
+            uint64_t _text_size = 0;                                  ///< Size of the indexed text
 
-            uint64_t _text_size = 0;
-
+            /**
+             * @brief Default constructor
+             */
             DynamicPartialSA()
             {
                 this->clear();
             }
+            
             DynamicPartialSA &operator=(const DynamicPartialSA &) = delete;
             DynamicPartialSA(DynamicPartialSA &&) noexcept = default;
             DynamicPartialSA &operator=(DynamicPartialSA &&) noexcept = default;
 
+            /**
+             * @brief Print statistics about the data structure
+             * @param message_paragraph Message indentation level
+             */
             void print_statistics(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicFMIndex):" << std::endl;
@@ -33,6 +44,11 @@ namespace stool
                 this->sampled_isa_gap_vector.print_statistics(message_paragraph + 1);
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+            
+            /**
+             * @brief Print the content of the data structure
+             * @param message_paragraph Message indentation level
+             */
             void print_content(int message_paragraph = stool::Message::SHOW_MESSAGE) const
             {
                 auto sa_values = this->get_sampled_sa_values();
@@ -42,6 +58,11 @@ namespace stool
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
 
+            /**
+             * @brief Save the DynamicPartialSA to a binary file
+             * @param item The instance to save
+             * @param os Output file stream (must be opened in binary mode)
+             */
             static void store_to_file(DynamicPartialSA &item, std::ofstream &os)
             {
                 stool::bptree::DynamicPermutation::store_to_file(item.pom, os);
@@ -49,6 +70,12 @@ namespace stool
 
                 os.write(reinterpret_cast<const char *>(&item._text_size), sizeof(uint64_t));
             }
+            
+            /**
+             * @brief Load a DynamicPartialSA from a binary file
+             * @param ifs Input file stream (must be opened in binary mode)
+             * @return A new DynamicPartialSA instance loaded from the file
+             */
             static DynamicPartialSA load_from_file(std::ifstream &ifs)
             {
                 stool::bptree::DynamicPermutation tmp_pom = stool::bptree::DynamicPermutation::load_from_file(ifs);
@@ -79,7 +106,8 @@ namespace stool
             }
             */
             /**
-             * @brief Build this data structure for a string of length 1.
+             * @brief Build this data structure for a string of length 1
+             * @note Used for initialization with a single character
              */
             void build_for_single_character()
             {
@@ -87,16 +115,26 @@ namespace stool
                 this->_text_size = 1;
             }
 
+            /**
+             * @brief Get a reference to the dynamic permutation
+             * @return Reference to the DynamicPermutation instance
+             */
             stool::bptree::DynamicPermutation &get_dynamic_permutation()
             {
                 return this->pom;
             }
+            
+            /**
+             * @brief Get a reference to the sampled ISA gap vector
+             * @return Reference to the SimpleDynamicPrefixSum instance
+             */
             stool::bptree::SimpleDynamicPrefixSum &get_spsi()
             {
                 return this->sampled_isa_gap_vector;
             }
+            
             /**
-             * @brief Initialize this data structure.
+             * @brief Initialize this data structure
              */
             void clear()
             {
@@ -108,6 +146,10 @@ namespace stool
                 this->sampled_isa_gap_vector.push_back(0);
 
             }
+            /**
+             * @brief Swap the contents with another DynamicPartialSA instance
+             * @param item The DynamicPartialSA instance to swap with
+             */
             void swap(DynamicPartialSA &item)
             {
                 this->pom.swap(item.pom);
@@ -126,9 +168,11 @@ namespace stool
             }
 
             /**
-             * @brief Build this data structure
+             * @brief Build this data structure from sampled SA indexes
              * @param sampled_sa_indexes The sampled suffix array values indexed by this data structure
              * @param new_text_size The new size of the input text
+             * @param message_paragraph Message indentation level for progress output
+             * @return A new DynamicPartialSA instance
              */
             static DynamicPartialSA build_from_sampled_sa_indexes(const std::vector<uint64_t> &sampled_sa_indexes, uint64_t new_text_size, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
@@ -180,6 +224,12 @@ namespace stool
                 r.pom.build(ranked_samp_sa.begin(), ranked_samp_sa.end(), ranked_samp_sa.size(), stool::Message::increment_paragraph_level(message_paragraph));
                 return r;
             }
+            /**
+             * @brief Build this data structure from sampled SA indexes (non-static version)
+             * @param sampled_sa_indexes The sampled suffix array values indexed by this data structure
+             * @param new_text_size The new size of the input text
+             * @param message_paragraph Message indentation level for progress output
+             */
             void build(const std::vector<uint64_t> &sampled_sa_indexes, uint64_t new_text_size, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 this->_text_size = new_text_size;
@@ -249,12 +299,23 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+            /**
+             * @brief Get the ISA index for a given sampled SA index
+             * @param sampled_sa_index The sampled SA index
+             * @return The corresponding ISA index
+             */
             int64_t get_sampled_isa_index(int64_t sampled_sa_index) const
             {
                 assert(sampled_sa_index < this->size());
 
                 return this->pom.access(sampled_sa_index);
             }
+            
+            /**
+             * @brief Get the ISA value for a given sampled SA index
+             * @param sampled_sa_index The sampled SA index
+             * @return The ISA value (text position)
+             */
             int64_t get_sampled_isa_value(int64_t sampled_sa_index) const
             {
                 assert(sampled_sa_index < this->size());
@@ -262,12 +323,22 @@ namespace stool
                 return this->sampled_isa_gap_vector.psum(sampled_sa_index);
             }
 
+            /**
+             * @brief Get the SA index for a given sampled ISA index
+             * @param sampled_isa_index The sampled ISA index
+             * @return The corresponding SA index
+             */
             int64_t get_sampled_sa_index(int64_t sampled_isa_index) const
             {
                 assert(sampled_isa_index < this->size());
                 return this->pom.inverse(sampled_isa_index);
             }
 
+            /**
+             * @brief Find the circular successor index for a given ISA value
+             * @param isa_value The ISA value to search for
+             * @return The index of the successor, or 0 if not found (circular)
+             */
             int64_t circular_successor_index_query_on_sampled_isa(int64_t isa_value) const
             {
                 int64_t p = this->sampled_isa_gap_vector.successor_index(isa_value);
@@ -280,6 +351,12 @@ namespace stool
                     return p;
                 }
             }
+            
+            /**
+             * @brief Find the circular predecessor index for a given ISA value
+             * @param i The ISA value to search for
+             * @return The index of the predecessor, or the last index if not found (circular)
+             */
             int64_t circular_predecessor_index_query_on_sampled_isa(uint64_t i) const
             {
                 int64_t size = this->size();
@@ -288,6 +365,11 @@ namespace stool
                 return idx;
             }
 
+            /**
+             * @brief Find the nearest sampled position to a given text position
+             * @param text_position The text position to search for
+             * @return Pair of (index, ISA value) for the nearest sampled position
+             */
             std::pair<uint64_t, uint64_t> nearest_search_by_text_position(uint64_t text_position) const
             {
                 int64_t idx1 = this->circular_successor_index_query_on_sampled_isa(text_position);
@@ -308,12 +390,23 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Get the SA value for a given sampled SA index
+             * @param sampled_sa_index The sampled SA index
+             * @return The SA value (text position)
+             */
             int64_t get_sampled_sa_value(int64_t sampled_sa_index) const
             {
                 assert(sampled_sa_index < this->size());
                 int64_t isa_idx = this->pom.access(sampled_sa_index);
                 return this->sampled_isa_gap_vector.psum(isa_idx);
             }
+            
+            /**
+             * @brief Find the predecessor index for a given ISA value
+             * @param isa_value The ISA value to search for
+             * @return The index of the predecessor, or -1 if not found
+             */
             int64_t predecessor_index_query_on_sampled_isa(int64_t isa_value) const
             {
                 int64_t p = this->sampled_isa_gap_vector.predecessor_index(isa_value);
@@ -322,6 +415,12 @@ namespace stool
                 assert(p < this->size());
                 return p;
             }
+            
+            /**
+             * @brief Find the successor index for a given ISA value
+             * @param isa_value The ISA value to search for
+             * @return The index of the successor, or -1 if not found
+             */
             int64_t successor_index_query_on_sampled_isa(int64_t isa_value) const
             {
                 int64_t p = this->sampled_isa_gap_vector.successor_index(isa_value);
@@ -331,6 +430,10 @@ namespace stool
                 return p;
             }
 
+            /**
+             * @brief Verify the correctness of the data structure
+             * @return true if verification passes
+             */
             bool verify() const
             {
                 this->pom.verify();
@@ -340,12 +443,20 @@ namespace stool
                 // return PackedSPSIWrapper::verify(this->sampled_isa_gap_vector, true);
             }
 
+            /**
+             * @brief Get the number of sampled positions
+             * @return The size of the sampled suffix array
+             */
             int64_t size() const
             {
                 return this->sampled_isa_gap_vector.size();
                 // return PackedSPSIWrapper::modified_size(this->sampled_isa_gap_vector);
             }
 
+            /**
+             * @brief Print the internal structure of the data structure
+             * @note Used for debugging and inspection
+             */
             void print() const
             {
                 std::vector<uint64_t> gap_vector;
@@ -368,6 +479,11 @@ namespace stool
                 stool::DebugPrinter::print_integers(sa_vector,"sampled_sa_vector");
                 this->pom.print_trees();
             }
+            
+            /**
+             * @brief Get all sampled SA values as a vector
+             * @return Vector containing all sampled SA values
+             */
             std::vector<uint64_t> get_sampled_sa_values() const
             {
                 std::vector<uint64_t> sa;
@@ -378,6 +494,11 @@ namespace stool
                 }
                 return sa;
             }
+            
+            /**
+             * @brief Print detailed information about the data structure
+             * @note Includes tree structure and gap vector representation
+             */
             void print_detailed_info() const
             {
                 this->pom.print_trees();

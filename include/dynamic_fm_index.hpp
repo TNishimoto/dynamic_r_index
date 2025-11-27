@@ -9,15 +9,24 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A dynamic data structure of FM-index. This implementation requires $O(n log n)$ words for the input string of length $n$.
-         *
-         * @details The DynamicFMIndex class provides a dynamic implementation of the FM-index, which is a compressed full-text substring index.
-         * It allows for efficient string operations such as insertion, deletion, and searching within a text.
-         * The class uses a combination of dynamic BWT (Burrows-Wheeler Transform) and dynamic sampled suffix array to achieve these operations.
-         *
+         * @brief Dynamic FM-index supporting pattern matching queries and text updates
+         * 
+         * This class implements the dynamic FM-index data structure, which provides:
+         * - Pattern matching: Count and locate occurrences of patterns
+         * - Dynamic updates: Insert and delete substrings
+         * - Space efficiency: O(n log σ + (n/s) log n) bytes for parameter s (sampling interval)
+         * 
+         * The dynamic FM-index uses a dynamic BWT and a sampled suffix array to enable
+         * efficient queries and updates. The space/time trade-off can be tuned via the
+         * sampling interval parameter s.
+         * 
+         * @note Time complexities:
+         *   - Count query: O(m log σ log n) where m is pattern length
+         *   - Locate query: O((m + s·occ) log σ log n) where occ is number of occurrences
+         *   - Insert/Delete: Average O((m + L_avg) log σ log n) where L_avg is average LCP
+         * 
          * \ingroup DynamicFMIndexes
          * \ingroup StringIndexes
-         * @tparam T The type of the elements stored in the index.
          */
         class DynamicFMIndex
         {
@@ -532,9 +541,11 @@ namespace stool
             }
 
             /**
-             * @brief Perform a backward search on the DynamicFMIndex with a pattern.
-             * @param pattern The pattern to search for.
-             * @return The result of the backward search.
+             * @brief Perform backward search to find the SA-interval of a pattern
+             * @param pattern The pattern to search for
+             * @return BackwardSearchResult containing the SA-interval [b, e]
+             * @note Time complexity: O(m log σ log n) where m is pattern length
+             * @note Returns empty interval if pattern does not exist
              */
             BackwardSearchResult backward_search(const std::vector<uint8_t> &pattern) const
             {
@@ -584,9 +595,10 @@ namespace stool
             }
 
             /**
-             * @brief Count the number of occurrences of a pattern in the index.
-             * @param pattern The pattern to count.
-             * @return The number of occurrences of the pattern.
+             * @brief Count the number of occurrences of a pattern
+             * @param pattern The pattern to search for
+             * @return The number of occurrences (0 if pattern does not exist)
+             * @note Time complexity: O(m log σ log n) where m is pattern length
              */
             uint64_t count_query(const std::vector<uint8_t> &pattern) const
             {
@@ -602,9 +614,11 @@ namespace stool
             }
 
             /**
-             * @brief Locate the positions of a pattern in the index.
-             * @param pattern The pattern to locate.
-             * @return A vector of positions where the pattern occurs.
+             * @brief Find all occurrence positions of a pattern
+             * @param pattern The pattern to search for
+             * @return Vector of occurrence positions (SA values)
+             * @note Time complexity: O((m + s·occ) log σ log n) where occ is number of occurrences
+             * @note Returns empty vector if pattern does not exist
              */
             std::vector<uint64_t> locate_query(const std::vector<uint8_t> &pattern) const
             {
@@ -792,11 +806,12 @@ namespace stool
             }
 
             /**
-             * @brief Insert a string into the index.
-             * @param pos The position to insert the string at.
-             * @param pattern The string to insert.
-             * @param output_history The history of edits to output.
-             * @return The number of operations performed.
+             * @brief Insert a string at a given position
+             * @param pos The text position to insert at (0-indexed)
+             * @param pattern The string to insert
+             * @param output_history Output parameter for edit history
+             * @return The number of BWT reorder operations performed
+             * @note Time complexity: Average O((m + L_avg) log σ log n) where m is string length
              */
             uint64_t insert_string(int64_t pos, const std::vector<uint8_t> &pattern, FMIndexEditHistory &output_history)
             {
@@ -804,11 +819,12 @@ namespace stool
             }
 
             /**
-             * @brief Insert a string into the index.
-             * @param pos The position to insert the string at.
-             * @param pattern The string to insert.
-             * @param output_history The history of edits to output.
-             * @return The number of operations performed.
+             * @brief Insert a string at a given position
+             * @param pos The text position to insert at (0-indexed)
+             * @param pattern The string to insert
+             * @param output_history Optional output parameter for edit history (nullptr to ignore)
+             * @return The number of BWT reorder operations performed
+             * @note Time complexity: Average O((m + L_avg) log σ log n) where m is string length
              */
             uint64_t insert_string(int64_t pos, const std::vector<uint8_t> &pattern, FMIndexEditHistory *output_history = nullptr)
             {
@@ -995,11 +1011,13 @@ namespace stool
             }
 
             /**
-             * @brief Delete a string from the index.
-             * @param pos The position to delete the string from.
-             * @param len The length of the string to delete.
-             * @param output_history The history of edits to output.
-             * @return The number of operations performed.
+             * @brief Delete a substring from the text
+             * @param pos The starting position of the substring to delete (0-indexed)
+             * @param len The length of the substring to delete
+             * @param output_history Output parameter for edit history
+             * @return The number of BWT reorder operations performed
+             * @throws std::logic_error if pos + len >= text_size()
+             * @note Time complexity: Average O((len + L_avg) log σ log n)
              */
             uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory &output_history)
             {
@@ -1007,11 +1025,13 @@ namespace stool
             }
 
             /**
-             * @brief Delete a string from the index.
-             * @param pos The position to delete the string from.
-             * @param len The length of the string to delete.
-             * @param output_history The history of edits to output.
-             * @return The number of operations performed.
+             * @brief Delete a substring from the text
+             * @param pos The starting position of the substring to delete (0-indexed)
+             * @param len The length of the substring to delete
+             * @param output_history Optional output parameter for edit history (nullptr to ignore)
+             * @return The number of BWT reorder operations performed
+             * @throws std::logic_error if pos + len >= text_size()
+             * @note Time complexity: Average O((len + L_avg) log σ log n)
              */
             uint64_t delete_string(const int64_t pos, int64_t len, FMIndexEditHistory *output_history = nullptr)
             {

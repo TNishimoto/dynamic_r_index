@@ -87,19 +87,42 @@ namespace stool
             }
             */
 
+            /**
+             * @brief Swap the contents with another DynamicPhi instance
+             * @param item The DynamicPhi instance to swap with
+             */
             void swap(DynamicPhi &item)
             {
                 this->sampled_first_sa.swap(item.sampled_first_sa);
                 this->sampled_last_sa.swap(item.sampled_last_sa);
             }
+            
+            /**
+             * @brief Get a pointer to the sampled first SA values
+             * @return Pointer to the DynamicPartialSA storing first SA values of each BWT run
+             */
             const DynamicPartialSA *get_pointer_of_first_sa_values_of_BWT_run() const
             {
                 return &this->sampled_first_sa;
             }
+            
+            /**
+             * @brief Get a pointer to the sampled last SA values
+             * @return Pointer to the DynamicPartialSA storing last SA values of each BWT run
+             */
             const DynamicPartialSA *get_pointer_of_last_sa_values_of_BWT_run() const
             {
                 return &this->sampled_last_sa;
             }
+            
+            /**
+             * @brief Build DynamicPhi from sampled SA indexes
+             * @param sampled_last_sa_indexes Vector of run indices for last positions of runs
+             * @param sampled_first_sa_indexes Vector of run indices for first positions of runs
+             * @param __text_size The size of the text
+             * @param message_paragraph Message indentation level for progress output
+             * @return A new DynamicPhi instance
+             */
             static DynamicPhi build_from_sampled_sa_indexes(const std::vector<uint64_t> &sampled_last_sa_indexes, std::vector<uint64_t> &sampled_first_sa_indexes, uint64_t __text_size, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 if (message_paragraph >= 0 && __text_size > 0)
@@ -137,6 +160,14 @@ namespace stool
                 return r;
             }
 
+            /**
+             * @brief Build DynamicPhi from a static RLBWT
+             * @param static_rlbwt The static run-length encoded BWT
+             * @param message_paragraph Message indentation level for progress output
+             * @return A new DynamicPhi instance
+             * @note This method constructs the dynamic phi structure by traversing the RLBWT
+             *       and sampling SA values at the first and last positions of each run
+             */
             static DynamicPhi build_from_RLBWT(const stool::rlbwt2::RLE<uint8_t> &static_rlbwt, [[maybe_unused]] int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 using RLBWT = stool::rlbwt2::RLE<uint8_t>;
@@ -248,24 +279,41 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
 
+            /**
+             * @brief Get the text size
+             * @return The size of the indexed text
+             */
             uint64_t text_size() const
             {
                 return this->sampled_first_sa._text_size;
             }
+            
+            /**
+             * @brief Get the number of runs in the BWT
+             * @return The number of runs
+             */
             uint64_t run_count() const
             {
                 assert(this->sampled_first_sa.size() == this->sampled_last_sa.size());
                 return this->sampled_first_sa.size();
             }
+            
+            /**
+             * @brief Get the size (alias for text_size)
+             * @return The size of the indexed text
+             */
             uint64_t size() const
             {
                 return this->text_size();
             }
 
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @brief Compute the inverse phi function
-            ///   @param i The input of the inverse phi function
-            ////////////////////////////////////////////////////////////////////////////////
+            /**
+             * @brief Compute the inverse phi function
+             * @param i The input position (SA value)
+             * @return The next SA value in the circular order
+             * @throws std::logic_error if i >= text_size()
+             * @note Inverse phi maps SA[i] to SA[i+1] (circular)
+             */
             uint64_t inverse_phi(uint64_t i) const
             {
                 uint64_t size = this->sampled_last_sa.size();
@@ -294,6 +342,14 @@ namespace stool
                     return r;
                 }
             }
+            
+            /**
+             * @brief Compute the phi function
+             * @param i The input position (SA value)
+             * @return The previous SA value in the circular order
+             * @throws std::logic_error if i >= text_size()
+             * @note Phi maps SA[i] to SA[i-1] (circular)
+             */
             uint64_t phi(uint64_t i) const
             {
                 uint64_t size = this->sampled_last_sa.size();
@@ -320,6 +376,11 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Verify the correctness of the DynamicPhi structure
+             * @param mode Verification mode (0: full verification including SA/ISA)
+             * @return true if verification passes, false otherwise
+             */
             bool verify(int mode = 0) const
             {
                 bool b1 = this->sampled_first_sa.verify();
@@ -335,25 +396,30 @@ namespace stool
 
                 return b1 && b2;
             }
+            
+            /**
+             * @brief Get the sampled SA value at the first position of a run
+             * @param i The run index
+             * @return The SA value at the first position of run i
+             */
             uint64_t get_sampled_first_sa_value(uint64_t i) const
             {
                 return this->sampled_first_sa.get_sampled_sa_value(i);
             }
 
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @brief Compute the phi function
-            ///   @param i The input of the phi function
-            ////////////////////////////////////////////////////////////////////////////////
-
         public:
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @brief Consider the situation where BWT[i] is replaced with character new_c for a position $i$ on BWT.
-            ///   Then, this function returns phi^{-1}(SA[LF(i)]) (i.e., SA[LF(i)+1])
-            ///   @param i_rp The integer i represented as a RunPosition
-            ///   @param new_c BWT[i] is replaced with this character
-            ///   @param sa_value_at_i_plus SA[i+1]
-            ///   @param dbwt RLBWT
-            ////////////////////////////////////////////////////////////////////////////////
+            /**
+             * @brief Compute LF_inverse_phi for a position where BWT[i] is replaced
+             * 
+             * Consider the situation where BWT[i] is replaced with character new_c.
+             * This function returns phi^{-1}(SA[LF(i)]) (i.e., SA[LF(i)+1])
+             * 
+             * @param i_rp The position i represented as a RunPosition
+             * @param new_c The new character replacing BWT[i]
+             * @param sa_value_at_i_plus SA[i+1]
+             * @param dbwt The DynamicRLBWT instance
+             * @return The SA value after inverse phi mapping
+             */
             SAValue LF_inverse_phi(RunPosition i_rp, uint8_t new_c, SAValue sa_value_at_i_plus, const DynamicRLBWT &dbwt) const
             {
 
@@ -377,6 +443,13 @@ namespace stool
                 // return LF_inverse_phi(i, old_c, c, next_sa_value, dbwt);
             }
 
+            /**
+             * @brief Helper function for LF_inverse_phi during deletion
+             * @param u The run position
+             * @param dbwt The DynamicRLBWT instance
+             * @param u_value_inv_phi The inverse phi value at position u
+             * @return The computed SA value
+             */
             SAValue LF_inverse_phi_for_deletion_sub(RunPosition u, const DynamicRLBWT &dbwt, uint64_t u_value_inv_phi) const
             {
                 uint64_t run_length = dbwt.get_run_length(u.run_index);
@@ -394,6 +467,17 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Compute LF_inverse_phi during deletion operation
+             * @param i_rp The run position
+             * @param sa_value_at_i_plus SA value at position i+1
+             * @param dbwt The DynamicRLBWT instance
+             * @param i_pos The absolute position i
+             * @param next_i_pos The next position
+             * @param u_value The value at position u
+             * @param u_value_inv_phi The inverse phi value at position u
+             * @return The computed SA value after inverse phi mapping
+             */
             SAValue LF_inverse_phi_for_deletion(RunPosition i_rp, SAValue sa_value_at_i_plus, const DynamicRLBWT &dbwt, uint64_t i_pos, uint64_t next_i_pos, uint64_t u_value, uint64_t u_value_inv_phi) const
             {
                 if (next_i_pos + 1 == i_pos)
@@ -439,6 +523,14 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Check if a replaced character succeeds another character in lexicographic order
+             * @param i_rp The run position
+             * @param replaced_char The character being replaced
+             * @param replaced_sa_index The SA index of the replaced position
+             * @param dbwt The DynamicRLBWT instance
+             * @return true if replaced_char succeeds the character at i_rp
+             */
             bool check_whether_succeeding_replaced_char(RunPosition i_rp, uint8_t replaced_char, SAIndex replaced_sa_index, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);
@@ -446,6 +538,13 @@ namespace stool
                 return replaced_char < i_c || ((replaced_char == i_c) && (replaced_sa_index <= i));
             }
 
+            /**
+             * @brief Compute LF_phi during move operation
+             * @param i_on_rlbwt The run position on RLBWT
+             * @param sa_value_at_i_minus SA value at position i-1
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             */
             int64_t LF_phi_for_move(RunPosition i_on_rlbwt, SAValue sa_value_at_i_minus, const DynamicRLBWT &dbwt) const
             {
 
@@ -461,6 +560,14 @@ namespace stool
                     return v > 0 ? v - 1 : this->text_size() - 1;
                 }
             };
+            
+            /**
+             * @brief Compute LF_inverse_phi during move operation
+             * @param i_on_rlbwt The run position on RLBWT
+             * @param sa_value_at_i_plus SA value at position i+1
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             */
             SAValue LF_inverse_phi_for_move(RunPosition i_on_rlbwt, SAValue sa_value_at_i_plus, const DynamicRLBWT &dbwt) const
             {
                 uint64_t run_length = dbwt.get_run_length(i_on_rlbwt.run_index);
@@ -478,9 +585,17 @@ namespace stool
                 }
             }
 
-            /*
-            Memo: This method should be replaced with LF_inverse_phi_for_insertionX.
-            */
+            /**
+             * @brief Compute LF_inverse_phi during insertion operation (legacy method)
+             * @param i_rp The run position
+             * @param sa_value_at_i_plus SA value at position i+1
+             * @param replaced_char The character being replaced
+             * @param replaced_sa_index The SA index of the replaced position
+             * @param insertion_pos The insertion position
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             * @note This method should be replaced with LF_inverse_phi_for_insertionX
+             */
             SAValue LF_inverse_phi_for_insertion(RunPosition i_rp, SAValue sa_value_at_i_plus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);
@@ -538,9 +653,17 @@ namespace stool
                     }
                 }
             }
-            /*
-            Memo: This method contains a bug, but dynamic r-index works correctly. I will fix this method later.
-            */
+            /**
+             * @brief Compute LF_inverse_phi during insertion operation (improved version)
+             * @param i_rp The run position
+             * @param sa_value_at_i_plus SA value at position i+1
+             * @param i_minus_p SA index at position i-1
+             * @param y_p SA value at position y
+             * @param insertion_pos The insertion position
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             * @note This method contains a bug, but dynamic r-index works correctly. Will be fixed later.
+             */
             SAValue LF_inverse_phi_for_insertionX(RunPosition i_rp, SAValue sa_value_at_i_plus, SAIndex i_minus_p, uint64_t y_p, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint64_t b1 = false;
@@ -575,6 +698,16 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Compute LF_phi during insertion operation
+             * @param i_rp The run position
+             * @param sa_value_at_i_minus SA value at position i-1
+             * @param i_minus_p SA index at position i-1
+             * @param y_p SA value at position y
+             * @param insertion_pos The insertion position
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             */
             SAValue LF_phi_for_insertionX(RunPosition i_rp, SAValue sa_value_at_i_minus, SAIndex i_minus_p, uint64_t y_p, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint64_t b1 = false;
@@ -608,9 +741,17 @@ namespace stool
                 }
             }
 
-            /*
-            Memo: This method should be replaced with LF_inverse_phi_for_insertionX.
-            */
+            /**
+             * @brief Compute LF_phi during insertion operation (legacy method)
+             * @param i_rp The run position
+             * @param sa_value_at_i_minus SA value at position i-1
+             * @param replaced_char The character being replaced
+             * @param replaced_sa_index The SA index of the replaced position
+             * @param insertion_pos The insertion position
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             * @note This method should be replaced with LF_phi_for_insertionX
+             */
             SAValue LF_phi_for_insertion(RunPosition i_rp, SAValue sa_value_at_i_minus, uint8_t replaced_char, SAIndex replaced_sa_index, uint64_t insertion_pos, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);
@@ -663,11 +804,19 @@ namespace stool
                 }
             }
 
-            ////////////////////////////////////////////////////////////////////////////////
-            ///   @brief Consider the situation where old_c = BWT[i] is replaced with character new_c for a position $i$ on BWT.
-            ///   Then, this function returns phi(SA[LF(i)])
-            ////////////////////////////////////////////////////////////////////////////////
-
+            /**
+             * @brief Compute LF_phi when BWT[i] is replaced
+             * 
+             * Consider the situation where old_c = BWT[i] is replaced with character new_c.
+             * This function returns phi(SA[LF(i)])
+             * 
+             * @param i The run position
+             * @param old_c The old character at position i
+             * @param new_c The new character replacing old_c
+             * @param prev_sa_value SA value at position i-1
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             */
             SAValue LF_phi(RunPosition i, uint8_t old_c, uint8_t new_c, SAValue prev_sa_value, const DynamicRLBWT &dbwt) const
             {
 
@@ -689,6 +838,13 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Helper function for LF_phi during deletion
+             * @param u The run position
+             * @param dbwt The DynamicRLBWT instance
+             * @param u_value_phi The phi value at position u
+             * @return The computed SA value
+             */
             SAValue LF_phi_for_deletion_sub(RunPosition u, const DynamicRLBWT &dbwt, uint64_t u_value_phi) const
             {
                 if (u.position_in_run > 0)
@@ -705,6 +861,17 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Compute LF_phi during deletion operation
+             * @param i The run position
+             * @param prev_sa_value SA value at position i-1
+             * @param dbwt The DynamicRLBWT instance
+             * @param i_pos The absolute position i
+             * @param next_i_pos The next position
+             * @param u_value The value at position u
+             * @param u_value_phi The phi value at position u
+             * @return The computed SA value
+             */
             SAValue LF_phi_for_deletion(RunPosition i, SAValue prev_sa_value, const DynamicRLBWT &dbwt, uint64_t i_pos, uint64_t next_i_pos, uint64_t u_value, uint64_t u_value_phi) const
             {
                 if (i_pos == next_i_pos)
@@ -795,12 +962,27 @@ namespace stool
             }
             */
 
+            /**
+             * @brief Compute LF_phi without character replacement
+             * @param i The run position
+             * @param prev_sa_value SA value at position i-1
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             */
             SAValue LF_phi(RunPosition i, SAValue prev_sa_value, const DynamicRLBWT &dbwt) const
             {
                 uint8_t old_c = dbwt.get_char(i.run_index);
                 return this->LF_phi(i, old_c, old_c, prev_sa_value, dbwt);
             }
 
+            /**
+             * @brief Compute LF_phi with character replacement
+             * @param i The run position
+             * @param c The new character
+             * @param prev_sa_value SA value at position i-1
+             * @param dbwt The DynamicRLBWT instance
+             * @return The computed SA value
+             */
             SAValue LF_phi(RunPosition i, uint8_t c, SAValue prev_sa_value, const DynamicRLBWT &dbwt) const
             {
 

@@ -7,9 +7,22 @@ namespace stool
 {
     namespace dynamic_r_index
     {
+        /**
+         * @brief Parser for TSV (Tab-Separated Values) format command files
+         * 
+         * This class provides utilities for parsing TSV lines, with support
+         * for alternative tab and line break characters.
+         */
         class TSVParser
         {
         private:
+            /**
+             * @brief Sanitize a line by replacing alternative tab/line break codes
+             * @param line The input line
+             * @param replacement_code_to_tab Alternative code for tab character
+             * @param replacement_code_to_line_break Alternative code for line break
+             * @return Sanitized line with standard tab and newline characters
+             */
             static std::string get_sanitized_line(const std::string line, const std::string replacement_code_to_tab, const std::string replacement_code_to_line_break)
             {
                 std::string r;
@@ -48,6 +61,13 @@ namespace stool
             }
 
         public:
+            /**
+             * @brief Parse a TSV line into a vector of strings
+             * @param line The line to parse
+             * @param replacement_code_to_tab Alternative code for tab character
+             * @param replacement_code_to_line_break Alternative code for line break
+             * @return Vector of strings, one for each tab-separated field
+             */
             static std::vector<std::string> line_parse(const std::string line, const std::string replacement_code_to_tab, const std::string replacement_code_to_line_break)
             {
                 std::string sanitized_line = get_sanitized_line(line, replacement_code_to_tab, replacement_code_to_line_break);

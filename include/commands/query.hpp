@@ -8,29 +8,41 @@ namespace stool
     namespace dynamic_r_index
     {
 
+        /**
+         * @brief Enumeration for different types of query result vectors
+         */
         enum class VecType
         {
-            PATTERN_LENGTH,
-            BACKWARD_SEARCH_TIME,
-            COMPUTING_SA_TIME,
-            REORDER_COUNT,
-            OCCURRENCE_COUNT,
-            ELAPSED_TIME
+            PATTERN_LENGTH,        ///< Pattern length for each query
+            BACKWARD_SEARCH_TIME,  ///< Backward search execution time
+            COMPUTING_SA_TIME,     ///< SA value computation time
+            REORDER_COUNT,         ///< Number of BWT reorder operations
+            OCCURRENCE_COUNT,      ///< Number of pattern occurrences
+            ELAPSED_TIME           ///< Total elapsed time
         };
 
+        /**
+         * @brief Structure to store query execution results and statistics
+         * 
+         * This structure collects performance metrics and results for each query
+         * executed on a dynamic index, including timing information and operation counts.
+         */
         struct QueryResults
         {
         public:
-            std::vector<stool::QueryType> query_types;
-            std::vector<uint64_t> pattern_length_vector;
-            std::vector<uint64_t> elapsed_time_vector;
-            std::vector<uint64_t> backward_search_time_vector;
-            std::vector<uint64_t> computing_SA_time_vector;
-            std::vector<uint64_t> reorder_count_vector;
-            std::vector<uint64_t> occurrence_count_vector;
+            std::vector<stool::QueryType> query_types;              ///< Types of queries executed
+            std::vector<uint64_t> pattern_length_vector;             ///< Pattern lengths for each query
+            std::vector<uint64_t> elapsed_time_vector;               ///< Total elapsed time for each query
+            std::vector<uint64_t> backward_search_time_vector;       ///< Backward search time for each query
+            std::vector<uint64_t> computing_SA_time_vector;           ///< SA computation time for each query
+            std::vector<uint64_t> reorder_count_vector;              ///< BWT reorder count for each query
+            std::vector<uint64_t> occurrence_count_vector;            ///< Occurrence count for each query
 
-            uint64_t check_sum = 0;
+            uint64_t check_sum = 0;                                  ///< Checksum for verification
 
+            /**
+             * @brief Default constructor initializing all vectors
+             */
             QueryResults()
             {
                 this->query_types.clear();
@@ -43,6 +55,10 @@ namespace stool
                 this->check_sum = 0;
             }
 
+            /**
+             * @brief Swap the contents with another QueryResults instance
+             * @param item The QueryResults instance to swap with
+             */
             void swap(QueryResults &item)
             {
                 this->query_types.swap(item.query_types);
@@ -56,6 +72,10 @@ namespace stool
                 std::swap(this->check_sum, item.check_sum);
             }
 
+            /**
+             * @brief Get the count of each query type
+             * @return Vector of counts for each query type (indexed by QueryType enum)
+             */
             std::vector<uint64_t> get_query_count_vector() const
             {
                 std::vector<uint64_t> r;
@@ -66,6 +86,14 @@ namespace stool
                 }
                 return r;
             }
+            
+            /**
+             * @brief Get a filtered vector of results for a specific query type and metric
+             * @param type1 The query type to filter by
+             * @param type2 The metric type to retrieve
+             * @return Vector of metric values for queries of the specified type
+             * @throws std::logic_error if VecType is invalid
+             */
             std::vector<uint64_t> get_vector(stool::QueryType type1, VecType type2) const
             {
                 const std::vector<uint64_t> *vec = nullptr;
@@ -109,6 +137,16 @@ namespace stool
                 }
                 return r;
             }
+            /**
+             * @brief Add a query result to the collection
+             * @param type The query type
+             * @param pattern_length The length of the pattern
+             * @param elapsed_time Total elapsed time in microseconds
+             * @param reorder_count Number of BWT reorder operations
+             * @param backward_search_time Backward search time in microseconds
+             * @param sa_time SA computation time in microseconds
+             * @param occurrence_count Number of occurrences found
+             */
             void push_back(stool::QueryType type, uint64_t pattern_length, uint64_t elapsed_time, uint64_t reorder_count, uint64_t backward_search_time, uint64_t sa_time, uint64_t occurrence_count)
             {
                 this->query_types.push_back(type);
@@ -121,6 +159,22 @@ namespace stool
             }
         };
 
+        /**
+         * @brief Process a query file and execute queries on a dynamic index
+         * 
+         * This function reads queries from a file and executes them on the given
+         * dynamic index (DynamicRIndex or DynamicFMIndex). Results are logged to
+         * the output stream.
+         * 
+         * @tparam DYNINDEX The type of dynamic index (DynamicRIndex or DynamicFMIndex)
+         * @param dyn_index The dynamic index to query
+         * @param query_ifs Input file stream containing queries (TSV format)
+         * @param log_os Output stream for logging query results
+         * @param alternative_tab_key Alternative tab character (for parsing)
+         * @param alternative_line_break_key Alternative line break character (for parsing)
+         * @param replace_mode If true, replace LOCATE queries with LOCATE_SUM
+         * @return QueryResults containing statistics for all executed queries
+         */
         template <typename DYNINDEX>
         QueryResults process_query_file(DYNINDEX &dyn_index, std::ifstream &query_ifs, std::ostream &log_os, std::string alternative_tab_key, std::string alternative_line_break_key, bool replace_mode)
         {

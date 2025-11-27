@@ -1,3 +1,19 @@
+/**
+ * @file print_index_main.cpp
+ * @brief Display information about a dynamic index and optionally extract text/BWT
+ * 
+ * This program loads a dynamic r-index or FM-index and displays its statistics.
+ * Optionally, it can extract and save the original text and BWT to files.
+ * 
+ * Usage:
+ *   ./print_index -i index.dri
+ *   ./print_index -i index.dri -o text.txt -b bwt.txt
+ * 
+ * @author TNishimoto
+ * @date 2025
+ * @license MIT
+ */
+
 #include <iostream>
 #include <string>
 #include <memory>
@@ -9,6 +25,12 @@
 #include "../include/all.hpp"
 #include "libdivsufsort/sa.hpp"
 
+/**
+ * @brief Main function to print index information
+ * @param argc Number of command-line arguments
+ * @param argv Command-line arguments
+ * @return Exit code (0 on success)
+ */
 int main(int argc, char *argv[])
 {
 std::cout << "\033[41m";

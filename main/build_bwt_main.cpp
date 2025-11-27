@@ -1,3 +1,18 @@
+/**
+ * @file build_bwt_main.cpp
+ * @brief Compute and output the BWT of a text file
+ * 
+ * This program computes the Burrows-Wheeler Transform (BWT) of a text file
+ * and writes it to an output file.
+ * 
+ * Usage:
+ *   ./build_bwt -i input.txt -o output.bwt -c "$"
+ * 
+ * @author TNishimoto
+ * @date 2025
+ * @license MIT
+ */
+
 #include <iostream>
 #include <string>
 #include <memory>
@@ -8,6 +23,12 @@
 #include "stool/include/lib.hpp"
 #include "../include/dynamic_r_index/rlbwt_builder.hpp"
 
+/**
+ * @brief Extract the first character from a string, handling escape sequences
+ * @param text The input string
+ * @param default_character Default character to return if string is empty
+ * @return The first character value (handles \n, \0, etc. as escape sequences)
+ */
 uint8_t get_first_character(const std::string &text, uint8_t default_character = '\0'){
     if(text.size() == 0){
         return default_character;
@@ -20,6 +41,13 @@ uint8_t get_first_character(const std::string &text, uint8_t default_character =
     }
 
 }
+
+/**
+ * @brief Main function to compute BWT
+ * @param argc Number of command-line arguments
+ * @param argv Command-line arguments
+ * @return Exit code (0 on success)
+ */
 int main(int argc, char *argv[])
 {
 std::cout << "\033[41m";

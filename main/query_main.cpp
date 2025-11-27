@@ -1,3 +1,20 @@
+/**
+ * @file query_main.cpp
+ * @brief Execute queries on a dynamic index from a command file
+ * 
+ * This program loads a dynamic r-index or FM-index and executes queries
+ * from a TSV command file. Results are logged to an output file.
+ * 
+ * Supported commands: COUNT, LOCATE, LOCATE_SUM, INSERT, DELETE, PRINT
+ * 
+ * Usage:
+ *   ./query -i index.dri -q commands.tsv -w result.log
+ * 
+ * @author TNishimoto
+ * @date 2025
+ * @license MIT
+ */
+
 #include <iostream>
 #include <string>
 #include <memory>
@@ -16,8 +33,12 @@ void print_NONE_query_result(const QueryResults &result, int message_paragraph =
 }
 */
 
-
-
+/**
+ * @brief Main function to execute queries on a dynamic index
+ * @param argc Number of command-line arguments
+ * @param argv Command-line arguments
+ * @return Exit code (0 on success)
+ */
 int main(int argc, char *argv[])
 {
 std::cout << "\033[41m";

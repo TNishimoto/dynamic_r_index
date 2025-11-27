@@ -1,3 +1,20 @@
+/**
+ * @file build_fm_index_main.cpp
+ * @brief Build dynamic FM-index from text or BWT file
+ * 
+ * This program constructs a dynamic FM-index data structure from either
+ * a raw text file or a pre-computed BWT file. The resulting index is
+ * saved to a binary file (.dfmi format).
+ * 
+ * Usage:
+ *   ./build_fm_index -i input.txt -o output.dfmi
+ *   ./build_fm_index -i input.bwt -o output.dfmi -u 1 -s 32
+ * 
+ * @author TNishimoto
+ * @date 2025
+ * @license MIT
+ */
+
 #include <iostream>
 #include <string>
 #include <memory>
@@ -9,6 +26,12 @@
 #include "../include/all.hpp"
 #include "libdivsufsort/sa.hpp"
 
+/**
+ * @brief Extract the first character from a string, handling escape sequences
+ * @param text The input string
+ * @param default_character Default character to return if string is empty
+ * @return The first character value (handles \n, \0, etc. as escape sequences)
+ */
 uint8_t get_first_character(const std::string &text, uint8_t default_character = '\0'){
     if(text.size() == 0){
         return default_character;
@@ -22,6 +45,12 @@ uint8_t get_first_character(const std::string &text, uint8_t default_character =
 
 }
 
+/**
+ * @brief Main function to build dynamic FM-index
+ * @param argc Number of command-line arguments
+ * @param argv Command-line arguments
+ * @return Exit code (0 on success)
+ */
 int main(int argc, char *argv[])
 {
 std::cout << "\033[41m";

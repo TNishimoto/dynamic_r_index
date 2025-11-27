@@ -17,11 +17,11 @@ A C++ implementation of the **dynamic r-index** and **dynamic FM-index** — spa
   - [Install SDSL](#install-sdsl)
   - [Build](#build)
 - [Usage](#usage)
-  - [build_bwt.out](#build_bwtout)
-  - [build_r_index.out](#build_r_indexout)
-  - [build_fm_index.out](#build_fm_indexout)
-  - [print_index.out](#print_indexout)
-  - [query.out](#queryout)
+  - [build_bwt](#build_bwt)
+  - [build_r_index](#build_r_index)
+  - [build_fm_index](#build_fm_index)
+  - [print_index](#print_index)
+  - [query](#query)
 - [API Documentation](#api-documentation)
 - [Dependencies](#dependencies)
 - [License](#license)
@@ -51,8 +51,8 @@ cmake .. -DCMAKE_BUILD_TYPE=Release \
 make
 
 # 4. Try it out
-./build_r_index.out -i ../examples/ab.txt -o ab.dri
-./query.out -i ab.dri -q ../examples/command.tsv -w result.log
+./build_r_index -i ../examples/ab.txt -o ab.dri
+./query -i ab.dri -q ../examples/command.tsv -w result.log
 cat result.log
 ```
 
@@ -169,19 +169,19 @@ make
 
 **Generated executables:**
 
-| Executable           | Description                                      |
-| -------------------- | ------------------------------------------------ |
-| `build_bwt.out`      | Compute BWT from a text file                     |
-| `build_r_index.out`  | Build dynamic r-index from text or BWT           |
-| `build_fm_index.out` | Build dynamic FM-index from text or BWT          |
-| `print_index.out`    | Display index information and extract text/BWT   |
-| `query.out`          | Execute queries from a command file              |
+| Executable        | Description                                      |
+| ----------------- | ------------------------------------------------ |
+| `build_bwt`       | Compute BWT from a text file                     |
+| `build_r_index`   | Build dynamic r-index from text or BWT           |
+| `build_fm_index`  | Build dynamic FM-index from text or BWT          |
+| `print_index`     | Display index information and extract text/BWT   |
+| `query`           | Execute queries from a command file              |
 
 ---
 
 ## Usage
 
-### build_bwt.out
+### build_bwt
 
 Computes and outputs the BWT of a given file.
 
@@ -200,7 +200,7 @@ Options:
 **Example:**
 
 ```bash
-./build_bwt.out -i ../examples/ab.txt -o ab.bwt -c "$"
+./build_bwt -i ../examples/ab.txt -o ab.bwt -c "$"
 ```
 
 ```
@@ -215,7 +215,7 @@ Number of BWT Runs:     9
 
 ---
 
-### build_r_index.out
+### build_r_index
 
 Builds the dynamic r-index from a text file or BWT.
 
@@ -232,16 +232,16 @@ Options:
 
 ```bash
 # From text
-./build_r_index.out -i ../examples/ab.txt -o ab.dri
+./build_r_index -i ../examples/ab.txt -o ab.dri
 
 # From BWT
-./build_bwt.out -i ../examples/ab.txt -o ab.bwt -c "$"
-./build_r_index.out -i ab.bwt -o ab.dri -u 1
+./build_bwt -i ../examples/ab.txt -o ab.bwt -c "$"
+./build_r_index -i ab.bwt -o ab.dri -u 1
 ```
 
 ---
 
-### build_fm_index.out
+### build_fm_index
 
 Builds the dynamic FM-index from a text file or BWT.
 
@@ -259,15 +259,15 @@ Options:
 
 ```bash
 # Default sampling interval (32)
-./build_fm_index.out -i ../examples/ab.txt -o ab.dfmi
+./build_fm_index -i ../examples/ab.txt -o ab.dfmi
 
 # Custom sampling interval
-./build_fm_index.out -i ../examples/ab.txt -o ab.dfmi -s 8
+./build_fm_index -i ../examples/ab.txt -o ab.dfmi -s 8
 ```
 
 ---
 
-### print_index.out
+### print_index
 
 Displays index information and optionally extracts the text/BWT.
 
@@ -282,7 +282,7 @@ Options:
 **Example:**
 
 ```bash
-./print_index.out -i ab.dri -o extracted.txt -b extracted.bwt
+./print_index -i ab.dri -o extracted.txt -b extracted.bwt
 ```
 
 ```
@@ -297,7 +297,7 @@ Statistics(DynamicRIndex):
 
 ---
 
-### query.out
+### query
 
 Executes queries from a TSV command file.
 
@@ -336,8 +336,8 @@ PRINT
 **Example:**
 
 ```bash
-./build_r_index.out -i ../examples/ab.txt -o ab.dri -c "$"
-./query.out -i ab.dri -q ../examples/command.tsv -w result.log -o updated.dri
+./build_r_index -i ../examples/ab.txt -o ab.dri -c "$"
+./query -i ab.dri -q ../examples/command.tsv -w result.log -o updated.dri
 cat result.log
 ```
 

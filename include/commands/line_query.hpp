@@ -7,26 +7,41 @@
 #include "./tsv_parser.hpp"
 namespace stool
 {
+    /**
+     * @brief Enumeration of supported query types
+     */
     enum class QueryType
     {
-        NONE = 0,
-        INSERT = 1,
-        DELETE = 2,
-        COUNT = 3,
-        LOCATE = 4,
-        LOCATE_DETAIL = 5,
-        LOCATE_SUM = 6,
-        PRINT = 7
+        NONE = 0,         ///< No operation
+        INSERT = 1,       ///< Insert a string
+        DELETE = 2,       ///< Delete a substring
+        COUNT = 3,        ///< Count pattern occurrences
+        LOCATE = 4,       ///< Locate all pattern occurrences
+        LOCATE_DETAIL = 5,///< Locate with detailed timing information
+        LOCATE_SUM = 6,   ///< Compute sum of occurrence positions
+        PRINT = 7         ///< Print current text and BWT
     };
 
+    /**
+     * @brief Structure representing a single query from a command file
+     * 
+     * This structure stores the query type and parameters parsed from
+     * a TSV command file line.
+     */
     struct LineQuery
     {
     public:
-        QueryType type = QueryType::NONE;
-        uint64_t position = UINT64_MAX;
-        uint64_t length = UINT64_MAX;
-        std::vector<uint8_t> pattern;
+        QueryType type = QueryType::NONE;        ///< The type of query
+        uint64_t position = UINT64_MAX;          ///< Position parameter (for INSERT/DELETE)
+        uint64_t length = UINT64_MAX;            ///< Length parameter (for DELETE)
+        std::vector<uint8_t> pattern;            ///< Pattern string (for COUNT/LOCATE/INSERT)
 
+        /**
+         * @brief Sanitize a string by converting special characters
+         * @param text The input string
+         * @return Vector of bytes with special characters converted
+         * @note Converts null bytes to newlines and 0x01 to tabs
+         */
         static std::vector<uint8_t> sanityze(const std::string &text)
         {
             std::vector<uint8_t> r;
@@ -48,12 +63,21 @@ namespace stool
             return r;
         }
 
+        /**
+         * @brief Create a NONE query
+         * @return A LineQuery with type NONE
+         */
         static LineQuery create_NONE_query()
         {
             LineQuery r;
             r.type = QueryType::NONE;
             return r;
         }
+        
+        /**
+         * @brief Create a PRINT query
+         * @return A LineQuery with type PRINT
+         */
         static LineQuery create_PRINT_query()
         {
             LineQuery r;
@@ -61,6 +85,12 @@ namespace stool
             return r;
         }
 
+        /**
+         * @brief Create an INSERT query
+         * @param insertion_position The position to insert at
+         * @param text The string to insert
+         * @return A LineQuery with type INSERT
+         */
         static LineQuery create_INSERT_query(uint64_t insertion_position, const std::string &text)
         {
             LineQuery r;
@@ -73,6 +103,13 @@ namespace stool
 
             return r;
         }
+        
+        /**
+         * @brief Create a DELETE query
+         * @param deletion_position The starting position to delete from
+         * @param length The number of characters to delete
+         * @return A LineQuery with type DELETE
+         */
         static LineQuery create_DELETE_query(uint64_t deletion_position, uint64_t length)
         {
             LineQuery r;
@@ -82,6 +119,12 @@ namespace stool
             r.pattern.clear();
             return r;
         }
+        
+        /**
+         * @brief Create a COUNT query
+         * @param text The pattern to count
+         * @return A LineQuery with type COUNT
+         */
         static LineQuery create_COUNT_query(const std::string &text)
         {
             LineQuery r;
@@ -93,6 +136,12 @@ namespace stool
 
             return r;
         }
+        
+        /**
+         * @brief Create a LOCATE query
+         * @param text The pattern to locate
+         * @return A LineQuery with type LOCATE
+         */
         static LineQuery create_LOCATE_query(const std::string &text)
         {
             LineQuery r;
@@ -104,6 +153,11 @@ namespace stool
 
             return r;
         }
+        /**
+         * @brief Create a LOCATE_SUM query
+         * @param text The pattern to locate
+         * @return A LineQuery with type LOCATE_SUM
+         */
         static LineQuery create_LOCATE_SUM_query(const std::string &text)
         {
             LineQuery r;
@@ -115,6 +169,7 @@ namespace stool
 
             return r;
         }
+        
         /*
         static std::vector<std::string> split_by_tab(const std::string &input)
         {
@@ -130,6 +185,13 @@ namespace stool
             return result;
         }
         */
+        
+        /**
+         * @brief Convert a string to uint64_t
+         * @param str The string to convert
+         * @return The converted uint64_t value
+         * @throws std::invalid_argument if conversion fails
+         */
         static uint64_t string_to_uint64(const std::string &str)
         {
             try
@@ -149,6 +211,21 @@ namespace stool
                 throw std::invalid_argument("Conversion to uint64_t failed: " + std::string(e.what()));
             }
         }
+        /**
+         * @brief Parse a line from a command file into a LineQuery
+         * @param line The line to parse (TSV format)
+         * @param alternative_tab_key Alternative tab character for parsing
+         * @param alternative_line_break_key Alternative line break character for parsing
+         * @return A LineQuery parsed from the line, or NONE query if parsing fails
+         * 
+         * Supported formats:
+         *   - INSERT\t<position>\t<string>
+         *   - DELETE\t<position>\t<length>
+         *   - COUNT\t<pattern>
+         *   - LOCATE\t<pattern>
+         *   - LOCATE_SUM\t<pattern>
+         *   - PRINT
+         */
         static LineQuery load_line(const std::string &line, std::string alternative_tab_key, std::string alternative_line_break_key)
         {
             std::vector<std::string> result = stool::dynamic_r_index::TSVParser::line_parse(line, alternative_tab_key, alternative_line_break_key);

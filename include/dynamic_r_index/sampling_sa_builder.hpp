@@ -7,7 +7,11 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A builder of sampling suffix arrays. [Unchecked AI comment].
+         * @brief Builder class for constructing sampled suffix arrays from RLBWT
+         * 
+         * This class builds sampled SA values at the first and last positions
+         * of each run in the RLBWT, which are used to initialize DynamicPhi.
+         * 
          * \ingroup DynamicRIndexes
          */
         class SamplingSATBuilder
@@ -15,6 +19,15 @@ namespace stool
             using RLBWT = stool::rlbwt2::RLE<uint8_t>;
 
         public:
+            /**
+             * @brief Build sampled suffix arrays from a static RLBWT
+             * @param static_rlbwt The static run-length encoded BWT
+             * @param output_fst_sampling_sa Output vector for first SA values of each run
+             * @param output_last_sampling_sa Output vector for last SA values of each run
+             * @param message_paragraph Message indentation level for progress output
+             * @throws std::logic_error if sampling fails for any run
+             * @note Uses backward ISA traversal to compute SA values
+             */
             static void build(const RLBWT &static_rlbwt, std::vector<uint64_t> &output_fst_sampling_sa, std::vector<uint64_t> &output_last_sampling_sa, int message_paragraph = stool::Message::SHOW_MESSAGE)
             {
                 uint64_t text_size = static_rlbwt.str_size();

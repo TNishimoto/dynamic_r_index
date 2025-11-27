@@ -6,12 +6,24 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief Helper functions for dynamic RLBWT [Unchecked AI comment].
+         * @brief Helper functions for dynamic RLBWT operations
+         * 
+         * This class provides utility functions for working with DynamicRLBWT,
+         * including character replacement type detection and F-sorted position queries.
+         * 
          * \ingroup DynamicRIndexes
          */
         class DynamicRLBWTHelper
         {
         private:
+            /**
+             * @brief Get the character immediately before a position in a run
+             * @param dbwt The DynamicRLBWT
+             * @param run_index The run index
+             * @param pos_in_run The position within the run
+             * @param c The character at the current position
+             * @return The upper character, or UINT64_MAX if at the beginning
+             */
             static uint64_t get_upper_character(const DynamicRLBWT &dbwt, uint64_t run_index, uint64_t pos_in_run, uint8_t c)
             {
                 if (pos_in_run > 0)
@@ -28,6 +40,14 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Get the character immediately after a position in a run
+             * @param dbwt The DynamicRLBWT
+             * @param run_index The run index
+             * @param pos_in_run The position within the run
+             * @param c The character at the current position
+             * @return The lower character, or UINT64_MAX if at the end
+             */
             static uint64_t get_lower_character(const DynamicRLBWT &dbwt, uint64_t run_index, uint64_t pos_in_run, uint8_t c)
             {
                 uint64_t run_count = dbwt.run_count();
@@ -53,6 +73,14 @@ namespace stool
                 }
             }
 
+            /**
+             * @brief Determine the detailed replacement type for a character replacement
+             * @param dbwt The DynamicRLBWT
+             * @param run_index The run index
+             * @param pos_in_run The position within the run
+             * @param new_char The new character to replace with
+             * @return DetailedReplacement structure describing the replacement type
+             */
             static DetailedReplacement get_replacement_type2(const DynamicRLBWT &dbwt, uint64_t run_index, uint64_t pos_in_run, uint8_t new_char)
             {
                 uint64_t len = dbwt.get_run_length(run_index);
@@ -68,6 +96,14 @@ namespace stool
                 return DetailedReplacement(rep, _is_first, _is_last, _upper_merge, _lower_merge);
             }
 
+            /**
+             * @brief Determine the replacement type for a character replacement
+             * @param dbwt The DynamicRLBWT
+             * @param run_index The run index
+             * @param pos_in_run The position within the run
+             * @param new_char The new character to replace with
+             * @return RunReplacementType indicating the type of replacement
+             */
             static RunReplacementType get_replacement_type(const DynamicRLBWT &dbwt, uint64_t run_index, uint64_t pos_in_run, uint8_t new_char)
             {
                 uint64_t len = dbwt.get_run_length(run_index);
@@ -94,6 +130,13 @@ namespace stool
             }
 
         public:
+            /**
+             * @brief Find the proper successor run position in F-sorted order
+             * @param dbwt The DynamicRLBWT
+             * @param x The current run position
+             * @param c The character to search for
+             * @return The run position of the successor run starting with character c
+             */
             static RunPosition proper_successor_on_F(const DynamicRLBWT &dbwt, RunPosition x, uint8_t c)
             {
                 uint8_t xc = dbwt.get_char(x.run_index);

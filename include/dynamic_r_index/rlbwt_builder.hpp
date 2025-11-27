@@ -8,12 +8,22 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A builder of RLBWT. [Unchecked AI comment].
+         * @brief Builder class for constructing RLBWT from text or BWT
+         * 
+         * This class provides static methods for building a DynamicRLBWT
+         * from various input formats, including online construction methods.
+         * 
          * \ingroup DynamicRIndexes
          */
         class RLBWTBuilder
         {
         private:
+            /**
+             * @brief Preprocess the RLBWT with the first character
+             * @param rlbwt The DynamicRLBWT to build
+             * @param first_char The first character to insert
+             * @return The position after insertion
+             */
             static uint64_t preprocess(DynamicRLBWT &rlbwt, uint8_t first_char)
             {
                 uint64_t pos = 1;
@@ -25,6 +35,16 @@ namespace stool
                 RLBWTBuilder::append_char_for_online_construction(rlbwt, first_char, pos);
                 return pos;
             }
+            
+            /**
+             * @brief Finish the RLBWT construction by inserting the end marker
+             * @param rlbwt The DynamicRLBWT to finish
+             * @param last_char The last character processed
+             * @param current_position The current position in the BWT
+             * @param end_marker The end marker character (default: '$')
+             * @return The final position after inserting the end marker
+             * @throws std::logic_error if the first run is not the end marker
+             */
             static uint64_t finish(DynamicRLBWT &rlbwt, uint8_t last_char, uint64_t current_position, uint8_t end_marker = '$')
             {
                 if(rlbwt.get_char(0) != end_marker){
@@ -43,6 +63,14 @@ namespace stool
                 RLBWTBuilder::append_char_for_online_construction(rlbwt, end_marker, new_pos);
                 return new_pos;
             }
+            
+            /**
+             * @brief Compute the next position to insert a character using LF mapping
+             * @param rlbwt The DynamicRLBWT
+             * @param c The character to insert
+             * @param current_position The current position
+             * @return The next position computed via LF mapping
+             */
             static uint64_t compute_next_position_to_insert(DynamicRLBWT &rlbwt, uint8_t c, uint64_t current_position)
             {
                 RunPosition pos_on_rlbwt = rlbwt.to_run_position(current_position);
@@ -51,6 +79,14 @@ namespace stool
                 uint64_t new_pos = freq + rank;
                 return new_pos;
             }
+            
+            /**
+             * @brief Append a character during online RLBWT construction
+             * @param rlbwt The DynamicRLBWT to update
+             * @param c The character to append
+             * @param position_on_BWT The position in the BWT where to insert
+             * @note This method handles run merging when adjacent runs have the same character
+             */
             static void append_char_for_online_construction(DynamicRLBWT &rlbwt, uint8_t c, uint64_t position_on_BWT)
             {
                 RunPosition rp = rlbwt.to_run_position(position_on_BWT, true);
@@ -131,6 +167,14 @@ namespace stool
             }
 
         public:
+            /**
+             * @brief Build RLBWT from a text vector
+             * @param text The input text (will be reversed internally)
+             * @param end_marker The end marker character (default: '$')
+             * @return A DynamicRLBWT instance built from the text
+             * @throws std::runtime_error if text is too short (<= 2 characters)
+             * @note Uses online construction algorithm
+             */
             static DynamicRLBWT build(std::vector<uint8_t> &text, uint8_t end_marker = '$')
             {
                 std::vector<uint8_t> rev_text = stool::StringFunctions::to_reversed_string(text);
@@ -172,6 +216,15 @@ namespace stool
                 }
 
             }
+            
+            /**
+             * @brief Build RLBWT from a text file using online construction
+             * @param file_path Path to the text file
+             * @param end_marker The end marker character (default: '$')
+             * @param buffer_size Buffer size for reading the file
+             * @return A DynamicRLBWT instance built from the file
+             * @note This method reads the file in chunks for memory efficiency
+             */
             static DynamicRLBWT online_build_for_reversed_text(std::string file_path, uint8_t end_marker = '$', uint64_t buffer_size = 16000)
             {
                 std::cout << "Get Alphabets" << std::endl;
