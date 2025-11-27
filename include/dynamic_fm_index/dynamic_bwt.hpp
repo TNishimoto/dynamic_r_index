@@ -15,7 +15,7 @@ namespace stool
 {
     namespace dynamic_r_index
     {
-        bool __view_flag = false;
+        inline bool __view_flag = false;
 
         /**
          * @brief A dynamic data structure storing the BWT \p L[0..n-1] of a string \p T[0..n-1] over an alphabet \p Σ[0..σ-1].

@@ -26,7 +26,7 @@ namespace stool
             DynamicSampledSA dsa; // Dynamic Sampled Suffix Array
 
         public:
-            static inline constexpr uint LOAD_KEY = 99999999; // Key used for loading the index
+            static inline constexpr uint32_t LOAD_KEY = 99999999; // Key used for loading the index
 
             using Interval = std::pair<int64_t, int64_t>; // Type for representing intervals
 

@@ -23,7 +23,7 @@ namespace stool
             //@{
 
         public:
-            static inline constexpr uint LOAD_KEY = 8888888;
+            static inline constexpr uint32_t LOAD_KEY = 8888888;
 
             DynamicRIndex()
             {
