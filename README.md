@@ -10,18 +10,16 @@ A C++ implementation of the **dynamic r-index** and **dynamic FM-index** — spa
 - [Overview](#overview)
   - [Dynamic r-index](#dynamic-r-index-1)
   - [Dynamic FM-index](#dynamic-fm-index)
-  - [Which Index Should I Use?](#which-index-should-i-use)
+  - [Comparison](#comparison-between-dynamic-r-index-and-dynamic-fm-index)
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [Download](#download)
   - [Install SDSL](#install-sdsl)
   - [Build](#build)
 - [Usage](#usage)
-  - [build_bwt](#build_bwt)
-  - [build_r_index](#build_r_index)
-  - [build_fm_index](#build_fm_index)
-  - [print_index](#print_index)
-  - [query](#query)
+  - [Common Tools](#common-tools)
+  - [Dynamic r-index](#dynamic-r-index-usage)
+  - [Dynamic FM-index](#dynamic-fm-index-usage)
 - [API Documentation](#api-documentation)
 - [Dependencies](#dependencies)
 - [License](#license)
@@ -101,7 +99,7 @@ For more details, see [the original implementation](https://framagit.org/mikaels
 | locate_query($P$)       | $O((m + s \cdot occ) \log σ \log n)$     | Find all positions of pattern $P$              |
 | backward_search($P$)    | $O(m \log σ \log n)$                     | Return the SA-interval of $P$                  |
 
-### Which Index Should I Use?
+### Comparison between dynamic r-index and dynamic FM-index
 
 | Feature          | Dynamic r-index                      | Dynamic FM-index                         |
 | ---------------- | ------------------------------------ | ---------------------------------------- |
@@ -181,7 +179,9 @@ make
 
 ## Usage
 
-### build_bwt
+### Common Tools
+
+#### build_bwt
 
 Computes and outputs the BWT of a given file.
 
@@ -215,7 +215,9 @@ Number of BWT Runs:     9
 
 ---
 
-### build_r_index
+### Dynamic r-index Usage
+
+#### build_r_index
 
 Builds the dynamic r-index from a text file or BWT.
 
@@ -239,41 +241,13 @@ Options:
 ./build_r_index -i ab.bwt -o ab.dri -u 1
 ```
 
----
+#### print_index (r-index)
 
-### build_fm_index
-
-Builds the dynamic FM-index from a text file or BWT.
+Displays r-index information and optionally extracts the text/BWT.
 
 ```
 Options:
-  -i, --input_file_path           Input file path (text or BWT)
-  -o, --output_file_path          Output index file path (.dfmi)
-  -c, --null_terminated_string    End-of-text character (default: \0)
-  -u, --is_bwt                    Set to 1 if input is BWT
-  -s, --sampling_interval         SA sampling interval (default: 32)
-  -?, --help                      Show help
-```
-
-**Example:**
-
-```bash
-# Default sampling interval (32)
-./build_fm_index -i ../examples/ab.txt -o ab.dfmi
-
-# Custom sampling interval
-./build_fm_index -i ../examples/ab.txt -o ab.dfmi -s 8
-```
-
----
-
-### print_index
-
-Displays index information and optionally extracts the text/BWT.
-
-```
-Options:
-  -i, --input_file_path     Input index file path (.dri or .dfmi)
+  -i, --input_file_path     Input index file path (.dri)
   -o, --output_text_path    Output text file path (optional)
   -b, --output_bwt_path     Output BWT file path (optional)
   -?, --help                Show help
@@ -282,7 +256,7 @@ Options:
 **Example:**
 
 ```bash
-./print_index -i ab.dri -o extracted.txt -b extracted.bwt
+./print_index -i ab.dri
 ```
 
 ```
@@ -295,15 +269,13 @@ Statistics(DynamicRIndex):
   The number of runs:       9
 ```
 
----
+#### query (r-index)
 
-### query
-
-Executes queries from a TSV command file.
+Executes queries on a dynamic r-index from a TSV command file.
 
 ```
 Options:
-  -i, --input_index_path    Input index file path (.dri or .dfmi)
+  -i, --input_index_path    Input index file path (.dri)
   -q, --command_file        Command file path (TSV format)
   -w, --log_file            Output log file path
   -o, --output_index_path   Save updated index (optional)
@@ -336,19 +308,83 @@ PRINT
 **Example:**
 
 ```bash
-./build_r_index -i ../examples/ab.txt -o ab.dri -c "$"
-./query -i ab.dri -q ../examples/command.tsv -w result.log -o updated.dri
+./build_r_index -i ../examples/ab.txt -o ab.dri
+./query -i ab.dri -q ../examples/command.tsv -w result.log
 cat result.log
 ```
 
 **Sample output** (`result.log`):
 
 ```
-0	PRINT	Text:	aaaaABAaaaaABAaaaABAaaaab$	BWT:	baaaBBBAAAaaaaaaaaAA$Aaaaa
+0	PRINT	Text:	aaaaABAaaaaABAaaaABAaaaab	BWT:	baaaBBBAAAaaaaaaaaAA$Aaaaa
 1	COUNT	The number of occurrences of the given pattern:	3	Time (microseconds):	9
 2	LOCATE	The occurrences of the given pattern:	[11, 4, 17]	Time (microseconds):	8
 ...
 ```
+
+---
+
+### Dynamic FM-index Usage
+
+#### build_fm_index
+
+Builds the dynamic FM-index from a text file or BWT.
+
+```
+Options:
+  -i, --input_file_path           Input file path (text or BWT)
+  -o, --output_file_path          Output index file path (.dfmi)
+  -c, --null_terminated_string    End-of-text character (default: \0)
+  -u, --is_bwt                    Set to 1 if input is BWT
+  -s, --sampling_interval         SA sampling interval (default: 32)
+  -?, --help                      Show help
+```
+
+**Example:**
+
+```bash
+# Default sampling interval (32)
+./build_fm_index -i ../examples/ab.txt -o ab.dfmi
+
+# Custom sampling interval
+./build_fm_index -i ../examples/ab.txt -o ab.dfmi -s 8
+```
+
+#### print_index (FM-index)
+
+Displays FM-index information and optionally extracts the text/BWT.
+
+```bash
+./print_index -i ab.dfmi
+```
+
+```
+Statistics(DynamicFMIndex):
+  Text length:                    26
+  Text:                           aaaaABAaaaaABAaaaABAaaaab$
+  Alphabet size:                  5
+  Alphabet:                       [$, A, B, a, b]
+  BWT:                            baaaBBBAAAaaaaaaaaAA$Aaaaa
+  Sampling interval:              8
+  The number of sampled values:   5
+```
+
+#### query (FM-index)
+
+Executes queries on a dynamic FM-index from a TSV command file.
+
+The command format is identical to the r-index version.
+
+**Example:**
+
+```bash
+./build_fm_index -i ../examples/ab.txt -o ab.dfmi -s 8
+./query -i ab.dfmi -q ../examples/command.tsv -w result.log
+cat result.log
+```
+
+> [!NOTE]
+> The `query` command automatically detects whether the input is a dynamic r-index (.dri) or dynamic FM-index (.dfmi).
 
 ---
 
