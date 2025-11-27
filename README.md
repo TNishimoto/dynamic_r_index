@@ -354,7 +354,7 @@ cat result.log
 
 ## API Documentation
 
-[Doxygen Documentation](https://TNishimoto.github.io/dynamic_r_index/html/index.html) *(in preparation)*
+[Doxygen Documentation](https://TNishimoto.github.io/dynamic_r_index/index.html) *(in preparation)*
 
 ---
 
@@ -384,8 +384,6 @@ If you use the library, please cite the following paper:
       url={https://arxiv.org/abs/2504.19482}, 
 }
 ```
-
-
 
 ---
 
