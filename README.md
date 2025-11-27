@@ -370,12 +370,27 @@ This project uses the following libraries:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.  
+If you use the library, please cite the following paper:
+
+```
+@misc{nishimoto2025dynamicrindexupdatableselfindex,
+      title={Dynamic r-index: An Updatable Self-Index in LCP-bounded Time}, 
+      author={Takaaki Nishimoto and Yasuo Tabei},
+      year={2025},
+      eprint={2504.19482},
+      archivePrefix={arXiv},
+      primaryClass={cs.DS},
+      url={https://arxiv.org/abs/2504.19482}, 
+}
+```
+
+
 
 ---
 
 ## References
 
-- T. Nishimoto, "Dynamic r-index," [arXiv:2504.19482](https://arxiv.org/abs/2504.19482), 2025.
+- T. Nishimoto, "Dynamic r-index: An Updatable Self-Index in LCP-bounded Time," [arXiv:2504.19482](https://arxiv.org/abs/2504.19482), 2025.
 - T. Gagie, G. Navarro, N. Prezza, "Fully Functional Suffix Trees and Optimal Text Searching in BWT-Runs Bounded Space," [ACM DL](https://dl.acm.org/doi/10.1145/3375890), 2020.
 - M. Salson et al., "Dynamic extended suffix arrays," [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S1570866709000343), 2010.
