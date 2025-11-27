@@ -31,23 +31,33 @@ A C++ implementation of the **dynamic r-index** and **dynamic FM-index** — spa
 ## Quick Start
 
 ```bash
-# 1. Clone and setup
+# 1. Install SDSL library (if not already installed)
+git clone https://github.com/simongog/sdsl-lite.git
+cd sdsl-lite
+./install.sh ~/local
+cd ..
+
+# 2. Clone and setup
 git clone https://github.com/TNishimoto/dynamic_r_index.git
 cd dynamic_r_index
 git submodule update --init --recursive
 
-# 2. Build (adjust SDSL paths as needed)
+# 3. Build
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release \
          -DSDSL_LIBRARY_DIR=~/local/lib \
          -DSDSL_INCLUDE_DIR=~/local/include
 make
 
-# 3. Try it out
+# 4. Try it out
 ./build_r_index.out -i ../examples/ab.txt -o ab.dri
 ./query.out -i ab.dri -q ../examples/command.tsv -w result.log
 cat result.log
 ```
+
+> [!NOTE]
+> If SDSL is already installed elsewhere, skip step 1 and adjust the paths in step 3.
+> See [Installation](#installation) for alternative SDSL locations (e.g., Homebrew).
 
 ---
 
