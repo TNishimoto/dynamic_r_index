@@ -297,11 +297,11 @@ Options:
 
 ```
 PRINT
-COUNT	ABA
-LOCATE	ABA
-INSERT	3	HELLO
+COUNT ABA
+LOCATE ABA
+INSERT 3 bbbb
 PRINT
-DELETE	3	5
+DELETE 3 5
 PRINT
 ```
 
@@ -316,9 +316,11 @@ cat result.log
 **Sample output** (`result.log`):
 
 ```
-0	PRINT	Text:	aaaaABAaaaaABAaaaABAaaaab	BWT:	baaaBBBAAAaaaaaaaaAA$Aaaaa
-1	COUNT	The number of occurrences of the given pattern:	3	Time (microseconds):	9
-2	LOCATE	The occurrences of the given pattern:	[11, 4, 17]	Time (microseconds):	8
+0	PRINT	Text:	aaaaABAaaaaABAaaaABAaaaab$	BWT:	baaaBBBAAAaaaaaaaaAA$Aaaaa
+1	COUNT	The number of occurrences of the given pattern: 	3	Time (microseconds): 	51
+2	LOCATE	The occurrences of the given pattern: 	[11, 4, 17]	Time (microseconds): 	57
+3	INSERT	Reorder count: 	3	Time (microseconds): 	25
+4	PRINT	Text:	aaabbbbaABAaaaaABAaaaABAaaaab$	BWT:	baaaBBBAAAabaaaaAAAa$aaaaabbba
 ...
 ```
 
