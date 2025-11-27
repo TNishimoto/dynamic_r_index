@@ -10,17 +10,17 @@ namespace stool
     namespace dynamic_r_index
     {
 #ifdef TIME_DEBUG
-        uint64_t __single_reorder_BWT_count = 0;
-        uint64_t __single_reorder_BWT_time = 0;
+        inline uint64_t __single_reorder_BWT_count = 0;
+        inline uint64_t __single_reorder_BWT_time = 0;
 
-        void __reset_time()
+        inline void __reset_time()
         {
             __single_reorder_BWT_count = 0;
             __single_reorder_BWT_time = 0;
             __reset_time_DynamicRLBWT();
         }
 
-        void __print_time()
+        inline void __print_time()
         {
             std::cout << "single_reorder_BWT, count: " << __single_reorder_BWT_count << ", time: " << __single_reorder_BWT_time << " ns, " << (__single_reorder_BWT_time / __single_reorder_BWT_count) << " ns/per" << std::endl;
 
@@ -172,7 +172,7 @@ namespace stool
                         if (next_x_PI.value_at_p_plus != debug1)
                         {
                             std::cout << "Error!, w = " << w <<  ", collect_value = " << next_x_PI.value_at_p_plus << ", false_value = " << debug1 << std::endl;
-                            throw -1;
+                            throw std::logic_error("Debug assertion failed: next_x_PI.value_at_p_plus != debug1");
                         }
                         #endif
                         */
@@ -188,7 +188,7 @@ namespace stool
                         if (next_x_PI.value_at_p_minus != debug2)
                         {
                             std::cout << "Error2! X = " << debug2  << std::endl;
-                            throw -1;
+                            throw std::logic_error("Debug assertion failed: next_x_PI.value_at_p_minus != debug2");
                         }
                         #endif
                         
@@ -280,7 +280,7 @@ namespace stool
                 if (u_on_sa != disa.isa(u, dbwt))
                 {
                     std::cout << "u: " << u << ", " << "len = " << len << ", " << dbwt.size() << std::endl;
-                    throw -1;
+                    throw std::logic_error("ISA mismatch in phase_AB_for_deletion");
                 }
 
                 RunPosition u_on_rlbwt = dbwt.to_run_position(u_on_sa);

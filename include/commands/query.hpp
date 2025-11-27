@@ -68,7 +68,7 @@ namespace stool
             }
             std::vector<uint64_t> get_vector(stool::QueryType type1, VecType type2) const
             {
-                const std::vector<uint64_t> *vec;
+                const std::vector<uint64_t> *vec = nullptr;
 
                 if (type2 == VecType::BACKWARD_SEARCH_TIME)
                 {
@@ -93,6 +93,10 @@ namespace stool
                 else if (type2 == VecType::REORDER_COUNT)
                 {
                     vec = &this->reorder_count_vector;
+                }
+                else
+                {
+                    throw std::logic_error("Unknown VecType in get_vector");
                 }
 
                 std::vector<uint64_t> r;
