@@ -211,7 +211,7 @@ namespace stool
 
                     query_results.push_back(q.type, q.pattern.size(), micro_time, 0, 0, 0, count_result);
 
-                    log_os << query_number << "\t" << "COUNT" << "\t" << "The number of occurrencces of the given pattern: " << "\t" << count_result<< "\t" << "Time (microseconds): " << "\t" << micro_time  << std::endl;
+                    log_os << query_number << "\t" << "COUNT" << "\t" << "The number of occurrences of the given pattern: " << "\t" << count_result<< "\t" << "Time (microseconds): " << "\t" << micro_time  << std::endl;
                 }
                 else if (q.type == stool::QueryType::LOCATE)
                 {
@@ -269,7 +269,7 @@ namespace stool
                     query_results.push_back(q.type, q.pattern.size(), total_time, 0, micro_time1, micro_time2, sa_values.size());
 
                     log_os << query_number << ", " << "LOCATE, " << "The execution time of backward search (microseconds), " << micro_time1 << ", The execution time of computing sa-values (microseconds), " << micro_time2
-                           << ", Total time (microseconds)," << total_time << ", The number of occurrencces, " << sa_values.size() << ", Checksum, " << locate_sum << std::endl;
+                           << ", Total time (microseconds)," << total_time << ", The number of occurrences, " << sa_values.size() << ", Checksum, " << locate_sum << std::endl;
 
                 }
                 else if (q.type == stool::QueryType::LOCATE_SUM)
@@ -299,7 +299,7 @@ namespace stool
                     query_results.push_back(q.type, q.pattern.size(), total_time, 0, micro_time1, micro_time2, sa_values.size());
 
                     log_os << query_number << "\t" << "LOCATE_SUM" << "\t" << "The sum of occurrence positions of the given pattern: " << "\t" << locate_sum 
-                    << "\t" << "The number of occurences: " << "\t" << sa_values.size() << "\t" << "The execution time of backward search (microseconds):" << "\t" << micro_time1 
+                    << "\t" << "The number of occurrences: " << "\t" << sa_values.size() << "\t" << "The execution time of backward search (microseconds):" << "\t" << micro_time1 
                     << "\t" << "The execution time of computing sa-values (microseconds): " << "\t" << micro_time2  << "\t" << "Time (microseconds): " << "\t" << total_time  << std::endl;
                     
 
