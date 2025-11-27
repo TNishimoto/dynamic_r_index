@@ -23,6 +23,7 @@ A C++ implementation of the **dynamic r-index** and **dynamic FM-index** — spa
   - [print_index.out](#print_indexout)
   - [query.out](#queryout)
 - [API Documentation](#api-documentation)
+- [Dependencies](#dependencies)
 - [License](#license)
 - [References](#references)
 
@@ -65,19 +66,19 @@ cat result.log
 
 ### Dynamic r-index
 
-This repository provides an implementation of [the dynamic r-index](https://arxiv.org/abs/2504.19482) supporting count and locate queries on an input string $T[0..n-1]$ represented as a BWT $L[0..n-1]$. 
-The dynamic r-index is a dynamic version of [the r-index](https://dl.acm.org/doi/10.1145/3375890) and 
-can be stored in $O(r \log n)$ bytes for the number $r$ of runs in the BWT. 
-Please refer to [the r-index repository](https://github.com/nicolaprezza/r-index) for more detailed information on the r-index. 
+The [dynamic r-index](https://arxiv.org/abs/2504.19482) is a dynamic version of [the r-index](https://dl.acm.org/doi/10.1145/3375890), supporting count and locate queries on an input string $T$ while allowing insertions and deletions.
+It can be stored in $O(r \log n)$ bytes, where $r$ is the number of runs in the BWT.
 
-| Operation               | Time Complexity                          | Description                                                        |
-| ----------------------- | ---------------------------------------- | ------------------------------------------------------------------ |
-| build_from_BWT($L$)     | $O(n \log σ \log n)$                     | Build the dynamic r-index from the BWT $L[0..n-1]$                 |
-| insert_string($i$, $P$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Insert string $P[0..m-1]$ into $T$ at position $i$                 |
-| delete_string($i$, $m$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Delete substring $T[i..i+m-1]$ from $T$                            |
-| count_query($P$)        | $O(m \log σ \log n)$                     | Return the number of occurrences of $P$ in $T$                     |
-| locate_query($P$)       | $O((m + occ) \log σ \log n)$             | Return all occurrence positions of $P$ in $T$                      |
-| backward_search($P$)    | $O(m \log σ \log n)$                     | Return the SA-interval of $P$ in $T$                               |
+For more details on the r-index, see [the r-index repository](https://github.com/nicolaprezza/r-index).
+
+| Operation               | Time Complexity                          | Description                                    |
+| ----------------------- | ---------------------------------------- | ---------------------------------------------- |
+| build_from_BWT($L$)     | $O(n \log σ \log n)$                     | Build index from BWT $L[0..n-1]$               |
+| insert_string($i$, $P$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Insert string $P[0..m-1]$ at position $i$      |
+| delete_string($i$, $m$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Delete $m$ characters starting at position $i$|
+| count_query($P$)        | $O(m \log σ \log n)$                     | Count occurrences of pattern $P$               |
+| locate_query($P$)       | $O((m + occ) \log σ \log n)$             | Find all positions of pattern $P$              |
+| backward_search($P$)    | $O(m \log σ \log n)$                     | Return the SA-interval of $P$                  |
 
 > [!NOTE]  
 > - $σ$: alphabet size of $T$
@@ -86,35 +87,35 @@ Please refer to [the r-index repository](https://github.com/nicolaprezza/r-index
 
 ### Dynamic FM-index
 
-This repository also provides an implementation of [the dynamic FM-index](https://www.sciencedirect.com/science/article/pii/S1570866709000343) proposed by Salson et al. 
-The dynamic FM-index is a dynamic version of [the FM-index](https://en.wikipedia.org/wiki/FM-index) and can be stored in $O(n \log σ + (n/s) \log n)$ bytes 
-for a parameter $1 \leq s \leq n$. 
-Please refer to [the original dynamic FM-index repository](https://framagit.org/mikaels/dfmi) for more detailed information on the dynamic FM-index. 
+The [dynamic FM-index](https://www.sciencedirect.com/science/article/pii/S1570866709000343), proposed by Salson et al., is a dynamic version of [the FM-index](https://en.wikipedia.org/wiki/FM-index).
+It can be stored in $O(n \log σ + (n/s) \log n)$ bytes for a tunable parameter $1 \leq s \leq n$.
 
-| Operation               | Time Complexity                          | Description                                                        |
-| ----------------------- | ---------------------------------------- | ------------------------------------------------------------------ |
-| build_from_BWT($L$)     | $O(n \log σ \log n)$                     | Build the dynamic FM-index from the BWT $L[0..n-1]$                |
-| insert_string($i$, $P$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Insert string $P[0..m-1]$ into $T$ at position $i$                 |
-| delete_string($i$, $m$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Delete substring $T[i..i+m-1]$ from $T$                            |
-| count_query($P$)        | $O(m \log σ \log n)$                     | Return the number of occurrences of $P$ in $T$                     |
-| locate_query($P$)       | $O((m + s \cdot occ) \log σ \log n)$     | Return all occurrence positions of $P$ in $T$                      |
-| backward_search($P$)    | $O(m \log σ \log n)$                     | Return the SA-interval of $P$ in $T$                               |
+For more details, see [the original implementation](https://framagit.org/mikaels/dfmi).
+
+| Operation               | Time Complexity                          | Description                                    |
+| ----------------------- | ---------------------------------------- | ---------------------------------------------- |
+| build_from_BWT($L$)     | $O(n \log σ \log n)$                     | Build index from BWT $L[0..n-1]$               |
+| insert_string($i$, $P$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Insert string $P[0..m-1]$ at position $i$      |
+| delete_string($i$, $m$) | avg. $O((m + L_{avg}) \log σ \log n)$    | Delete $m$ characters starting at position $i$|
+| count_query($P$)        | $O(m \log σ \log n)$                     | Count occurrences of pattern $P$               |
+| locate_query($P$)       | $O((m + s \cdot occ) \log σ \log n)$     | Find all positions of pattern $P$              |
+| backward_search($P$)    | $O(m \log σ \log n)$                     | Return the SA-interval of $P$                  |
 
 ### Which Index Should I Use?
 
-| Feature                | Dynamic r-index         | Dynamic FM-index          |
-| ---------------------- | ----------------------- | ------------------------- |
-| **Space**              | $O(r \log n)$           | $O(n \log σ + (n/s) \log n)$ |
-| **Locate query**       | $O((m + occ) \log σ \log n)$ | $O((m + s \cdot occ) \log σ \log n)$ |
-| **Best for**           | Highly repetitive texts | General texts             |
-| **Trade-off**          | Smaller for repetitive data | Adjustable via parameter $s$ |
+| Feature          | Dynamic r-index                      | Dynamic FM-index                         |
+| ---------------- | ------------------------------------ | ---------------------------------------- |
+| **Space**        | $O(r \log n)$                        | $O(n \log σ + (n/s) \log n)$             |
+| **Locate query** | $O((m + occ) \log σ \log n)$         | $O((m + s \cdot occ) \log σ \log n)$     |
+| **Best for**     | Highly repetitive texts              | General texts                            |
+| **Trade-off**    | Smaller for repetitive data          | Adjustable via parameter $s$             |
 
 **Recommendation:**
-- Use **r-index** when your text is highly repetitive (e.g., genome collections, versioned documents)
-- Use **FM-index** for general-purpose text indexing with tunable space/time trade-off
+- Use **r-index** for highly repetitive texts (e.g., genome collections, versioned documents)
+- Use **FM-index** for general-purpose indexing with tunable space/time trade-off
 
 > [!IMPORTANT]
-> These time complexities are slightly larger than described in the original paper due to the use of [B-trees](https://github.com/TNishimoto/b_tree_plus_alpha) for performance reasons.
+> These time complexities are slightly larger than described in the original papers due to the use of [B-trees](https://github.com/TNishimoto/b_tree_plus_alpha) for performance.
 
 ---
 
@@ -132,8 +133,8 @@ Please refer to [the original dynamic FM-index repository](https://framagit.org/
 ### Download
 
 ```bash
-git clone https://github.com/TNishimoto/dynamic_r_index.git  
-cd dynamic_r_index  
+git clone https://github.com/TNishimoto/dynamic_r_index.git
+cd dynamic_r_index
 git submodule update --init --recursive
 ```
 
@@ -153,12 +154,12 @@ This installs the library to `~/local/lib` and headers to `~/local/include`.
 ### Build
 
 ```bash
-mkdir build  
-cd build  
+mkdir build
+cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release \
          -DSDSL_LIBRARY_DIR=~/local/lib \
          -DSDSL_INCLUDE_DIR=~/local/include
-make  
+make
 ```
 
 > [!TIP]
@@ -311,14 +312,14 @@ Options:
 
 **Supported Commands:**
 
-| Command      | Param 1 | Param 2 | Description                              |
-| ------------ | ------- | ------- | ---------------------------------------- |
-| `COUNT`      | P       | -       | Count occurrences of pattern P           |
-| `LOCATE`     | P       | -       | Find all positions of pattern P          |
-| `LOCATE_SUM` | P       | -       | Sum of all occurrence positions          |
-| `INSERT`     | i       | P       | Insert string P at position i            |
+| Command      | Param 1 | Param 2 | Description                                |
+| ------------ | ------- | ------- | ------------------------------------------ |
+| `COUNT`      | P       | -       | Count occurrences of pattern P             |
+| `LOCATE`     | P       | -       | Find all positions of pattern P            |
+| `LOCATE_SUM` | P       | -       | Sum of all occurrence positions            |
+| `INSERT`     | i       | P       | Insert string P at position i              |
 | `DELETE`     | i       | m       | Delete m characters starting at position i |
-| `PRINT`      | -       | -       | Print current text and BWT               |
+| `PRINT`      | -       | -       | Print current text and BWT                 |
 
 **Example command file** (`command.tsv`):
 
@@ -357,21 +358,24 @@ cat result.log
 
 ---
 
+## Dependencies
+
+This project uses the following libraries:
+
+- [SDSL](https://github.com/simongog/sdsl-lite) — Succinct Data Structure Library
+- [STool](https://github.com/TNishimoto/stool) — String utilities
+- [B-tree_plus_alpha](https://github.com/TNishimoto/b_tree_plus_alpha) — B-tree implementation
+
+---
+
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
 ## References
 
-- **Dynamic r-index**: [arXiv:2504.19482](https://arxiv.org/abs/2504.19482)
-- **r-index**: [ACM DL](https://dl.acm.org/doi/10.1145/3375890)
-- **Dynamic FM-index**: [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S1570866709000343)
-- **FM-index**: [Wikipedia](https://en.wikipedia.org/wiki/FM-index)
-
-### Dependencies
-
-- [STool](https://github.com/TNishimoto/stool)
-- [B-tree_plus_alpha](https://github.com/TNishimoto/b_tree_plus_alpha)
-- [SDSL](https://github.com/simongog/sdsl-lite)
+- T. Nishimoto, "Dynamic r-index," [arXiv:2504.19482](https://arxiv.org/abs/2504.19482), 2025.
+- T. Gagie, G. Navarro, N. Prezza, "Fully Functional Suffix Trees and Optimal Text Searching in BWT-Runs Bounded Space," [ACM DL](https://dl.acm.org/doi/10.1145/3375890), 2020.
+- M. Salson et al., "Dynamic extended suffix arrays," [ScienceDirect](https://www.sciencedirect.com/science/article/pii/S1570866709000343), 2010.
