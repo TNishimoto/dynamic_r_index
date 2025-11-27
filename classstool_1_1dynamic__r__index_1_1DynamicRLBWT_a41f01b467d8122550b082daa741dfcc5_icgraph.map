@@ -1,0 +1,14 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::access" name="stool::dynamic_r_index::DynamicRLBWT::access">
+<area shape="rect" id="Node000001" title="Access a character at a given BWT position." alt="" coords="781,85,967,125"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a574d4751035f9a52baa24e4b8939c530" title="Reconstruct the original text from the RLBWT." alt="" coords="539,37,733,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="767,87,733,80,734,74,768,81"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ac2e28d9f40ed12a90a0803bfd1a012de" title="Compute LF mapping during deletion operation." alt="" coords="545,126,727,181"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="768,129,727,138,726,132,767,124"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a9271718d9f5a2ca397b4c9bb720af8f2" title="Get the original text as a byte vector." alt="" coords="284,5,479,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="525,46,479,40,479,35,525,41"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a440648ef721ad9116f6ee0f255c8240b" title="Get the original text as a string." alt="" coords="272,69,491,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="525,74,491,78,490,73,525,69"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aeef94ef55bc88527590239505c2f2080" title="Get the original text as a string." alt="" coords="5,69,224,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="258,92,224,92,224,87,258,87"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="676,115,661,108,636,105,615,107,601,111,595,118,595,126,590,126,590,116,598,107,614,101,636,99,663,102,678,110"/>
+</map>

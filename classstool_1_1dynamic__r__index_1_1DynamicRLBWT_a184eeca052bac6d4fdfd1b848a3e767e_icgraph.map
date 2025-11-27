@@ -1,0 +1,25 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::get_f_index_by_c_id" name="stool::dynamic_r_index::DynamicRLBWT::get_f_index_by_c_id">
+<area shape="rect" id="Node000001" title="Get the F&#45;index by character ID." alt="" coords="1480,170,1655,225"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a7f0b6d5b5f3bfba393e21c7854edd07e" title="Get the F&#45;index for a given character." alt="" coords="1239,134,1414,189"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1466,185,1414,177,1415,172,1466,180"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a3d837476b4e99e17c6dd2399e0f38729" title="Compute inverse LF mapping for a position in F&#45;sorted order." alt="" coords="1221,213,1432,253"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1467,215,1433,220,1432,215,1466,210"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a199ced817436a09f1e24b9a00f3d633f" title="Insert a new run at a given index." alt="" coords="979,66,1157,121"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1225,137,1157,119,1158,114,1227,132"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#aa9d78240536e67a1d28cd298bf8ff774" title="Find the position of the nth occurrence of character c." alt="" coords="978,145,1158,185"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="1225,166,1158,167,1158,161,1225,160"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#aa2f6a3f9a07907c7076602f482ccfb1c" title="Clear all data and initialize with a single end marker run." alt="" coords="739,41,912,81"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="965,82,912,75,913,70,966,77"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab2cc65abe31bf51f61cd198e16aa0da4" title="Insert a character at a given position in the BWT." alt="" coords="736,105,915,145"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="966,109,915,116,915,111,965,104"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a4a7798929ad1a5352665e27d6e32d964" title="Set the alphabet and clear the structure." alt="" coords="463,41,688,81"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="725,64,688,64,688,59,725,59"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab7afd36c7fd794c5fc827455bc68bdf5" title="Build an RLBWT containing only the end marker." alt="" coords="236,34,415,89"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="449,64,415,64,415,59,449,59"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1RLBWTBuilder.html#a601eecad426639a15f27348bad173a10" title="Build RLBWT from a text vector." alt="" coords="10,5,183,45"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="222,48,183,42,184,36,223,43"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1RLBWTBuilder.html#aa63832ae4b4bbdb77ffe8805dfeb5dfe" title="Build RLBWT from a text file using online construction." alt="" coords="5,70,188,125"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="223,80,188,86,188,80,222,75"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a2ce5fefe6626c4ad6151dfbacf950850" title="Compute inverse LF mapping for a BWT position." alt="" coords="963,213,1173,253"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="1208,236,1173,236,1173,231,1208,231"/>
+</map>

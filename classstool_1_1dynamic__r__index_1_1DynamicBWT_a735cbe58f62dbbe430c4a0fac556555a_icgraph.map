@@ -1,0 +1,15 @@
+<map id="stool::dynamic_r_index::DynamicBWT::clear" name="stool::dynamic_r_index::DynamicBWT::clear">
+<area shape="rect" id="Node000001" title="Clear all the elements in this instance." alt="" coords="725,37,899,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a2db9fde74e781257486bb7920e10950b" title="Clear the contents of the DynamicFMIndex." alt="" coords="493,5,677,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="711,46,677,41,678,36,712,40"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ab37f87aac71900662ad82c811f2da583" title="Initialize this instance with an empty BWT and a given alphabet." alt="" coords="495,69,676,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="712,74,676,79,676,74,711,69"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afeb096bed2f43d0b8e3b941db73aeffb" title="Build this instance from a given BWT _bwt and alphabet _alphabet." alt="" coords="255,37,428,77"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="481,78,428,71,428,66,481,73"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#acf8881d6fe27568353e8cf8fc09d4543" title="Set the degree for the DynamicFMIndex." alt="" coords="237,101,445,141"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="482,106,446,110,445,105,481,100"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aff9dfacd8c137e80102278614ad85170" title="Build a DynamicFMIndex from BWT, alphabet, and ISA." alt="" coords="5,5,189,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="241,47,189,40,190,35,241,42"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a37714f0072de7072eb1acff7d7a21bbc" title="Build a DynamicFMIndex from BWT and alphabet." alt="" coords="5,69,189,109"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="241,73,190,80,189,75,241,68"/>
+</map>

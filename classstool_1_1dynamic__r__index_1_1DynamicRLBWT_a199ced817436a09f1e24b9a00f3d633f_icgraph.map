@@ -1,0 +1,15 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::insert_new_run" name="stool::dynamic_r_index::DynamicRLBWT::insert_new_run">
+<area shape="rect" id="Node000001" title="Insert a new run at a given index." alt="" coords="963,66,1141,121"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#aa2f6a3f9a07907c7076602f482ccfb1c" title="Clear all data and initialize with a single end marker run." alt="" coords="739,41,912,81"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="948,81,912,76,913,71,949,76"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab2cc65abe31bf51f61cd198e16aa0da4" title="Insert a character at a given position in the BWT." alt="" coords="736,105,915,145"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="949,111,915,115,915,110,949,105"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a4a7798929ad1a5352665e27d6e32d964" title="Set the alphabet and clear the structure." alt="" coords="463,41,688,81"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="725,64,688,64,688,59,725,59"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab7afd36c7fd794c5fc827455bc68bdf5" title="Build an RLBWT containing only the end marker." alt="" coords="236,34,415,89"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="449,64,415,64,415,59,449,59"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1RLBWTBuilder.html#a601eecad426639a15f27348bad173a10" title="Build RLBWT from a text vector." alt="" coords="10,5,183,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="222,48,183,42,184,36,223,43"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1RLBWTBuilder.html#aa63832ae4b4bbdb77ffe8805dfeb5dfe" title="Build RLBWT from a text file using online construction." alt="" coords="5,70,188,125"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="223,80,188,86,188,80,222,75"/>
+</map>

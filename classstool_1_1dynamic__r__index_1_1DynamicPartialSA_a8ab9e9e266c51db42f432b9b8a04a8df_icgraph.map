@@ -1,0 +1,45 @@
+<map id="stool::dynamic_r_index::DynamicPartialSA::get_sampled_sa_value" name="stool::dynamic_r_index::DynamicPartialSA::get_sampled_sa_value">
+<area shape="rect" id="Node000001" title="Get the SA value for a given sampled SA index." alt="" coords="805,504,981,559"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a0016e04e3f4f32630bd6381dfc6aa94d" title="Get the sampled SA value at the first position of a run." alt="" coords="544,7,744,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="889,490,882,406,862,296,845,238,822,181,793,127,755,79,737,64,741,59,759,75,797,124,827,178,850,236,867,295,887,405,894,490"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a3c3d38e6a5cbedf040d8e7bdd1e07399" title="Compute the inverse phi function." alt="" coords="549,89,739,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="887,490,878,416,856,322,839,273,817,226,790,181,756,143,738,130,741,126,759,139,794,178,822,223,844,271,862,321,883,415,892,490"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a139753069d511f06e8f7f3c6af607e0e" title="Compute LF_inverse_phi for a position where BWT[i] is replaced." alt="" coords="537,153,751,193"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="883,491,869,430,845,356,808,279,784,244,756,213,728,195,731,190,759,209,788,241,813,277,850,354,875,429,888,490"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a93bcd4912e27d2a65203db67dea433b2" title="Compute LF_inverse_phi during deletion operation." alt="" coords="287,236,474,291"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="883,491,870,435,846,370,829,337,809,307,784,280,756,258,723,241,687,229,649,223,612,221,537,226,470,239,469,233,536,220,611,215,650,218,688,224,725,236,759,253,788,276,813,303,834,335,851,368,875,434,888,490"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a811b7044acf38427cba680845fcafa5c" title="Helper function for LF_inverse_phi during deletion." alt="" coords="551,268,737,323"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="872,493,852,455,826,413,794,372,756,336,736,324,739,319,759,332,798,368,831,410,857,453,877,490"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a7c76354e5fe45287e78c5abfc4ce26f7" title="Compute LF_inverse_phi during insertion operation (legacy method)" alt="" coords="551,347,737,401"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="856,496,810,454,756,415,734,404,737,399,759,410,814,450,859,492"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a71efd4f58fda5ec77fa4c18e58c65c1a" title="Compute LF_inverse_phi during insertion operation (improved version)" alt="" coords="551,425,737,480"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="792,502,731,483,732,478,794,497"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a667590fa4306828ba07f6a85b984002d" title="Compute LF_inverse_phi during move operation." alt="" coords="551,504,737,559"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="791,534,737,534,737,529,791,529"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a94dd5780bf16624b4991274aad44d0a9" title="Compute LF_phi when BWT[i] is replaced." alt="" coords="557,583,731,623"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="793,563,715,586,713,581,791,558"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#accab1be2737c4ff688a3be95de92de2e" title="Compute LF_phi during deletion operation." alt="" coords="289,685,472,740"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="856,570,812,606,758,638,717,650,644,666,473,699,472,694,643,660,716,645,756,633,809,602,853,566"/>
+<area shape="rect" id="Node000017" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a72f89598707c937ca768b2103fd04193" title="Helper function for LF_phi during deletion." alt="" coords="553,699,735,753"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="867,571,820,627,791,656,759,682,725,701,722,696,756,677,787,652,816,624,863,568"/>
+<area shape="rect" id="Node000018" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#aaae584f405756966d4e90a26bcfc2445" title="Compute LF_phi during insertion operation (legacy method)" alt="" coords="553,777,735,832"/>
+<area shape="poly" id="edge19_Node000001_Node000018" title=" " alt="" coords="881,573,863,618,837,670,802,723,759,768,737,782,734,778,756,764,798,719,832,667,858,616,876,571"/>
+<area shape="rect" id="Node000019" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a3acbfa550f46264ef1130675844c1c0c" title="Compute LF_phi during insertion operation." alt="" coords="553,856,735,911"/>
+<area shape="poly" id="edge20_Node000001_Node000019" title=" " alt="" coords="888,573,874,633,849,706,812,781,788,816,759,847,737,862,734,858,756,843,783,813,807,778,844,704,869,632,883,572"/>
+<area shape="rect" id="Node000020" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#acb0e7b72bb602dc451126ad1f8e75395" title="Compute LF_phi during move operation." alt="" coords="531,935,757,975"/>
+<area shape="poly" id="edge21_Node000001_Node000020" title=" " alt="" coords="893,573,883,648,862,742,845,792,822,840,794,886,759,925,743,937,740,933,756,921,790,882,818,838,840,790,857,741,878,647,887,572"/>
+<area shape="rect" id="Node000021" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a61cb842a42f26ad62e85c3cef48f2177" title="Compute the phi function." alt="" coords="557,999,731,1039"/>
+<area shape="poly" id="edge22_Node000001_Node000021" title=" " alt="" coords="895,573,889,659,882,713,870,771,853,830,830,888,799,942,759,989,733,1007,730,1003,756,985,794,939,825,885,848,828,865,769,877,712,884,658,890,572"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aa5ade796a164432c601fc81060246014" title="Perform backward search to find the SA&#45;interval of a pattern." alt="" coords="279,5,483,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="530,36,483,36,483,31,530,31"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ad19f16c2343189610ec0ff256704c28d" title="Compute SA values from a backward search result." alt="" coords="281,84,480,139"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="535,112,480,113,480,108,535,107"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a350d09ea04989a01ebb6ace253ba14df" title="Find all occurrence positions of a pattern." alt="" coords="5,91,231,131"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="267,114,231,114,231,109,267,109"/>
+<area shape="poly" id="edge9_Node000009_Node000008" title=" " alt="" coords="537,285,474,277,474,272,537,280"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a32973f85d14710144c1ca52839246d35" title="Compute LF_phi without character replacement." alt="" coords="294,545,467,585"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="544,591,467,580,468,575,544,586"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a179df79bdbe999f8e3a87e97860e81a2" title="Compute LF_phi with character replacement." alt="" coords="294,609,467,649"/>
+<area shape="poly" id="edge15_Node000013_Node000015" title=" " alt="" coords="544,616,468,623,467,618,544,610"/>
+<area shape="poly" id="edge18_Node000017_Node000016" title=" " alt="" coords="539,723,472,720,472,715,539,718"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="stool::dynamic_r_index::DynamicBWT::select" name="stool::dynamic_r_index::DynamicBWT::select">
+<area shape="rect" id="Node000001" title="Returns the position p of the (i+1)&#45;th 1 in L if such a position exists, otherwise returns &#45;1." alt="" coords="552,85,725,125"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a22794b7fab5a967ff1f33ceca4f4e98e" title="Perform a backward search on the DynamicFMIndex." alt="" coords="289,77,504,132"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="538,107,504,107,504,102,538,102"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aa00a8e223c5d714445def28e03f6f710" title="Perform backward search to find the SA&#45;interval of a pattern." alt="" coords="16,5,231,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="279,76,227,63,228,57,280,71"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#add2f5abd8e348bb5b4e26b958466cece" title="Count the number of occurrences of a pattern." alt="" coords="7,85,239,125"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="276,107,239,107,239,102,276,102"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a19eff318fe388cce56e2199a1ce8f886" title="Find all occurrence positions of a pattern." alt="" coords="5,149,241,189"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="277,135,210,151,209,146,275,130"/>
+</map>

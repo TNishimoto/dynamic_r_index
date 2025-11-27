@@ -1,0 +1,19 @@
+<map id="include/dynamic_fm_index/fm_index_edit_history.hpp" name="include/dynamic_fm_index/fm_index_edit_history.hpp">
+<area shape="rect" id="Node000001" title="Header file for the FMIndexEditHistory class and related enums." alt="" coords="115,5,278,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="47,108,200,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,62,144,99,140,96,172,58"/>
+<area shape="rect" id="Node000003" href="$tools_8hpp_source.html" title=" " alt="" coords="225,108,315,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,58,253,96,249,99,217,62"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,181,68,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="233,136,82,182,80,177,232,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="93,181,159,207"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="248,136,163,177,161,173,246,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="183,181,263,207"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="265,135,241,171,236,168,260,132"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="288,181,345,207"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="280,132,304,168,299,171,275,135"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="369,181,493,207"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="297,131,394,173,391,178,295,136"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="518,181,587,207"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="316,131,505,178,504,183,315,136"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicISA::sa" name="stool::dynamic_r_index::DynamicISA::sa">
+<area shape="rect" id="Node000001" title="Returns the suffix array value at index i." alt="" coords="227,5,400,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicISA.html#a0cf4d451dcceef95fad3e1bb8efc2ed7" title="Builds the dynamic permutation using the provided suffix array." alt="" coords="5,5,179,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,28,179,28,179,23,213,23"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicSampledSA::update_for_insertion" name="stool::dynamic_r_index::DynamicSampledSA::update_for_insertion">
+<area shape="rect" id="Node000001" title="Insert x and y into SA and ISA as SA[x] = y and ISA[y] = x, respectively." alt="" coords="277,34,493,89"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a7c08be152351c1d17f88d8983356624c" title="Insert a character into the index." alt="" coords="5,5,229,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,48,229,43,230,38,264,42"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a26716f2751204d6b3e17b5d2de6baab9" title="Insert a string at a given position." alt="" coords="23,70,212,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,80,213,87,212,82,263,75"/>
+</map>

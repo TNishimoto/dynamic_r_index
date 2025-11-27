@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicRIndex::delete_string" name="stool::dynamic_r_index::DynamicRIndex::delete_string">
+<area shape="rect" id="Node000001" title="Delete a substring from the text (with edit history)" alt="" coords="5,5,188,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1FMIndexEditHistory.html#a6fe025c143b8d76076640533289223eb" title="Clears all the data stored in the edit history." alt="" coords="236,13,433,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,30,222,30,222,35,188,35"/>
+</map>

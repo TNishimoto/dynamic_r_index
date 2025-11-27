@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::store_to_file" name="stool::dynamic_r_index::DynamicRLBWT::store_to_file">
+<area shape="rect" id="Node000001" title="Save DynamicRLBWT to a binary file." alt="" coords="5,5,180,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1b8aca0df2231aad0787b3f362be0ad1" title="Save the given instance item to a file stream os." alt="" coords="228,13,401,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,30,214,30,214,35,180,35"/>
+</map>

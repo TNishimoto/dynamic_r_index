@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::get_samling_interval" name="stool::dynamic_r_index::DynamicFMIndex::get_samling_interval">
+<area shape="rect" id="Node000001" title="Get the sampling interval for the suffix array." alt="" coords="5,5,179,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#aada13a30013457bf91584e7fb09d7032" title="Returns the length k of the sampling interval." alt="" coords="227,5,419,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,30,213,30,213,35,179,35"/>
+</map>

@@ -1,0 +1,31 @@
+<map id="include/dynamic_fm_index/fm_index_edit_history.hpp" name="include/dynamic_fm_index/fm_index_edit_history.hpp">
+<area shape="rect" id="Node000001" title="Header file for the FMIndexEditHistory class and related enums." alt="" coords="97,5,260,60"/>
+<area shape="rect" id="Node000002" href="$dynamic__bwt_8hpp.html" title="A dynamic data structure for storing and manipulating BWT (Burrows&#45;Wheeler Transform)." alt="" coords="87,108,271,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,74,181,108,176,108,176,74"/>
+<area shape="rect" id="Node000003" href="$dynamic__isa_8hpp_source.html" title=" " alt="" coords="5,401,179,441"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,160,130,197,112,253,101,311,95,401,89,401,96,310,107,252,126,195,149,157"/>
+<area shape="rect" id="Node000008" href="$dynamic__fm__index_8hpp_source.html" title=" " alt="" coords="151,306,305,346"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="158,161,147,181,139,204,136,227,141,250,164,280,194,304,191,308,160,284,136,252,131,228,134,203,142,179,154,158"/>
+<area shape="rect" id="Node000009" href="$dynamic__sampled__sa_8hpp.html" title="A dynamic data structure for accessing SA and ISA." alt="" coords="151,196,339,251"/>
+<area shape="poly" id="edge12_Node000002_Node000009" title=" " alt="" coords="202,158,229,194,224,197,198,161"/>
+<area shape="rect" id="Node000010" href="$primitive__update__operations_8hpp_source.html" title=" " alt="" coords="364,196,551,251"/>
+<area shape="poly" id="edge14_Node000002_Node000010" title=" " alt="" coords="249,150,380,193,378,198,247,155"/>
+<area shape="rect" id="Node000004" href="$all_8hpp_source.html" title=" " alt="" coords="169,489,287,515"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="138,446,209,487,207,491,135,451"/>
+<area shape="rect" id="Node000005" href="$query_8hpp_source.html" title=" " alt="" coords="122,739,334,764"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="225,529,222,639,227,738,221,738,216,639,220,529"/>
+<area shape="rect" id="Node000006" href="$tsv__parser_8hpp_source.html" title=" " alt="" coords="279,563,449,603"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="261,519,333,560,330,565,258,524"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="231,725,234,615,229,515,235,515,240,615,236,725"/>
+<area shape="rect" id="Node000007" href="$line__query_8hpp_source.html" title=" " alt="" coords="277,651,451,691"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="358,616,359,650,354,651,353,616"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="321,700,249,741,247,736,318,695"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="370,637,369,603,374,603,375,637"/>
+<area shape="poly" id="edge11_Node000008_Node000004" title=" " alt="" coords="231,360,231,489,225,489,225,360"/>
+<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="241,265,234,306,229,305,236,264"/>
+<area shape="rect" id="Node000011" href="$r__index__helper__for__update_8hpp_source.html" title=" " alt="" coords="353,299,537,353"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="455,265,451,299,446,298,450,264"/>
+<area shape="rect" id="Node000012" href="$dynamic__r__index_8hpp_source.html" title=" " alt="" coords="302,409,514,434"/>
+<area shape="poly" id="edge16_Node000011_Node000012" title=" " alt="" coords="432,367,415,409,410,407,427,365"/>
+<area shape="poly" id="edge17_Node000012_Node000004" title=" " alt="" coords="370,442,255,492,253,487,368,437"/>
+</map>

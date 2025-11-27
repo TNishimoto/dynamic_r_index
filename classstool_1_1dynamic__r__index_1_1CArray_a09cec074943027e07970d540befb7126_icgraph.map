@@ -1,0 +1,17 @@
+<map id="stool::dynamic_r_index::CArray::get_memory_usage_info" name="stool::dynamic_r_index::CArray::get_memory_usage_info">
+<area shape="rect" id="Node000001" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="819,159,1061,199"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a35da0c3adfcae141dd05c10287491033" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="555,73,763,128"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="854,158,756,131,758,126,855,153"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a1bdc94d9de12634fda9e7c1b80098dee" title="Get memory usage information for all components." alt="" coords="547,152,771,207"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="805,182,771,182,771,177,805,177"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a74e06c8b128c1a710ec716174d7f9416" title="Print the memory usage information of this data structure." alt="" coords="549,231,768,271"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="848,205,738,234,737,229,847,200"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#abc55b35fd80a6c31ec4011ae93b3c7dc" title="Get memory usage information for the index." alt="" coords="281,5,454,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="540,76,453,55,455,50,542,71"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a5f005a6a4898ae16b490a76248f2044c" title="Print the memory usage information of this data structure." alt="" coords="236,85,499,125"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="541,105,499,106,499,100,541,100"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#ab640eb6db4f49f7f080478ed68ab1f4d" title="Print memory usage information for the index." alt="" coords="5,5,188,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="267,35,188,35,188,30,267,30"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#aae602c27f1a5a2b54a3adb95f1a238fa" title="Print memory usage information to stdout." alt="" coords="281,152,454,207"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="533,182,454,182,454,177,533,177"/>
+</map>

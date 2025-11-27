@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicPhi::get_sampled_first_sa_value" name="stool::dynamic_r_index::DynamicPhi::get_sampled_first_sa_value">
+<area shape="rect" id="Node000001" title="Get the sampled SA value at the first position of a run." alt="" coords="257,5,457,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aa5ade796a164432c601fc81060246014" title="Perform backward search to find the SA&#45;interval of a pattern." alt="" coords="5,5,209,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,35,209,35,209,30,244,30"/>
+</map>

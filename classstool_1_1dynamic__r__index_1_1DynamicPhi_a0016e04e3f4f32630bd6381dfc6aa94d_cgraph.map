@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicPhi::get_sampled_first_sa_value" name="stool::dynamic_r_index::DynamicPhi::get_sampled_first_sa_value">
+<area shape="rect" id="Node000001" title="Get the sampled SA value at the first position of a run." alt="" coords="5,5,205,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a8ab9e9e266c51db42f432b9b8a04a8df" title="Get the SA value for a given sampled SA index." alt="" coords="253,5,429,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,30,240,30,240,35,206,35"/>
+</map>

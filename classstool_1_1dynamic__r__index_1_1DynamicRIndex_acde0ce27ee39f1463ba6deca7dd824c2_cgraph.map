@@ -1,0 +1,11 @@
+<map id="stool::dynamic_r_index::DynamicRIndex::store_to_file" name="stool::dynamic_r_index::DynamicRIndex::store_to_file">
+<area shape="rect" id="Node000001" title="Save the dynamic r&#45;index to a binary file." alt="" coords="5,34,180,89"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ac390882d73bb89b746150d31fce7381d" title="Get the text length." alt="" coords="229,5,402,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,45,215,39,216,44,181,50"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a5dee96ec3aad0fa68caf42cc94cadc90" title="Save DynamicRLBWT to a binary file." alt="" coords="228,70,403,125"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,73,215,78,214,84,180,78"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#abccf95bf18f62ad5aa36771058aecbf4" title="The alias for size()" alt="" coords="451,5,651,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="403,23,437,23,437,28,403,28"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1b8aca0df2231aad0787b3f362be0ad1" title="Save the given instance item to a file stream os." alt="" coords="464,77,637,117"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="403,95,450,95,450,100,403,100"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="stool::dynamic_r_index::DynamicSampledSA::isa" name="stool::dynamic_r_index::DynamicSampledSA::isa">
+<area shape="rect" id="Node000001" title="Return ISA[i]." alt="" coords="5,133,196,173"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a16d1235f228a598738253dec99ad6890" title="Compute the LF function for a given position i." alt="" coords="284,101,457,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,139,270,130,271,136,197,145"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a805546bc42a424cb41416d4d2652594b" title="Return the (i+1)&#45;th sampled ISA value." alt="" coords="244,165,497,205"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="197,162,230,166,230,171,196,167"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac35760cbf5f220012a0931f4307e33f6" title="Return L[i]." alt="" coords="545,5,719,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="425,99,563,48,565,53,427,104"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1cf15a66d943d3d77e17473337e3f880" title="Return C[i]." alt="" coords="545,69,719,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="457,108,531,99,532,104,458,113"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac3af26b20ad60d53fcd8d957538a2bd9" title="Counts the number of occurrences of a character c in L[0..i]." alt="" coords="545,133,719,173"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="458,129,532,138,531,144,457,135"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="545,221,719,261"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="458,137,498,151,524,166,547,183,590,212,587,216,544,188,521,170,496,156,457,142"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="584,222,581,212,588,202,606,197,632,195,662,198,679,205,677,210,661,203,632,200,607,202,591,207,586,213,589,220"/>
+</map>

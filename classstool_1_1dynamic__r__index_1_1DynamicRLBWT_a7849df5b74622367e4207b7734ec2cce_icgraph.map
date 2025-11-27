@@ -1,0 +1,13 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::get_position" name="stool::dynamic_r_index::DynamicRLBWT::get_position">
+<area shape="rect" id="Node000001" title="Get the absolute position from a run index and position within run." alt="" coords="527,127,748,167"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a1bebfd4d142818d921ebdef659ed4d4d" title="Check if a replaced character succeeds another character in lexicographic order." alt="" coords="264,84,479,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,133,478,128,479,123,514,128"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a3d837476b4e99e17c6dd2399e0f38729" title="Compute inverse LF mapping for a position in F&#45;sorted order." alt="" coords="266,163,477,203"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="513,167,477,172,477,166,513,161"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a7c76354e5fe45287e78c5abfc4ce26f7" title="Compute LF_inverse_phi during insertion operation (legacy method)" alt="" coords="17,5,204,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="266,82,201,63,203,58,268,77"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#aaae584f405756966d4e90a26bcfc2445" title="Compute LF_phi during insertion operation (legacy method)" alt="" coords="19,84,202,139"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="250,114,202,114,202,109,250,109"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a2ce5fefe6626c4ad6151dfbacf950850" title="Compute inverse LF mapping for a BWT position." alt="" coords="5,163,216,203"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="252,186,216,186,216,181,252,181"/>
+</map>

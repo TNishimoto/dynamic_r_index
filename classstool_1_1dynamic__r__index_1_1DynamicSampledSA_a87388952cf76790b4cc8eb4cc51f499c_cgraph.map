@@ -1,0 +1,20 @@
+<map id="stool::dynamic_r_index::DynamicSampledSA::update_sample_marks" name="stool::dynamic_r_index::DynamicSampledSA::update_sample_marks">
+<area shape="rect" id="Node000001" title="Mark SA[t] as a sampled value and update this instance accordingly." alt="" coords="5,158,221,213"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#acb837ef0505e3c4f474782d9412a0853" title="Return ISA[i]." alt="" coords="278,133,469,173"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,169,264,164,265,169,222,175"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a5223bab1868979714fe64a2e631351a3" title="Verify the internal consistency of this data structure." alt="" coords="269,197,477,237"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="222,196,256,200,256,206,221,201"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a16d1235f228a598738253dec99ad6890" title="Compute the LF function for a given position i." alt="" coords="565,101,739,141"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="469,140,551,130,552,135,469,145"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a805546bc42a424cb41416d4d2652594b" title="Return the (i+1)&#45;th sampled ISA value." alt="" coords="525,165,779,205"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="469,162,512,167,512,172,469,167"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac35760cbf5f220012a0931f4307e33f6" title="Return L[i]." alt="" coords="827,5,1000,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="707,99,844,48,846,53,708,104"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1cf15a66d943d3d77e17473337e3f880" title="Return C[i]." alt="" coords="827,69,1000,109"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="738,108,813,99,813,104,739,113"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac3af26b20ad60d53fcd8d957538a2bd9" title="Counts the number of occurrences of a character c in L[0..i]." alt="" coords="827,133,1000,173"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="739,129,813,138,813,144,738,135"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="827,221,1000,261"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="740,137,780,151,805,166,828,183,871,212,869,216,825,188,802,170,778,156,738,142"/>
+<area shape="poly" id="edge7_Node000007_Node000007" title=" " alt="" coords="865,222,862,212,870,202,887,197,913,195,944,198,960,205,958,210,942,203,913,200,888,202,873,207,867,213,870,220"/>
+</map>

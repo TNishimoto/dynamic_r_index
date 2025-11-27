@@ -1,0 +1,17 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::store_to_file" name="stool::dynamic_r_index::DynamicFMIndex::store_to_file">
+<area shape="rect" id="Node000001" title="Save the index to a file." alt="" coords="5,98,191,153"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a0a1064a3c0d4ac783255c9a74974bfb1" title="Get the size of the DynamicFMIndex." alt="" coords="255,69,433,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,109,241,102,242,107,191,114"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a0f3e6b80d73fd5ac81f0f8e9590a7fba" title="Save the given instance item to a file stream os." alt="" coords="241,5,447,45"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="150,95,238,55,259,47,260,52,240,60,152,100"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a61ed6b9a8fc8b215300a9d7e0de03e8c" title="Save the given instance item to a file stream os." alt="" coords="242,134,446,189"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="191,136,229,142,228,147,191,142"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a14c266d0e5d5a454073d927f0d64bd03" title="Get the size of the text in the index." alt="" coords="239,213,449,253"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="145,150,190,175,240,199,259,206,257,211,238,204,188,180,143,155"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="497,153,671,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="411,107,450,120,520,146,518,151,448,125,409,112"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="539,154,537,144,544,134,560,129,584,127,612,130,627,137,625,142,610,135,584,132,561,134,547,139,542,145,544,152"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1b8aca0df2231aad0787b3f362be0ad1" title="Save the given instance item to a file stream os." alt="" coords="497,5,671,45"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="447,23,483,23,483,28,447,28"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="424,211,489,194,491,199,426,216"/>
+</map>

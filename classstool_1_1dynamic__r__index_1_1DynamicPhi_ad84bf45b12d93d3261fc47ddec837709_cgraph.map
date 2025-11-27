@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicPhi::build_from_sampled_sa_indexes" name="stool::dynamic_r_index::DynamicPhi::build_from_sampled_sa_indexes">
+<area shape="rect" id="Node000001" title="Build DynamicPhi from sampled SA indexes." alt="" coords="5,41,192,96"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a9f515a7dd5feb191f44132d7c6b41a67" title="Build this data structure from sampled SA indexes." alt="" coords="240,5,443,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,52,226,47,227,52,192,57"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a1a06218da9a70149d3a608306e7b6cf2" title="Swap the contents with another DynamicPartialSA instance." alt="" coords="247,85,436,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,80,233,86,233,91,192,85"/>
+</map>

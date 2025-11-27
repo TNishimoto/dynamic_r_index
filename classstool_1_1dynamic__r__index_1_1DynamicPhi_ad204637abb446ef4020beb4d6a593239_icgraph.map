@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicPhi::swap" name="stool::dynamic_r_index::DynamicPhi::swap">
+<area shape="rect" id="Node000001" title="Swap the contents with another DynamicPhi instance." alt="" coords="227,91,400,131"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a5671c05489f8502aaeb64e9876265071" title="Build a dynamic r&#45;index from a BWT." alt="" coords="5,5,179,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,89,169,63,171,58,244,84"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a684f9721d6053f87ded44908e40bc965" title="Build a dynamic r&#45;index from a BWT file." alt="" coords="5,84,179,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,114,179,114,179,109,213,109"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ae9e15868df9932f517e111551a12f98a" title="Load a dynamic r&#45;index from a binary file." alt="" coords="5,163,179,217"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,138,171,165,169,160,243,133"/>
+</map>

@@ -1,0 +1,56 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::insert_char" name="stool::dynamic_r_index::DynamicFMIndex::insert_char">
+<area shape="rect" id="Node000001" title="Insert a character into the index." alt="" coords="5,337,229,377"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac35760cbf5f220012a0931f4307e33f6" title="Return L[i]." alt="" coords="1115,339,1289,379"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,354,1102,356,1102,362,229,360"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1cf15a66d943d3d77e17473337e3f880" title="Return C[i]." alt="" coords="1115,61,1289,101"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,336,139,285,170,220,190,186,215,153,243,124,276,101,328,74,383,52,440,35,498,22,616,6,733,3,846,10,950,22,1041,38,1116,55,1114,60,1040,44,949,28,846,15,733,9,616,12,499,27,441,40,385,57,331,79,279,106,247,128,219,157,195,189,174,222,144,287,127,337"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a5876f865e7ccad9cea9e5ef8adcba959" title="Return the reference to the C array in this instance." alt="" coords="285,149,486,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="132,334,190,268,231,230,276,198,288,192,291,197,279,203,234,235,194,271,136,338"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac41f759758f07187a2c059d6f0630a71" title="Return the smallest character in the alphabet Σ" alt="" coords="297,213,474,268"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="164,334,308,271,310,276,166,339"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a7d989ae1dba8c21418ce603569aa2786" title="Insert a given character c into L at position pos." alt="" coords="559,687,732,727"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="125,376,140,433,169,510,190,550,215,589,244,625,279,654,309,673,342,687,411,706,481,714,545,714,545,720,481,719,410,711,340,692,307,677,276,659,240,629,210,593,185,553,165,512,135,435,120,378"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#acb837ef0505e3c4f474782d9412a0853" title="Return ISA[i]." alt="" coords="550,394,741,434"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="230,367,278,373,537,400,536,406,277,378,229,372"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a16d1235f228a598738253dec99ad6890" title="Compute the LF function for a given position i." alt="" coords="837,277,1011,317"/>
+<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="229,340,277,335,575,313,823,299,824,304,575,318,278,341,230,345"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac3af26b20ad60d53fcd8d957538a2bd9" title="Counts the number of occurrences of a character c in L[0..i]." alt="" coords="1115,167,1289,207"/>
+<area shape="poly" id="edge22_Node000001_Node000015" title=" " alt="" coords="123,335,143,291,174,234,219,178,246,154,276,134,307,122,344,113,436,104,546,103,665,110,906,137,1102,167,1101,172,905,142,664,115,546,109,437,109,345,118,308,127,279,139,249,158,223,181,179,237,147,293,128,338"/>
+<area shape="rect" id="Node000018" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#abda531724656d3ceb8280ffd2d235ba6" title="Replace L[pos] with c." alt="" coords="279,525,492,565"/>
+<area shape="poly" id="edge23_Node000001_Node000018" title=" " alt="" coords="136,375,194,441,234,477,279,509,294,517,291,522,276,514,231,481,190,444,132,379"/>
+<area shape="rect" id="Node000020" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a915f9b5726e0fcb33f2e2c108999ea9b" title="Insert x and y into SA and ISA as SA[x] = y and ISA[y] = x, respectively." alt="" coords="277,589,493,644"/>
+<area shape="poly" id="edge29_Node000001_Node000020" title=" " alt="" coords="130,375,152,417,185,470,228,526,279,575,287,580,284,585,276,579,224,529,181,473,147,419,126,378"/>
+<area shape="rect" id="Node000021" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a87388952cf76790b4cc8eb4cc51f499c" title="Mark SA[t] as a sampled value and update this instance accordingly." alt="" coords="277,445,493,500"/>
+<area shape="poly" id="edge30_Node000001_Node000021" title=" " alt="" coords="166,374,310,437,308,442,164,379"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1CArray.html#af03aa9a502bc8efcea30722c2dbaaef6" title="Increases the number of occurrences of a character c in T[0..n&#45;1] by delta." alt="" coords="837,631,1011,671"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="732,687,823,669,825,674,733,693"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a7bf4d5a5f779ee447179dc767dbcf936" title="Return the number of occurrences of a character c in T[0..n&#45;1]." alt="" coords="1353,735,1527,775"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="949,669,1013,719,1055,743,1099,761,1160,773,1223,778,1284,776,1340,771,1340,776,1284,781,1223,783,1159,778,1098,766,1053,748,1010,723,946,674"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a45913fd6614df5c8397f92f457bca644" title="Return the rank of a given character c in Σ&#39; if it exists, otherwise return &#45;1." alt="" coords="1115,631,1289,671"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="1011,649,1102,649,1102,654,1011,654"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a3c9e9b1dab8a432b48924f235ae50190" title="Checks if a character c occurs in Σ&#39;." alt="" coords="1099,696,1305,751"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="1003,669,1086,691,1085,696,1001,674"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4cb4852f087d7945429557164bd5a05d" title="Verify the internal consistency of this data structure." alt="" coords="1115,567,1289,607"/>
+<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="1010,629,1101,608,1103,613,1012,634"/>
+<area shape="poly" id="edge10_Node000010_Node000008" title=" " alt="" coords="1306,735,1340,739,1339,744,1305,740"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4be5ed9eff865604869553dcbf1979fa" title="Prints detailed information about this instance." alt="" coords="1353,567,1527,607"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="1289,585,1340,585,1340,590,1289,590"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="693,391,862,319,864,324,695,396"/>
+<area shape="rect" id="Node000017" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a805546bc42a424cb41416d4d2652594b" title="Return the (i+1)&#45;th sampled ISA value." alt="" coords="797,394,1051,434"/>
+<area shape="poly" id="edge20_Node000013_Node000017" title=" " alt="" coords="741,411,784,411,784,417,741,417"/>
+<area shape="poly" id="edge15_Node000014_Node000002" title=" " alt="" coords="1012,313,1103,334,1101,339,1010,319"/>
+<area shape="poly" id="edge16_Node000014_Node000003" title=" " alt="" coords="947,274,1097,153,1159,107,1163,111,1100,157,951,279"/>
+<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="975,274,1136,210,1138,215,977,279"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="1115,275,1289,315"/>
+<area shape="poly" id="edge18_Node000014_Node000016" title=" " alt="" coords="1011,294,1102,293,1102,298,1011,299"/>
+<area shape="poly" id="edge19_Node000016_Node000016" title=" " alt="" coords="1158,276,1155,266,1162,256,1178,251,1202,249,1230,251,1245,259,1242,264,1228,257,1202,254,1179,256,1165,261,1160,267,1163,274"/>
+<area shape="poly" id="edge24_Node000018_Node000002" title=" " alt="" coords="492,540,609,533,751,517,902,488,977,468,1050,443,1108,416,1159,385,1162,389,1111,420,1052,448,979,473,904,493,752,522,610,538,492,546"/>
+<area shape="poly" id="edge28_Node000018_Node000007" title=" " alt="" coords="470,562,495,574,510,587,519,600,528,612,543,622,612,646,686,658,758,662,823,660,824,665,758,667,686,663,611,651,540,627,524,616,515,603,506,591,492,579,468,567"/>
+<area shape="rect" id="Node000019" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a8c98d412f2542a97a5563c827df983fd" title="Decreases the number of occurrences of a character c in T[0..n&#45;1] by delta." alt="" coords="559,573,732,613"/>
+<area shape="poly" id="edge25_Node000018_Node000019" title=" " alt="" coords="493,562,546,572,545,577,492,567"/>
+<area shape="poly" id="edge26_Node000019_Node000007" title=" " alt="" coords="733,608,825,628,823,633,732,613"/>
+<area shape="poly" id="edge27_Node000019_Node000011" title=" " alt="" coords="732,589,1101,586,1101,591,732,594"/>
+<area shape="poly" id="edge31_Node000021_Node000013" title=" " alt="" coords="493,446,542,434,543,440,494,451"/>
+<area shape="rect" id="Node000022" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a5223bab1868979714fe64a2e631351a3" title="Verify the internal consistency of this data structure." alt="" coords="541,458,749,498"/>
+<area shape="poly" id="edge32_Node000021_Node000022" title=" " alt="" coords="494,472,528,473,527,478,494,477"/>
+</map>

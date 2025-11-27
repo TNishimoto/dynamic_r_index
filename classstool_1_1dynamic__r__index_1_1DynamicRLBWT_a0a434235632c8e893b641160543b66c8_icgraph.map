@@ -1,0 +1,24 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::LF" name="stool::dynamic_r_index::DynamicRLBWT::LF">
+<area shape="rect" id="Node000001" title="Compute LF mapping for a run position." alt="" coords="788,181,961,221"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a253078a28413075c85f2a6a5c139064b" title="Construct the complete LF array." alt="" coords="539,5,740,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="846,172,799,123,739,75,716,62,719,58,741,70,802,119,850,168"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a574d4751035f9a52baa24e4b8939c530" title="Reconstruct the original text from the RLBWT." alt="" coords="542,85,737,125"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="822,177,739,139,706,127,708,122,741,134,824,172"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab0da39231c433ed56683720ba37af353" title="Compute LF mapping for a BWT position." alt="" coords="553,149,726,189"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="774,190,726,183,727,178,774,184"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a560b6a87735695a4b3bc76878d67d8e6" title="Compute LF mapping for a run position." alt="" coords="553,213,726,253"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="774,217,727,224,726,218,774,212"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ac2e28d9f40ed12a90a0803bfd1a012de" title="Compute LF mapping during deletion operation." alt="" coords="549,301,730,356"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="826,230,692,304,689,299,824,225"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ae0d1f0aff7c4e9b62b2535d1d3cacf58" title="Compute LF mapping during insertion operation." alt="" coords="549,380,730,435"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="857,234,810,302,778,339,742,371,724,382,721,378,738,367,774,335,806,299,853,231"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ada0b1a26b8a13756b08932e0fa83f4a4" title="Verify the correctness of the RLBWT structure." alt="" coords="292,13,471,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="525,35,471,35,471,30,525,30"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a9271718d9f5a2ca397b4c9bb720af8f2" title="Get the original text as a byte vector." alt="" coords="284,81,479,121"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="528,106,479,105,479,100,528,100"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a440648ef721ad9116f6ee0f255c8240b" title="Get the original text as a string." alt="" coords="272,145,491,185"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="540,131,469,147,467,142,538,125"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aeef94ef55bc88527590239505c2f2080" title="Get the original text as a string." alt="" coords="5,145,224,185"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="258,167,224,167,224,162,258,162"/>
+<area shape="poly" id="edge10_Node000010_Node000010" title=" " alt="" coords="678,290,664,283,639,280,618,282,605,287,599,293,599,301,594,301,594,291,602,282,617,277,639,275,666,278,681,286"/>
+</map>

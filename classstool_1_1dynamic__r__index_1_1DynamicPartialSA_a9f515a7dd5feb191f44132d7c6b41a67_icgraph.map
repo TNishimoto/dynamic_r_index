@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicPartialSA::build_from_sampled_sa_indexes" name="stool::dynamic_r_index::DynamicPartialSA::build_from_sampled_sa_indexes">
+<area shape="rect" id="Node000001" title="Build this data structure from sampled SA indexes." alt="" coords="461,45,664,100"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#ad84bf45b12d93d3261fc47ddec837709" title="Build DynamicPhi from sampled SA indexes." alt="" coords="227,45,413,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="448,75,414,75,414,70,448,70"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a5671c05489f8502aaeb64e9876265071" title="Build a dynamic r&#45;index from a BWT." alt="" coords="5,5,179,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="213,57,178,50,179,45,214,51"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a684f9721d6053f87ded44908e40bc965" title="Build a dynamic r&#45;index from a BWT file." alt="" coords="5,84,179,139"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="213,93,179,99,179,94,213,88"/>
+</map>

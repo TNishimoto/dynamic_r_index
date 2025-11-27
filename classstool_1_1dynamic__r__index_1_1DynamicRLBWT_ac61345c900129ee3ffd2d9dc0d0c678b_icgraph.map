@@ -1,0 +1,49 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::get_run_length" name="stool::dynamic_r_index::DynamicRLBWT::get_run_length">
+<area shape="rect" id="Node000001" title="Get the length of a run." alt="" coords="816,390,1007,445"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a8c42b35deb07de0cdfbe68e4dfbc6581" title="Get the complete BWT as a byte vector." alt="" coords="566,69,759,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="898,377,881,322,854,256,816,189,793,158,766,130,738,112,741,107,770,126,797,154,821,186,859,254,886,320,903,376"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a139753069d511f06e8f7f3c6af607e0e" title="Compute LF_inverse_phi for a position where BWT[i] is replaced." alt="" coords="283,184,497,224"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="881,381,832,326,801,299,767,277,700,249,630,229,560,217,496,210,497,204,561,211,631,224,702,244,769,272,804,295,835,322,885,377"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a93bcd4912e27d2a65203db67dea433b2" title="Compute LF_inverse_phi during deletion operation." alt="" coords="21,249,207,303"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="889,379,869,342,841,301,807,262,766,229,732,209,701,196,645,183,509,175,388,159,336,160,271,175,236,189,202,209,146,251,143,246,199,204,233,184,270,169,336,155,389,154,510,169,646,178,703,191,734,204,770,224,810,258,845,298,873,339,894,376"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a811b7044acf38427cba680845fcafa5c" title="Helper function for LF_inverse_phi during deletion." alt="" coords="297,249,483,303"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="871,382,823,345,796,328,767,314,695,293,620,281,548,275,483,274,484,269,548,270,621,275,696,288,769,310,798,323,826,341,874,378"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a7c76354e5fe45287e78c5abfc4ce26f7" title="Compute LF_inverse_phi during insertion operation (legacy method)" alt="" coords="297,379,483,434"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="802,418,483,411,484,406,802,412"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a71efd4f58fda5ec77fa4c18e58c65c1a" title="Compute LF_inverse_phi during insertion operation (improved version)" alt="" coords="297,458,483,513"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="802,434,484,476,483,471,802,429"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a667590fa4306828ba07f6a85b984002d" title="Compute LF_inverse_phi during move operation." alt="" coords="297,537,483,591"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="828,452,769,472,619,514,484,546,483,541,618,508,767,467,826,447"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a94dd5780bf16624b4991274aad44d0a9" title="Compute LF_phi when BWT[i] is replaced." alt="" coords="576,616,749,656"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="879,457,829,510,770,566,698,618,695,614,766,562,825,507,875,453"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWTHelper.html#a359860e44c0e70b286dfd1a0dfa6f4cd" title="Find the proper successor run position in F&#45;sorted order." alt="" coords="570,325,755,379"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="802,391,755,379,756,374,804,386"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a9fdca299606debe451b374e755fead90" title="Remove a BWT run completely." alt="" coords="567,705,758,759"/>
+<area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="897,458,877,505,848,560,813,617,770,670,747,690,722,707,719,702,744,686,766,666,808,614,844,558,872,503,892,456"/>
+<area shape="rect" id="Node000020" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#add9e3a569e813c20215f50f36aa9832c" title="Write the BWT to a binary file." alt="" coords="557,784,768,824"/>
+<area shape="poly" id="edge27_Node000001_Node000020" title=" " alt="" coords="908,459,894,527,869,611,851,655,829,697,802,737,770,773,751,786,748,782,766,769,798,734,824,695,846,652,864,609,889,525,902,458"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a1bf6c181416c31d689bc756663f98752" title="Get the BWT as a byte vector." alt="" coords="293,69,487,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="552,92,487,92,487,87,552,87"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a2b77339b99a0c71ccb5613ddc341e5a2" title="Get the BWT as a string." alt="" coords="281,5,499,45"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="563,69,475,48,476,43,564,64"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ae78769d1654621b53f4ecc797bf7c58d" title="Get the BWT as a string." alt="" coords="5,5,223,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="267,28,223,28,223,23,267,23"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="283,279,208,279,208,273,283,273"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a32973f85d14710144c1ca52839246d35" title="Compute LF_phi without character replacement." alt="" coords="303,680,477,720"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="564,662,476,683,475,677,563,657"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a179df79bdbe999f8e3a87e97860e81a2" title="Compute LF_phi with character replacement." alt="" coords="303,616,477,656"/>
+<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="562,639,477,639,477,633,562,633"/>
+<area shape="poly" id="edge16_Node000015_Node000006" title=" " alt="" coords="620,317,569,276,508,238,479,227,481,222,511,234,572,272,624,313"/>
+<area shape="poly" id="edge17_Node000015_Node000007" title=" " alt="" coords="556,349,420,337,270,317,207,304,208,299,271,312,420,332,557,344"/>
+<area shape="poly" id="edge18_Node000015_Node000008" title=" " alt="" coords="556,325,483,305,484,299,558,320"/>
+<area shape="poly" id="edge19_Node000015_Node000009" title=" " alt="" coords="557,376,484,391,483,385,556,371"/>
+<area shape="poly" id="edge20_Node000015_Node000010" title=" " alt="" coords="612,389,564,419,510,448,481,460,479,455,508,443,561,415,609,385"/>
+<area shape="poly" id="edge21_Node000015_Node000011" title=" " alt="" coords="638,393,584,461,550,496,511,526,485,540,482,536,508,522,546,492,580,457,634,390"/>
+<area shape="rect" id="Node000017" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#adc4dd35229790222c872952ec37b8627" title="Decrement the length of a run." alt="" coords="271,795,509,835"/>
+<area shape="poly" id="edge23_Node000016_Node000017" title=" " alt="" coords="560,766,457,797,456,792,558,761"/>
+<area shape="rect" id="Node000019" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a0ac7ac813dc62a3649b5a696ee253590" title="Remove a character at a given position in the BWT." alt="" coords="19,737,209,777"/>
+<area shape="poly" id="edge26_Node000016_Node000019" title=" " alt="" coords="553,740,210,756,209,750,553,734"/>
+<area shape="rect" id="Node000018" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab2cc65abe31bf51f61cd198e16aa0da4" title="Insert a character at a given position in the BWT." alt="" coords="25,801,203,841"/>
+<area shape="poly" id="edge24_Node000017_Node000018" title=" " alt="" coords="257,821,204,822,204,817,257,815"/>
+<area shape="poly" id="edge25_Node000017_Node000019" title=" " alt="" coords="279,794,209,780,210,774,280,789"/>
+</map>

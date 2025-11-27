@@ -1,0 +1,22 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::select_on_first_characters_of_RLBWT" name="stool::dynamic_r_index::DynamicRLBWT::select_on_first_characters_of_RLBWT">
+<area shape="rect" id="Node000001" title="Find the run index of the ith run starting with character c." alt="" coords="760,149,985,203"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a3d837476b4e99e17c6dd2399e0f38729" title="Compute inverse LF mapping for a position in F&#45;sorted order." alt="" coords="501,63,712,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="780,147,664,105,666,100,782,142"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWTHelper.html#a359860e44c0e70b286dfd1a0dfa6f4cd" title="Find the proper successor run position in F&#45;sorted order." alt="" coords="514,185,699,239"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="747,196,700,202,699,197,746,190"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a2ce5fefe6626c4ad6151dfbacf950850" title="Compute inverse LF mapping for a BWT position." alt="" coords="241,5,452,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="502,62,437,48,439,43,503,57"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a139753069d511f06e8f7f3c6af607e0e" title="Compute LF_inverse_phi for a position where BWT[i] is replaced." alt="" coords="240,69,453,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="547,180,452,130,407,112,409,107,454,126,549,175"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a93bcd4912e27d2a65203db67dea433b2" title="Compute LF_inverse_phi during deletion operation." alt="" coords="5,153,192,207"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="503,184,453,175,385,169,317,167,192,173,192,168,317,162,386,163,454,169,504,179"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a811b7044acf38427cba680845fcafa5c" title="Helper function for LF_inverse_phi during deletion." alt="" coords="253,185,440,239"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="500,215,440,215,440,209,500,209"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a7c76354e5fe45287e78c5abfc4ce26f7" title="Compute LF_inverse_phi during insertion operation (legacy method)" alt="" coords="253,263,440,318"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="503,246,439,266,437,261,502,241"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a71efd4f58fda5ec77fa4c18e58c65c1a" title="Compute LF_inverse_phi during insertion operation (improved version)" alt="" coords="253,342,440,397"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="567,251,515,292,455,332,429,344,427,339,452,327,512,288,563,246"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a667590fa4306828ba07f6a85b984002d" title="Compute LF_inverse_phi during move operation." alt="" coords="253,421,440,475"/>
+<area shape="poly" id="edge10_Node000004_Node000010" title=" " alt="" coords="586,253,533,332,496,374,455,410,434,423,432,418,452,406,493,370,528,328,582,250"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="240,201,192,195,193,189,240,196"/>
+</map>

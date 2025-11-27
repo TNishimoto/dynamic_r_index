@@ -1,0 +1,28 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::LF" name="stool::dynamic_r_index::DynamicRLBWT::LF">
+<area shape="rect" id="Node000001" title="Compute LF mapping for a run position." alt="" coords="5,236,179,276"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a0a434235632c8e893b641160543b66c8" title="Compute LF mapping for a run position." alt="" coords="227,181,400,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,233,218,222,219,227,174,239"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a380948525f2fc83c63495c441da4138b" title="Count the number of occurrences of character c up to position i." alt="" coords="713,156,887,196"/>
+<area shape="poly" id="edge17_Node000001_Node000005" title=" " alt="" coords="178,248,400,231,533,215,665,196,699,191,700,196,666,201,533,221,400,236,179,254"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#aff35117f799d3b605b131c274d4ecc78" title="Get the F&#45;index (position in F array) for a given run index." alt="" coords="448,88,665,128"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="365,179,490,131,492,136,367,184"/>
+<area shape="poly" id="edge16_Node000002_Node000005" title=" " alt="" coords="400,194,699,179,700,184,400,200"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a4e19c845a0033ea69fb9403551bc75af" title="Get the starting position of a run in F&#45;sorted order." alt="" coords="1205,198,1424,253"/>
+<area shape="poly" id="edge15_Node000002_Node000009" title=" " alt="" coords="400,201,1191,220,1191,225,400,206"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a45913fd6614df5c8397f92f457bca644" title="Return the rank of a given character c in Σ&#39; if it exists, otherwise return &#45;1." alt="" coords="1228,5,1401,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="665,86,794,65,934,47,1081,34,1214,26,1215,32,1082,39,935,52,795,70,666,91"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="630,125,716,150,714,155,628,131"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="826,153,874,121,934,91,1005,68,1079,51,1214,30,1214,36,1080,56,1006,73,936,96,877,125,829,158"/>
+<area shape="poly" id="edge6_Node000005_Node000005" title=" " alt="" coords="755,156,752,146,759,137,775,131,800,129,828,132,844,139,841,144,827,137,800,135,777,137,762,141,757,147,760,155"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ac6cbfef1ec4cf237b4b6f2f0334d2ac0" title="Compute special rank value for a position within a run." alt="" coords="935,105,1157,145"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="886,164,972,146,973,151,887,169"/>
+<area shape="poly" id="edge11_Node000006_Node000003" title=" " alt="" coords="934,124,679,115,679,110,935,119"/>
+<area shape="poly" id="edge9_Node000006_Node000004" title=" " alt="" coords="1111,103,1156,84,1180,70,1204,55,1222,48,1224,52,1207,60,1183,74,1159,89,1113,108"/>
+<area shape="poly" id="edge14_Node000006_Node000005" title=" " alt="" coords="935,142,874,155,873,150,934,137"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1cf15a66d943d3d77e17473337e3f880" title="Return C[i]." alt="" coords="1228,133,1401,173"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="1158,134,1215,140,1214,146,1157,140"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab0aa0c5ddd89131a9901e47e16b54e69" title="Get the character of a run." alt="" coords="1216,69,1413,109"/>
+<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="1157,108,1202,102,1203,107,1158,113"/>
+<area shape="poly" id="edge12_Node000006_Node000009" title=" " alt="" coords="1108,143,1158,162,1206,183,1226,191,1224,196,1204,188,1156,166,1106,148"/>
+<area shape="poly" id="edge13_Node000009_Node000005" title=" " alt="" coords="1205,218,900,188,901,183,1205,212"/>
+</map>

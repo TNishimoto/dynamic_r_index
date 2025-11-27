@@ -1,0 +1,23 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::rank_on_first_characters_of_RLBWT" name="stool::dynamic_r_index::DynamicRLBWT::rank_on_first_characters_of_RLBWT">
+<area shape="rect" id="Node000001" title="Count the number of runs starting with character c up to a given run index." alt="" coords="5,123,208,177"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a380948525f2fc83c63495c441da4138b" title="Count the number of occurrences of character c up to position i." alt="" coords="256,130,429,170"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,147,242,147,242,153,208,153"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="299,130,296,120,303,111,319,105,343,103,370,106,385,114,383,118,369,111,343,109,320,111,306,115,301,121,304,129"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a45913fd6614df5c8397f92f457bca644" title="Return the rank of a given character c in Σ&#39; if it exists, otherwise return &#45;1." alt="" coords="1015,30,1188,70"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="375,127,422,101,476,77,609,31,665,17,717,8,770,3,827,3,967,15,1017,24,1016,30,966,21,827,9,770,9,718,13,666,22,611,37,478,82,424,106,378,132"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ac6cbfef1ec4cf237b4b6f2f0334d2ac0" title="Compute special rank value for a position within a run." alt="" coords="477,130,700,170"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="429,156,464,156,464,162,429,161"/>
+<area shape="poly" id="edge13_Node000004_Node000002" title=" " alt="" coords="477,144,443,144,443,139,477,138"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="700,129,966,79,1006,71,1007,76,967,85,701,134"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1cf15a66d943d3d77e17473337e3f880" title="Return C[i]." alt="" coords="771,145,944,185"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="700,153,757,157,757,162,700,159"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab0aa0c5ddd89131a9901e47e16b54e69" title="Get the character of a run." alt="" coords="759,209,956,249"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="659,168,776,202,775,207,657,173"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#aff35117f799d3b605b131c274d4ecc78" title="Get the F&#45;index (position in F array) for a given run index." alt="" coords="749,30,966,70"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="640,127,747,86,785,72,787,77,749,91,642,132"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a4e19c845a0033ea69fb9403551bc75af" title="Get the starting position of a run in F&#45;sorted order." alt="" coords="748,273,967,328"/>
+<area shape="poly" id="edge11_Node000004_Node000008" title=" " alt="" coords="620,168,749,258,764,265,761,270,747,263,617,172"/>
+<area shape="poly" id="edge10_Node000007_Node000002" title=" " alt="" coords="749,70,478,121,438,130,437,124,477,115,748,65"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="966,47,1001,47,1001,53,966,53"/>
+<area shape="poly" id="edge12_Node000008_Node000002" title=" " alt="" coords="762,276,424,176,426,171,764,271"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicSampledSA::print_statistics" name="stool::dynamic_r_index::DynamicSampledSA::print_statistics">
+<area shape="rect" id="Node000001" title="Print the statistics of this data structure." alt="" coords="5,45,207,100"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#ada2f7a6997e807793f7a8c4a0c40f267" title="Return the number of values in the sampled suffix array." alt="" coords="255,5,457,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,54,241,48,242,54,207,59"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#aada13a30013457bf91584e7fb09d7032" title="Returns the length k of the sampling interval." alt="" coords="260,84,452,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,86,247,92,246,97,206,91"/>
+</map>

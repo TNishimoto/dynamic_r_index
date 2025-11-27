@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::load_from_file" name="stool::dynamic_r_index::DynamicRLBWT::load_from_file">
+<area shape="rect" id="Node000001" title="Load DynamicRLBWT from a binary file." alt="" coords="5,37,240,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a26418a4753a8fb22f4a4d8c999e9b979" title="Return the CArray loaded from a file stream ifs." alt="" coords="288,5,463,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,40,274,35,275,41,241,45"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a35a6d4111a873b26298e8efa66d5095c" title="Swap operation." alt="" coords="289,69,462,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,70,276,74,275,79,240,75"/>
+</map>

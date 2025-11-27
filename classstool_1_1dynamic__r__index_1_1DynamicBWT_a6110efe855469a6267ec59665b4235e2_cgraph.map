@@ -1,0 +1,10 @@
+<map id="stool::dynamic_r_index::DynamicBWT::print_statistics" name="stool::dynamic_r_index::DynamicBWT::print_statistics">
+<area shape="rect" id="Node000001" title="Print the statistics of this data structure." alt="" coords="5,69,227,109"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#aef20f62c386a1d1828f0ddd3865c99d8" title="Return the alphabet size σ" alt="" coords="275,5,517,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,67,294,46,295,51,205,72"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1CArray.html#adcb088fdfb7167ef125d8b723c85bea0" title="Print the statistics of this data structure." alt="" coords="307,69,485,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,87,294,87,294,92,227,92"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="309,157,483,197"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,107,319,151,317,156,180,112"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="344,158,341,148,349,138,368,133,396,131,428,133,446,141,444,146,427,139,396,136,369,138,352,143,346,149,349,156"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="stool::dynamic_r_index::DynamicPhi::build_from_RLBWT" name="stool::dynamic_r_index::DynamicPhi::build_from_RLBWT">
+<area shape="rect" id="Node000001" title="Build DynamicPhi from a static RLBWT." alt="" coords="5,185,244,225"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a2d1ab7f7e4c234af6bfbad4559f922a0" title="Initialize this data structure." alt="" coords="303,5,490,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,183,203,120,245,85,291,55,304,48,306,53,293,60,248,90,207,124,145,187"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a16c3df9bc278605150d717b53abc64c7" title="Get a reference to the dynamic permutation." alt="" coords="309,70,485,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,183,291,135,310,127,312,132,293,140,175,188"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a1bb2249ab71e2545a82e2dfb0f862beb" title="Get a reference to the sampled ISA gap vector." alt="" coords="292,149,501,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,187,278,182,279,188,244,192"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#aa12bb7c79085f2b07cf691eb60d8aeac" title="Set the size of the input text." alt="" coords="309,214,484,269"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="244,218,296,225,296,231,244,224"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a1a06218da9a70149d3a608306e7b6cf2" title="Swap the contents with another DynamicPartialSA instance." alt="" coords="302,293,491,333"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="168,223,293,278,317,286,315,291,291,282,166,228"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#af03ec057d425e8d8740771e4e540c786" title="Get the text size." alt="" coords="309,357,484,397"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="146,223,208,282,249,315,293,343,307,350,304,354,291,348,246,319,205,286,143,227"/>
+</map>

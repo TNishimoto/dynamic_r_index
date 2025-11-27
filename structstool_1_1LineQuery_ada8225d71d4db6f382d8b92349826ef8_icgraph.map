@@ -1,0 +1,16 @@
+<map id="stool::LineQuery::sanityze" name="stool::LineQuery::sanityze">
+<area shape="rect" id="Node000001" title="Sanitize a string by converting special characters." alt="" coords="472,109,663,134"/>
+<area shape="rect" id="Node000002" href="$structstool_1_1LineQuery.html#a678ee6653d46b6826b452ba483628f99" title="Create a COUNT query." alt="" coords="248,5,424,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="526,105,423,60,393,48,394,43,425,55,528,100"/>
+<area shape="rect" id="Node000004" href="$structstool_1_1LineQuery.html#a2e44c565e37d78e10db7cdd3ac071cb0" title="Create an INSERT query." alt="" coords="248,69,424,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="461,109,424,104,425,99,462,104"/>
+<area shape="rect" id="Node000005" href="$structstool_1_1LineQuery.html#aea8d42ae20efe35cd815edc3eb1155d1" title="Create a LOCATE query." alt="" coords="248,133,424,173"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="462,139,425,144,424,139,461,133"/>
+<area shape="rect" id="Node000006" href="$structstool_1_1LineQuery.html#ab1e323e3fa4642aa1ebb7bdf44834c32" title="Create a LOCATE_SUM query." alt="" coords="248,197,424,237"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="528,142,425,188,394,200,393,195,423,183,526,137"/>
+<area shape="rect" id="Node000003" href="$structstool_1_1LineQuery.html#a07a2481da7b415197f7dd01099b63a5a" title="Parse a line from a command file into a LineQuery." alt="" coords="5,109,200,134"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="267,53,249,60,132,111,130,106,247,55,265,48"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="235,106,196,111,195,106,234,101"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="234,142,195,137,196,131,235,137"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="265,195,247,188,130,137,132,132,249,183,267,190"/>
+</map>

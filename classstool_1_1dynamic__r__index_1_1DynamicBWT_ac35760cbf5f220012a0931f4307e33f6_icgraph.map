@@ -1,0 +1,80 @@
+<map id="stool::dynamic_r_index::DynamicBWT::access" name="stool::dynamic_r_index::DynamicBWT::access">
+<area shape="rect" id="Node000001" title="Return L[i]." alt="" coords="1083,999,1256,1039"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a02f2231dcb00c7debb4bedc61ba6ac82" title="Access a character at a specific position in the index." alt="" coords="839,5,1035,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1165,985,1160,797,1153,665,1141,523,1124,380,1101,249,1071,141,1053,98,1033,66,1011,48,1015,43,1037,62,1058,96,1076,139,1107,248,1130,380,1146,522,1158,665,1165,797,1170,985"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a04ce077bf27fd6e8bef3011f56000dfd" title="Delete a character from the index." alt="" coords="5,897,233,937"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1069,1032,937,1044,791,1053,678,1060,628,1060,565,1053,452,1031,342,1000,245,968,169,940,171,935,246,963,344,995,453,1026,566,1048,628,1055,678,1055,790,1048,937,1039,1069,1027"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a09acf81d524125a168dd466f923a125e" title="Delete a substring from the text." alt="" coords="23,1002,216,1057"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1156,1053,1137,1089,1111,1129,1077,1169,1036,1201,1003,1218,973,1229,918,1236,862,1235,791,1236,713,1245,645,1258,528,1282,472,1287,415,1284,351,1269,280,1240,252,1223,226,1202,183,1152,151,1101,130,1058,134,1056,156,1098,188,1149,230,1198,255,1218,283,1235,353,1264,415,1279,472,1282,527,1277,644,1253,712,1240,790,1231,862,1230,918,1231,972,1224,1001,1213,1033,1196,1073,1165,1106,1126,1132,1086,1151,1050"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a7c08be152351c1d17f88d8983356624c" title="Insert a character into the index." alt="" coords="7,236,231,276"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1165,985,1158,889,1138,753,1121,678,1098,602,1069,528,1032,459,981,385,931,335,871,296,789,254,718,221,655,197,598,180,543,171,487,168,427,172,282,195,217,214,160,238,158,233,215,209,281,189,426,166,487,163,544,165,599,175,657,192,720,216,792,250,873,291,934,331,985,381,1037,456,1074,526,1103,601,1126,677,1143,753,1163,888,1170,985"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a26716f2751204d6b3e17b5d2de6baab9" title="Insert a string at a given position." alt="" coords="25,301,214,355"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1161,985,1147,910,1122,808,1085,694,1060,638,1032,585,979,502,930,442,871,392,789,336,658,253,599,223,541,202,483,191,422,192,356,206,283,234,267,246,259,260,250,275,235,290,213,303,210,298,232,286,246,272,254,257,263,242,280,230,355,201,422,187,484,186,543,197,601,218,660,249,792,331,874,387,934,438,984,499,1037,583,1065,636,1090,692,1127,806,1152,909,1166,985"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a16d1235f228a598738253dec99ad6890" title="Compute the LF function for a given position i." alt="" coords="850,867,1023,907"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1120,994,972,909,974,904,1123,990"/>
+<area shape="rect" id="Node000017" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a5fdf859e2fa34a2d6903dc211dfe8411" title="Compute the special LF mapping for deletion." alt="" coords="565,999,791,1039"/>
+<area shape="poly" id="edge34_Node000001_Node000017" title=" " alt="" coords="1069,1021,791,1021,791,1016,1069,1016"/>
+<area shape="rect" id="Node000018" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a95e4b81f7675adfcbdb91c600de83c05" title="Return T as a vector of characters." alt="" coords="581,1167,775,1222"/>
+<area shape="poly" id="edge49_Node000001_Node000018" title=" " alt="" coords="1147,1051,1100,1102,1069,1127,1036,1148,971,1172,903,1188,836,1196,776,1200,775,1194,836,1191,902,1183,969,1167,1034,1143,1066,1123,1096,1098,1143,1048"/>
+<area shape="rect" id="Node000022" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a0f9d0dd843703dfa14909d04ba773d4b" title="Remove the \pos&#45;th character from L." alt="" coords="312,1107,487,1147"/>
+<area shape="poly" id="edge35_Node000001_Node000022" title=" " alt="" coords="1132,1049,1087,1076,1036,1097,962,1115,887,1128,736,1141,598,1143,487,1137,487,1132,598,1137,736,1136,886,1123,961,1110,1034,1092,1085,1071,1129,1044"/>
+<area shape="rect" id="Node000023" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#abda531724656d3ceb8280ffd2d235ba6" title="Replace L[pos] with c." alt="" coords="293,272,506,312"/>
+<area shape="poly" id="edge38_Node000001_Node000023" title=" " alt="" coords="1153,987,1108,881,1074,810,1032,732,982,652,925,572,860,496,789,430,722,386,648,352,574,328,506,311,507,306,576,323,650,347,725,381,792,426,864,493,929,568,986,649,1036,730,1079,808,1113,879,1158,985"/>
+<area shape="rect" id="Node000024" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac1c9ca9c4a3662153ac7e7a8edf6ec1b" title="Return L as a vector of characters." alt="" coords="850,1388,1023,1428"/>
+<area shape="poly" id="edge43_Node000001_Node000024" title=" " alt="" coords="1156,1052,1107,1157,1037,1284,996,1342,958,1389,954,1386,991,1339,1032,1281,1102,1155,1152,1050"/>
+<area shape="poly" id="edge11_Node000007_Node000003" title=" " alt="" coords="836,893,234,916,234,910,836,888"/>
+<area shape="poly" id="edge12_Node000007_Node000004" title=" " alt="" coords="837,907,217,1015,216,1010,836,901"/>
+<area shape="poly" id="edge13_Node000007_Node000005" title=" " alt="" coords="928,853,909,737,879,582,859,504,838,433,814,375,789,335,759,307,727,283,692,263,655,247,576,225,494,214,412,213,333,218,262,227,202,239,201,233,261,222,333,213,411,207,494,209,577,219,657,242,694,258,730,278,763,303,793,332,819,373,843,431,865,503,884,581,915,736,933,852"/>
+<area shape="poly" id="edge14_Node000007_Node000006" title=" " alt="" coords="930,853,919,771,895,661,877,601,853,540,824,483,789,430,728,362,700,338,671,319,605,289,517,263,452,247,399,242,347,247,282,263,258,275,235,290,205,303,203,298,232,286,255,270,280,257,346,242,399,236,453,241,518,257,607,284,674,314,703,334,732,358,793,426,829,480,858,538,882,599,900,659,924,770,935,853"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a22794b7fab5a967ff1f33ceca4f4e98e" title="Perform a backward search on the DynamicFMIndex." alt="" coords="571,441,785,495"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="914,856,694,497,699,494,918,853"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#acb837ef0505e3c4f474782d9412a0853" title="Return ISA[i]." alt="" coords="583,745,773,785"/>
+<area shape="poly" id="edge15_Node000007_Node000012" title=" " alt="" coords="880,863,721,788,723,783,882,858"/>
+<area shape="poly" id="edge28_Node000007_Node000017" title=" " alt="" coords="886,915,719,1001,717,996,883,910"/>
+<area shape="poly" id="edge30_Node000007_Node000018" title=" " alt="" coords="912,919,704,1169,700,1165,908,915"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aa00a8e223c5d714445def28e03f6f710" title="Perform backward search to find the SA&#45;interval of a pattern." alt="" coords="292,337,507,391"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="597,438,516,406,482,394,483,389,518,402,599,433"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#add2f5abd8e348bb5b4e26b958466cece" title="Count the number of occurrences of a pattern." alt="" coords="283,416,515,456"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="556,457,515,452,516,447,557,451"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a19eff318fe388cce56e2199a1ce8f886" title="Find all occurrence positions of a pattern." alt="" coords="281,480,517,520"/>
+<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="557,485,518,489,517,484,557,479"/>
+<area shape="poly" id="edge17_Node000012_Node000003" title=" " alt="" coords="629,794,577,820,518,843,446,864,371,881,234,905,233,900,370,876,444,858,516,837,575,815,627,789"/>
+<area shape="poly" id="edge18_Node000012_Node000004" title=" " alt="" coords="650,797,592,850,556,877,519,901,442,938,363,969,285,993,217,1011,215,1006,284,988,361,964,440,933,516,896,553,873,589,846,646,793"/>
+<area shape="poly" id="edge19_Node000012_Node000005" title=" " alt="" coords="655,735,631,700,599,660,560,621,516,589,483,574,452,569,393,570,364,571,336,568,308,557,279,534,258,503,249,472,249,441,254,410,259,380,259,350,251,320,231,290,218,278,221,274,235,286,256,317,264,349,264,380,259,411,255,442,255,471,263,501,283,530,311,552,337,563,365,566,393,565,452,563,484,569,519,584,563,617,603,657,635,697,659,732"/>
+<area shape="poly" id="edge20_Node000012_Node000006" title=" " alt="" coords="647,737,590,685,554,658,516,636,482,622,452,615,396,613,341,607,312,597,280,578,251,554,225,526,181,465,149,405,128,357,133,355,154,403,185,462,229,523,254,550,283,574,314,592,342,602,396,607,452,610,484,617,519,631,557,654,593,681,651,733"/>
+<area shape="rect" id="Node000013" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a889c713c01afa55d5be1a13882b23493" title="Builds a DynamicSampledSA from ISA and BWT." alt="" coords="298,645,501,685"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="621,742,516,700,479,688,480,683,518,695,623,737"/>
+<area shape="rect" id="Node000014" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#af43cca3c0bd6a451cda17e1c3fa26dc8" title="Return the inverse suffix array as a vector." alt="" coords="294,709,505,749"/>
+<area shape="poly" id="edge21_Node000012_Node000014" title=" " alt="" coords="568,754,505,746,505,740,569,749"/>
+<area shape="rect" id="Node000016" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a87388952cf76790b4cc8eb4cc51f499c" title="Mark SA[t] as a sampled value and update this instance accordingly." alt="" coords="291,774,507,829"/>
+<area shape="poly" id="edge23_Node000012_Node000016" title=" " alt="" coords="569,782,508,790,507,785,568,777"/>
+<area shape="rect" id="Node000015" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#ad34fdf3b6ad635aa5f83e090a4238097" title="Get the inverse suffix array of the index." alt="" coords="20,709,219,749"/>
+<area shape="poly" id="edge22_Node000014_Node000015" title=" " alt="" coords="281,732,219,732,219,727,281,727"/>
+<area shape="poly" id="edge24_Node000016_Node000003" title=" " alt="" coords="317,836,282,850,167,900,165,895,280,846,315,831"/>
+<area shape="poly" id="edge25_Node000016_Node000004" title=" " alt="" coords="354,839,283,901,260,926,235,951,165,1004,162,1000,232,947,256,923,279,897,351,835"/>
+<area shape="poly" id="edge26_Node000016_Node000005" title=" " alt="" coords="282,766,279,763,258,732,245,701,237,670,235,640,242,581,256,523,271,465,277,407,274,378,266,349,253,320,231,290,219,278,222,274,235,286,257,317,272,347,280,377,282,407,276,466,262,524,247,582,240,640,242,670,250,699,263,729,283,760,286,763"/>
+<area shape="poly" id="edge27_Node000016_Node000006" title=" " alt="" coords="284,767,279,763,256,732,232,686,187,569,150,447,125,356,130,355,155,446,192,567,237,684,260,729,283,760,288,764"/>
+<area shape="poly" id="edge29_Node000017_Node000017" title=" " alt="" coords="722,987,707,980,678,977,653,979,638,984,632,990,635,997,630,999,627,989,635,980,652,974,678,972,708,975,724,982"/>
+<area shape="rect" id="Node000019" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aef6d61ab7e986b15b4b2d0a3a91a2bef" title="Get the text of the index." alt="" coords="289,1171,510,1226"/>
+<area shape="poly" id="edge31_Node000018_Node000019" title=" " alt="" coords="567,1199,510,1200,510,1194,567,1194"/>
+<area shape="rect" id="Node000020" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#abe89c50a7185f9d1099eb56fde4d7387" title="Return T as a string." alt="" coords="302,1302,497,1357"/>
+<area shape="poly" id="edge32_Node000018_Node000020" title=" " alt="" coords="610,1230,458,1304,456,1300,607,1226"/>
+<area shape="rect" id="Node000021" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#ac0e5ee99a74d789e27a674f16a33c5b9" title="Get the text of the index as a string." alt="" coords="9,1302,230,1357"/>
+<area shape="poly" id="edge33_Node000020_Node000021" title=" " alt="" coords="288,1332,230,1332,230,1327,288,1327"/>
+<area shape="poly" id="edge36_Node000022_Node000003" title=" " alt="" coords="357,1101,280,1039,256,1015,232,991,155,940,158,935,235,987,260,1011,283,1035,360,1096"/>
+<area shape="poly" id="edge37_Node000022_Node000004" title=" " alt="" coords="323,1105,280,1091,193,1059,195,1054,282,1085,324,1100"/>
+<area shape="poly" id="edge39_Node000023_Node000003" title=" " alt="" coords="286,323,283,326,273,341,265,361,255,411,250,471,249,536,249,665,246,720,236,762,216,803,191,841,143,899,139,896,187,838,211,800,231,760,240,719,244,665,244,536,245,471,249,411,260,360,268,339,279,322,282,319"/>
+<area shape="poly" id="edge40_Node000023_Node000004" title=" " alt="" coords="286,323,283,326,269,349,259,377,249,450,248,537,252,631,258,726,260,816,254,892,247,924,236,951,211,981,180,1004,177,1000,207,977,231,948,242,923,249,892,255,815,253,727,247,632,243,537,243,450,254,376,265,346,279,322,282,319"/>
+<area shape="poly" id="edge41_Node000023_Node000005" title=" " alt="" coords="278,279,231,273,232,268,279,274"/>
+<area shape="poly" id="edge42_Node000023_Node000006" title=" " alt="" coords="279,310,215,319,214,313,279,305"/>
+<area shape="rect" id="Node000025" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aba55dc46325b299ddc325961b1148a44" title="Get the BWT of the index." alt="" coords="580,1388,776,1428"/>
+<area shape="poly" id="edge44_Node000024_Node000025" title=" " alt="" coords="836,1411,776,1411,776,1405,836,1405"/>
+<area shape="rect" id="Node000027" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a2716c82b19b40b716a04e6ca3b95340e" title="Return L as a string." alt="" coords="581,1456,775,1496"/>
+<area shape="poly" id="edge46_Node000024_Node000027" title=" " alt="" coords="848,1434,755,1459,754,1453,846,1429"/>
+<area shape="rect" id="Node000026" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#ad2ea63e664a826f98520040cb4a970a1" title="Print the BWT table of the index." alt="" coords="308,1381,491,1435"/>
+<area shape="poly" id="edge45_Node000025_Node000026" title=" " alt="" coords="566,1411,491,1411,491,1405,566,1405"/>
+<area shape="rect" id="Node000028" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a7beaeb5600f4a5affc542d80fb4ed32b" title="Get the BWT of the index as a string." alt="" coords="289,1460,509,1500"/>
+<area shape="poly" id="edge47_Node000027_Node000028" title=" " alt="" coords="568,1480,510,1481,510,1476,568,1475"/>
+<area shape="rect" id="Node000029" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aa4baadc956ba6f3c804ba7dd6b4f00b1" title="Print light statistics for the index." alt="" coords="28,1453,211,1507"/>
+<area shape="poly" id="edge48_Node000028_Node000029" title=" " alt="" coords="276,1483,211,1483,211,1477,276,1477"/>
+</map>

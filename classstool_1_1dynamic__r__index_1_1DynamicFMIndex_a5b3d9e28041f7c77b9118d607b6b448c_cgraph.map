@@ -1,0 +1,11 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::get_sa" name="stool::dynamic_r_index::DynamicFMIndex::get_sa">
+<area shape="rect" id="Node000001" title="Get the suffix array of the index." alt="" coords="5,73,200,113"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#ad0f7689c9dbe0f0ac3bd761a13468a4a" title="Return the suffix array as a vector." alt="" coords="248,73,455,113"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,91,234,91,234,96,200,96"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a88311371bcca61ecfacd37e9c1afc23e" title="Return SA[i]." alt="" coords="508,29,695,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="454,73,494,66,495,71,455,78"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a351068a9ceb721805ebcd28d62ebf530" title="Return the size n of SA[0..n&#45;1]." alt="" coords="503,117,700,157"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="455,109,490,115,489,120,454,114"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="555,30,552,20,560,10,576,5,601,3,630,6,646,13,644,18,629,11,601,8,577,10,563,15,558,21,560,28"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="555,118,552,108,560,98,576,93,601,91,630,94,646,101,644,106,629,99,601,96,577,98,563,103,558,109,560,116"/>
+</map>

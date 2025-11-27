@@ -1,0 +1,10 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::remove_BWT_run" name="stool::dynamic_r_index::DynamicRLBWT::remove_BWT_run">
+<area shape="rect" id="Node000001" title="Remove a BWT run completely." alt="" coords="531,34,721,89"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#adc4dd35229790222c872952ec37b8627" title="Decrement the length of a run." alt="" coords="244,12,483,52"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="517,52,483,48,483,43,517,47"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a0ac7ac813dc62a3649b5a696ee253590" title="Remove a character at a given position in the BWT." alt="" coords="5,69,196,109"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="517,70,196,87,196,82,517,64"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab2cc65abe31bf51f61cd198e16aa0da4" title="Insert a character at a given position in the BWT." alt="" coords="11,5,190,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,31,190,30,190,25,230,26"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="258,58,193,72,192,67,257,52"/>
+</map>

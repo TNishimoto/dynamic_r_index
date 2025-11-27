@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::get_alphabet_size" name="stool::dynamic_r_index::DynamicFMIndex::get_alphabet_size">
+<area shape="rect" id="Node000001" title="Get the size of the alphabet used in the index." alt="" coords="5,5,179,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#aef20f62c386a1d1828f0ddd3865c99d8" title="Return the alphabet size σ" alt="" coords="227,13,469,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,30,213,30,213,35,179,35"/>
+</map>

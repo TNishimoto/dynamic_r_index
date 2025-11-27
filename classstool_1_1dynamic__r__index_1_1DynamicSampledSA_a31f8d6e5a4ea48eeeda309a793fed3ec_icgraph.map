@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicSampledSA::get_memory_usage_info" name="stool::dynamic_r_index::DynamicSampledSA::get_memory_usage_info">
+<area shape="rect" id="Node000001" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="485,45,677,100"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#abc55b35fd80a6c31ec4011ae93b3c7dc" title="Get memory usage information for the index." alt="" coords="250,5,423,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="471,57,423,49,424,44,472,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a1462e2cd1cfa9720bd843f7288c10575" title="Print the memory usage information of this data structure." alt="" coords="236,84,437,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="472,93,438,98,437,93,471,87"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#ab640eb6db4f49f7f080478ed68ab1f4d" title="Print memory usage information for the index." alt="" coords="5,5,188,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="237,35,188,35,188,30,237,30"/>
+</map>

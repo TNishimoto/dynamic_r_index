@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicBWT::remove" name="stool::dynamic_r_index::DynamicBWT::remove">
+<area shape="rect" id="Node000001" title="Remove the \pos&#45;th character from L." alt="" coords="281,41,456,81"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a04ce077bf27fd6e8bef3011f56000dfd" title="Delete a character from the index." alt="" coords="5,5,233,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,49,233,44,234,39,268,44"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a09acf81d524125a168dd466f923a125e" title="Delete a substring from the text." alt="" coords="23,70,216,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="268,79,217,86,216,81,267,73"/>
+</map>

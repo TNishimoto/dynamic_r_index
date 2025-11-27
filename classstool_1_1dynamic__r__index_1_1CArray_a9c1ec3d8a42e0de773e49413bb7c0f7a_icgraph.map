@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::CArray::get_effective_alphabet" name="stool::dynamic_r_index::CArray::get_effective_alphabet">
+<area shape="rect" id="Node000001" title="Return D[0..σ&#39;&#45;1] as a vector." alt="" coords="280,45,453,100"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a9c2d6707512488fe6323f1e31a46b58c" title="Return the effective alphabet Σ&#39;[0..σ&#39;&#45;1] as a vector." alt="" coords="13,5,224,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,59,224,52,225,47,267,54"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a89a6be6986d4b6886f37ef650fa62c7f" title="Return the characters occuring in this RLBWT." alt="" coords="5,84,232,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="267,91,233,96,232,91,266,86"/>
+</map>

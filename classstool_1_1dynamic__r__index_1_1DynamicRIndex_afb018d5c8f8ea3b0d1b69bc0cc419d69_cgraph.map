@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicRIndex::run_count" name="stool::dynamic_r_index::DynamicRIndex::run_count">
+<area shape="rect" id="Node000001" title="Get the number of runs in the BWT." alt="" coords="5,5,211,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ac72f6da8bc3a03628b9f7acac3e9eb75" title="Return the number of runs r in the RLBWT." alt="" coords="259,5,464,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,23,245,23,245,28,211,28"/>
+</map>

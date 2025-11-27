@@ -1,0 +1,20 @@
+<map id="stool::dynamic_r_index::DynamicRIndex::compute_sa_values" name="stool::dynamic_r_index::DynamicRIndex::compute_sa_values">
+<area shape="rect" id="Node000001" title="Compute SA values from a backward search result." alt="" coords="5,257,204,311"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#a3c3d38e6a5cbedf040d8e7bdd1e07399" title="Compute the inverse phi function." alt="" coords="252,264,443,304"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,281,238,281,238,287,204,287"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#ad2e9d51fa1ee703d17a2cede5c09d551" title="Find the circular predecessor index for a given ISA value." alt="" coords="491,5,709,75"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="356,263,376,226,406,178,444,129,489,85,495,80,498,85,492,89,448,132,410,181,381,228,361,265"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#abb273322892cb5b589a8a804845f5a53" title="Get the ISA value for a given sampled SA index." alt="" coords="512,99,688,154"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="366,262,419,213,453,187,489,163,500,157,502,162,492,168,456,191,423,217,370,266"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a83b04cd3d84c191635d00d9cc603e3a9" title="Get the SA index for a given sampled ISA index." alt="" coords="512,178,688,233"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="412,261,498,234,500,239,413,266"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a8ab9e9e266c51db42f432b9b8a04a8df" title="Get the SA value for a given sampled SA index." alt="" coords="512,257,688,311"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="443,281,498,281,498,287,443,287"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#acde9d744d6b861e6141f0a2a0fcee156" title="Get the number of sampled positions." alt="" coords="509,336,691,376"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="419,301,517,330,515,335,418,307"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#acc4af33acbd4cc8cab359dfb444a3c61" title="Get the size (alias for text_size)" alt="" coords="513,400,687,440"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="373,302,425,344,492,386,507,393,505,397,489,390,422,348,369,306"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#af03ec057d425e8d8740771e4e540c786" title="Get the text size." alt="" coords="757,429,932,469"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="361,303,380,338,409,379,446,419,468,436,492,450,522,461,555,470,621,478,686,476,746,469,747,474,687,482,621,483,554,475,521,467,490,454,465,441,443,423,405,382,376,340,356,306"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="687,428,744,435,743,440,687,433"/>
+</map>

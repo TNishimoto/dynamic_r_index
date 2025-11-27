@@ -1,0 +1,8 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::compute_sa_values" name="stool::dynamic_r_index::DynamicFMIndex::compute_sa_values">
+<area shape="rect" id="Node000001" title="Compute the suffix array values for a given backward search result." alt="" coords="5,22,215,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a612e251397baa6d3829433dc50ec7e29" title="Compute the suffix array values for a given interval." alt="" coords="263,22,472,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,47,249,47,249,52,215,52"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a88311371bcca61ecfacd37e9c1afc23e" title="Return SA[i]." alt="" coords="520,29,707,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="472,47,506,47,506,52,472,52"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="568,30,565,20,572,10,589,5,613,3,642,6,657,13,655,18,640,11,613,8,590,10,575,15,570,21,573,28"/>
+</map>

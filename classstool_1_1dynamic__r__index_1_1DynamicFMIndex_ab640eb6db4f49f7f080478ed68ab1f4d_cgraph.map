@@ -1,0 +1,22 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::print_memory_usage" name="stool::dynamic_r_index::DynamicFMIndex::print_memory_usage">
+<area shape="rect" id="Node000001" title="Print memory usage information for the index." alt="" coords="5,84,188,139"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#abc55b35fd80a6c31ec4011ae93b3c7dc" title="Get memory usage information for the index." alt="" coords="236,84,409,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,109,222,109,222,114,188,114"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a35da0c3adfcae141dd05c10287491033" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="457,5,665,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="406,81,464,62,466,67,407,86"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a31f8d6e5a4ea48eeeda309a793fed3ec" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="465,163,657,217"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="407,136,466,156,464,161,406,141"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a51c2cddf48423893f20d1ab9d94a0087" title="Get the size of the index in bytes." alt="" coords="472,84,651,139"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="410,109,458,109,458,114,410,114"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a09cec074943027e07970d540befb7126" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="713,13,956,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="665,30,700,30,700,35,665,35"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a8da948538ebabbbf32665fb01b8ba014" title="Returns the total memory usage in bytes." alt="" coords="728,77,941,117"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="666,54,736,71,735,76,665,60"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a474ccada100a4de5a04ef7e6d5e27646" title="Returns the total memory usage in bytes." alt="" coords="1004,45,1177,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="957,45,991,50,990,55,956,51"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="941,81,990,74,991,80,942,86"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a3df3833df52f2c42141d4bd687b90dcf" title="Return the total memory usage in bytes." alt="" coords="736,152,933,207"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="658,184,722,181,722,186,658,189"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="651,104,714,100,714,106,651,109"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="652,131,723,149,722,154,650,136"/>
+</map>

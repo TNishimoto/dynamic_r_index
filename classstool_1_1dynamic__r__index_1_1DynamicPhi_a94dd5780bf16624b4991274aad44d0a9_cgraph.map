@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicPhi::LF_phi" name="stool::dynamic_r_index::DynamicPhi::LF_phi">
+<area shape="rect" id="Node000001" title="Compute LF_phi when BWT[i] is replaced." alt="" coords="5,91,179,131"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ac61345c900129ee3ffd2d9dc0d0c678b" title="Get the length of a run." alt="" coords="227,5,417,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,89,228,62,230,67,152,94"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a8ab9e9e266c51db42f432b9b8a04a8df" title="Get the SA value for a given sampled SA index." alt="" coords="234,84,410,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,109,220,109,220,114,179,114"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#af03ec057d425e8d8740771e4e540c786" title="Get the text size." alt="" coords="235,163,409,203"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="157,129,245,157,244,162,156,134"/>
+</map>

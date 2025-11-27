@@ -1,0 +1,17 @@
+<map id="stool::dynamic_r_index::CArray::decrease" name="stool::dynamic_r_index::CArray::decrease">
+<area shape="rect" id="Node000001" title="Decreases the number of occurrences of a character c in T[0..n&#45;1] by 1." alt="" coords="5,141,179,181"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1CArray.html#af03aa9a502bc8efcea30722c2dbaaef6" title="Increases the number of occurrences of a character c in T[0..n&#45;1] by delta." alt="" coords="227,105,400,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,144,213,139,214,144,180,150"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4cb4852f087d7945429557164bd5a05d" title="Verify the internal consistency of this data structure." alt="" coords="465,177,638,217"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="179,165,451,187,450,192,178,170"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a7bf4d5a5f779ee447179dc767dbcf936" title="Return the number of occurrences of a character c in T[0..n&#45;1]." alt="" coords="703,41,876,81"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="330,103,379,58,411,35,447,19,483,9,520,4,594,6,664,18,724,34,722,39,663,23,593,11,520,10,484,14,449,24,414,40,382,62,334,107"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a45913fd6614df5c8397f92f457bca644" title="Return the rank of a given character c in Σ&#39; if it exists, otherwise return &#45;1." alt="" coords="465,33,638,73"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="379,102,471,75,472,80,381,108"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a3c9e9b1dab8a432b48924f235ae50190" title="Checks if a character c occurs in Σ&#39;." alt="" coords="448,98,655,152"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="400,122,434,122,434,128,400,128"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="381,143,472,171,471,176,379,148"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="653,95,701,82,702,87,654,100"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4be5ed9eff865604869553dcbf1979fa" title="Prints detailed information about this instance." alt="" coords="703,177,876,217"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="638,194,689,194,689,200,638,200"/>
+</map>

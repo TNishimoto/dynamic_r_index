@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::CArray::get_memory_usage_info" name="stool::dynamic_r_index::CArray::get_memory_usage_info">
+<area shape="rect" id="Node000001" title="Return the memory usage information of this data structure as a vector of strings." alt="" coords="5,5,248,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a474ccada100a4de5a04ef7e6d5e27646" title="Returns the total memory usage in bytes." alt="" coords="296,5,469,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,23,283,23,283,28,248,28"/>
+</map>

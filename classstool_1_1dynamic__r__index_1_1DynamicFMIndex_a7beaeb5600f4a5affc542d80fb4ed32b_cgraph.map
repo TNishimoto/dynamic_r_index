@@ -1,0 +1,14 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::to_bwt_str" name="stool::dynamic_r_index::DynamicFMIndex::to_bwt_str">
+<area shape="rect" id="Node000001" title="Get the BWT of the index as a string." alt="" coords="5,77,225,117"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a2716c82b19b40b716a04e6ca3b95340e" title="Return L as a string." alt="" coords="273,77,467,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,95,259,95,259,100,225,100"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac1c9ca9c4a3662153ac7e7a8edf6ec1b" title="Return L as a vector of characters." alt="" coords="515,77,688,117"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="467,95,501,95,501,100,467,100"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac35760cbf5f220012a0931f4307e33f6" title="Return L[i]." alt="" coords="738,5,911,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="663,75,748,47,750,52,665,80"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac41f759758f07187a2c059d6f0630a71" title="Return the smallest character in the alphabet Σ" alt="" coords="736,70,913,125"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="689,95,722,95,722,100,689,100"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="738,173,911,213"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="650,115,766,165,764,170,648,120"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="783,174,781,164,787,154,802,149,825,147,851,150,865,157,862,162,849,155,825,152,803,154,791,159,786,165,788,172"/>
+</map>

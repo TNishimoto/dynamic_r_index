@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::get_bwt" name="stool::dynamic_r_index::DynamicRLBWT::get_bwt">
+<area shape="rect" id="Node000001" title="Get the complete BWT as a byte vector." alt="" coords="536,37,729,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a1bf6c181416c31d689bc756663f98752" title="Get the BWT as a byte vector." alt="" coords="283,5,476,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="522,46,476,40,477,35,523,41"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a2b77339b99a0c71ccb5613ddc341e5a2" title="Get the BWT as a string." alt="" coords="271,69,488,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="523,74,488,78,488,73,522,69"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ae78769d1654621b53f4ecc797bf7c58d" title="Get the BWT as a string." alt="" coords="5,69,223,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="257,92,223,92,223,87,257,87"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicBWT::get_effective_alphabet" name="stool::dynamic_r_index::DynamicBWT::get_effective_alphabet">
+<area shape="rect" id="Node000001" title="Return the effective alphabet Σ&#39;[0..σ&#39;&#45;1] as a vector." alt="" coords="5,5,216,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a9c1ec3d8a42e0de773e49413bb7c0f7a" title="Return D[0..σ&#39;&#45;1] as a vector." alt="" coords="264,5,437,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,30,250,30,250,35,216,35"/>
+</map>

@@ -1,0 +1,22 @@
+<map id="stool::dynamic_r_index::DynamicBWT::set_character" name="stool::dynamic_r_index::DynamicBWT::set_character">
+<area shape="rect" id="Node000001" title="Replace L[pos] with c." alt="" coords="5,105,219,145"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac35760cbf5f220012a0931f4307e33f6" title="Return L[i]." alt="" coords="267,48,440,88"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,102,255,88,256,94,197,108"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a8c98d412f2542a97a5563c827df983fd" title="Decreases the number of occurrences of a character c in T[0..n&#45;1] by delta." alt="" coords="267,162,440,202"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,143,256,157,255,162,196,148"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#af03aa9a502bc8efcea30722c2dbaaef6" title="Increases the number of occurrences of a character c in T[0..n&#45;1] by delta." alt="" coords="488,105,661,145"/>
+<area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="219,122,474,122,474,128,219,128"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="430,160,483,146,484,151,432,165"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4cb4852f087d7945429557164bd5a05d" title="Verify the internal consistency of this data structure." alt="" coords="726,177,899,217"/>
+<area shape="poly" id="edge10_Node000003_Node000008" title=" " alt="" coords="440,182,712,191,712,197,440,188"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a7bf4d5a5f779ee447179dc767dbcf936" title="Return the number of occurrences of a character c in T[0..n&#45;1]." alt="" coords="964,41,1137,81"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="592,103,640,58,673,35,708,19,744,9,781,4,855,6,925,18,985,34,983,39,924,23,855,11,781,10,745,14,710,24,675,40,644,62,595,107"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a45913fd6614df5c8397f92f457bca644" title="Return the rank of a given character c in Σ&#39; if it exists, otherwise return &#45;1." alt="" coords="726,33,899,73"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="641,102,732,75,734,80,642,108"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a3c9e9b1dab8a432b48924f235ae50190" title="Checks if a character c occurs in Σ&#39;." alt="" coords="709,98,916,152"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="662,122,696,122,696,128,662,128"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="642,143,734,171,732,176,641,148"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="914,95,962,82,964,87,916,100"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4be5ed9eff865604869553dcbf1979fa" title="Prints detailed information about this instance." alt="" coords="964,177,1137,217"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="900,194,950,194,950,200,900,200"/>
+</map>

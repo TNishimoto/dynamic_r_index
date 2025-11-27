@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::get_c_id_of_f_run" name="stool::dynamic_r_index::DynamicRLBWT::get_c_id_of_f_run">
+<area shape="rect" id="Node000001" title="Get the character ID of a run in F&#45;sorted order." alt="" coords="523,5,699,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a3d837476b4e99e17c6dd2399e0f38729" title="Compute inverse LF mapping for a position in F&#45;sorted order." alt="" coords="264,13,475,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="509,35,475,35,475,30,509,30"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a2ce5fefe6626c4ad6151dfbacf950850" title="Compute inverse LF mapping for a BWT position." alt="" coords="5,13,216,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="250,35,216,35,216,30,250,30"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicRIndex::size" name="stool::dynamic_r_index::DynamicRIndex::size">
+<area shape="rect" id="Node000001" title="Get the text length." alt="" coords="228,53,401,93"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ae9e15868df9932f517e111551a12f98a" title="Load a dynamic r&#45;index from a binary file." alt="" coords="6,5,179,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,57,179,51,180,46,215,52"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#acde0ce27ee39f1463ba6deca7dd824c2" title="Save the dynamic r&#45;index to a binary file." alt="" coords="5,84,180,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,93,181,99,180,93,214,87"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::build_RLBWT_of_end_marker" name="stool::dynamic_r_index::DynamicRLBWT::build_RLBWT_of_end_marker">
+<area shape="rect" id="Node000001" title="Build an RLBWT containing only the end marker." alt="" coords="236,34,415,89"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1RLBWTBuilder.html#a601eecad426639a15f27348bad173a10" title="Build RLBWT from a text vector." alt="" coords="10,5,183,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,48,183,42,184,36,223,43"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1RLBWTBuilder.html#aa63832ae4b4bbdb77ffe8805dfeb5dfe" title="Build RLBWT from a text file using online construction." alt="" coords="5,70,188,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="223,80,188,86,188,80,222,75"/>
+</map>

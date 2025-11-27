@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicPhi::LF_phi_for_deletion_sub" name="stool::dynamic_r_index::DynamicPhi::LF_phi_for_deletion_sub">
+<area shape="rect" id="Node000001" title="Helper function for LF_phi during deletion." alt="" coords="5,70,188,125"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab0aa0c5ddd89131a9901e47e16b54e69" title="Get the character of a run." alt="" coords="236,5,433,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,67,254,47,255,52,188,72"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a8ab9e9e266c51db42f432b9b8a04a8df" title="Get the SA value for a given sampled SA index." alt="" coords="247,70,423,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,95,233,95,233,100,188,100"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicPhi.html#af03ec057d425e8d8740771e4e540c786" title="Get the text size." alt="" coords="247,149,422,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="188,122,255,143,254,148,187,127"/>
+</map>

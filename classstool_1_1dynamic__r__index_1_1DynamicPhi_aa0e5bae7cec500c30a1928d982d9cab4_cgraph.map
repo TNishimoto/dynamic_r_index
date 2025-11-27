@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicPhi::verify" name="stool::dynamic_r_index::DynamicPhi::verify">
+<area shape="rect" id="Node000001" title="Verify the correctness of the DynamicPhi structure." alt="" coords="5,41,179,81"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#a458e225c101efe465f97b6692c5b199c" title="Verify the correctness of the data structure." alt="" coords="227,5,419,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,45,213,40,214,45,179,50"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#abf9cc16a44726731f0ee2a7ad8cb26e5" title="Verify that a vector represents a valid permutation." alt="" coords="233,70,412,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,72,220,79,219,84,178,77"/>
+</map>

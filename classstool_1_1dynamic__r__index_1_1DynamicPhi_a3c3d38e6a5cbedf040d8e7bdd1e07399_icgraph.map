@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicPhi::inverse_phi" name="stool::dynamic_r_index::DynamicPhi::inverse_phi">
+<area shape="rect" id="Node000001" title="Compute the inverse phi function." alt="" coords="525,13,716,53"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ad19f16c2343189610ec0ff256704c28d" title="Compute SA values from a backward search result." alt="" coords="279,5,477,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="511,35,478,35,478,30,511,30"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a350d09ea04989a01ebb6ace253ba14df" title="Find all occurrence positions of a pattern." alt="" coords="5,13,231,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,35,231,35,231,30,265,30"/>
+</map>

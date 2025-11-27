@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicBWT::get_c_id" name="stool::dynamic_r_index::DynamicBWT::get_c_id">
+<area shape="rect" id="Node000001" title="Return the rank of a given character c in the effective alphabet Σ&#39;[0..σ&#39;&#45;1] if it exists,..." alt="" coords="5,5,184,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a45913fd6614df5c8397f92f457bca644" title="Return the rank of a given character c in Σ&#39; if it exists, otherwise return &#45;1." alt="" coords="232,5,405,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,23,218,23,218,28,184,28"/>
+</map>

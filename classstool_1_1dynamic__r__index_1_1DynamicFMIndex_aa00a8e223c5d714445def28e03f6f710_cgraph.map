@@ -1,0 +1,26 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::backward_search" name="stool::dynamic_r_index::DynamicFMIndex::backward_search">
+<area shape="rect" id="Node000001" title="Perform backward search to find the SA&#45;interval of a pattern." alt="" coords="5,183,220,237"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a22794b7fab5a967ff1f33ceca4f4e98e" title="Perform a backward search on the DynamicFMIndex." alt="" coords="268,123,483,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,183,254,175,255,180,221,188"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a0a1064a3c0d4ac783255c9a74974bfb1" title="Get the size of the DynamicFMIndex." alt="" coords="286,226,465,266"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="220,222,272,229,272,235,220,227"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a5876f865e7ccad9cea9e5ef8adcba959" title="Return the reference to the C array in this instance." alt="" coords="531,98,732,138"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="483,134,517,130,517,135,483,139"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a7bf4d5a5f779ee447179dc767dbcf936" title="Return the number of occurrences of a character c in T[0..n&#45;1]." alt="" coords="545,162,718,202"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="483,161,531,167,530,172,483,166"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a16d1235f228a598738253dec99ad6890" title="Compute the LF function for a given position i." alt="" coords="545,226,718,266"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="440,175,532,212,553,219,551,224,530,217,438,180"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac3af26b20ad60d53fcd8d957538a2bd9" title="Counts the number of occurrences of a character c in L[0..i]." alt="" coords="780,38,953,78"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="397,121,452,66,489,40,530,20,564,10,600,5,672,5,741,16,799,31,798,36,740,21,672,11,600,10,565,15,532,25,492,44,456,70,401,125"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a9505991329f04e48d279a7aa1548fe70" title="Returns the position p of the (i+1)&#45;th 1 in L if such a position exists, otherwise returns &#45;1." alt="" coords="545,34,718,74"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="438,120,530,84,551,76,553,81,532,89,440,125"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac35760cbf5f220012a0931f4307e33f6" title="Return L[i]." alt="" coords="780,218,953,258"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="719,240,766,239,766,244,719,246"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1cf15a66d943d3d77e17473337e3f880" title="Return C[i]." alt="" coords="780,154,953,194"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="697,223,787,196,788,201,698,229"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="711,224,730,212,747,196,756,179,764,161,778,140,831,86,834,89,782,144,769,164,761,182,751,199,734,216,714,228"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="780,306,953,346"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="692,264,795,299,793,304,691,269"/>
+<area shape="poly" id="edge9_Node000009_Node000009" title=" " alt="" coords="823,306,820,296,827,287,843,281,867,279,894,282,909,290,907,294,893,287,867,285,844,287,830,291,825,297,828,305"/>
+<area shape="poly" id="edge13_Node000011_Node000009" title=" " alt="" coords="465,263,531,275,767,311,766,316,530,281,464,268"/>
+</map>

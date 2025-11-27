@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::build_from_RLBWT" name="stool::dynamic_r_index::DynamicRLBWT::build_from_RLBWT">
+<area shape="rect" id="Node000001" title="Build DynamicRLBWT from run&#45;length encoded BWT data." alt="" coords="448,45,621,100"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a21b9d82c4feced79915ae7869fec7c23" title="Build DynamicRLBWT from a BWT vector." alt="" coords="227,5,400,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="434,57,400,51,401,46,435,52"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a684f9721d6053f87ded44908e40bc965" title="Build a dynamic r&#45;index from a BWT file." alt="" coords="227,84,400,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="435,93,401,99,400,94,434,88"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a5671c05489f8502aaeb64e9876265071" title="Build a dynamic r&#45;index from a BWT." alt="" coords="5,5,179,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="213,35,179,35,179,30,213,30"/>
+</map>

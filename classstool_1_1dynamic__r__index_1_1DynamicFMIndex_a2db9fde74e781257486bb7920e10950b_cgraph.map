@@ -1,0 +1,27 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::clear" name="stool::dynamic_r_index::DynamicFMIndex::clear">
+<area shape="rect" id="Node000001" title="Clear the contents of the DynamicFMIndex." alt="" coords="5,45,189,85"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a05d4d7d9299925c34fe9288d5ad1219a" title="Clear all the elements in this instance." alt="" coords="237,13,440,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,51,223,46,224,51,190,56"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a735cbe58f62dbbe430c4a0fac556555a" title="Clear all the elements in this instance." alt="" coords="252,77,425,117"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,75,239,81,238,87,189,80"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a371d453d0beb396ec28b7bccd8bc3063" title="Alias of initialize()" alt="" coords="490,5,663,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="405,75,496,47,498,52,406,80"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac41f759758f07187a2c059d6f0630a71" title="Return the smallest character in the alphabet Σ" alt="" coords="488,70,665,125"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="426,95,474,95,474,100,426,100"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1CArray.html#af03aa9a502bc8efcea30722c2dbaaef6" title="Increases the number of occurrences of a character c in T[0..n&#45;1] by delta." alt="" coords="490,149,663,189"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="406,115,498,143,496,148,405,120"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4d075e3b0355665776e24a4317407c48" title="Initializes the two arrays C and D." alt="" coords="730,5,903,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="663,23,717,23,717,28,663,28"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4cb4852f087d7945429557164bd5a05d" title="Verify the internal consistency of this data structure." alt="" coords="968,35,1141,75"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="904,33,955,40,954,45,903,39"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a4be5ed9eff865604869553dcbf1979fa" title="Prints detailed information about this instance." alt="" coords="1189,35,1363,75"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1142,52,1175,52,1175,57,1142,57"/>
+<area shape="poly" id="edge13_Node000009_Node000006" title=" " alt="" coords="661,147,956,75,958,80,662,152"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a7bf4d5a5f779ee447179dc767dbcf936" title="Return the number of occurrences of a character c in T[0..n&#45;1]." alt="" coords="968,156,1141,196"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="663,159,713,156,817,152,920,156,955,159,954,164,920,161,817,158,713,161,664,164"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a45913fd6614df5c8397f92f457bca644" title="Return the rank of a given character c in Σ&#39; if it exists, otherwise return &#45;1." alt="" coords="730,171,903,211"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="664,174,717,179,716,184,663,180"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a3c9e9b1dab8a432b48924f235ae50190" title="Checks if a character c occurs in Σ&#39;." alt="" coords="713,235,920,290"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="630,187,714,220,734,228,732,233,712,225,628,192"/>
+<area shape="poly" id="edge12_Node000012_Node000010" title=" " alt="" coords="892,233,985,198,987,203,893,238"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="stool::dynamic_r_index::DynamicBWT::build" name="stool::dynamic_r_index::DynamicBWT::build">
+<area shape="rect" id="Node000001" title="Build this instance from a given BWT _bwt and alphabet _alphabet." alt="" coords="237,37,411,77"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aff9dfacd8c137e80102278614ad85170" title="Build a DynamicFMIndex from BWT, alphabet, and ISA." alt="" coords="5,5,189,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,46,189,41,190,36,224,40"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a37714f0072de7072eb1acff7d7a21bbc" title="Build a DynamicFMIndex from BWT and alphabet." alt="" coords="5,69,189,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,74,190,79,189,74,223,69"/>
+</map>

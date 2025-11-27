@@ -1,0 +1,6 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::delete_char" name="stool::dynamic_r_index::DynamicFMIndex::delete_char">
+<area shape="rect" id="Node000001" title="Delete a character from the index." alt="" coords="5,29,233,69"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="71,30,68,20,76,10,93,5,119,3,149,6,166,13,164,18,148,11,119,8,94,10,79,15,74,21,76,28"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1FMIndexEditHistory.html#a6fe025c143b8d76076640533289223eb" title="Clears all the data stored in the edit history." alt="" coords="281,29,479,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,47,267,47,267,52,233,52"/>
+</map>

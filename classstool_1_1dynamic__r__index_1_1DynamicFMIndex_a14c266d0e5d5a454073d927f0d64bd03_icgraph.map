@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::text_size" name="stool::dynamic_r_index::DynamicFMIndex::text_size">
+<area shape="rect" id="Node000001" title="Get the size of the text in the index." alt="" coords="239,91,449,131"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a5b3705b3da97a5903329a8161a936333" title="Build a DynamicFMIndex from data in a file." alt="" coords="8,5,188,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,90,183,63,185,58,269,85"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aa4baadc956ba6f3c804ba7dd6b4f00b1" title="Print light statistics for the index." alt="" coords="7,84,189,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,114,190,114,190,109,225,109"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#ae9c924750b1bb2e88b663b0ed59e7fc6" title="Save the index to a file." alt="" coords="5,163,191,217"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="269,138,185,165,183,160,267,133"/>
+</map>

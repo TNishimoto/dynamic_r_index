@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicPhi::run_count" name="stool::dynamic_r_index::DynamicPhi::run_count">
+<area shape="rect" id="Node000001" title="Get the number of runs in the BWT." alt="" coords="5,5,185,45"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicPartialSA.html#acde9d744d6b861e6141f0a2a0fcee156" title="Get the number of sampled positions." alt="" coords="233,5,415,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,23,220,23,220,28,185,28"/>
+</map>

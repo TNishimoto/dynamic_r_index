@@ -1,0 +1,25 @@
+var classstool_1_1dynamic__r__index_1_1DynamicRIndex =
+[
+    [ "__preprocess_of_char_deletion_operation", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a5060d13761b549788deba0535c0b8e8b", null ],
+    [ "__preprocess_of_char_insertion_operation", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a8796dc56a65cf80eb93b302f3ed8bbe9", null ],
+    [ "__preprocess_of_string_deletion_operation", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a33d1434072c4f6794a970d05595fd5e2", null ],
+    [ "__preprocess_of_string_insertion_operation", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#af9bf80d2152a993633b2d75ad2829d47", null ],
+    [ "__reorder_RLBWT_for_insertion", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a4d4009198976c7058a0f5606810c840a", null ],
+    [ "backward_search", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aa5ade796a164432c601fc81060246014", null ],
+    [ "compute_sa_values", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ad19f16c2343189610ec0ff256704c28d", null ],
+    [ "count_query", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ac3f8696ab42b4f82ca016d67bfae6b02", null ],
+    [ "delete_string", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ae63aace5cdf006b5317add4d52512860", null ],
+    [ "delete_string", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ab2a64010d76fe56d527c28a553e7e410", null ],
+    [ "get_alphabet_size", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#adaa312b204051e8b64f1470c277846f3", null ],
+    [ "get_bwt", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a1bf6c181416c31d689bc756663f98752", null ],
+    [ "get_bwt_str", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ae78769d1654621b53f4ecc797bf7c58d", null ],
+    [ "get_end_marker", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aae397324dab2255987b83f9bbc8603de", null ],
+    [ "get_text", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a9271718d9f5a2ca397b4c9bb720af8f2", null ],
+    [ "get_text_str", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aeef94ef55bc88527590239505c2f2080", null ],
+    [ "insert_string", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ac557d778e48bd69474cb1ba2a2ca36d1", null ],
+    [ "insert_string", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aba87be9b04402d646cff86f2b2babd91", null ],
+    [ "insert_string", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a68614d63e81148964bc80c351145ca0c", null ],
+    [ "locate_query", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a350d09ea04989a01ebb6ace253ba14df", null ],
+    [ "run_count", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#afb018d5c8f8ea3b0d1b69bc0cc419d69", null ],
+    [ "size", "classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#ac390882d73bb89b746150d31fce7381d", null ]
+];

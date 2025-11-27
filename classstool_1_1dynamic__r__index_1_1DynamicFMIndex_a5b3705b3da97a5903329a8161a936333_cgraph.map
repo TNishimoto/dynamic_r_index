@@ -1,0 +1,24 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::load_from_file" name="stool::dynamic_r_index::DynamicFMIndex::load_from_file">
+<area shape="rect" id="Node000001" title="Build a DynamicFMIndex from data in a file." alt="" coords="5,174,185,229"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a4ed64e601407f339289a0a3ea851f1c7" title="Return the DynamicBWT instance loaded from a file stream ifs." alt="" coords="233,5,452,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,172,163,113,196,82,232,55,244,49,246,53,235,60,199,86,167,117,118,176"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a3bb4b724a2d990d22dfdc0a2f3bb7afc" title="Return the DynamicSampledSA instance loaded from a file stream ifs." alt="" coords="243,70,442,125"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="152,171,232,135,251,127,253,132,234,140,154,176"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a0a1064a3c0d4ac783255c9a74974bfb1" title="Get the size of the DynamicFMIndex." alt="" coords="253,213,432,253"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="186,210,240,217,239,223,185,216"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#aae928a8631e75252b0b111df377ff934" title="Swap operation." alt="" coords="256,149,429,189"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="185,187,242,180,243,185,186,192"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a68096748989ddefb42b87b283053dc40" title="Swap operation." alt="" coords="240,277,445,317"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="151,226,234,263,256,271,255,276,232,268,149,231"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a14c266d0e5d5a454073d927f0d64bd03" title="Get the size of the text in the index." alt="" coords="237,341,448,381"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="121,227,170,278,201,304,235,327,248,334,245,338,232,332,198,309,166,282,117,231"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a26418a4753a8fb22f4a4d8c999e9b979" title="Return the CArray loaded from a file stream ifs." alt="" coords="500,5,675,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="452,23,486,23,486,28,452,28"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a35a6d4111a873b26298e8efa66d5095c" title="Swap operation." alt="" coords="501,112,674,152"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="421,43,453,55,501,78,544,102,542,107,498,83,451,60,419,48"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="501,252,674,292"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="432,245,488,254,487,259,432,250"/>
+<area shape="poly" id="edge7_Node000007_Node000007" title=" " alt="" coords="542,252,539,242,547,233,563,227,587,225,616,228,631,235,629,240,614,233,587,231,564,233,550,237,545,243,547,251"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="429,153,486,145,487,150,430,159"/>
+<area shape="poly" id="edge12_Node000010_Node000007" title=" " alt="" coords="415,339,451,327,529,295,531,300,453,332,417,344"/>
+</map>

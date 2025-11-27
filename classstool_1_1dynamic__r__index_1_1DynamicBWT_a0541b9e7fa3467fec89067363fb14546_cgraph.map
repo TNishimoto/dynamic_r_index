@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicBWT::get_end_marker_pos" name="stool::dynamic_r_index::DynamicBWT::get_end_marker_pos">
+<area shape="rect" id="Node000001" title="Return the largest character in BWT L." alt="" coords="5,5,183,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac41f759758f07187a2c059d6f0630a71" title="Return the smallest character in the alphabet Σ" alt="" coords="231,5,408,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,30,217,30,217,35,183,35"/>
+</map>

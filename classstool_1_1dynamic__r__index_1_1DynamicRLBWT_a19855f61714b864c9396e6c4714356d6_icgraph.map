@@ -1,0 +1,11 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::get_end_marker_pos" name="stool::dynamic_r_index::DynamicRLBWT::get_end_marker_pos">
+<area shape="rect" id="Node000001" title="Get the position of the end marker in the BWT." alt="" coords="781,30,975,85"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a574d4751035f9a52baa24e4b8939c530" title="Reconstruct the original text from the RLBWT." alt="" coords="539,37,733,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="767,60,734,60,734,55,767,55"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#a9271718d9f5a2ca397b4c9bb720af8f2" title="Get the original text as a byte vector." alt="" coords="284,5,479,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="525,46,479,40,479,35,525,41"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a440648ef721ad9116f6ee0f255c8240b" title="Get the original text as a string." alt="" coords="272,69,491,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="525,74,491,78,490,73,525,69"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicRIndex.html#aeef94ef55bc88527590239505c2f2080" title="Get the original text as a string." alt="" coords="5,69,224,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="258,92,224,92,224,87,258,87"/>
+</map>

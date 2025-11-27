@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::CArray::occurs_in_effective_alphabet" name="stool::dynamic_r_index::CArray::occurs_in_effective_alphabet">
+<area shape="rect" id="Node000001" title="Checks if a character c occurs in Σ&#39;." alt="" coords="5,5,212,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a7bf4d5a5f779ee447179dc767dbcf936" title="Return the number of occurrences of a character c in T[0..n&#45;1]." alt="" coords="260,13,433,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,30,246,30,246,35,212,35"/>
+</map>

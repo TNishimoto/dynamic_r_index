@@ -1,0 +1,9 @@
+<map id="stool::dynamic_r_index::CArray::print_statistics" name="stool::dynamic_r_index::CArray::print_statistics">
+<area shape="rect" id="Node000001" title="Print the statistics of this data structure." alt="" coords="505,49,683,89"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a6110efe855469a6267ec59665b4235e2" title="Print the statistics of this data structure." alt="" coords="236,13,457,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="491,56,457,51,458,46,492,51"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a2a035ebab86b9b77e343ee6d0f5dd48a" title="Print statistics about the data structure." alt="" coords="260,77,433,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="492,86,434,95,433,89,491,81"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a72e6c4e3fa04e3062031f53f77590503" title="Print statistics for the index." alt="" coords="5,5,188,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="222,35,188,35,188,30,222,30"/>
+</map>

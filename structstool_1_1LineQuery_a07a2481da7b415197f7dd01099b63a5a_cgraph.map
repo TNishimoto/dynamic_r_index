@@ -1,0 +1,26 @@
+<map id="stool::LineQuery::load_line" name="stool::LineQuery::load_line">
+<area shape="rect" id="Node000001" title="Parse a line from a command file into a LineQuery." alt="" coords="5,269,200,294"/>
+<area shape="rect" id="Node000002" href="$structstool_1_1LineQuery.html#a678ee6653d46b6826b452ba483628f99" title="Create a COUNT query." alt="" coords="248,5,424,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,268,124,227,153,170,194,109,219,81,246,55,253,50,256,55,250,59,223,84,198,112,158,173,128,229,111,270"/>
+<area shape="rect" id="Node000004" href="$structstool_1_1LineQuery.html#a49443bfff87a78929d45fc1f813cf66a" title="Create a DELETE query." alt="" coords="248,69,424,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="110,267,162,198,201,156,246,119,256,113,259,118,250,124,205,160,166,201,114,270"/>
+<area shape="rect" id="Node000005" href="$structstool_1_1LineQuery.html#a2e44c565e37d78e10db7cdd3ac071cb0" title="Create an INSERT query." alt="" coords="248,133,424,173"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="119,266,174,227,247,183,261,176,263,181,249,188,177,231,122,271"/>
+<area shape="rect" id="Node000006" href="$structstool_1_1LineQuery.html#aea8d42ae20efe35cd815edc3eb1155d1" title="Create a LOCATE query." alt="" coords="248,197,424,237"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="149,266,248,238,250,244,151,271"/>
+<area shape="rect" id="Node000007" href="$structstool_1_1LineQuery.html#ab1e323e3fa4642aa1ebb7bdf44834c32" title="Create a LOCATE_SUM query." alt="" coords="248,261,424,301"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="200,279,234,279,234,284,200,284"/>
+<area shape="rect" id="Node000008" href="$structstool_1_1LineQuery.html#a66e1d15753aca7db0b7524a006d58665" title="Create a NONE query." alt="" coords="248,325,424,365"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="151,292,250,319,248,324,149,297"/>
+<area shape="rect" id="Node000009" href="$structstool_1_1LineQuery.html#adb28bf68634b794ed1a0d634c23407c9" title="Create a PRINT query." alt="" coords="248,389,424,429"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="122,292,177,332,249,375,263,382,261,387,247,380,174,336,119,296"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1TSVParser.html#ac086423f28d0e0c765bc5044b7e0b545" title="Parse a TSV line into a vector of strings." alt="" coords="249,453,423,493"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="114,292,166,361,205,403,250,439,259,445,256,449,246,444,201,407,162,365,110,296"/>
+<area shape="rect" id="Node000011" href="$structstool_1_1LineQuery.html#ad2cb7bf0cbea634cc80bb59e10c62d07" title="Convert a string to uint64_t." alt="" coords="250,517,422,557"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="111,293,128,333,158,390,198,450,223,478,250,503,256,508,253,512,246,507,219,482,194,453,153,392,124,335,106,295"/>
+<area shape="rect" id="Node000003" href="$structstool_1_1LineQuery.html#ada8225d71d4db6f382d8b92349826ef8" title="Sanitize a string by converting special characters." alt="" coords="472,173,663,198"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="402,43,425,55,462,80,495,108,547,160,544,164,492,112,458,84,423,60,399,48"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="425,163,462,168,461,173,424,168"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="424,203,461,197,462,203,425,208"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="393,259,423,247,526,201,528,206,425,252,394,264"/>
+</map>

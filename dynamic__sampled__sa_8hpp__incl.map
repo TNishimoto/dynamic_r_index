@@ -1,0 +1,38 @@
+<map id="include/dynamic_fm_index/dynamic_sampled_sa.hpp" name="include/dynamic_fm_index/dynamic_sampled_sa.hpp">
+<area shape="rect" id="Node000001" title="A dynamic data structure for accessing SA and ISA." alt="" coords="103,5,291,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,159,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,62,110,102,107,97,160,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="47,181,237,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,61,173,134,159,169,154,168,167,132,188,59"/>
+<area shape="rect" id="Node000004" href="$dynamic__bwt_8hpp.html" title="A dynamic data structure for storing and manipulating BWT (Burrows&#45;Wheeler Transform)." alt="" coords="289,108,435,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="248,58,329,99,327,104,246,62"/>
+<area shape="poly" id="edge17_Node000004_Node000003" title=" " alt="" coords="331,136,209,179,207,174,329,131"/>
+<area shape="rect" id="Node000005" href="$time__debug_8hpp_source.html" title=" " alt="" coords="577,269,712,295"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="435,120,477,126,522,136,566,154,605,179,620,196,631,216,643,255,638,257,626,218,616,199,602,183,563,158,520,141,476,131,434,126"/>
+<area shape="rect" id="Node000009" href="$fm__index__edit__history_8hpp.html" title="Header file for the FMIndexEditHistory class and related enums." alt="" coords="261,189,463,214"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="365,134,365,175,359,175,359,134"/>
+<area shape="rect" id="Node000016" href="$c__array_8hpp_source.html" title=" " alt="" coords="487,189,591,214"/>
+<area shape="poly" id="edge18_Node000004_Node000016" title=" " alt="" coords="389,131,502,181,500,186,387,136"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="447,343,514,368"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="619,297,521,340,519,335,617,292"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="539,343,601,368"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="635,297,594,335,590,331,631,293"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="626,343,685,368"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="649,295,654,329,649,330,644,295"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="348,269,501,295"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="373,213,409,257,405,260,369,216"/>
+<area shape="rect" id="Node000011" href="$tools_8hpp_source.html" title=" " alt="" coords="233,269,323,295"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="351,216,302,262,299,258,348,212"/>
+<area shape="poly" id="edge12_Node000011_Node000006" title=" " alt="" coords="311,292,436,336,434,341,310,297"/>
+<area shape="poly" id="edge11_Node000011_Node000007" title=" " alt="" coords="324,291,526,340,525,345,323,297"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="19,343,99,368"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="244,297,109,341,107,336,242,292"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="124,343,181,368"/>
+<area shape="poly" id="edge14_Node000011_Node000013" title=" " alt="" coords="259,297,186,338,184,333,257,292"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="205,343,329,368"/>
+<area shape="poly" id="edge15_Node000011_Node000014" title=" " alt="" coords="279,295,274,330,268,329,274,295"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="354,343,423,368"/>
+<area shape="poly" id="edge16_Node000011_Node000015" title=" " alt="" coords="297,292,360,333,357,337,294,297"/>
+<area shape="poly" id="edge19_Node000016_Node000007" title=" " alt="" coords="544,214,568,329,562,330,539,215"/>
+<area shape="poly" id="edge20_Node000016_Node000010" title=" " alt="" coords="524,216,454,264,451,259,521,212"/>
+</map>

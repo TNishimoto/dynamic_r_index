@@ -1,0 +1,27 @@
+<map id="stool::dynamic_r_index::CArray::decrease" name="stool::dynamic_r_index::CArray::decrease">
+<area shape="rect" id="Node000001" title="Decreases the number of occurrences of a character c in T[0..n&#45;1] by delta." alt="" coords="792,105,965,145"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#adc4dd35229790222c872952ec37b8627" title="Decrement the length of a run." alt="" coords="244,8,483,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="838,100,794,73,743,52,678,37,610,28,483,24,483,18,610,23,679,32,745,47,796,68,841,95"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a0f9d0dd843703dfa14909d04ba773d4b" title="Remove the \pos&#45;th character from L." alt="" coords="550,141,725,181"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="779,143,725,151,724,146,778,138"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a9fdca299606debe451b374e755fead90" title="Remove a BWT run completely." alt="" coords="542,62,733,117"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="778,113,732,106,733,101,779,108"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#abda531724656d3ceb8280ffd2d235ba6" title="Replace L[pos] with c." alt="" coords="531,205,744,245"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="831,154,745,196,712,208,710,203,743,191,829,150"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ab2cc65abe31bf51f61cd198e16aa0da4" title="Insert a character at a given position in the BWT." alt="" coords="11,5,190,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,29,190,29,190,24,230,24"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#a0ac7ac813dc62a3649b5a696ee253590" title="Remove a character at a given position in the BWT." alt="" coords="5,69,196,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="264,54,187,72,186,67,263,49"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a04ce077bf27fd6e8bef3011f56000dfd" title="Delete a character from the index." alt="" coords="249,129,477,169"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="536,160,477,157,478,152,536,154"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a09acf81d524125a168dd466f923a125e" title="Delete a substring from the text." alt="" coords="267,194,460,249"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="537,186,461,203,460,198,536,181"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="528,68,453,51,454,45,529,62"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="528,92,196,92,196,87,528,87"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="553,204,482,184,439,172,440,167,483,179,554,199"/>
+<area shape="poly" id="edge12_Node000009_Node000007" title=" " alt="" coords="517,226,460,225,460,220,517,221"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a7c08be152351c1d17f88d8983356624c" title="Insert a character into the index." alt="" coords="251,273,475,313"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="544,251,445,276,444,271,542,246"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a26716f2751204d6b3e17b5d2de6baab9" title="Insert a string at a given position." alt="" coords="269,338,458,393"/>
+<area shape="poly" id="edge14_Node000009_Node000011" title=" " alt="" coords="600,256,546,292,484,328,455,340,453,335,481,323,544,288,597,251"/>
+</map>

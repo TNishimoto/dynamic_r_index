@@ -1,0 +1,5 @@
+<map id="stool::dynamic_r_index::DynamicRLBWT::check_special_LF" name="stool::dynamic_r_index::DynamicRLBWT::check_special_LF">
+<area shape="rect" id="Node000001" title="Check if LF mapping needs special adjustment during insertion." alt="" coords="235,5,413,60"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicRLBWT.html#ae0d1f0aff7c4e9b62b2535d1d3cacf58" title="Compute LF mapping during insertion operation." alt="" coords="5,5,187,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,35,187,35,187,30,221,30"/>
+</map>

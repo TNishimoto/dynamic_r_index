@@ -1,0 +1,6 @@
+<map id="stool::dynamic_r_index::DynamicISA::clear" name="stool::dynamic_r_index::DynamicISA::clear">
+<area shape="rect" id="Node000001" title="Sets the degree for the dynamic permutation." alt="" coords="252,29,425,69"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="378,18,364,11,339,8,316,10,303,15,298,21,300,28,295,30,293,20,300,10,315,5,339,3,366,6,380,13"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicISA.html#aa1a0557ff9a7bdf9cede3074e8e3d9be" title="Default constructor for DynamicISA." alt="" coords="5,29,204,69"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="238,52,204,52,204,47,238,47"/>
+</map>

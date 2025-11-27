@@ -1,0 +1,28 @@
+<map id="stool::dynamic_r_index::DynamicFMIndex::locate_query" name="stool::dynamic_r_index::DynamicFMIndex::locate_query">
+<area shape="rect" id="Node000001" title="Find all occurrence positions of a pattern." alt="" coords="5,260,241,300"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a22794b7fab5a967ff1f33ceca4f4e98e" title="Perform a backward search on the DynamicFMIndex." alt="" coords="289,179,504,234"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,257,280,235,282,240,199,263"/>
+<area shape="rect" id="Node000011" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#a612e251397baa6d3829433dc50ec7e29" title="Compute the suffix array values for a given interval." alt="" coords="292,291,501,346"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="242,294,279,299,278,305,241,299"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a5876f865e7ccad9cea9e5ef8adcba959" title="Return the reference to the C array in this instance." alt="" coords="552,29,753,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="423,177,479,128,514,102,551,79,565,72,567,77,553,84,517,106,483,132,427,181"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a7bf4d5a5f779ee447179dc767dbcf936" title="Return the number of occurrences of a character c in T[0..n&#45;1]." alt="" coords="566,93,739,133"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="463,177,551,143,573,135,575,140,553,148,465,182"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a16d1235f228a598738253dec99ad6890" title="Compute the LF function for a given position i." alt="" coords="566,157,739,197"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="504,192,552,186,552,191,505,197"/>
+<area shape="rect" id="Node000008" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac3af26b20ad60d53fcd8d957538a2bd9" title="Counts the number of occurrences of a character c in L[0..i]." alt="" coords="801,221,975,261"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="504,212,788,232,788,237,504,217"/>
+<area shape="rect" id="Node000010" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a9505991329f04e48d279a7aa1548fe70" title="Returns the position p of the (i+1)&#45;th 1 in L if such a position exists, otherwise returns &#45;1." alt="" coords="566,272,739,312"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="480,231,580,265,578,270,478,237"/>
+<area shape="rect" id="Node000006" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#ac35760cbf5f220012a0931f4307e33f6" title="Return L[i]." alt="" coords="801,5,975,45"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="733,155,752,143,768,122,775,101,782,78,799,55,805,51,809,55,803,59,787,81,780,102,773,125,755,147,736,160"/>
+<area shape="rect" id="Node000007" href="$classstool_1_1dynamic__r__index_1_1CArray.html#a1cf15a66d943d3d77e17473337e3f880" title="Return C[i]." alt="" coords="801,69,975,109"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="720,155,752,143,800,119,816,112,819,117,802,124,754,148,722,160"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="728,195,802,215,800,220,726,200"/>
+<area shape="rect" id="Node000009" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#afaf03910e994f5b4711f251a4a97a73c" title="Return |L| (i.e., n)" alt="" coords="801,157,975,197"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="740,175,787,175,787,180,740,180"/>
+<area shape="poly" id="edge9_Node000009_Node000009" title=" " alt="" coords="844,158,842,148,849,138,864,133,888,131,915,134,930,141,928,146,914,139,888,136,865,138,852,143,847,149,849,156"/>
+<area shape="rect" id="Node000012" href="$classstool_1_1dynamic__r__index_1_1DynamicSampledSA.html#a88311371bcca61ecfacd37e9c1afc23e" title="Return SA[i]." alt="" coords="559,360,746,400"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="502,341,556,354,555,359,501,346"/>
+<area shape="poly" id="edge14_Node000012_Node000012" title=" " alt="" coords="609,360,606,350,613,341,629,335,653,333,680,336,695,343,693,348,679,341,653,339,630,341,616,345,611,351,614,359"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="stool::dynamic_r_index::DynamicBWT::get_end_marker_pos" name="stool::dynamic_r_index::DynamicBWT::get_end_marker_pos">
+<area shape="rect" id="Node000001" title="Return the largest character in BWT L." alt="" coords="787,45,964,100"/>
+<area shape="rect" id="Node000002" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#a95e4b81f7675adfcbdb91c600de83c05" title="Return T as a vector of characters." alt="" coords="544,45,739,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="773,75,739,75,739,70,773,70"/>
+<area shape="rect" id="Node000003" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#aef6d61ab7e986b15b4b2d0a3a91a2bef" title="Get the text of the index." alt="" coords="275,5,496,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="530,58,496,53,497,47,531,53"/>
+<area shape="rect" id="Node000004" href="$classstool_1_1dynamic__r__index_1_1DynamicBWT.html#abe89c50a7185f9d1099eb56fde4d7387" title="Return T as a string." alt="" coords="288,84,483,139"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="531,92,483,99,482,94,530,87"/>
+<area shape="rect" id="Node000005" href="$classstool_1_1dynamic__r__index_1_1DynamicFMIndex.html#ac0e5ee99a74d789e27a674f16a33c5b9" title="Get the text of the index as a string." alt="" coords="5,84,227,139"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="274,114,227,114,227,109,274,109"/>
+</map>
