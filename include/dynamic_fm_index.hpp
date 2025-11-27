@@ -106,14 +106,6 @@ namespace stool
                 return this->dbwt.get_alphabet_size();
             }
 
-            /**
-             * @brief Get the alphabet used in the index.
-             * @return A vector containing the alphabet.
-             */
-            std::vector<uint8_t> get_effective_alphabet() const
-            {
-                return this->dbwt.get_effective_alphabet();
-            }
 
             /**
              * @brief Get the end marker used in the index.
@@ -225,7 +217,7 @@ namespace stool
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
-                auto alphabet = this->get_effective_alphabet();
+                auto alphabet = this->dbwt.to_alphabet_vector();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::ConverterToString::to_integer_string_with_characters(alphabet) << std::endl;
 
                 if (this->text_size() < 1000)
@@ -729,6 +721,7 @@ namespace stool
             uint64_t insert_char(int64_t pos, uint8_t c, FMIndexEditHistory *output_history = nullptr)
             {
                 assert(c > this->dbwt.get_end_marker());
+                this->dbwt.verify_inserted_string({c});
 
                 SAIndex isa_of_insertionPosOnText = this->dsa.isa(pos);
                 // assert(isa_of_insertionPosOnText == this->dsa.isa(pos));
@@ -829,7 +822,8 @@ namespace stool
             uint64_t insert_string(int64_t pos, const std::vector<uint8_t> &pattern, FMIndexEditHistory *output_history = nullptr)
             {
                 assert(pattern.size() > 0);
-
+                this->dbwt.verify_inserted_string(pattern);
+                
                 SAIndex isa_of_insertionPosOnText = this->dsa.isa(pos);
                 // assert(isa_of_insertionPosOnText == this->dsa.isa(pos));
                 uint64_t positionToReplace = isa_of_insertionPosOnText;

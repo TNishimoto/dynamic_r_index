@@ -127,6 +127,14 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Main queries
             ////////////////////////////////////////////////////////////////////////////////
+
+            /**
+             * @brief Return the lexicographic order of a given character c in the alphabet Σ of the RLBWT if it exists. Otherwise, return -1. 
+             */
+            int64_t get_lexicographic_order (uint8_t c) const{
+                return this->head_chars_of_RLBWT.get_lexicographic_order(c);
+            }
+
             /**
              * @brief Get the starting position of a run in the BWT
              * @param run_index The index of the run
@@ -195,6 +203,14 @@ namespace stool
             {
                 return this->cArray.get_effective_alphabet();
             }
+
+            /**
+             * @brief Return the alphabet Σ of the RLBWT as a vector.
+             */
+            std::vector<uint8_t> to_alphabet_vector() const{
+                return this->head_chars_of_RLBWT.to_alphabet_vector();
+            }
+
 
             /**
              * @brief Get the number of runs starting with a given character
@@ -1266,6 +1282,23 @@ namespace stool
 
                 return r;
             }
+
+            bool verify_inserted_string(const std::vector<uint8_t> &inserted_string) const {
+
+                for(uint8_t c : inserted_string){
+                    int64_t lexicographic_order = this->get_lexicographic_order(c);
+                    if(lexicographic_order == -1){
+                        std::string c_str;
+                        c_str.push_back(c);
+                        stool::DebugPrinter::print_integers_with_characters(this->to_alphabet_vector(), "Alphabet");
+                        std::string error_message = "The character " + c_str + " (" + std::to_string(c) + ") is not contained in the alphabet of the RLBWT.";    
+                        throw std::runtime_error(error_message);
+                    }
+                }
+                return true;
+            }
+
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////

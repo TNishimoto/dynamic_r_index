@@ -67,10 +67,10 @@ std::cout << "\e[m" << std::endl;
 
     cmdline::parser p;
 
-    p.add<std::string>("input_file_path", 'i', "The file path to either a text or a BWT", true);
-    p.add<std::string>("output_index_path", 'o', "The path to the file where the dynamic r-index will be written", false, "");
-    p.add<std::string>("null_terminated_string", 'c', "The special character indicating the end of text", false, "\\0");
-    p.add<uint>("is_bwt", 'u', "This value is 1 if the input file is a BWT, and 0 otherwise", false, 0);
+    p.add<std::string>("input_file_path", 'i', "Input file path (text or BWT)", true);
+    p.add<std::string>("output_index_path", 'o', "Output index file path (.dri)", false, "");
+    p.add<std::string>("null_terminated_string", 'c', "End-of-text character", false, "\\0");
+    p.add<uint>("is_bwt", 'u', "Set to 1 if input is BWT", false, 0);
 
     p.parse_check(argc, argv);
     std::string input_file_path = p.get<std::string>("input_file_path");

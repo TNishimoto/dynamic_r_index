@@ -295,6 +295,11 @@ namespace stool
                 std::string s(reinterpret_cast<const char*>(r.data()), r.size());
                 return s;
             }
+
+            std::vector<uint8_t> to_alphabet_vector() const
+            {
+                return this->bwt.to_alphabet_vector();
+            }
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -483,6 +488,23 @@ namespace stool
 
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "[END]" << std::endl;
             }
+
+
+            bool verify_inserted_string(const std::vector<uint8_t> &inserted_string) const {
+
+                for(uint8_t c : inserted_string){
+                    int64_t lexicographic_order = this->bwt.get_lexicographic_order(c);
+                    if(lexicographic_order == -1){
+                        std::string c_str;
+                        c_str.push_back(c);
+                        stool::DebugPrinter::print_integers_with_characters(this->bwt.to_alphabet_vector(), "Alphabet");
+                        std::string error_message = "The character " + c_str + " (" + std::to_string(c) + ") is not contained in the alphabet of the BWT.";    
+                        throw std::runtime_error(error_message);
+                    }
+                }
+                return true;
+            }
+
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////

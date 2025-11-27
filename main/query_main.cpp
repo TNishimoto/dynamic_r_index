@@ -54,13 +54,13 @@ std::cout << "\e[m" << std::endl;
 
     cmdline::parser p;
 
-    p.add<std::string>("input_index_path", 'i', "The file path to the dynamic r-index or the dynamic FM-index", true);
-    p.add<std::string>("command_path", 'q', "The tsv file path to commands", true);
-    p.add<std::string>("output_log_path", 'w', "The file path to the log file", true);
-    p.add<std::string>("output_index_path", 'o', "The path to the file where the updated index will be written", false, "");
-    p.add<std::string>("alternative_tab_key", 't', "The alternative tab key for the command file", false, "");
-    p.add<std::string>("alternative_line_break_key", 'n', "The alternative line break key for the command file", false, "");
-    p.add<bool>("replace_mode", 'u', "Each LOCATE query is replaced with LOCATE_SUM query", false, false);
+    p.add<std::string>("input_index_path", 'i', "Input index file path (.dri or .dfmi)", true);
+    p.add<std::string>("command_path", 'q', "Command file path (TSV format)", true);
+    p.add<std::string>("output_log_path", 'w', "Output log file path", true);
+    p.add<std::string>("output_index_path", 'o', "Save updated index (optional)", false, "");
+    p.add<std::string>("alternative_tab_key", 't', "The alternative tab key for the command file (optional)", false, "");
+    p.add<std::string>("alternative_line_break_key", 'n', "The alternative line break key for the command file (optional)", false, "");
+    p.add<bool>("replace_mode", 'u', "Each LOCATE query is replaced with LOCATE_SUM query (optional)", false, false);
 
     //p.add<bool>("detail_flag", 'b', "detail_flag", true);
 
@@ -73,17 +73,6 @@ std::cout << "\e[m" << std::endl;
     std::string alternative_tab_key = p.get<std::string>("alternative_tab_key");
     std::string alternative_line_break_key = p.get<std::string>("alternative_line_break_key");
     bool replace_mode = p.get<bool>("replace_mode");
-
-    //bool detail_flag = p.get<bool>("detail_flag");
-
-    // bool isLightWeight = p.get<bool>("lightweight");
-    //  uint index_type = p.get<uint>("index_type");
-    /*
-    if (output_file_path.size() == 0)
-    {
-        output_file_path = input_file_path + ".upd";
-    }
-    */
 
     if (log_file_path.size() == 0)
     {

@@ -7,20 +7,20 @@ namespace stool
 
         /**
          * @brief Dynamic r-index supporting pattern matching queries and text updates
-         * 
+         *
          * This class implements the dynamic r-index data structure, which provides:
          * - Pattern matching: Count and locate occurrences of patterns
          * - Dynamic updates: Insert and delete substrings
          * - Space efficiency: O(r log n) bytes where r is the number of BWT runs
-         * 
+         *
          * The dynamic r-index is particularly efficient for highly repetitive texts
          * where the number of BWT runs r is much smaller than the text length n.
-         * 
+         *
          * @note Time complexities:
          *   - Count query: O(m log σ log n) where m is pattern length
          *   - Locate query: O((m + occ) log σ log n) where occ is number of occurrences
          *   - Insert/Delete: Average O((m + L_avg) log σ log n) where L_avg is average LCP
-         * 
+         *
          * \ingroup StringIndexes
          * \ingroup DynamicRIndexes
          */
@@ -55,15 +55,8 @@ namespace stool
                 return this->dbwt.get_alphabet_size();
             }
 
-            /**
-             * @brief Get the effective alphabet (distinct characters in the text)
-             * @return Vector of distinct characters in lexicographic order
-             */
-            std::vector<uint8_t> get_effective_alphabet() const
-            {
-                return this->dbwt.get_effective_alphabet();
-            }
             
+
             /**
              * @brief Get the end marker character
              * @return The end marker character value
@@ -96,20 +89,24 @@ namespace stool
             {
                 std::cout << stool::Message::get_paragraph_string(message_paragraph) << "Statistics(DynamicRIndex):" << std::endl;
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text length: \t\t\t\t\t" << this->size() << std::endl;
-                if(this->text_size() < 1000){
+                if (this->text_size() < 1000)
+                {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->get_text_str()) << std::endl;
-                }else{
+                }
+                else
+                {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Text: \t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet size: \t\t\t\t" << this->get_alphabet_size() << std::endl;
-                auto alphabet = this->get_effective_alphabet();
+                auto alphabet = this->dbwt.to_alphabet_vector();
                 std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "Alphabet: \t\t\t\t\t" << stool::ConverterToString::to_integer_string_with_characters(alphabet) << std::endl;
 
-            
-
-                if(this->text_size() < 1000){
+                if (this->text_size() < 1000)
+                {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << stool::ConverterToString::to_visible_string(this->get_bwt_str()) << std::endl;
-                }else{
+                }
+                else
+                {
                     std::cout << stool::Message::get_paragraph_string(message_paragraph + 1) << "BWT: \t\t\t\t\t\t" << "[Omitted]" << std::endl;
                 }
 
@@ -248,7 +245,7 @@ namespace stool
             {
                 return this->dbwt.text_size();
             }
-            
+
             /**
              * @brief Get the BWT as a byte vector
              * @return The Burrows-Wheeler Transform of the text
@@ -257,7 +254,7 @@ namespace stool
             {
                 return this->dbwt.get_bwt();
             }
-            
+
             /**
              * @brief Get the original text as a byte vector
              * @return The original text (including end marker)
@@ -266,7 +263,7 @@ namespace stool
             {
                 return this->dbwt.get_text();
             }
-            
+
             /**
              * @brief Get the BWT as a string
              * @return The BWT represented as a string
@@ -275,7 +272,7 @@ namespace stool
             {
                 return this->dbwt.get_bwt_str();
             }
-            
+
             /**
              * @brief Get the original text as a string
              * @return The original text represented as a string
@@ -610,9 +607,10 @@ namespace stool
                     {
 
                         int64_t next_b = this->dbwt.LF(by);
-                        int64_t next_e = this->dbwt.LF(ex);                        
+                        int64_t next_e = this->dbwt.LF(ex);
                         int64_t next_sa_b_ = this->disa.get_sampled_first_sa_value(by.run_index) - 1;
-                        if(next_sa_b_ == -1){
+                        if (next_sa_b_ == -1)
+                        {
                             next_sa_b_ = this->text_size() - 1;
                         }
                         return BackwardSearchResult(next_b, next_e, next_sa_b_);
@@ -627,10 +625,11 @@ namespace stool
                             int64_t next_e = this->dbwt.LF(ey);
 
                             int64_t next_sa_b_ = this->disa.get_sampled_first_sa_value(by.run_index) - 1;
-                            if(next_sa_b_ == -1){
+                            if (next_sa_b_ == -1)
+                            {
                                 next_sa_b_ = this->text_size() - 1;
                             }
-    
+
                             return BackwardSearchResult(next_b, next_e, next_sa_b_);
                         }
                         else
@@ -731,33 +730,33 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             //@{
         public:
-        /**
-         * @brief Insert a single character at a given position
-         * @param u The text position to insert at (0-indexed)
-         * @param c The character to insert
-         * @return The number of BWT reorder operations performed
-         * @note Time complexity: Average O((1 + L_avg) log σ log n)
-         */
-        uint64_t insert_string(TextIndex u, uint8_t c)
-        {
-            FMIndexEditHistory editHistory;
+            /**
+             * @brief Insert a single character at a given position
+             * @param u The text position to insert at (0-indexed)
+             * @param c The character to insert
+             * @return The number of BWT reorder operations performed
+             * @note Time complexity: Average O((1 + L_avg) log σ log n)
+             */
+            uint64_t insert_string(TextIndex u, uint8_t c)
+            {
+                FMIndexEditHistory editHistory;
 
-            return this->insert_char(u, c, editHistory);
-        }
+                return this->insert_char(u, c, editHistory);
+            }
 
-        /**
-         * @brief Insert a string at a given position
-         * @param u The text position to insert at (0-indexed)
-         * @param inserted_string The string to insert
-         * @return The number of BWT reorder operations performed
-         * @note Time complexity: Average O((m + L_avg) log σ log n) where m is string length
-         */
-        uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string)
+            /**
+             * @brief Insert a string at a given position
+             * @param u The text position to insert at (0-indexed)
+             * @param inserted_string The string to insert
+             * @return The number of BWT reorder operations performed
+             * @note Time complexity: Average O((m + L_avg) log σ log n) where m is string length
+             */
+            uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string)
             {
                 FMIndexEditHistory editHistory;
                 return this->insert_string(u, inserted_string, editHistory);
             }
-            
+
             /**
              * @brief Insert a string at a given position (with edit history)
              * @param u The text position to insert at (0-indexed)
@@ -767,29 +766,28 @@ namespace stool
              */
             uint64_t insert_string(TextIndex u, const std::vector<uint8_t> &inserted_string, FMIndexEditHistory &output_history)
             {
+                // Alphabet check
+                this->dbwt.verify_inserted_string(inserted_string);
 
                 output_history.clear();
                 AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_insertion_operation(u, inserted_string, output_history, dbwt, disa);
 
-                
                 PositionInformation y_PI;
                 y_PI.p = inf.y;
                 y_PI.value_at_p = inf.value_at_y;
-                //y_PI.p_on_rlbwt = dbwt.to_run_position(y_PI.p);
+                // y_PI.p_on_rlbwt = dbwt.to_run_position(y_PI.p);
                 y_PI.value_at_p_minus = inf.value_at_y_minus;
                 y_PI.value_at_p_plus = inf.value_at_y_plus;
-                
+
                 PositionInformation z_PI;
                 z_PI.p = inf.z;
                 z_PI.value_at_p_minus = inf.value_at_z_minus;
                 z_PI.value_at_p_plus = inf.value_at_z_plus;
-                
-
 
                 bool b = false;
                 while (!b)
                 {
-                    
+
                     b = RIndexHelperForUpdate::phase_D(output_history, this->dbwt, this->disa, y_PI, z_PI);
                 }
 
@@ -811,17 +809,19 @@ namespace stool
              */
             uint64_t delete_string(TextIndex u, uint64_t len)
             {
-                if(len < 1){
+                if (len < 1)
+                {
                     throw std::logic_error("The length of the deleted substring is at least 1.");
                 }
-                if(u + len >= this->text_size()){
+                if (u + len >= this->text_size())
+                {
                     throw std::logic_error("The ending position of the deleted substring must be less than the ending position of the text.");
                 }
 
                 FMIndexEditHistory editHistory;
                 return this->delete_string(u, len, editHistory);
             }
-            
+
             /**
              * @brief Delete a substring from the text (with edit history)
              * @param u The starting position of the substring to delete (0-indexed)
@@ -831,13 +831,15 @@ namespace stool
              */
             uint64_t delete_string(TextIndex u, uint64_t len, FMIndexEditHistory &output_history)
             {
-                if(len < 1){
+                if (len < 1)
+                {
                     throw std::logic_error("The length of the deleted substring is at least 1.");
                 }
-                if(u + len >= this->text_size()){
+                if (u + len >= this->text_size())
+                {
                     throw std::logic_error("The ending position of the deleted substring must be less than the ending position of the text.");
                 }
-                
+
                 output_history.clear();
                 AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, len, output_history, dbwt, disa, nullptr);
 
@@ -846,19 +848,18 @@ namespace stool
                 y_PI.value_at_p = inf.value_at_y;
                 y_PI.value_at_p_minus = inf.value_at_y_minus;
                 y_PI.value_at_p_plus = inf.value_at_y_plus;
-                
+
                 PositionInformation z_PI;
                 z_PI.p = inf.z;
                 z_PI.value_at_p_minus = inf.value_at_z_minus;
                 z_PI.value_at_p_plus = inf.value_at_z_plus;
 
-
                 bool b = false;
                 while (!b)
                 {
                     b = RIndexHelperForUpdate::phase_D(output_history, this->dbwt, this->disa, y_PI, z_PI);
-                    //b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
-                    //b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
+                    // b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
+                    // b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
                 }
                 // RIndexHelperForUpdate::merge_non_maximal_runs_in_dbwt(output_history, true, dbwt, disa);
 
@@ -874,8 +875,8 @@ namespace stool
             uint64_t insert_char(TextIndex u, uint8_t c, FMIndexEditHistory &output_history)
             {
                 const std::vector<uint8_t> inserted_string = {c};
+                this->dbwt.verify_inserted_string(inserted_string);
                 return this->insert_string(u, inserted_string, output_history);
-
             }
 
             uint64_t delete_char(TextIndex u)
@@ -887,15 +888,14 @@ namespace stool
             {
                 output_history.clear();
 
-                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, 1,output_history, dbwt, disa, nullptr);
-
+                AdditionalInformationUpdatingRIndex inf = RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, 1, output_history, dbwt, disa, nullptr);
 
                 PositionInformation y_PI;
                 y_PI.p = inf.y;
                 y_PI.value_at_p = inf.value_at_y;
                 y_PI.value_at_p_minus = inf.value_at_y_minus;
                 y_PI.value_at_p_plus = inf.value_at_y_plus;
-                
+
                 PositionInformation z_PI;
                 z_PI.p = inf.z;
                 z_PI.value_at_p_minus = inf.value_at_z_minus;
@@ -905,8 +905,8 @@ namespace stool
                 while (!b)
                 {
                     b = RIndexHelperForUpdate::phase_D(output_history, this->dbwt, this->disa, y_PI, z_PI);
-                    //b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
-                    //b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
+                    // b = RIndexOldUpdateOperations::reorder_RLBWT2(output_history, this->dbwt, this->disa, sub, inf);
+                    // b = RIndexHelperForUpdate::phase_D_prime(output_history, this->dbwt, this->disa, inf);
                 }
 
                 return output_history.move_history.size();
@@ -922,7 +922,7 @@ namespace stool
             ///   @name Public Methods for Debug
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-            
+
             ////////////////////////////////////////////////////////////////////////////////
             ///   @brief This method is used for debug
             ////////////////////////////////////////////////////////////////////////////////
@@ -952,9 +952,8 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation(TextIndex u, FMIndexEditHistory &editHistory)
             {
-                //return RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, editHistory, dbwt, disa);
+                // return RIndexOldUpdateOperations::preprocess_of_char_deletion_operation(u, editHistory, dbwt, disa);
                 return RIndexHelperForUpdate::preprocess_of_string_deletion_operation(u, 1, editHistory, dbwt, disa, nullptr);
-
             }
 
             AdditionalInformationUpdatingRIndex __preprocess_of_char_deletion_operation2(TextIndex u, FMIndexEditHistory &editHistory)
@@ -965,22 +964,21 @@ namespace stool
             ////////////////////////////////////////////////////////////////////////////////
             ///   @brief This method is used for debug
             ////////////////////////////////////////////////////////////////////////////////
-            
+
             bool __reorder_RLBWT_for_insertion(FMIndexEditHistory &editHistory, AdditionalInformationUpdatingRIndex &inf)
             {
-                
+
                 PositionInformation y_PI;
                 y_PI.p = inf.y;
                 y_PI.value_at_p = inf.value_at_y;
-                //y_PI.p_on_rlbwt = dbwt.to_run_position(y_PI.p);
+                // y_PI.p_on_rlbwt = dbwt.to_run_position(y_PI.p);
                 y_PI.value_at_p_minus = inf.value_at_y_minus;
                 y_PI.value_at_p_plus = inf.value_at_y_plus;
-                
+
                 PositionInformation z_PI;
                 z_PI.p = inf.z;
                 z_PI.value_at_p_minus = inf.value_at_z_minus;
                 z_PI.value_at_p_plus = inf.value_at_z_plus;
-                
 
                 bool b = RIndexHelperForUpdate::phase_D(editHistory, this->dbwt, this->disa, y_PI, z_PI);
 
@@ -993,10 +991,6 @@ namespace stool
                 inf.value_at_z_plus = z_PI.value_at_p_plus;
                 return b;
             }
-            
-            
-
-
 
             //@}
         };

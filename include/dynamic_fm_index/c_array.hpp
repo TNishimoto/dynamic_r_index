@@ -7,14 +7,14 @@ namespace stool
     namespace dynamic_r_index
     {
         /**
-         * @brief A dynamic data structure for stroing two arrays \p C[0..σ-1] and \p D[0..σ'-1] related to an alphabet \p Σ = {c_{1}, c_{2}, ..., c_{σ-1}} of a string \p T[0..n-1]. 
+         * @brief A dynamic data structure for stroing two arrays \p C[0..σ-1] and \p D[0..σ'-1] related to an alphabet \p Σ = {c_{1}, c_{2}, ..., c_{σ-1}} of a string \p T[0..n-1].
          * @details The details of this data structure are as follows:
          * @li Each C[i] stores the number of occurrences of c_{1}, c_{2}, ..., c_{i} in \p T[0..n-1].
          * @li Each D[i] stores the i-th character c'_{i} in Σ'. Here, Σ = {c'_{1}, c'_{2}, ..., c'_{σ'-1}} is a set of characters that appear in the string \p T[0..n-1].
          * \ingroup DynamicFMIndexes
          * \ingroup MainDataStructures
          */
-         class CArray
+        class CArray
         {
             static inline constexpr int C_ARRAY_MAX_SIZE = 257;
 
@@ -22,7 +22,6 @@ namespace stool
             std::vector<uint8_t> effective_alphabet; // D
 
         public:
-
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Lightweight functions for accessing to properties of this class
             ////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +80,7 @@ namespace stool
              */
             int64_t get_c_id(uint8_t c) const
             {
-                
+
                 int64_t size = this->effective_alphabet.size();
                 for (int64_t i = 0; i < size; i++)
                 {
@@ -91,7 +90,6 @@ namespace stool
                     }
                 }
                 return -1;
-                
             }
 
             /**
@@ -136,7 +134,7 @@ namespace stool
             ///   @name Update operations
             ////////////////////////////////////////////////////////////////////////////////
             //@{
-        /**
+            /**
              * @brief Initializes the two arrays \p C and \p D
              */
             void initialize()
@@ -155,7 +153,6 @@ namespace stool
                 this->C.swap(item.C);
                 this->effective_alphabet.swap(item.effective_alphabet);
             }
-
 
             /**
              * @brief Alias of initialize()
@@ -289,18 +286,20 @@ namespace stool
             /**
              * @brief Verify the internal consistency of this data structure.
              */
-            bool verify() const {
-                for (uint64_t i = 1; i < this->C.size(); i++) {
-                    if(this->C[i] < this->C[i-1]){
+            bool verify() const
+            {
+                for (uint64_t i = 1; i < this->C.size(); i++)
+                {
+                    if (this->C[i] < this->C[i - 1])
+                    {
                         this->print_info();
-                        std::cout << "i = " << i << ", C[i] = " << this->C[i] << ", C[i-1] = " << this->C[i-1] << std::endl;
+                        std::cout << "i = " << i << ", C[i] = " << this->C[i] << ", C[i-1] = " << this->C[i - 1] << std::endl;
                         throw std::logic_error("Error: CArray::verify(), C[i] < C[i-1]");
                     }
                 }
                 return true;
             }
             //@}
-
 
             ////////////////////////////////////////////////////////////////////////////////
             ///   @name Load, save, and builder functions
@@ -357,10 +356,6 @@ namespace stool
             }
 
             //@}
-
-
-
-
         };
     }
 }
