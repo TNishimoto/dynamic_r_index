@@ -10,18 +10,28 @@ namespace stool
     {
 
         /**
-         * @brief A dynamic data structure storing the RLBWT R[0..r-1] of a string T[0..n-1]. [in progress].
+         * @brief A dynamic data structure storing the RLBWT (c_{0}, ℓ_{0}), ..., (c_{r-1}, ℓ_{r-1}) of a string T[0..n-1]. [in progress].
+         * @details This data structure consists of the following components:
+         * @li A dynamic wavelet tree for sequence c_{0}, ..., c_{r-1}. Here, c_{i} is the character of the i-th run in the RLBWT.
+         * @li A prefix-sum data structure for sequence ℓ_{0}, ..., ℓ_{r-1}. Here, ℓ_{i} is the length of the i-th run in the RLBWT.
+         * @li A prefix-sum data structure for sequence u_{0}, ..., u_{σ'-1}.
+         * Here, Σ' = {c'_{0}, c'_{2}, ..., c'_{σ'-1}} is a set of characters that appear in the string \p T[0..n-1],
+         * and u_{i} is the number of runs of c'_{i} in the RLBWT.
+         * @li A prefix-sum data structure for sequence ℓ_{Π[0]}, ..., ℓ_{Π[r-1]}.
+         * Here, (c_{Π[0]}, ℓ_{Π[0]}), ..., (c_{Π[r-1]}, ℓ_{Π[r-1]}) is the repetitions obtained by appyling LF-mapping to the RLBWT.
+         * These repetitions are called f-runs, and let F be the concatenation of the f-runs.
+         * @li The C and D arrays for the string \p T
          * \ingroup DynamicRIndexes
          * \ingroup MainDataStructures
          */
         class DynamicRLBWT
         {
         private:
-            stool::bptree::SimpleDynamicPrefixSum run_length_vector;
-            stool::bptree::SimpleDynamicPrefixSum c_run_counters;
-            stool::bptree::SimpleDynamicPrefixSum run_length_vector_sorted_by_F;
-            stool::bptree::DynamicWaveletTree head_chars_of_RLBWT;
-            stool::dynamic_r_index::CArray cArray;
+            stool::bptree::DynamicWaveletTree head_chars_of_RLBWT;               // A dynamic wavelet tree for sequence c_{1}, ..., c_{r}
+            stool::bptree::SimpleDynamicPrefixSum run_length_vector;             // A prefix-sum data structure for sequence ℓ_{1}, ..., ℓ_{r}
+            stool::bptree::SimpleDynamicPrefixSum c_run_counters;                // A prefix-sum data structure for sequence u_{0}, ..., u_{σ'-1}.
+            stool::bptree::SimpleDynamicPrefixSum run_length_vector_sorted_by_F; // A prefix-sum data structure for sequence ℓ_{Π[0]}, ..., ℓ_{Π[r-1]}
+            stool::dynamic_r_index::CArray cArray;                               // The C and D arrays for the string \p T
             int64_t _text_size = 0;
 
             // std::vector<uint8_t> effective_alphabet;
@@ -118,64 +128,58 @@ namespace stool
                 return this->run_length_vector.size_in_bytes() + this->c_run_counters.size_in_bytes() + this->run_length_vector_sorted_by_F.size_in_bytes() + this->head_chars_of_RLBWT.size_in_bytes() + this->cArray.size_in_bytes() + sizeof(this->_text_size);
             }
 
-
-
-
-
             //@}
 
             ////////////////////////////////////////////////////////////////////////////////
-            ///   @name Main queries
+            ///   @name Queries for accessing to runs and F-runs
             ////////////////////////////////////////////////////////////////////////////////
 
             /**
-             * @brief Return the lexicographic order of a given character c in the alphabet Σ of the RLBWT if it exists. Otherwise, return -1. 
+             * @brief Return the lexicographic order of a given character c in the alphabet Σ of the RLBWT if it exists. Otherwise, return -1.
              */
-            int64_t get_lexicographic_order (uint8_t c) const{
+            int64_t get_lexicographic_order(uint8_t c) const
+            {
                 return this->head_chars_of_RLBWT.get_lexicographic_order(c);
             }
 
             /**
-             * @brief Get the starting position of a run in the BWT
-             * @param run_index The index of the run
-             * @return The starting position (0-indexed) of the run in the BWT
+             * @brief Return the starting position of the i-th run in \p T[0..n-1]
+             * @note O(log r) time
              */
-            int64_t get_starting_position(int64_t run_index) const
+            int64_t get_starting_position(int64_t i) const
             {
-                if (run_index == 0)
+                if (i == 0)
                 {
                     return 0;
                 }
                 else
                 {
-                    assert(run_index - 1 < (int64_t)this->run_length_vector.size());
-                    return this->run_length_vector.psum(run_index - 1);
+                    assert(i - 1 < (int64_t)this->run_length_vector.size());
+                    return this->run_length_vector.psum(i - 1);
                 }
             }
 
             /**
-             * @brief Get the length of a run
-             * @param run_index The index of the run
-             * @return The length of the run
+             * @brief Return the length of the i-th run
+             * @note O(log r) time
              */
-            uint64_t get_run_length(uint64_t run_index) const
+            uint64_t get_run_length(uint64_t i) const
             {
-                return this->run_length_vector.at(run_index);
-            }
-            
-            /**
-             * @brief Get the character of a run
-             * @param run_index The index of the run
-             * @return The character value of the run
-             */
-            uint8_t get_char(uint64_t run_index) const
-            {
-                return this->head_chars_of_RLBWT.at(run_index);
+                return this->run_length_vector.at(i);
             }
 
             /**
-             * @brief Get the position of the end marker in the BWT
-             * @return The position of the end marker
+             * @brief Return the character of the i-th run
+             * @note O(log r) time
+             */
+            uint8_t get_char(uint64_t i) const
+            {
+                return this->head_chars_of_RLBWT.at(i);
+            }
+
+            /**
+             * @brief Return the position of the end marker in \p T[0..n-1]
+             * @note O(log r) time
              */
             int64_t get_end_marker_pos() const
             {
@@ -184,21 +188,19 @@ namespace stool
                 return this->get_starting_position(pos);
             }
 
-            //@{
             /**
-             * @brief Search for the run index containing a given position
-             * @param pos The position in the BWT
-             * @return The index of the run containing the position
+             * @brief Return the index of the run containing the position \p pos in \p T[0..n-1]
+             * @note O(log r) time
              */
-                int64_t search_run_index(int64_t pos) const
-                {
-                    return this->run_length_vector.search(pos + 1);
-                }
-    
+            int64_t search_run_index(int64_t pos) const
+            {
+                return this->run_length_vector.search(pos + 1);
+            }
+
             /**
              * @brief Return the characters occuring in this RLBWT.
              * @note O(σ) time
-             */            
+             */
             std::vector<uint8_t> get_effective_alphabet() const
             {
                 return this->cArray.get_effective_alphabet();
@@ -207,15 +209,14 @@ namespace stool
             /**
              * @brief Return the alphabet Σ of the RLBWT as a vector.
              */
-            std::vector<uint8_t> to_alphabet_vector() const{
+            std::vector<uint8_t> to_alphabet_vector() const
+            {
                 return this->head_chars_of_RLBWT.to_alphabet_vector();
             }
 
-
             /**
-             * @brief Get the number of runs starting with a given character
-             * @param c The character to count runs for
-             * @return The number of runs starting with character c
+             * @brief Return the number of runs of the character \p c in the RLBWT
+             * @note O(log σ) time
              */
             uint64_t c_run_count(uint8_t c) const
             {
@@ -229,61 +230,57 @@ namespace stool
                     return 0;
                 }
             }
-            
+
             /**
-             * @brief Convert a BWT position to a run position in F-sorted order
-             * @param position The position in the BWT
-             * @return The run position in F-sorted order
+             * @brief Return (i) the index of the f-run \p F[p..q] containing the position \p pos in the string \p F and (ii) (pos - p)
+             * @note O(log r) time
              */
-            FRunPosition to_frun_position(int64_t position) const
+            FRunPosition to_frun_position(int64_t pos) const
             {
-                uint64_t idx = this->run_length_vector_sorted_by_F.search(position + 1);
+                uint64_t idx = this->run_length_vector_sorted_by_F.search(pos + 1);
                 if (idx == 0)
                 {
-                    return FRunPosition(idx, position);
+                    return FRunPosition(idx, pos);
                 }
                 else
                 {
                     uint64_t p = this->run_length_vector_sorted_by_F.psum(idx - 1);
-                    return RunPosition(idx, position - p);
+                    return RunPosition(idx, pos - p);
                 }
             }
 
             /**
-             * @brief Convert a BWT position to a run position
-             * @param position The position in the BWT
-             * @param special_flag If true, handle position == text_size as special case
-             * @return The run position containing the given BWT position
+             * @brief Return (i) the index of the run containing the position \p pos in \p T[0..n-1] and (ii) (pos - p)
+             * @note O(log r) time
+             * @param special_flag If true and pos = n, then this function returns a pair of r and 0
              */
-            RunPosition to_run_position(int64_t position, bool special_flag = false) const
+            RunPosition to_run_position(int64_t pos, bool special_flag = false) const
             {
-                if (special_flag && position == this->_text_size)
+                if (special_flag && pos == this->_text_size)
                 {
                     return RunPosition(this->run_count(), 0);
                 }
                 else
                 {
-                    int64_t idx = this->run_length_vector.search(position + 1);
+                    int64_t idx = this->run_length_vector.search(pos + 1);
 
                     assert(idx != -1);
                     if (idx == 0)
                     {
-                        return RunPosition(idx, position);
+                        return RunPosition(idx, pos);
                     }
                     else
                     {
                         int64_t p = this->run_length_vector.psum(idx - 1);
-                        return RunPosition(idx, position - p);
+                        return RunPosition(idx, pos - p);
                     }
                 }
 
-                // uint8_t c = (*this->bwt_top_chars)[idx + 1];
             }
-            
+
             /**
-             * @brief Convert a run position to a BWT position
-             * @param rp The run position
-             * @return The absolute position in the BWT
+             * @brief Return the position in \p T[0..n-1] corresponding to a given position in a run
+             * @note O(log r) time
              */
             uint64_t to_position(RunPosition rp) const
             {
@@ -292,21 +289,34 @@ namespace stool
             }
 
             /**
-             * @brief Access the character of a run by run index
-             * @param run_index The index of the run
-             * @return The character value of the run
+             * @brief Return the position in \p T[0..n-1] corresponding to a given position \p q in the p-th run
+             * @note O(log r) time
              */
-            uint8_t access_character_by_run_index(int64_t run_index) const
+            int64_t to_position(int64_t run_index_p, int64_t pos_in_run_q) const
             {
-                return this->head_chars_of_RLBWT.at(run_index);
-                // assert(this->head_chars_of_RLBWT.at(run_index) == DynRankSWrapper::access(*this->bwt_top_chars, run_index));
-                // return DynRankSWrapper::access(*this->bwt_top_chars, run_index);
+                if (run_index_p == 0)
+                {
+                    return pos_in_run_q;
+                }
+                else
+                {
+                    return this->run_length_vector.psum(run_index_p - 1) + pos_in_run_q;
+                }
+            }
+         
+
+            /**
+             * @brief Return the character of the i-th run
+             * @note O(log r) time
+             */
+            uint8_t access_character_by_run_index(int64_t i) const
+            {
+                return this->head_chars_of_RLBWT.at(i);
             }
 
             /**
-             * @brief Access a character at a given BWT position
-             * @param i The position in the BWT (0-indexed)
-             * @return The character at position i
+             * @brief Return L[i] of the BWT \p L[0..n-1]
+             * @note O(log r) time
              */
             uint8_t access(int64_t i) const
             {
@@ -320,9 +330,8 @@ namespace stool
                 return c;
             }
             /**
-             * @brief Get the F-index (position in F array) for a given run index
-             * @param i The run index
-             * @return The F-index corresponding to the run
+             * @brief Return the index of the f-run corresponding to the i-th run
+             * @note O(log r) time
              */
             int64_t get_f_index(RunIndex i) const
             {
@@ -340,26 +349,24 @@ namespace stool
             }
 
             /**
-             * @brief Get the F-index by character ID
-             * @param c_id The character ID in the alphabet
-             * @return The starting F-index for runs with characters up to c_id
+             * @brief Return the index of the first f-run of the character \p c'_{i}
+             * @note O(log σ) time
              */
-            int64_t get_f_index_by_c_id(uint8_t c_id) const
+            int64_t get_f_index_by_c_id(uint8_t i) const
             {
-                if (c_id == 0)
+                if (i == 0)
                 {
                     return 0;
                 }
                 else
                 {
-                    return this->c_run_counters.psum(c_id - 1);
+                    return this->c_run_counters.psum(i - 1);
                 }
             }
 
             /**
-             * @brief Get the F-index for a given character
-             * @param c The character
-             * @return The starting F-index for runs with characters less than or equal to c
+             * @brief Return the index of the first f-run of the character \p c if the BWT contains c, otherwise return 0
+             * @note O(log σ) time
              */
             int64_t get_f_index_by_char(uint8_t c) const
             {
@@ -383,14 +390,20 @@ namespace stool
             }
 
             /**
-             * @brief Get the starting position of a run in F-sorted order
-             * @param f_index The F-index
-             * @return The starting position in the BWT
+             * @brief Return the starting position of the i-th f-run in the string \p F
+             * @note O(log r) time
              */
-            int64_t get_starting_position_on_F(RunIndex f_index) const
+            int64_t get_starting_position_on_F(RunIndex i) const
             {
-                return f_index > 0 ? this->run_length_vector_sorted_by_F.psum(f_index - 1) : 0;
+                return i > 0 ? this->run_length_vector_sorted_by_F.psum(i - 1) : 0;
             }
+            //@}
+
+            ////////////////////////////////////////////////////////////////////////////////
+            ///   @name Rank, select, LF, and inverse LF queries
+            ////////////////////////////////////////////////////////////////////////////////
+            //@{
+
 
             /**
              * @brief Compute special rank value for a position within a run
@@ -411,23 +424,6 @@ namespace stool
                 return this->get_starting_position_on_F(f_index) - this->cArray.at(c) + pos_in_run + 1;
             }
 
-            /**
-             * @brief Get the absolute position from a run index and position within run
-             * @param run_index The index of the run
-             * @param pos_in_run The position within the run
-             * @return The absolute position in the BWT
-             */
-            int64_t get_position(int64_t run_index, int64_t pos_in_run) const
-            {
-                if (run_index == 0)
-                {
-                    return pos_in_run;
-                }
-                else
-                {
-                    return this->run_length_vector.psum(run_index - 1) + pos_in_run;
-                }
-            }
 
             /**
              * @brief Count the number of occurrences of character c up to position i
@@ -482,7 +478,7 @@ namespace stool
             {
                 return this->rank(c, this->to_run_position(i));
             }
-            
+
             /**
              * @brief Find the position of the nth occurrence of character c
              * @param c The character to search for
@@ -536,7 +532,7 @@ namespace stool
                 // assert(DynRankSWrapper::rank(*this->bwt_top_chars, c, run_index) == this->head_chars_of_RLBWT.one_based_rank(run_index+1, c));
                 // return DynRankSWrapper::rank(*this->bwt_top_chars, c, run_index);
             }
-            
+
             /**
              * @brief Find the run index of the ith run starting with character c
              * @param ith The occurrence number (0-indexed)
@@ -549,7 +545,7 @@ namespace stool
                 // assert(DynRankSWrapper::select(*this->bwt_top_chars, c, ith) == this->head_chars_of_RLBWT.select(ith-1, c));
                 // return DynRankSWrapper::select(*this->bwt_top_chars,c, ith);
             }
-            
+
             /**
              * @brief Get the character ID of a run in F-sorted order
              * @param frun_index The F-run index
@@ -559,7 +555,7 @@ namespace stool
             {
                 return this->c_run_counters.search(frun_index + 1);
             }
-            
+
             /**
              * @brief Compute inverse LF mapping for a position in F-sorted order
              * @param frun_index The F-run index
@@ -573,9 +569,9 @@ namespace stool
                 uint64_t c_rank = frun_index - this->get_f_index_by_c_id(c_id);
 
                 uint64_t p = this->select_on_first_characters_of_RLBWT(c_rank, c);
-                return this->get_position(p, pos_in_frun);
+                return this->to_position(p, pos_in_frun);
             }
-            
+
             /**
              * @brief Compute inverse LF mapping for a BWT position
              * @param i The position in the BWT
@@ -621,7 +617,7 @@ namespace stool
                 RunPosition rp = this->to_run_position(i);
                 return this->LF(rp.run_index, rp.position_in_run);
             }
-            
+
             /**
              * @brief Compute LF mapping during insertion operation
              * @param i The current position
@@ -699,7 +695,7 @@ namespace stool
                 }
                 return r;
             }
-            
+
             /**
              * @brief Get the complete BWT as a byte vector
              * @return The BWT represented as a vector of bytes
@@ -721,7 +717,7 @@ namespace stool
                 }
                 return r;
             }
-            
+
             /**
              * @brief Get the BWT as a string
              * @param new_end_marker Optional replacement for end marker character (-1 to keep original)
@@ -744,7 +740,7 @@ namespace stool
                 }
                 return s;
             }
-            
+
             /**
              * @brief Reconstruct the original text from the RLBWT
              * @return The original text as a byte vector
@@ -801,7 +797,7 @@ namespace stool
                 this->cArray.swap(item.cArray);
                 std::swap(_text_size, item._text_size);
             }
-            
+
             /**
              * @brief Set the alphabet and clear the structure
              * @param _alphabet The alphabet to use
@@ -894,7 +890,7 @@ namespace stool
                     }
                 }
             }
-            
+
             /**
              * @brief Remove a character at a given position in the BWT
              * @param pos The position to remove from
@@ -1092,7 +1088,7 @@ namespace stool
                     std::cout << s << std::endl;
                 }
             }
-            
+
             /**
              * @brief Print statistics about the data structure
              * @param message_paragraph Message indentation level
@@ -1283,21 +1279,23 @@ namespace stool
                 return r;
             }
 
-            bool verify_inserted_string(const std::vector<uint8_t> &inserted_string) const {
+            bool verify_inserted_string(const std::vector<uint8_t> &inserted_string) const
+            {
 
-                for(uint8_t c : inserted_string){
+                for (uint8_t c : inserted_string)
+                {
                     int64_t lexicographic_order = this->get_lexicographic_order(c);
-                    if(lexicographic_order == -1){
+                    if (lexicographic_order == -1)
+                    {
                         std::string c_str;
                         c_str.push_back(c);
                         stool::DebugPrinter::print_integers_with_characters(this->to_alphabet_vector(), "Alphabet");
-                        std::string error_message = "The character " + c_str + " (" + std::to_string(c) + ") is not contained in the alphabet of the RLBWT.";    
+                        std::string error_message = "The character " + c_str + " (" + std::to_string(c) + ") is not contained in the alphabet of the RLBWT.";
                         throw std::runtime_error(error_message);
                     }
                 }
                 return true;
             }
-
 
             //@}
 
@@ -1346,7 +1344,7 @@ namespace stool
                 }
                 ofs.close();
             }
-            
+
             /**
              * @brief Build an RLBWT containing only the end marker
              * @param alphabet The alphabet to use
@@ -1463,7 +1461,7 @@ namespace stool
 
                 // this->build(rlbwt_chars, rlbwt_runs, alphabet, message_paragraph);
             }
-            
+
             /**
              * @brief Save DynamicRLBWT to a binary file
              * @param item The DynamicRLBWT instance to save
@@ -1477,7 +1475,7 @@ namespace stool
                 stool::bptree::DynamicWaveletTree::store_to_file(item.head_chars_of_RLBWT, os);
                 stool::dynamic_r_index::CArray::store_to_file(item.cArray, os);
             }
-            
+
             /**
              * @brief Load DynamicRLBWT from a binary file
              * @param ifs Input file stream (must be opened in binary mode)

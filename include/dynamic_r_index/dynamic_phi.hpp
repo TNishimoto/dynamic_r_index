@@ -460,7 +460,7 @@ namespace stool
                 else
                 {
                     uint8_t c = dbwt.get_char(u.run_index);
-                    // uint64_t p = dbwt.get_position(u.run_index, u.position_in_run);
+                    // uint64_t p = dbwt.to_position(u.run_index, u.position_in_run);
                     RunPosition rp2 = DynamicRLBWTHelper::proper_successor_on_F(dbwt, u, c);
                     int64_t v = this->sampled_first_sa.get_sampled_sa_value(rp2.run_index);
                     return v > 0 ? v - 1 : this->text_size() - 1;
@@ -534,7 +534,7 @@ namespace stool
             bool check_whether_succeeding_replaced_char(RunPosition i_rp, uint8_t replaced_char, SAIndex replaced_sa_index, const DynamicRLBWT &dbwt) const
             {
                 uint8_t i_c = dbwt.get_char(i_rp.run_index);
-                uint64_t i = dbwt.get_position(i_rp.run_index, i_rp.position_in_run);
+                uint64_t i = dbwt.to_position(i_rp.run_index, i_rp.position_in_run);
                 return replaced_char < i_c || ((replaced_char == i_c) && (replaced_sa_index <= i));
             }
 
@@ -854,7 +854,7 @@ namespace stool
                 else
                 {
                     uint8_t c = dbwt.get_char(u.run_index);
-                    // uint64_t p = dbwt.get_position(u.run_index, u.position_in_run);
+                    // uint64_t p = dbwt.to_position(u.run_index, u.position_in_run);
                     RunPosition rp2 = DynamicRLBWTHelper::proper_predecessor_on_F(dbwt, u, c);
                     int64_t v = this->sampled_last_sa.get_sampled_sa_value(rp2.run_index);
                     return v > 0 ? v - 1 : this->text_size() - 1;
@@ -1004,14 +1004,14 @@ namespace stool
                 if (dist1 <= dist2)
                 {
                     int64_t idx_on_samp_sa = this->sampled_first_sa.get_sampled_sa_index(pair1.first);
-                    uint64_t j_on_sa = dbwt.get_position(idx_on_samp_sa, 0);
+                    uint64_t j_on_sa = dbwt.to_position(idx_on_samp_sa, 0);
                     return std::pair<uint64_t, uint64_t>(j_on_sa, t2);
                 }
                 else
                 {
                     int64_t idx_on_samp_sa = this->sampled_last_sa.get_sampled_sa_index(pair2.first);
                     int64_t run_length = dbwt.get_run_length(idx_on_samp_sa);
-                    uint64_t j_on_sa = dbwt.get_position(idx_on_samp_sa, run_length - 1);
+                    uint64_t j_on_sa = dbwt.to_position(idx_on_samp_sa, run_length - 1);
                     return std::pair<uint64_t, uint64_t>(j_on_sa, t2);
                 }
             }
